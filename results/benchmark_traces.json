@@ -1,0 +1,13348 @@
+{
+ "CFOP": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "cross",
+     "F U F R' B' L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U F' U2 F",
+     4,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "U L U2 L2 U' L",
+     6,
+     0.0016,
+     "ida"
+    ],
+    [
+     "f3",
+     "U R' L U' R L'",
+     6,
+     0.0074,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 U' R U' R' U2 R2",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "oll",
+     "L U2 L2 U' L U' L' U2 B L B'",
+     11,
+     0.0017,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F U' R B U B' R2 F R F2",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "cross",
+     "F R' D F D F2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L2 U' L U L2",
+     5,
+     0.004,
+     "ida"
+    ],
+    [
+     "f2",
+     "R F R F' R'",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "f3",
+     "R B U2 B' R'",
+     5,
+     0.0013,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0034,
+     "ida"
+    ],
+    [
+     "oll",
+     "L F R' F' L' F R F'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "cross",
+     "R B2 U D F2 B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U' L' B U2 L B'",
+     6,
+     0.0155,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L U L'",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "f3",
+     "U F' U2 F2 R2 F' R2",
+     7,
+     0.057,
+     "ida"
+    ],
+    [
+     "f4",
+     "U' F2 U' L' U L F2",
+     7,
+     0.0019,
+     "ida"
+    ],
+    [
+     "oll",
+     "R B' R' B U2 B U' L U' L' B'",
+     11,
+     0.0024,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R L' B2 R D' L B2 R' U R' L2 F2 L2",
+     13,
+     0.0079,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 54
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "cross",
+     "R2 F' L B L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L' U L",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' U' F",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "f3",
+     "R' F' U2 F U' R",
+     6,
+     0.0293,
+     "ida"
+    ],
+    [
+     "f4",
+     "L U2 L' B' U' B",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "oll",
+     "R' F R B' R' F' R B",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R U B U' B' R' L' U2 L2 F' D F' D' F2 L2 U2 L",
+     17,
+     7.1802,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "cross",
+     "F' L2 D' R' F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 R' B' R2 U B R",
+     7,
+     0.0158,
+     "ida"
+    ],
+    [
+     "f2",
+     "U' F U2 F2 U' F",
+     6,
+     0.0046,
+     "ida"
+    ],
+    [
+     "f3",
+     "F L2 F' L' F L' F'",
+     7,
+     0.1908,
+     "ida"
+    ],
+    [
+     "f4",
+     "B2 U' B U' B' U2 B2",
+     7,
+     0.0032,
+     "ida"
+    ],
+    [
+     "oll",
+     "B L' B' L U L U' L'",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R' F R' B2 R F' R' B2 R2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "cross",
+     "B D2 L' D' R'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L U2 L2 U' L",
+     5,
+     0.0003,
+     "ida"
+    ],
+    [
+     "f2",
+     "B U R2 B R2 B'",
+     6,
+     0.0475,
+     "ida"
+    ],
+    [
+     "f3",
+     "R U2 B' U2 B R'",
+     6,
+     0.0439,
+     "ida"
+    ],
+    [
+     "f4",
+     "B' U' B U' L U L'",
+     7,
+     0.0051,
+     "ida"
+    ],
+    [
+     "oll",
+     "R L' U B U' B' R' U' L",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 F2 B2 U' F2 U F2 D' F2 D B2 R2",
+     12,
+     0.0039,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "cross",
+     "R L' F' U L2 B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F2 U F U' F2",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "R U' B2 R' B2",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "f3",
+     "R2 U2 R' U' R U' R2",
+     7,
+     0.0899,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' U2 R U' B U B'",
+     7,
+     0.0014,
+     "ida"
+    ],
+    [
+     "oll",
+     "F2 L2 F' U R U' R' F L2 F2",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B2 R2 L2 U L2 U' L2 D L2 D' R2 B2",
+     12,
+     0.0044,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "cross",
+     "D B L' D F' B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 F L F' L' F'",
+     6,
+     0.0032,
+     "ida"
+    ],
+    [
+     "f2",
+     "U L' B2 L B2",
+     5,
+     0.0003,
+     "ida"
+    ],
+    [
+     "f3",
+     "U F' L' U' L U2 F",
+     7,
+     0.0426,
+     "ida"
+    ],
+    [
+     "f4",
+     "U B' U2 B L U L'",
+     7,
+     0.0007,
+     "ida"
+    ],
+    [
+     "oll",
+     "R' F' U' F2 U F' R F U' F'",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F2 U' R' L F2 R L' U' F2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "cross",
+     "U' D' R2 L F'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "D B U B' D'",
+     5,
+     0.0016,
+     "ida"
+    ],
+    [
+     "f2",
+     "R B' U2 B R'",
+     5,
+     0.0041,
+     "ida"
+    ],
+    [
+     "f3",
+     "U2 F' R' F R F",
+     6,
+     0.0048,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 F2 U F' U F U2 F2",
+     8,
+     0.0052,
+     "ida"
+    ],
+    [
+     "oll",
+     "L' U' B' U R' B L B' R B",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R L' B2 R D' L B2 R' U R' L2 F2 L2",
+     13,
+     0.0109,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "cross",
+     "U D' R' B L' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R2 F R2 F2 U' F",
+     6,
+     0.0122,
+     "ida"
+    ],
+    [
+     "f2",
+     "R' F' U2 F U' R",
+     6,
+     0.0347,
+     "ida"
+    ],
+    [
+     "f3",
+     "L' U F' L F L",
+     6,
+     0.0764,
+     "ida"
+    ],
+    [
+     "f4",
+     "L U2 F' L F L2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "oll",
+     "L' F' D2 R2 U2 B' R2 D2 L'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F2 R2 L2 U R2 U' R2 D R2 D' L2 F2",
+     12,
+     0.0032,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "cross",
+     "F B D2 R' D' B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F2 U' F' U F2",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "f2",
+     "D B' U' B D'",
+     5,
+     0.0086,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' F U L U L' F'",
+     7,
+     0.1068,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0028,
+     "ida"
+    ],
+    [
+     "oll",
+     "R B U B' U R' U' R U' R'",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B' R' F' R B R' F R L F L' B L F' L' B'",
+     16,
+     7.5182,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "cross",
+     "F B' D' F'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F' U2 F L' U' L",
+     6,
+     0.0115,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' D2 L' U' L D2 F",
+     7,
+     0.2964,
+     "ida"
+    ],
+    [
+     "f3",
+     "L' B D' B D L B2",
+     7,
+     0.529,
+     "ida"
+    ],
+    [
+     "f4",
+     "L2 U L2 U L2 U2 L2",
+     7,
+     0.0039,
+     "ida"
+    ],
+    [
+     "oll",
+     "R' U' F U R U' R' F' R",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R' L' U2 R L B U' F U2 B' U F'",
+     12,
+     0.0031,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "cross",
+     "U R F B'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R F R' U2 F' R'",
+     6,
+     0.0039,
+     "ida"
+    ],
+    [
+     "f2",
+     "L2 U L' D' B2 D",
+     6,
+     0.0662,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' R2 F2 R F2 R",
+     6,
+     0.0083,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 U2 R B2 L' B' L B' R",
+     9,
+     0.1145,
+     "ida"
+    ],
+    [
+     "oll",
+     "R U B U' B' R'",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B' R' F' R B R' F R L F L' B L F' L' B'",
+     16,
+     7.3377,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 54
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "cross",
+     "R D L' B R F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F' U2 F2 U' F'",
+     5,
+     0.0021,
+     "ida"
+    ],
+    [
+     "f2",
+     "F2 L2 F L2 F",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "f3",
+     "R F R' F' R'",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "f4",
+     "U R2 U' F' U F R2",
+     7,
+     0.0008,
+     "ida"
+    ],
+    [
+     "oll",
+     "F U R U' R' F'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "L U L' U2 R' F2 L' D' L' D L2 F2 R",
+     13,
+     0.01,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "cross",
+     "D B' D R L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R' L U R L'",
+     5,
+     0.0012,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 R U F U2 F' R'",
+     7,
+     0.0606,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' L' U F' L F L",
+     7,
+     0.1467,
+     "ida"
+    ],
+    [
+     "f4",
+     "R B2 U B' U' B2 R'",
+     7,
+     0.0025,
+     "ida"
+    ],
+    [
+     "oll",
+     "B L2 F' L' F L' B'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F2 L2 U F2 D' F2 D R2 U' R2 L2 F2",
+     12,
+     0.0032,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "cross",
+     "U' F R' L2 D R'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U B' R2 B R2",
+     5,
+     0.0004,
+     "ida"
+    ],
+    [
+     "f2",
+     "U B2 L2 B2 L2",
+     5,
+     0.0079,
+     "ida"
+    ],
+    [
+     "f3",
+     "D2 F U' F' D2",
+     5,
+     0.009,
+     "ida"
+    ],
+    [
+     "f4",
+     "U F2 U2 F' U' F U' F2",
+     8,
+     0.0026,
+     "ida"
+    ],
+    [
+     "oll",
+     "F U F' R' F R U' R' F' R",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B2 U B2 D' R2 F2 U' F2 D R2",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "cross",
+     "F' L F D' F R2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F R' U R F'",
+     5,
+     0.0046,
+     "ida"
+    ],
+    [
+     "f2",
+     "D L U2 L' D'",
+     5,
+     0.0055,
+     "ida"
+    ],
+    [
+     "f3",
+     "U2 F' U2 F",
+     4,
+     0.0012,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "oll",
+     "F' U2 F2 R2 B' R' B R2 F' R",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B2 U R L' B2 R' L U B2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "cross",
+     "R L B' D B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F U' F2 U' F",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L' U2 L",
+     4,
+     0.0009,
+     "ida"
+    ],
+    [
+     "f3",
+     "B2 U' B' U B2",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "f4",
+     "B2 L U L' U' B2",
+     6,
+     0.0007,
+     "ida"
+    ],
+    [
+     "oll",
+     "R B2 L' B' L B' R'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 U R2 U R2 U2 B L B' R2 B L' B'",
+     13,
+     0.0097,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "cross",
+     "L D2 F' L2 D' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 F2 U F U' F2",
+     6,
+     0.0013,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f3",
+     "U R U R2 U2 R",
+     6,
+     0.0109,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 B U B' U' R2",
+     6,
+     0.0006,
+     "ida"
+    ],
+    [
+     "oll",
+     "R' U L U' R U L'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F B U2 F' U' F U2 B' U F'",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "cross",
+     "B R B U F2 L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 L' U2 L",
+     4,
+     0.0009,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' U2 F",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "f3",
+     "B' L' B L B",
+     5,
+     0.0042,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 B U2 B' U R' U' R",
+     8,
+     0.0055,
+     "ida"
+    ],
+    [
+     "oll",
+     "F' U2 F2 R2 B' R' B R2 F' R",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R L' U2 D2 R L' D R2 L2 U' F2 B2",
+     12,
+     0.0025,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  }
+ ],
+ "Roux": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "fb",
+     "R U2 R2 L2 B' D' F' U2 L'",
+     9,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "R U' L2 D2 B' L' F' L B L2",
+     10,
+     0.3575,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L2 U B' U B L U' L' B L' B' L'",
+     12,
+     0.0054,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U2 M' U M2 U2 M2 U M U2",
+     13,
+     0.0189,
+     "centres"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "fb",
+     "B R' F' L",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "B2 U B U' B2 U' B R2 U2 B",
+     10,
+     0.269,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' R' U L F R L' B U' B' U",
+     11,
+     0.3026,
+     "ida"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U' M' U2 M' U2 M2",
+     15,
+     0.0034,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "fb",
+     "L2 F' R2 L' U' L2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R' F' U2 F R' F' U' F R'",
+     9,
+     0.0202,
+     "ida"
+    ],
+    [
+     "cmll",
+     "F U2 F' U' F U F' U2 R' F' R",
+     11,
+     0.7913,
+     "ida"
+    ],
+    [
+     "lse",
+     "U M U2 M' U M' U2 M' U2 M2",
+     15,
+     0.0034,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "fb",
+     "F2 L B U' R' D' L",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L D' F' D L' B' R2 B",
+     9,
+     0.0023,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R' U2 R2 D B' U B U' B D' R'",
+     11,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M' U M' U' M U' M' U2 M2",
+     15,
+     0.0351,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "fb",
+     "R F2 R2 D2 B' D B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R2 F2 R F' R' F2 R' U' R",
+     9,
+     0.0032,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F' U2 F U' R U R' U F' U F",
+     12,
+     0.0028,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M U2 M U M U' M' U2 M' U M' U'",
+     18,
+     0.306,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "fb",
+     "F2 B D R2 B2 R' F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "F2 U' R U2 F2 U2 R' U F2",
+     9,
+     0.0082,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F' U2 F U L2 U L' F L U' L2",
+     12,
+     4.3428,
+     "ida"
+    ],
+    [
+     "lse",
+     "M2 U' M' U2 M' U M' U2 M",
+     14,
+     0.0236,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "fb",
+     "D' F R2 L U2 F' B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L F' D2 R' F2 R2 D' L' F2",
+     10,
+     0.0448,
+     "ida"
+    ],
+    [
+     "cmll",
+     "B' R' U2 F U2 F' U2 F' R B U'",
+     11,
+     1.3117,
+     "ida"
+    ],
+    [
+     "lse",
+     "M U2 M U' M2 U' M U2 M' U2",
+     15,
+     0.0705,
+     "centres"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "fb",
+     "U B' R U' L2 F U2 B2",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' R' B2 L' D' L B2 L F' L'",
+     10,
+     0.0345,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 R U R' U R U' B U' B' R'",
+     11,
+     0.0016,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M U' M U M U M2 U M U2 M2",
+     17,
+     0.1086,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "fb",
+     "U R2 L' B L2 U' B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "F R' F2 U2 F U' R'",
+     7,
+     0.0015,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R' F R U L' U L2 D R' F' R D' L'",
+     13,
+     100.4814,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M U2 M' U' M U2 M' U'",
+     13,
+     0.0089,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "fb",
+     "U F2 D2 R2 B L' U F'",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R' U2 L2 D' L2 U' F R2 F'",
+     9,
+     0.0342,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U L' B2 R B R' B' R B2 L B' R' B",
+     13,
+     0.0145,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M' U2 M' U' M2",
+     9,
+     0.0005,
+     "centres"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "fb",
+     "R' U' B R2 D R2 F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U R D' F B2 D F' D' B2 D",
+     10,
+     0.0726,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 R' F U F2 U F2 U2 F' U R",
+     11,
+     0.0016,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M U2 M2 U' M U' M' U' M",
+     15,
+     0.0149,
+     "centres"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "fb",
+     "U R2 U2 D F2 B' L D",
+     8,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "U2 L' B' R D2 R2 L B R B2",
+     10,
+     0.1239,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F' U2 F U' R U R' U2 L F L'",
+     12,
+     2.4594,
+     "ida"
+    ],
+    [
+     "lse",
+     "U M U2 M' U' M2 U M U2 M U'",
+     16,
+     0.0705,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "fb",
+     "D' R' L2 D F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' F U R' L2 D' B' L2 U2 R'",
+     10,
+     0.0215,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F R' U' F2 U R B U' F2 U F' B'",
+     13,
+     33.3754,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U' M' U2 M U M2",
+     12,
+     0.0033,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "fb",
+     "D F L B' L2 B",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "D L' B' L F' U F R' D'",
+     9,
+     0.0207,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 L' U2 L' D' R B2 R' D L2",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U M' U2 M' U' M2 U",
+     16,
+     0.2051,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "fb",
+     "R F2 U B R' F L2 D2",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U2 R F L D' L B L2 F'",
+     9,
+     0.0022,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U B' U2 B2 D L' U L U' L D' B'",
+     12,
+     0.0025,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U' M' U2 M' U M2 U",
+     16,
+     0.0288,
+     "centres"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "fb",
+     "B' D2 F U B D B'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' R F' U2 F L' B' L U R2",
+     10,
+     0.0312,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R U B U2 B' U' L' B L U R' U'",
+     12,
+     6.6569,
+     "ida"
+    ],
+    [
+     "lse",
+     "M U2 M' U2 M2 U' M2 U",
+     12,
+     0.0007,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "fb",
+     "U' D' F' R' B U' B",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "F2 L D R' U D2 F U' L'",
+     9,
+     0.0176,
+     "ida"
+    ],
+    [
+     "cmll",
+     "B' R' F R' F' R F R' F' R2 B",
+     11,
+     0.0019,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M U M U' M' U M U2 M2",
+     15,
+     0.0228,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "fb",
+     "F R' F D2 R' D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "L' B' L2 U F' U' L' U' R2",
+     9,
+     0.0204,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L' B L U2 R2 F R F' R U'",
+     10,
+     0.1862,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U' M' U2 M' U M' U2 M U2",
+     16,
+     0.0679,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "fb",
+     "U' R2 L D F' L U F'",
+     8,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "R2 U2 R' U2 B' R2 D' R2 D B",
+     10,
+     0.0543,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R B L' B L B2 R' F' U' L' U L F",
+     13,
+     0.0086,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M' U' M' U M U M U M' U2 M",
+     17,
+     0.1126,
+     "centres"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "fb",
+     "B R' B' R B' L2 D2",
+     7,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L2 D' L' F R2 F2 L D L2",
+     10,
+     0.0226,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L F U F' B' R' F' R B U' L'",
+     11,
+     1.1466,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U M U2 M' U2 M2 U",
+     13,
+     0.001,
+     "centres"
+    ]
+   ],
+   "total": 41
+  }
+ ],
+ "ZZ": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "eoline",
+     "F' U F' R' B'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R U R'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L2 U' L",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "L U R' U' R L'",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U R' U R' U2 R2 U' R",
+     9,
+     0.0007,
+     "ida"
+    ],
+    [
+     "zco",
+     "U R U2 R2 U' R2 U' R2 U2 R",
+     10,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "L2 U L U L2 U' L' U' L' U2 L'",
+     11,
+     0.0192,
+     "ida"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "eoline",
+     "U2 R2 L' B'",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U2 L' U2 L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' L' U2 L U2 L",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "R L' U2 L2 U L U' L2 U2 L U2 R'",
+     12,
+     0.0387,
+     "ida"
+    ],
+    [
+     "zco",
+     "U R U' R' U2 R L U' R' U L'",
+     11,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' U R U2 L U' R' U L2 U R2 U' L U R'",
+     15,
+     4.6232,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "eoline",
+     "D2 R' D F D2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R2 U R'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' L' U' R U' L'",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R2 U2 R U R' U R2",
+     8,
+     0.0017,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' R' L' U2 R2 U R' U' R2 U2 R L",
+     12,
+     0.0304,
+     "ida"
+    ],
+    [
+     "zco",
+     "L' U R U' L U R2 U2 R U R' U R",
+     13,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R L2 U2 R' L2 U' L U R U' L U2 R' U L2",
+     15,
+     3.7604,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 64
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "eoline",
+     "F' L' U L2 B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R L U2 R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U L' U' L2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R2 U L U' R2 L'",
+     7,
+     0.0008,
+     "ida"
+    ],
+    [
+     "z4",
+     "L' U' L' U R2 L U R2 L U R2 L' U' R2",
+     14,
+     0.8633,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U L' U L U' L' U L U2 L'",
+     11,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R U R' U R' U' R' U R U' R' U' R2 U R",
+     15,
+     3.4323,
+     "ida"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 61
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "eoline",
+     "U F B R B U F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L' U' L U L",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R' L U L2 U' L2 U L U R U R U R",
+     15,
+     1.1426,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U2 L2 U' L2 U' L2 U2 L",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R U R' U2 R' U2 R2 L U' R' U R' L' U2 R",
+     15,
+     3.449,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 59
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "eoline",
+     "U R B D B R' B",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R2 U' R' U2 R2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' R U2 L' U2 R' L",
+     7,
+     0.0006,
+     "ida"
+    ],
+    [
+     "z4",
+     "L U' R' U' R2 U R2 U' L U' L2 U R' L",
+     14,
+     0.7266,
+     "ida"
+    ],
+    [
+     "zco",
+     "R' U2 R U R' U' R U R' U R",
+     11,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' U R U2 L U' R' U L2 U R2 U' L U R'",
+     15,
+     4.5876,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 61
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "eoline",
+     "U2 R' B L D' L2 F'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R2 L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U' L U2 R2 L'",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' R' L2 U' R U L2",
+     7,
+     0.0021,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R U R U R U2 R2 U2 R",
+     10,
+     0.002,
+     "ida"
+    ],
+    [
+     "zco",
+     "R' U2 R U R' U R",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R2 U R U R' U' R' U' R' U R'",
+     11,
+     0.0111,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "eoline",
+     "U F2 L D L' F' B'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R U2 R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L U' L U L2",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R U2 R U L U R' L'",
+     9,
+     0.0105,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U' L U L2 U' L2 U2 R U' R2 L U2 R",
+     14,
+     0.4823,
+     "ida"
+    ],
+    [
+     "zco",
+     "U L U2 L2 U' L2 U' L2 U2 L",
+     10,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' U L' U R U2 L U2 R' U2 L' U L U' R",
+     15,
+     5.2617,
+     "ida"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 64
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "eoline",
+     "B R D2 L' B D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R'",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U L2 U' L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' L' U2 L U2 L",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R2 L' U R2 U L2 U2 L2 U2 R2 L' U' R2",
+     14,
+     0.3669,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U' R' U L' U' R",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' U' L U' R U2 L' U' R' U2 L U2 L' U R",
+     15,
+     5.7502,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "eoline",
+     "U R B' D R F B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R' U' R2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L U2 L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U2 R' U2 R U2 R",
+     6,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L U2 L U' L' U' L2 U' L",
+     10,
+     0.0015,
+     "ida"
+    ],
+    [
+     "zco",
+     "R U R' L' U2 R U R' L U L' U L",
+     13,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R L' B2 R D' L B2 R' U R' L2 F2 L2",
+     13,
+     7.606,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "eoline",
+     "U D' L B U' F' B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 R' U2 R L2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U' L2 U2 L' U2 L",
+     8,
+     0.0061,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' L U L2 U' L2 U2 R' U' R L",
+     11,
+     0.0071,
+     "ida"
+    ],
+    [
+     "zco",
+     "U R U2 R2 U' R2 U' R2 U2 R",
+     10,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R2 U2 R U2 R2 U2 R2 U2 R U2 R2",
+     11,
+     0.0076,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 57
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "eoline",
+     "R2 U' F R D' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L' U' L",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R2 U2 R2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R U' R' U R U R'",
+     7,
+     0.0009,
+     "ida"
+    ],
+    [
+     "z4",
+     "R2 L2 U R2 L2 U2 R2 L2 U' R2 L U' L2 U L",
+     15,
+     2.5402,
+     "ida"
+    ],
+    [
+     "zco",
+     "U R U' R' U2 R L U' R' U L'",
+     11,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' U L' U2 R U' R' L U L' U2 R U' L",
+     14,
+     1.1755,
+     "ida"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 60
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "eoline",
+     "U F B' R F B'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' U2 R L' U L2",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' U R U L U L'",
+     7,
+     0.0007,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' R U R2 U' R2 L U L2 U' L2 U R L",
+     14,
+     0.3806,
+     "ida"
+    ],
+    [
+     "zco",
+     "L' U R U' L U R'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' L' U2 L U L' U2 R U' L",
+     10,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 55
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "eoline",
+     "D' L' B2 U F' B'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L' U' R' U' R2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L U L' U L2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "L U' L' U' R U R'",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R2 U' R2 L U R2 L2 U' L' U L U2 R2",
+     14,
+     0.2431,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U' R' U L' U' R2 U2 R' U' R U' R'",
+     13,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "L U R' U2 R U2 L' U' R' U2 L U' R U' L'",
+     15,
+     5.4517,
+     "ida"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 67
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "eoline",
+     "R L' D F B D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U' L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R' U2 R U2 R' U2 R",
+     8,
+     0.0041,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R' U2 R2 L U R2 U' R2 U' L' U2 R",
+     13,
+     0.1035,
+     "ida"
+    ],
+    [
+     "zco",
+     "U L U' R U R' L' U2 R U R'",
+     11,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R2 U L' U2 R U' L U R U' R2 L' U2 R2 L",
+     15,
+     3.8821,
+     "ida"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 62
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "eoline",
+     "U' L' F R' L' D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R2 U L' U' R'",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' U2 R L' U2 L2",
+     6,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z3",
+     "R U R U' R2 U' R",
+     7,
+     0.0011,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L' U2 L U2 R' L2 U2 R U2 R U R U' R' L'",
+     16,
+     5.0208,
+     "ida"
+    ],
+    [
+     "zco",
+     "R U2 R' U' R U' R'",
+     7,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R L2 U2 R' L2 U' L U R U' L U2 R' U L2",
+     15,
+     4.3053,
+     "ida"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 63
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "eoline",
+     "U L' B' D B2 U' F",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U R' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' L U2 R' U2 R L'",
+     7,
+     0.0011,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U2 R2 U2 R' U2 R L U L2 U' L2 U L",
+     14,
+     0.5617,
+     "ida"
+    ],
+    [
+     "zco",
+     "L' U R U' L U R'",
+     7,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "L U L2 U2 R U R' U2 L2 U2 L' U2 R U R'",
+     15,
+     6.3601,
+     "ida"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 55
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "eoline",
+     "L B' D R B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L U2 L2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R U R2 U2 R2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U L' U' L'",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R2 U2 L2 U R L2 U R' L2 U' L2 U R2",
+     14,
+     0.214,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U2 L' U' L U' L'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R' F L' U2 R B' R L2 D2 L2 B R' L",
+     13,
+     9.1921,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "eoline",
+     "D F' L' B R' D'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R U R'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' U R U L' U' L",
+     7,
+     0.0014,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L' U' L' U R2 L2 U' L2 U' L U L U R2",
+     15,
+     1.5449,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U' R' U L' U' R2 U2 R' U' R U' R'",
+     13,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "R U' L U2 R' U R L' U' L U2 R' U L'",
+     14,
+     1.0192,
+     "ida"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 61
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "eoline",
+     "F' B' U L F' B'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 L' U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U2 R' U2 R L'",
+     7,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z4",
+     "L' U2 L2 U L' U R' L2 U' R U2 L'",
+     12,
+     0.0544,
+     "ida"
+    ],
+    [
+     "zco",
+     "L U' R' U L' U' R",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "zpll",
+     "L U' R U2 L' U L U2 R' L'",
+     10,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  }
+ ],
+ "Petrus": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "p222",
+     "R F U B' D' F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R F' D' F R'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "eo",
+     "F U' F'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "L'",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "R2 D2 L2 D2 R2",
+     5,
+     0.0023,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U L' U L U2 L' U2 L",
+     8,
+     0.0023,
+     "ida"
+    ],
+    [
+     "pco",
+     "F R B' R' F' R B R'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L U F' D2 B R' B' D2 F2 U' L' U F'",
+     13,
+     0.0075,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "p222",
+     "U' B2 R L2 B R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R L2 B' R' B'",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "eo",
+     "U2 F' L F",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "U L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L2 U L2 U' L2",
+     5,
+     0.0176,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U' F2 R U R' U' F2",
+     7,
+     0.0015,
+     "ida"
+    ],
+    [
+     "pco",
+     "R' F' L' F R F' L F",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L2 B2 U' B2 U B2 D' B2 D L2",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "p222",
+     "R D F U L F2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U' B' L U R' U' R",
+     7,
+     0.0038,
+     "ida"
+    ],
+    [
+     "eo",
+     "B L' B2 U' B",
+     5,
+     0.0011,
+     "ida"
+    ],
+    [
+     "dl",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U2 L U' L'",
+     4,
+     0.0008,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U2 F2 R' D R' D' R2 F2",
+     8,
+     0.0064,
+     "ida"
+    ],
+    [
+     "pco",
+     "R' F R B' R' F' R B",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 B2 R F R' B2 R F' R",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "p222",
+     "U' R F B2 D' L F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R L B2 R2 U R B'",
+     7,
+     0.001,
+     "ida"
+    ],
+    [
+     "eo",
+     "U B L B'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "U' L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L U' L' U' L' U' L",
+     7,
+     0.3798,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U B2 R' U' R U B2",
+     7,
+     0.0013,
+     "ida"
+    ],
+    [
+     "pco",
+     "R' F' R B' R' F R B",
+     8,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "B2 U B2 D' R2 F2 U' F2 D R2",
+     10,
+     0.0019,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "p222",
+     "U F R U F2 U' R'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "L' B2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "eo",
+     "U2 F' L F",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "dl",
+     "U' L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "R2 D2 L D2 R2",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U' L' U2 L U L' U' L",
+     8,
+     0.005,
+     "ida"
+    ],
+    [
+     "pco",
+     "R' F R B' R' F' R B",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "B' R' F' R B R' F R L F L' B L F' L' B'",
+     16,
+     7.2612,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "p222",
+     "R B' D2 B2 D' R2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R2 F2 D2 L' F' D' F' R2",
+     8,
+     0.008,
+     "ida"
+    ],
+    [
+     "eo",
+     "B L B2 U2 B",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "dl",
+     "U' L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "D L' U L D'",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U2 L2 U L' U L U2 L2",
+     8,
+     0.0071,
+     "ida"
+    ],
+    [
+     "pco",
+     "B' U F U' B U F'",
+     7,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 B2 U' R2 D R2 D' F2 U F2 B2 R2",
+     12,
+     0.006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 54
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "p222",
+     "R U F2 L U2 L2 F'",
+     7,
+     0.0001,
+     "ida"
+    ],
+    [
+     "p223",
+     "U2 R' U R B'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "eo",
+     "U F' L' F",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U R' U L' U' R L",
+     7,
+     0.0548,
+     "ida"
+    ],
+    [
+     "p4b",
+     "R U' L U R' L'",
+     6,
+     0.0002,
+     "ida"
+    ],
+    [
+     "pco",
+     "L F R F' L' F R' F'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 U' F2 D' F2 U F D F' R2 B U' B'",
+     13,
+     0.0071,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "p222",
+     "U B2 U2 F D' R' D'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "B2 L' U2 L' U B'",
+     6,
+     0.0018,
+     "ida"
+    ],
+    [
+     "eo",
+     "F L U' L' F'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "L'",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "D L' U L D'",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U' R U' L U R' L'",
+     7,
+     0.0012,
+     "ida"
+    ],
+    [
+     "pco",
+     "L F R' F' L' F R F'",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 U R2 U R2 U2 B L B' R2 B L' B'",
+     13,
+     0.01,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "p222",
+     "U L2 B' R' D2 F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "B U F' L' F B2",
+     6,
+     0.0018,
+     "ida"
+    ],
+    [
+     "eo",
+     "L F U2 F2 L F",
+     6,
+     0.0081,
+     "ida"
+    ],
+    [
+     "dl",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L2 U' L' U L2",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "p4b",
+     "L U' L'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "pco",
+     "B' U2 B2 U B2 U B2 U2 B'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 F2 R' B' R F2 R' B R'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "p222",
+     "U R2 F L F2 D R",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U L U' B' L' B",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "eo",
+     "B L' B2 U2 B",
+     5,
+     0.0007,
+     "ida"
+    ],
+    [
+     "dl",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U L2 U' L2 U L2",
+     6,
+     0.0231,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U L' U2 L2 U L2 U L",
+     8,
+     0.0051,
+     "ida"
+    ],
+    [
+     "pco",
+     "F U2 F2 U' F2 U' F2 U2 F",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 U R2 U R2 U2 B L B' R2 B L' B'",
+     13,
+     0.0087,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 55
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "p222",
+     "U F U2 R' D F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U2 B L U' L' B2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "eo",
+     "L F U F'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "U2 L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L U2 L2 U' L",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "p4b",
+     "R' D2 R U2 R' D2 R",
+     7,
+     0.0063,
+     "ida"
+    ],
+    [
+     "pco",
+     "L U2 L2 U' L2 U' L2 U2 L",
+     9,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L2 U' L2 D F2 R2 U R2 D' F2",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "p222",
+     "D' B U2 R F2 D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U' L' B2 U' B' L' B",
+     7,
+     0.0005,
+     "ida"
+    ],
+    [
+     "eo",
+     "F B' U F' B",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "dl",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "D L' U' L D'",
+     5,
+     0.0011,
+     "ida"
+    ],
+    [
+     "p4b",
+     "L2 U L' U L U2 L2",
+     7,
+     0.0026,
+     "ida"
+    ],
+    [
+     "pco",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "F U' L U F2 D2 B R B' D2 F U' L'",
+     13,
+     0.0085,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "p222",
+     "F' L' U' R F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U' B2 L U B2 L' B",
+     7,
+     0.001,
+     "ida"
+    ],
+    [
+     "eo",
+     "F' B L F B'",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "dl",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L U' L U' L2 U L2",
+     7,
+     0.3849,
+     "ida"
+    ],
+    [
+     "p4b",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pco",
+     "B' U' B U' B' U B U' B' U2 B",
+     11,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L2 U' L2 D F2 R2 U R2 D' F2",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "p222",
+     "R D2 L B U' R D'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R B2 R' U' L2 B",
+     6,
+     0.0008,
+     "ida"
+    ],
+    [
+     "eo",
+     "B L2 B2 U B",
+     5,
+     0.0014,
+     "ida"
+    ],
+    [
+     "dl",
+     "U L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "R2 D2 L' D2 R2",
+     5,
+     0.0008,
+     "ida"
+    ],
+    [
+     "p4b",
+     "F2 U F2 U F2 U2 F2",
+     7,
+     0.0031,
+     "ida"
+    ],
+    [
+     "pco",
+     "B' U F U' B U F'",
+     7,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R' D' L D2 R' D L B2 D L2 D R2",
+     12,
+     0.0049,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "p222",
+     "F D' B' L D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U B' U L U L' B2",
+     7,
+     0.0002,
+     "ida"
+    ],
+    [
+     "eo",
+     "U F' L2 F2 U' F'",
+     6,
+     0.0015,
+     "ida"
+    ],
+    [
+     "dl",
+     "L'",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "R D' B2 D R' U' L2",
+     7,
+     0.0812,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U' L U2 L' U' L U L'",
+     8,
+     0.0044,
+     "ida"
+    ],
+    [
+     "pco",
+     "F U2 F2 U' F2 U' F2 U2 F",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L2 U F' B L2 F B' U L2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 54
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "p222",
+     "R U2 F2 U L2 B' R2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U' L2 B2 U2 B' L' B",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "eo",
+     "F U' F2 B L F B'",
+     7,
+     0.0104,
+     "ida"
+    ],
+    [
+     "dl",
+     "L",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U2 L U2 L2 U' L",
+     6,
+     0.0017,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "pco",
+     "L U2 L2 U' L2 U' L2 U2 L",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "p222",
+     "U R2 D' L U' R2 F",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U2 L' U B U' B2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "eo",
+     "F U F'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U2 L U L'",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U R U' L2 U R' U' L2",
+     8,
+     0.005,
+     "ida"
+    ],
+    [
+     "pco",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R U B U' B' R' L' U2 L2 F' D F' D' F2 L2 U2 L",
+     17,
+     6.9169,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "p222",
+     "R2 B' R2 U L D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "U' L2 B U L' B",
+     6,
+     0.0002,
+     "ida"
+    ],
+    [
+     "eo",
+     "U L F U F'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "dl",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "L2 U L2 U' L2",
+     5,
+     0.0177,
+     "ida"
+    ],
+    [
+     "p4b",
+     "U' L' U2 L U L' U' L",
+     8,
+     0.005,
+     "ida"
+    ],
+    [
+     "pco",
+     "B' U F U' B U F'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "L2 B2 U' B2 U B2 D' B2 D L2",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "p222",
+     "D F' B' R' D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "R' L' U' R B' L' B",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "eo",
+     "L B' U B",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "dl",
+     "L'",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U L' U2 L2 U' L'",
+     6,
+     0.0044,
+     "ida"
+    ],
+    [
+     "p4b",
+     "L2 D' L U' L' D L2",
+     7,
+     0.0034,
+     "ida"
+    ],
+    [
+     "pco",
+     "F U2 F' U' F U F' U' F U' F'",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 B2 R F R' B2 R F' R",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "p222",
+     "R' L' B L2 D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "p223",
+     "B U' B2 L2 B",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "eo",
+     "U F B' U F2 B L' F",
+     8,
+     0.0614,
+     "ida"
+    ],
+    [
+     "dl",
+     "U L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "p4a",
+     "U2 L' U' L2 U L'",
+     6,
+     0.0085,
+     "ida"
+    ],
+    [
+     "p4b",
+     "L2 D' L U' L' D L2",
+     7,
+     0.0032,
+     "ida"
+    ],
+    [
+     "pco",
+     "F R B' R' F' R B R'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pcp",
+     "R2 F R U R U' R' F' R U2 R' U2 R",
+     13,
+     0.0095,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  }
+ ],
+ "LBL (beginner)": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "cross",
+     "F U F R' B' L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "U L' U2 L",
+     4,
+     0.0006,
+     "ida"
+    ],
+    [
+     "d2",
+     "F' U2 F",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d3",
+     "U2 B2 R B2 R'",
+     5,
+     0.021,
+     "ida"
+    ],
+    [
+     "d4",
+     "L U' L'",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 D2 L D2 R2",
+     5,
+     0.0022,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 U2 R' U2 R2",
+     6,
+     0.0029,
+     "ida"
+    ],
+    [
+     "m3",
+     "F U2 L F2 L' U2 F'",
+     7,
+     0.0695,
+     "ida"
+    ],
+    [
+     "m4",
+     "R B2 U B' U' B2 R'",
+     7,
+     0.0049,
+     "ida"
+    ],
+    [
+     "leo",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 F2 L B2 L' F2 L B2 L",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U F' B L2 F B' U L2",
+     9,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 65
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "cross",
+     "F R' D F D F2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "F U2 F'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d2",
+     "U2 R2 F R2 F'",
+     5,
+     0.0171,
+     "ida"
+    ],
+    [
+     "d3",
+     "R' U' R",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d4",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "D B2 U D' R2",
+     5,
+     0.0028,
+     "ida"
+    ],
+    [
+     "m2",
+     "R2 D2 L D2 R2",
+     5,
+     0.0025,
+     "ida"
+    ],
+    [
+     "m3",
+     "R B' R' B R' U' R",
+     7,
+     0.0517,
+     "ida"
+    ],
+    [
+     "m4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0048,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R U' L' U R' U' L",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R B' R F2 R' B R F2 R2",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "U' R2 F2 B2 L2 D R2 F2 B2 L2",
+     10,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 73
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "cross",
+     "R B2 U D F2 B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' B U2 L B'",
+     5,
+     0.0742,
+     "ida"
+    ],
+    [
+     "d2",
+     "B' U B",
+     3,
+     0.0003,
+     "ida"
+    ],
+    [
+     "d3",
+     "R' U2 R",
+     3,
+     0.0003,
+     "ida"
+    ],
+    [
+     "d4",
+     "R' D2 L D2 R",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 D2 B' D2 F2",
+     5,
+     0.0036,
+     "ida"
+    ],
+    [
+     "m2",
+     "R U2 B U B' U2 R'",
+     7,
+     0.0445,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' D' L' F' L2 D R U F",
+     9,
+     2.5615,
+     "ida"
+    ],
+    [
+     "m4",
+     "R B2 U B U' B2 R'",
+     7,
+     0.0042,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' F' U' F U R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "F R B' R' F' R B R'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U F2 L2 F' R' F L2 F' R F'",
+     10,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "U' R2 F2 B2 L2 D R2 F2 B2 L2",
+     10,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 84
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "cross",
+     "R2 F' L B L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' U L",
+     3,
+     0.0003,
+     "ida"
+    ],
+    [
+     "d2",
+     "F' U' F",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d3",
+     "U B' U' B",
+     4,
+     0.001,
+     "ida"
+    ],
+    [
+     "d4",
+     "R B' R' B2 U B'",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U2 R' U2 R2",
+     5,
+     0.0021,
+     "ida"
+    ],
+    [
+     "m2",
+     "R U2 B U2 B' U2 R'",
+     7,
+     0.045,
+     "ida"
+    ],
+    [
+     "m3",
+     "U R2 D2 L D2 R2",
+     6,
+     0.0028,
+     "ida"
+    ],
+    [
+     "m4",
+     "R U R2 D' F2 D R",
+     7,
+     0.0044,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' F' L' F R F' L F",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 F2 R' B' R F2 R' B R'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 78
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "cross",
+     "F' L2 D' R' F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "U L2 B2 L2 B2",
+     5,
+     0.0131,
+     "ida"
+    ],
+    [
+     "d2",
+     "F U' F'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d3",
+     "L U L'",
+     3,
+     0.0005,
+     "ida"
+    ],
+    [
+     "d4",
+     "U F' U2 F",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 D2 B' D2 F2",
+     5,
+     0.0023,
+     "ida"
+    ],
+    [
+     "m2",
+     "R F R F' U' R'",
+     6,
+     0.0038,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' F2 U' F' U F2 R",
+     7,
+     0.0538,
+     "ida"
+    ],
+    [
+     "m4",
+     "R U2 F R' F' U2 R'",
+     7,
+     0.0048,
+     "ida"
+    ],
+    [
+     "leo",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L U2 L2 U' L2 U' L2 U2 L",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U L2 B2 L' F' L B2 L' F L'",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R L' U2 D2 R L' D R2 L2 U' F2 B2",
+     12,
+     0.0028,
+     "book:scan"
+    ]
+   ],
+   "total": 76
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "cross",
+     "B D2 L' D' R'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' U' L",
+     3,
+     0.0007,
+     "ida"
+    ],
+    [
+     "d2",
+     "R2 F R2 F'",
+     4,
+     0.0029,
+     "ida"
+    ],
+    [
+     "d3",
+     "L U2 L'",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "U R' U2 R",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U2 R2 U2 R2",
+     5,
+     0.002,
+     "ida"
+    ],
+    [
+     "m2",
+     "R2 D2 L2 D2 R2",
+     5,
+     0.0018,
+     "ida"
+    ],
+    [
+     "m3",
+     "U F2 D2 B D2 F2",
+     6,
+     0.0024,
+     "ida"
+    ],
+    [
+     "m4",
+     "R' F2 D' L' D F2 R",
+     7,
+     0.0053,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' F' U' F U R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "F U' B' U F' U' B",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R' F R' B2 R F' R' B2 R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R2 U' F B' R2 F' B U' R2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 73
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "cross",
+     "R L' F' U L2 B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' U L",
+     3,
+     0.0003,
+     "ida"
+    ],
+    [
+     "d2",
+     "L U' L'",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d3",
+     "U R' U2 R",
+     4,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "U F' U2 F",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "F U L F' L' F'",
+     6,
+     0.0055,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 D2 L' D2 R2",
+     6,
+     0.0029,
+     "ida"
+    ],
+    [
+     "m3",
+     "R F2 U R2 U' F2 R'",
+     7,
+     0.054,
+     "ida"
+    ],
+    [
+     "m4",
+     "F U2 R U R' U2 F'",
+     7,
+     0.0078,
+     "ida"
+    ],
+    [
+     "leo",
+     "F R U R' U' F'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L F R' F' L' F R F'",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U' F2 D' F2 U F D F' R2 B U' B'",
+     13,
+     0.0091,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U' R L' B2 R' L U' B2",
+     9,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 82
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "cross",
+     "D B L' D F' B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "R' U' R",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "d2",
+     "F' U2 F",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d3",
+     "L' U2 L",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "B' U' B",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "D B2 U D' R2",
+     5,
+     0.0027,
+     "ida"
+    ],
+    [
+     "m2",
+     "F2 D2 B' D2 F2",
+     5,
+     0.0037,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' D' L' F' L2 D R U F",
+     9,
+     2.7006,
+     "ida"
+    ],
+    [
+     "m4",
+     "F' L2 U' L U L2 F",
+     7,
+     0.0062,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' U2 R2 U R2 U R2 U2 R'",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U' R' L F2 R L' U' F2",
+     9,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 69
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "cross",
+     "U' D' R2 L F'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "R U2 R'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d2",
+     "B2 L2 B2 L2",
+     4,
+     0.0095,
+     "ida"
+    ],
+    [
+     "d3",
+     "F R U2 R' F'",
+     5,
+     0.0437,
+     "ida"
+    ],
+    [
+     "d4",
+     "B U' B'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 U2 D2 B2 D2",
+     5,
+     0.0026,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 U2 R' U2 R2",
+     6,
+     0.0029,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' F2 U' F' U F2 R",
+     7,
+     0.0561,
+     "ida"
+    ],
+    [
+     "m4",
+     "R U2 F R2 F' U2 R'",
+     7,
+     0.004,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L U' R' U L' U' R",
+     7,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "L2 B2 L' F' L B2 L' F L'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R2 U F B' R2 F' B U R2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 76
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "cross",
+     "U D' R' B L' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' U L",
+     3,
+     0.0003,
+     "ida"
+    ],
+    [
+     "d2",
+     "U R2 B2 R2 B2",
+     5,
+     0.0083,
+     "ida"
+    ],
+    [
+     "d3",
+     "F' U F",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d4",
+     "L F' L F L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 U2 F' U2 F2",
+     5,
+     0.0022,
+     "ida"
+    ],
+    [
+     "m2",
+     "R U2 R' U2 F' U' F",
+     7,
+     0.0736,
+     "ida"
+    ],
+    [
+     "m3",
+     "R U F D B2 R' B' D' F'",
+     9,
+     1.9347,
+     "ida"
+    ],
+    [
+     "m4",
+     "F R2 D B' D' R2 F'",
+     7,
+     0.0045,
+     "ida"
+    ],
+    [
+     "leo",
+     "F R U R' U' F'",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L F R' F' L' F R F'",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "L2 D L D' L B2 R' U R B2",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R L' U2 D2 R L' D' R2 L2 U F2 B2",
+     12,
+     0.0025,
+     "book:scan"
+    ]
+   ],
+   "total": 86
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "cross",
+     "F B D2 R' D' B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "F U' F'",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "d2",
+     "R2 F R2 F'",
+     4,
+     0.0032,
+     "ida"
+    ],
+    [
+     "d3",
+     "U R' U2 R",
+     4,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "U B' U' B",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U D' F2 D",
+     5,
+     0.0023,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 D2 L D2 R2",
+     6,
+     0.0029,
+     "ida"
+    ],
+    [
+     "m3",
+     "R2 U' D' F U D R2",
+     7,
+     0.0498,
+     "ida"
+    ],
+    [
+     "m4",
+     "R' U2 R U2 B U B'",
+     7,
+     0.0047,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' F' L F R F' L' F",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U B2 D B2 U' B' D' B R2 F' U F",
+     13,
+     0.0157,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R L' U2 D2 R L' D' R2 L2 U F2 B2",
+     12,
+     0.0025,
+     "book:scan"
+    ]
+   ],
+   "total": 85
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "cross",
+     "F B' D' F'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L' U' L",
+     3,
+     0.0006,
+     "ida"
+    ],
+    [
+     "d2",
+     "B2 R2 B2 R2",
+     4,
+     0.0091,
+     "ida"
+    ],
+    [
+     "d3",
+     "B U B'",
+     3,
+     0.0008,
+     "ida"
+    ],
+    [
+     "d4",
+     "R' D2 L D2 R",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U D' F2 D",
+     5,
+     0.0027,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 D2 L' D2 R2",
+     6,
+     0.0029,
+     "ida"
+    ],
+    [
+     "m3",
+     "R F2 U R2 U' F2 R'",
+     7,
+     0.0474,
+     "ida"
+    ],
+    [
+     "m4",
+     "F U2 R U R' U2 F'",
+     7,
+     0.0049,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' U2 R2 U R2 U R2 U2 R'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 60
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "cross",
+     "U R F B'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "R U' R'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d2",
+     "U' L2 B2 L2 B2",
+     5,
+     0.0251,
+     "ida"
+    ],
+    [
+     "d3",
+     "U' L2 F' L2 F",
+     5,
+     0.0256,
+     "ida"
+    ],
+    [
+     "d4",
+     "B' U2 B",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U2 D2 L2 D2",
+     5,
+     0.0022,
+     "ida"
+    ],
+    [
+     "m2",
+     "R2 U2 R' U2 R2",
+     5,
+     0.0019,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' B2 U' R2 U B2 R",
+     7,
+     0.0587,
+     "ida"
+    ],
+    [
+     "m4",
+     "L U' L U2 B L2 B' U2 L2",
+     9,
+     0.9032,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U F' B2 L' B' L F U' B' R'",
+     11,
+     0.0014,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B2 R2 B' L2 B R2 B' L2 B'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U B2 D B2 U' B' D' B R2 F' U F",
+     13,
+     0.0139,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 88
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "cross",
+     "R D L' B R F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L U2 L'",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d2",
+     "F' U2 F",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d3",
+     "F U' F'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d4",
+     "R' F R' F' R2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U2 R2 U2 R2",
+     5,
+     0.0023,
+     "ida"
+    ],
+    [
+     "m2",
+     "F2 D2 B2 D2 F2",
+     5,
+     0.0025,
+     "ida"
+    ],
+    [
+     "m3",
+     "R F2 U R2 U' F2 R'",
+     7,
+     0.0451,
+     "ida"
+    ],
+    [
+     "m4",
+     "F U2 R U2 R' U2 F'",
+     7,
+     0.0048,
+     "ida"
+    ],
+    [
+     "leo",
+     "L' U' B' U B L",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B' U' B U' B' U B U' B' U2 B",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U R2 F2 R' B' R F2 R' B R'",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "U' R2 F2 B2 L2 D R2 F2 B2 L2",
+     10,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 81
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "cross",
+     "D B' D R L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "L U L'",
+     3,
+     0.0005,
+     "ida"
+    ],
+    [
+     "d2",
+     "B U B'",
+     3,
+     0.0007,
+     "ida"
+    ],
+    [
+     "d3",
+     "F2 R' F2 R",
+     4,
+     0.0047,
+     "ida"
+    ],
+    [
+     "d4",
+     "F U F'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U2 R' U2 R2",
+     5,
+     0.002,
+     "ida"
+    ],
+    [
+     "m2",
+     "R2 U' D' F' U D R2",
+     7,
+     0.0502,
+     "ida"
+    ],
+    [
+     "m3",
+     "R B' R' B R' U' R",
+     7,
+     0.0468,
+     "ida"
+    ],
+    [
+     "m4",
+     "L U' L U2 B L2 B' U2 L2",
+     9,
+     0.9509,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "F' U B U' F U B'",
+     7,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U F2 L2 F' R' F L2 F' R F'",
+     10,
+     0.0015,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "U' R2 F2 B2 L2 D R2 F2 B2 L2",
+     10,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 79
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "cross",
+     "U' F R' L2 D R'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "F' U F",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d2",
+     "B U B'",
+     3,
+     0.0011,
+     "ida"
+    ],
+    [
+     "d3",
+     "B' U B",
+     3,
+     0.0006,
+     "ida"
+    ],
+    [
+     "d4",
+     "L' U' L",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "R2 U D' F2 D",
+     5,
+     0.0032,
+     "ida"
+    ],
+    [
+     "m2",
+     "R2 U2 R' U2 R2",
+     5,
+     0.002,
+     "ida"
+    ],
+    [
+     "m3",
+     "R' U2 B' R B U2 R",
+     7,
+     0.0461,
+     "ida"
+    ],
+    [
+     "m4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0043,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' U L U' R U L'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U R' F R' B2 R F' R' B2 R2",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U' R L' B2 R' L U' B2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 74
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "cross",
+     "F' L F D' F R2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "B U' B'",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d2",
+     "F U F'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d3",
+     "F D2 B' D2 F'",
+     5,
+     0.064,
+     "ida"
+    ],
+    [
+     "d4",
+     "L F U2 F' L'",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 U2 F U2 F2",
+     5,
+     0.0034,
+     "ida"
+    ],
+    [
+     "m2",
+     "F2 D2 B2 D2 F2",
+     5,
+     0.0025,
+     "ida"
+    ],
+    [
+     "m3",
+     "L U B L' B' L'",
+     6,
+     0.0087,
+     "ida"
+    ],
+    [
+     "m4",
+     "F U F2 D' L2 D F",
+     7,
+     0.0044,
+     "ida"
+    ],
+    [
+     "leo",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' U L U' R U L'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 D R D' R F2 L' U L F2",
+     10,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U' F' B L2 F B' U' L2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 71
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "cross",
+     "R L B' D B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "F' U' F",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d2",
+     "R' U R",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "d3",
+     "B' U2 B",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "",
+     0,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 U2 F' U2 F2",
+     5,
+     0.0023,
+     "ida"
+    ],
+    [
+     "m2",
+     "D' B2 U' D L2",
+     5,
+     0.0028,
+     "ida"
+    ],
+    [
+     "m3",
+     "R F2 D B2 D' F2 R'",
+     7,
+     0.0456,
+     "ida"
+    ],
+    [
+     "m4",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "leo",
+     "L' U' B' U B L",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U L2 B2 L' F' L B2 L' F L'",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U R L' B2 R' L U B2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "cross",
+     "L D2 F' L2 D' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "U L' U2 L",
+     4,
+     0.0006,
+     "ida"
+    ],
+    [
+     "d2",
+     "B' U B",
+     3,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d3",
+     "U F' U' F",
+     4,
+     0.0007,
+     "ida"
+    ],
+    [
+     "d4",
+     "R2 U' R2 U R2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "m1",
+     "U F2 U2 F U2 F2",
+     6,
+     0.0023,
+     "ida"
+    ],
+    [
+     "m2",
+     "U R2 U2 R' U2 R2",
+     6,
+     0.0031,
+     "ida"
+    ],
+    [
+     "m3",
+     "R U2 F R F' U2 R'",
+     7,
+     0.0417,
+     "ida"
+    ],
+    [
+     "m4",
+     "L U' L U2 B L2 B' U2 L2",
+     9,
+     0.8489,
+     "ida"
+    ],
+    [
+     "leo",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 F2 L B2 L' F2 L B2 L",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R B' R F2 R' B R F2 R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U R L' B2 R' L U B2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 77
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "cross",
+     "B R B U F2 L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "d1",
+     "F U F'",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "d2",
+     "R U R'",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "d3",
+     "U R' U2 R",
+     4,
+     0.0004,
+     "ida"
+    ],
+    [
+     "d4",
+     "L F' L F L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "m1",
+     "F2 U2 F' U2 F2",
+     5,
+     0.0022,
+     "ida"
+    ],
+    [
+     "m2",
+     "F2 D2 B2 D2 F2",
+     5,
+     0.0025,
+     "ida"
+    ],
+    [
+     "m3",
+     "R D2 B L2 B' D2 R'",
+     7,
+     0.0465,
+     "ida"
+    ],
+    [
+     "m4",
+     "R B' R' B R' U' R",
+     7,
+     0.0041,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B2 R2 B' L2 B R2 B' L2 B'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R B' R F2 R' B R F2 R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U' R L' B2 R' L U' B2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 78
+  }
+ ],
+ "Q-FOX/easy": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "b223",
+     "F' U D2 F L B R' F2",
+     8,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L2 U' B L B2 U' B",
+     9,
+     0.0113,
+     "ida"
+    ],
+    [
+     "leo",
+     "F R U R' U' F'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 F2 L B2 L' F2 L B2 L",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 D R D' R F2 L' U L F2",
+     10,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U' F' B L2 F B' U' L2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "b223",
+     "U R' D2 F2 L' D2 L2 B R",
+     9,
+     0.0055,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U' F' L2 F U' L2 F' L F",
+     11,
+     0.3242,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B2 D B' U2 B D' B' U2 B'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R L' U2 D2 R L' D R2 L2 U' F2 B2",
+     12,
+     0.0026,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "b223",
+     "R' B' L D' F2 R' F' D2 F'",
+     9,
+     0.0042,
+     "ida"
+    ],
+    [
+     "b123",
+     "F' L F2 U F' U' B L B'",
+     9,
+     0.0208,
+     "ida"
+    ],
+    [
+     "leo",
+     "F R U R' U' F'",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "F U2 F' U' F U F' U' F U' F'",
+     11,
+     0.0024,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "F2 D F D' F L2 B' U B L2",
+     10,
+     0.0019,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "",
+     0,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "b223",
+     "U R' F' D F L D' R2 U' R2",
+     10,
+     0.0417,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L2 F U2 F' U2 L2 U' L2",
+     9,
+     0.0209,
+     "ida"
+    ],
+    [
+     "leo",
+     "L U F U' F' L'",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 D' L U2 L' D L U2 L",
+     9,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 D R D' R F2 L' U L F2",
+     10,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U' F' B L2 F B' U' L2",
+     9,
+     0.0009,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "b223",
+     "U F R U F2 U' R' L' B2",
+     9,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U2 B L B' L2 U L",
+     9,
+     0.0019,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' F' U' F U R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' F R B' R' F' R B",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R B' R F2 R' B R F2 R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R2 U' F B' R2 F' B U' R2",
+     9,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 50
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "b223",
+     "R' B D2 L' U2 D R2 L D2",
+     9,
+     0.0175,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U L2 U L U L",
+     7,
+     0.0047,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U F' B2 L' B' L F U' B' R'",
+     11,
+     0.0024,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L F R F' L' F R' F'",
+     8,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U B2 D B2 U' B' D' B R2 F' U F",
+     13,
+     0.0213,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R2 U' F B' R2 F' B U' R2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 57
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "b223",
+     "F B' U L' B2 D F' B' R",
+     9,
+     0.0062,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 B U' F U F' L B' L'",
+     9,
+     0.0117,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 F2 L B2 L' F2 L B2 L",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "L2 B2 L' F' L B2 L' F L'",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U F' B L2 F B' U L2",
+     9,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "b223",
+     "B' R2 L' F2 B' R2 D R B",
+     9,
+     0.014,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F U F2 L2 F L B L2 B'",
+     10,
+     0.0136,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "F R' F L2 F' R F L2 F2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "U' R2 F2 B2 L2 D R2 F2 B2 L2",
+     10,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "b223",
+     "D2 F2 U B D' R' D2 F",
+     8,
+     0.0008,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L' U' L B L2 B' L2",
+     8,
+     0.002,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B' U' B U' B' U B U' B' U2 B",
+     11,
+     0.0025,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U'",
+     1,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U F' B L2 F B' U L2",
+     9,
+     0.001,
+     "book:scan"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "b223",
+     "U B U L' U' F2 U' F2 R' F",
+     10,
+     0.0607,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L U' L2 U' L2 U2 B L B' L'",
+     11,
+     0.6524,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' F' U' F U R",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B U' F' U B' U' F",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "F2 L2 F' R' F L2 F' R F'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U R L' B2 R' L U B2",
+     9,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "b223",
+     "U B D' L F' L' U' B2 R2",
+     9,
+     0.0029,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U2 F' L' F B L B'",
+     9,
+     0.0382,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "F' U B U' F U B'",
+     7,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "L2 B2 L' F' L B2 L' F L'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U' R' L F2 R L' U' F2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "b223",
+     "U2 L F D2 L' U B' R D'",
+     9,
+     0.0056,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 U' L' D' B' U B D L'",
+     9,
+     0.0236,
+     "ida"
+    ],
+    [
+     "leo",
+     "F R U R' U' F'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L2 D' L U2 L' D L U2 L",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "L2 B2 L' F' L B2 L' F L'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "L2 U F' B L2 F B' U L2",
+     9,
+     0.0008,
+     "book:scan"
+    ]
+   ],
+   "total": 51
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "b223",
+     "U F' R L B' R2 F R2 F",
+     9,
+     0.0051,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L' B' U2 B2 L B' L'",
+     9,
+     0.0827,
+     "ida"
+    ],
+    [
+     "leo",
+     "L' U' B' U B L",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B' U' B U' B' U B U' B' U2 B",
+     11,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U B2 D B2 U' B' D' B R2 F' U F",
+     13,
+     0.013,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 57
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "b223",
+     "U' B2 R D2 B U' R D' B'",
+     9,
+     0.0015,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' D F R L2 U2 R' F2 L F D'",
+     11,
+     1.0592,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "B2 D B' U2 B D' B' U2 B'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U R' F R' B2 R F' R' B2 R2",
+     10,
+     0.0016,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "b223",
+     "D F2 B' D L2 U R2 U R'",
+     9,
+     0.0361,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 R2 B D2 B' R2 F' U F'",
+     9,
+     0.146,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U F' B2 L' B' L F U' B' R'",
+     11,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L U2 L2 U' L2 U' L2 U2 L",
+     9,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 U B2 D B2 U' B' D' B R2 F' U F",
+     13,
+     0.042,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U' R L' B2 R' L U' B2",
+     9,
+     0.0011,
+     "book:scan"
+    ]
+   ],
+   "total": 60
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "b223",
+     "U2 R2 U R' U R2 F B2 L' D2",
+     10,
+     0.0758,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' F' D' L' B L' B' D L' F",
+     10,
+     0.1332,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' U' F' U F R",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L U' R' U L' U' R",
+     7,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U R2 F2 R' B' R F2 R' B R'",
+     10,
+     0.0022,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R2 U F B' R2 F' B U R2",
+     9,
+     0.0011,
+     "book:scan"
+    ]
+   ],
+   "total": 52
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "b223",
+     "R F' L2 U F' L D2 L2 D' R",
+     10,
+     0.0922,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 F' L F2 U F2 L' F U2 L2",
+     10,
+     0.0373,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U F' B2 L' B' L F U' B' R'",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "R' U2 R2 U R2 U R2 U2 R'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "R2 F2 R' B' R F2 R' B R'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "R L' U2 D2 R L' D' R2 L2 U F2 B2",
+     12,
+     0.0025,
+     "book:scan"
+    ]
+   ],
+   "total": 61
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "b223",
+     "R U' R2 B2 R U L B' R2 D",
+     10,
+     0.142,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 F' L2 F2 U' F' U' L2 U' L",
+     10,
+     0.1526,
+     "ida"
+    ],
+    [
+     "leo",
+     "R U B U' B' R'",
+     6,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L' U R U' L U R'",
+     7,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "F U' F2 L2 U' F L2 F' U L2 F2 U F'",
+     13,
+     0.0146,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U' R' L F2 R L' U' F2",
+     9,
+     0.0009,
+     "book:scan"
+    ]
+   ],
+   "total": 55
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "b223",
+     "D R2 L' F' B' R' U' D' R'",
+     9,
+     0.01,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 B' R2 B' D' B R2 F2 B L2",
+     10,
+     0.2248,
+     "ida"
+    ],
+    [
+     "leo",
+     "R' F' U' F U R",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "L' U R U' L U R'",
+     7,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "F2 U R' L F2 R L' U F2",
+     9,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "b223",
+     "B' U F2 L F' D B' U2 R2",
+     9,
+     0.0175,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' B2 R2 D' F2 D2 F D' R2 B2",
+     11,
+     0.3807,
+     "ida"
+    ],
+    [
+     "leo",
+     "L U F U' F' L'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "lco",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ],
+    [
+     "lcp",
+     "U F2 L2 F' R' F L2 F' R F'",
+     10,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lep",
+     "B2 U' R L' B2 R' L U' B2",
+     9,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  }
+ ],
+ "Q-FOX/medium": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "b223",
+     "F' U D2 F L B R' F2",
+     8,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L2 U' B L B2 U' B",
+     9,
+     0.014,
+     "ida"
+    ],
+    [
+     "oll",
+     "B L B' R' B U L' U' B' R",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 F2 B2 U' F2 U F2 D' F2 D B2 R2",
+     12,
+     0.0045,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "b223",
+     "U R' D2 F2 L' D2 L2 B R",
+     9,
+     0.0077,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U' F' L2 F U' L2 F' L F",
+     11,
+     0.2711,
+     "ida"
+    ],
+    [
+     "oll",
+     "B' R2 F R F' R B",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R' D' L D2 R' D L B2 D L2 D R2",
+     12,
+     0.0045,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "b223",
+     "R' B' L D' F2 R' F' D2 F'",
+     9,
+     0.0038,
+     "ida"
+    ],
+    [
+     "b123",
+     "F' L F2 U F' U' B L B'",
+     9,
+     0.0212,
+     "ida"
+    ],
+    [
+     "oll",
+     "L' U' L U L F' L' F",
+     8,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 U' R2 U' R2 U F U F' R2 F U' F'",
+     13,
+     0.0078,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "b223",
+     "U R' F' D F L D' R2 U' R2",
+     10,
+     0.0386,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L2 F U2 F' U2 L2 U' L2",
+     9,
+     0.0192,
+     "ida"
+    ],
+    [
+     "oll",
+     "F' R U2 R' U2 R' F2 R F'",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R' F R' B2 R F' R' B2 R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "b223",
+     "U F R U F2 U' R' L' B2",
+     9,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U2 B L B' L2 U L",
+     9,
+     0.002,
+     "ida"
+    ],
+    [
+     "oll",
+     "F U F' U' R' F' L F R L'",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F2 L2 F' R' F L2 F' R F'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "b223",
+     "R' B D2 L' U2 D R2 L D2",
+     9,
+     0.0135,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U L2 U L U L",
+     7,
+     0.0029,
+     "ida"
+    ],
+    [
+     "oll",
+     "F' U' R L2 B L B' R' U L F",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "L2 F2 B2 U' B2 U B2 D' B2 D F2 L2",
+     12,
+     0.0032,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "b223",
+     "F B' U L' B2 D F' B' R",
+     9,
+     0.0051,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 B U' F U F' L B' L'",
+     9,
+     0.009,
+     "ida"
+    ],
+    [
+     "oll",
+     "R F D2 L2 U2 B L2 D2 R",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 27
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "b223",
+     "B' R2 L' F2 B' R2 D R B",
+     9,
+     0.0102,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F U F2 L2 F L B L2 B'",
+     10,
+     0.0099,
+     "ida"
+    ],
+    [
+     "oll",
+     "R U B U' B' R'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "L2 B2 L' F' L B2 L' F L'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 35
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "b223",
+     "D2 F2 U B D' R' D2 F",
+     8,
+     0.0008,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L' U' L B L2 B' L2",
+     8,
+     0.0015,
+     "ida"
+    ],
+    [
+     "oll",
+     "F2 L2 F' U R U' R' F L2 F2",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 U F B' R2 F' B U R2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 36
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "b223",
+     "U B U L' U' F2 U' F2 R' F",
+     10,
+     0.0467,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L U' L2 U' L2 U2 B L B' L'",
+     11,
+     0.6594,
+     "ida"
+    ],
+    [
+     "oll",
+     "R B U B' U R' U' R U' R'",
+     10,
+     0.0015,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R L' U2 D2 R L' D' R2 L2 U F2 B2",
+     12,
+     0.0042,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "b223",
+     "U B D' L F' L' U' B2 R2",
+     9,
+     0.0042,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U2 F' L' F B L B'",
+     9,
+     0.0432,
+     "ida"
+    ],
+    [
+     "oll",
+     "F R U R' U' R U R' U' F'",
+     10,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "F U' B U2 F' U B' R' L' U2 R L",
+     12,
+     0.0048,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "b223",
+     "U2 L F D2 L' U B' R D'",
+     9,
+     0.0056,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 U' L' D' B' U B D L'",
+     9,
+     0.0192,
+     "ida"
+    ],
+    [
+     "oll",
+     "F' L' F R F' U' L U F R'",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R' U' F' U F R L U2 L2 B D' B D B2 L2 U2 L'",
+     17,
+     7.2433,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "b223",
+     "U F' R L B' R2 F R2 F",
+     9,
+     0.0038,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L' B' U2 B2 L B' L'",
+     9,
+     0.0676,
+     "ida"
+    ],
+    [
+     "oll",
+     "B2 R2 B' U L U' L' B R2 B2",
+     10,
+     0.001,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R U B U' B' R' L' U2 L2 F' D F' D' F2 L2 U2 L",
+     17,
+     7.5992,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "b223",
+     "U' B2 R D2 B U' R D' B'",
+     9,
+     0.0016,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' D F R L2 U2 R' F2 L F D'",
+     11,
+     0.8765,
+     "ida"
+    ],
+    [
+     "oll",
+     "F R2 B' R' B R' F'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "B2 U R L' B2 R' L U B2",
+     9,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "b223",
+     "D F2 B' D L2 U R2 U R'",
+     9,
+     0.0316,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 R2 B D2 B' R2 F' U F'",
+     9,
+     0.1771,
+     "ida"
+    ],
+    [
+     "oll",
+     "L' B' U2 B2 U L U' L' B' U2 L",
+     11,
+     0.002,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 U' R2 D B2 L2 U L2 D' B2",
+     10,
+     0.0014,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "b223",
+     "U2 R2 U R' U R2 F B2 L' D2",
+     10,
+     0.0457,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' F' D' L' B L' B' D L' F",
+     10,
+     0.0664,
+     "ida"
+    ],
+    [
+     "oll",
+     "L F R' F R F2 L'",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R L' B R2 D2 R2 L B' L U2 R' F L'",
+     13,
+     0.0093,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "b223",
+     "R F' L2 U F' L D2 L2 D' R",
+     10,
+     0.0513,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 F' L F2 U F2 L' F U2 L2",
+     10,
+     0.0273,
+     "ida"
+    ],
+    [
+     "oll",
+     "B' R B R' U2 R' U F' U F R",
+     11,
+     0.0015,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "L' U' B' U B L R U2 R2 F D' F D F2 R2 U2 R'",
+     17,
+     7.0589,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "b223",
+     "R U' R2 B2 R U L B' R2 D",
+     10,
+     0.1257,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 F' L2 F2 U' F' U' L2 U' L",
+     10,
+     0.127,
+     "ida"
+    ],
+    [
+     "oll",
+     "L' B' R B' R' B2 L",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 F2 R' B' R F2 R' B R'",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "b223",
+     "D R2 L' F' B' R' U' D' R'",
+     9,
+     0.0078,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 B' R2 B' D' B R2 F2 B L2",
+     10,
+     0.1735,
+     "ida"
+    ],
+    [
+     "oll",
+     "R' F' R B R' U' F U R B'",
+     10,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "R2 U F B' R2 F' B U R2",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "b223",
+     "B' U F2 L F' D B' U2 R2",
+     9,
+     0.0163,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' B2 R2 D' F2 D2 F D' R2 B2",
+     11,
+     0.3673,
+     "ida"
+    ],
+    [
+     "oll",
+     "L U F U' F' L'",
+     6,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "pll",
+     "L2 F2 B2 U' B2 U B2 D' B2 D F2 L2",
+     12,
+     0.0034,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  }
+ ],
+ "Q-FOX/hard": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "b223",
+     "F' U D2 F L B R' F2",
+     8,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L2 U' B L B2 U' B",
+     9,
+     0.0116,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F' L' F B' U' B U F' L F",
+     11,
+     0.002,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "",
+     0,
+     0.0004,
+     "centres"
+    ]
+   ],
+   "total": 28
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "b223",
+     "U R' D2 F2 L' D2 L2 B R",
+     9,
+     0.0055,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U' F' L2 F U' L2 F' L F",
+     11,
+     0.2521,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F U' R2 D R' U R D' R2 U F'",
+     12,
+     0.0043,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U M' U2 M U M2 U'",
+     13,
+     0.0013,
+     "centres"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "b223",
+     "R' B' L D' F2 R' F' D2 F'",
+     9,
+     0.0037,
+     "ida"
+    ],
+    [
+     "b123",
+     "F' L F2 U F' U' B L B'",
+     9,
+     0.0198,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U B U B' U' B' R B R'",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U M U2 M' U M2 U'",
+     13,
+     0.0012,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "b223",
+     "U R' F' D F L D' R2 U' R2",
+     10,
+     0.0376,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L2 F U2 F' U2 L2 U' L2",
+     9,
+     0.05,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F R' F' L F R2 U' R' U F' L'",
+     12,
+     0.0034,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M U2 M' U M2",
+     11,
+     0.0015,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "b223",
+     "U F R U F2 U' R' L' B2",
+     9,
+     0.0011,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U2 B L B' L2 U L",
+     9,
+     0.0027,
+     "ida"
+    ],
+    [
+     "cmll",
+     "F U F' U L' U L U F' L F L'",
+     12,
+     0.0065,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U M' U2 M U M2 U'",
+     13,
+     0.0024,
+     "centres"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "b223",
+     "R' B D2 L' U2 D R2 L D2",
+     9,
+     0.0177,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U L2 U L U L",
+     7,
+     0.0039,
+     "ida"
+    ],
+    [
+     "cmll",
+     "F U' F2 D' B L B' D F2 U F'",
+     11,
+     0.0039,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "",
+     0,
+     0.0002,
+     "centres"
+    ]
+   ],
+   "total": 27
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "b223",
+     "F B' U L' B2 D F' B' R",
+     9,
+     0.0069,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 B U' F U F' L B' L'",
+     9,
+     0.012,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R F D2 L2 U2 B L2 D2 R",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "",
+     0,
+     0.0002,
+     "centres"
+    ]
+   ],
+   "total": 27
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "b223",
+     "B' R2 L' F2 B' R2 D R B",
+     9,
+     0.0116,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F U F2 L2 F L B L2 B'",
+     10,
+     0.0101,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R' U2 F R2 F' R2 B U2 B' R",
+     10,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M U2 M' U M2",
+     11,
+     0.0015,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "b223",
+     "D2 F2 U B D' R' D2 F",
+     8,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L' U' L B L2 B' L2",
+     8,
+     0.0015,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L2 U L' F' L U' L2 U L F L'",
+     11,
+     0.0014,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U M' U2 M U M2 U'",
+     13,
+     0.0012,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "b223",
+     "U B U L' U' F2 U' F2 R' F",
+     10,
+     0.0463,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L U' L2 U' L2 U2 B L B' L'",
+     11,
+     0.5807,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F R U R' U F' U' F U' F'",
+     11,
+     0.0021,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M U2 M2 U2 M U' M2",
+     14,
+     0.0015,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "b223",
+     "U B D' L F' L' U' B2 R2",
+     9,
+     0.0023,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U2 F' L' F B L B'",
+     9,
+     0.0311,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' B' R B' R' B2 U2 R' U L U' R L'",
+     13,
+     0.0086,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M2 U2 M2 U M2",
+     11,
+     0.0046,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "b223",
+     "U2 L F D2 L' U B' R D'",
+     9,
+     0.0056,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 U' L' D' B' U B D L'",
+     9,
+     0.0219,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' L' U2 L2 U L2 B' U B L2 U' L'",
+     12,
+     0.0044,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M' U2 M U M2",
+     11,
+     0.0022,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "b223",
+     "U F' R L B' R2 F R2 F",
+     9,
+     0.0051,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L' B' U2 B2 L B' L'",
+     9,
+     0.0857,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 F R' F R2 U' R' U' R U R' F2",
+     12,
+     0.0064,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U' M' U2 M U' M2",
+     11,
+     0.0013,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "b223",
+     "U' B2 R D2 B U' R D' B'",
+     9,
+     0.0017,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' D F R L2 U2 R' F2 L F D'",
+     11,
+     0.8343,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' R B2 L' B' L B' R'",
+     8,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U' M' U2 M U' M2 U'",
+     13,
+     0.0013,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "b223",
+     "D F2 B' D L2 U R2 U R'",
+     9,
+     0.0264,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 R2 B D2 B' R2 F' U F'",
+     9,
+     0.1109,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R L' B R' L2 U2 L2 B L B' R B2 R'",
+     13,
+     0.0144,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M' U2 M U M2",
+     11,
+     0.0024,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "b223",
+     "U2 R2 U R' U R2 F B2 L' D2",
+     10,
+     0.061,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' F' D' L' B L' B' D L' F",
+     10,
+     0.0643,
+     "ida"
+    ],
+    [
+     "cmll",
+     "B L' B L B' L2 F' L' F U2 L' B'",
+     12,
+     0.0042,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U' M U2 M2 U2 M U M2",
+     14,
+     0.0014,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "b223",
+     "R F' L2 U F' L D2 L2 D' R",
+     10,
+     0.0483,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 F' L F2 U F2 L' F U2 L2",
+     10,
+     0.0283,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 F' U' L' B U L' U' B' U L2 F",
+     12,
+     0.004,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M2 U' M' U2 M U' M2 U'",
+     13,
+     0.0013,
+     "centres"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "b223",
+     "R U' R2 B2 R U L B' R2 D",
+     10,
+     0.1283,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 F' L2 F2 U' F' U' L2 U' L",
+     10,
+     0.1272,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U R' F R F' U2 F' U2 F",
+     9,
+     0.0012,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M2 U2 M2 U M2",
+     11,
+     0.0047,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "b223",
+     "D R2 L' F' B' R' U' D' R'",
+     9,
+     0.0078,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 B' R2 B' D' B R2 F2 B L2",
+     10,
+     0.175,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F' L' F R F' U' L U F R'",
+     11,
+     0.0033,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U' M U2 M' U' M2",
+     11,
+     0.0021,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "b223",
+     "B' U F2 L F' D B' U2 R2",
+     9,
+     0.0166,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' B2 R2 D' F2 D2 F D' R2 B2",
+     11,
+     0.3508,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' R B' R2 F R' F' R2 B2 U2 B'",
+     11,
+     0.0022,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M2 U M U2 M2 U2 M U' M2",
+     14,
+     0.0014,
+     "centres"
+    ]
+   ],
+   "total": 45
+  }
+ ],
+ "Q-FOX/full": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "b223",
+     "F' U D2 F L B R' F2",
+     8,
+     0.001,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L2 U' B L B2 U' B",
+     9,
+     0.0117,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' B' R' L U' R U L' B L",
+     10,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 28
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "b223",
+     "U R' D2 F2 L' D2 L2 B R",
+     9,
+     0.0054,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U' F' L2 F U' L2 F' L F",
+     11,
+     0.2682,
+     "ida"
+    ],
+    [
+     "ll",
+     "R B' R2 L U2 R U B U B' U' L' B2",
+     13,
+     0.0073,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "b223",
+     "R' B' L D' F2 R' F' D2 F'",
+     9,
+     0.0037,
+     "ida"
+    ],
+    [
+     "b123",
+     "F' L F2 U F' U' B L B'",
+     9,
+     0.0197,
+     "ida"
+    ],
+    [
+     "ll",
+     "R U2 R' B' U R U B' R' B2 L U' L'",
+     13,
+     0.01,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "b223",
+     "U R' F' D F L D' R2 U' R2",
+     10,
+     0.0327,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L2 F U2 F' U2 L2 U' L2",
+     9,
+     0.0168,
+     "ida"
+    ],
+    [
+     "ll",
+     "L U' R' U L' U' F2 L F2 R F' L' F",
+     13,
+     0.0083,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "b223",
+     "U F R U F2 U' R' L' B2",
+     9,
+     0.0009,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U2 B L B' L2 U L",
+     9,
+     0.0021,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U F' U' L' F' U2 F' D' F U2 F' D F2",
+     15,
+     8.7739,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "b223",
+     "R' B D2 L' U2 D R2 L D2",
+     9,
+     0.0144,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U L2 U L U L",
+     7,
+     0.0028,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U' F2 D' B L B' D F2 U F'",
+     11,
+     0.0025,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 27
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "b223",
+     "F B' U L' B2 D F' B' R",
+     9,
+     0.0051,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 B U' F U F' L B' L'",
+     9,
+     0.0089,
+     "ida"
+    ],
+    [
+     "ll",
+     "R F D2 L2 U2 B L2 D2 R",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 27
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "b223",
+     "B' R2 L' F2 B' R2 D R B",
+     9,
+     0.0098,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F U F2 L2 F L B L2 B'",
+     10,
+     0.0095,
+     "ida"
+    ],
+    [
+     "ll",
+     "R U2 F U' B' U F' U' B2 U' B' R'",
+     12,
+     0.005,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "b223",
+     "D2 F2 U B D' R' D2 F",
+     8,
+     0.0008,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L' U' L B L2 B' L2",
+     8,
+     0.0015,
+     "ida"
+    ],
+    [
+     "ll",
+     "F B' U F' U' B L' U2 L U F U F'",
+     13,
+     0.0119,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 30
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "b223",
+     "U B U L' U' F2 U' F2 R' F",
+     10,
+     0.0448,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L U' L2 U' L2 U2 B L B' L'",
+     11,
+     0.5806,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U F' U' L' B U B' U B U2 B'",
+     13,
+     0.0162,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 35
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "b223",
+     "U B D' L F' L' U' B2 R2",
+     9,
+     0.0023,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 L U2 F' L' F B L B'",
+     9,
+     0.0312,
+     "ida"
+    ],
+    [
+     "ll",
+     "F B' U' R2 D R' U R D' R2 B U F'",
+     13,
+     0.0139,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "b223",
+     "U2 L F D2 L' U B' R D'",
+     9,
+     0.0056,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 U' L' D' B' U B D L'",
+     9,
+     0.0188,
+     "ida"
+    ],
+    [
+     "ll",
+     "B U B' U2 R2 F2 R U' F' U R' F2 R2",
+     13,
+     0.0074,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "b223",
+     "U F' R L B' R2 F R2 F",
+     9,
+     0.0038,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 L' B' U2 B2 L B' L'",
+     9,
+     0.0665,
+     "ida"
+    ],
+    [
+     "ll",
+     "B2 L2 U2 B R B R' B2 U2 L2 B' L' B'",
+     13,
+     0.0105,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "b223",
+     "U' B2 R D2 B U' R D' B'",
+     9,
+     0.0016,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' D F R L2 U2 R' F2 L F D'",
+     11,
+     0.8126,
+     "ida"
+    ],
+    [
+     "ll",
+     "R B U2 R' U' R U' R' U2 R B' R'",
+     12,
+     0.0028,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "b223",
+     "D F2 B' D L2 U R2 U R'",
+     9,
+     0.0264,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 R2 B D2 B' R2 F' U F'",
+     9,
+     0.1073,
+     "ida"
+    ],
+    [
+     "ll",
+     "L U2 L' U' B' R' F' U' F U' R U B",
+     13,
+     0.0092,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "b223",
+     "U2 R2 U R' U R2 F B2 L' D2",
+     10,
+     0.0385,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' F' D' L' B L' B' D L' F",
+     10,
+     0.0647,
+     "ida"
+    ],
+    [
+     "ll",
+     "R B' R' B U' R D L' B L D' R'",
+     12,
+     0.0032,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "b223",
+     "R F' L2 U F' L D2 L2 D' R",
+     10,
+     0.0651,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 F' L F2 U F2 L' F U2 L2",
+     10,
+     0.0273,
+     "ida"
+    ],
+    [
+     "ll",
+     "B L' B' U F' B L2 F U L U' B'",
+     12,
+     0.0029,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "b223",
+     "R U' R2 B2 R U L B' R2 D",
+     10,
+     0.1242,
+     "ida"
+    ],
+    [
+     "b123",
+     "L2 F' L2 F2 U' F' U' L2 U' L",
+     10,
+     0.1228,
+     "ida"
+    ],
+    [
+     "ll",
+     "B' R B' R F2 L D2 L' F2 R2 B2",
+     11,
+     0.0023,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 32
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "b223",
+     "D R2 L' F' B' R' U' D' R'",
+     9,
+     0.0079,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 B' R2 B' D' B R2 F2 B L2",
+     10,
+     0.1865,
+     "ida"
+    ],
+    [
+     "ll",
+     "R2 D' R' D' F L' F' D2 R' U' B' U2 B'",
+     13,
+     0.0139,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "b223",
+     "B' U F2 L F' D B' U2 R2",
+     9,
+     0.0181,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' B2 R2 D' F2 D2 F D' R2 B2",
+     11,
+     0.369,
+     "ida"
+    ],
+    [
+     "ll",
+     "F R U' R' L' U' L U L F' L2 U L",
+     13,
+     0.0092,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  }
+ ],
+ "Q-FOX/cross": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "cross",
+     "F U F R' B' L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U F' U2 F",
+     4,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "U L U2 L2 U' L",
+     6,
+     0.0015,
+     "ida"
+    ],
+    [
+     "f3",
+     "U R' L U' R L'",
+     6,
+     0.0094,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 U' R U' R' U2 R2",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "ll",
+     "L U L' U B' R' F' U' F U2 R U B",
+     13,
+     0.0067,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "cross",
+     "F R' D F D F2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L2 U' L U L2",
+     5,
+     0.0034,
+     "ida"
+    ],
+    [
+     "f2",
+     "R F R F' R'",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "f3",
+     "R B U2 B' R'",
+     5,
+     0.0013,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0029,
+     "ida"
+    ],
+    [
+     "ll",
+     "R U' L' B2 U' B2 U B2 R' L",
+     10,
+     0.0011,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "cross",
+     "R B2 U D F2 B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U' L' B U2 L B'",
+     6,
+     0.017,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f3",
+     "U F' U2 F2 R2 F' R2",
+     7,
+     0.0583,
+     "ida"
+    ],
+    [
+     "f4",
+     "U' F2 U' L' U L F2",
+     7,
+     0.0024,
+     "ida"
+    ],
+    [
+     "ll",
+     "F R U' R2 U2 R2 U R2 F' U F R F'",
+     13,
+     0.0098,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "cross",
+     "R2 F' L B L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L' U L",
+     3,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' U' F",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "f3",
+     "R' F' U2 F U' R",
+     6,
+     0.029,
+     "ida"
+    ],
+    [
+     "f4",
+     "L U2 L' B' U' B",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' U F U' F' U2 R F R' U R U2 F'",
+     13,
+     0.0083,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "cross",
+     "F' L2 D' R' F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 R' B' R2 U B R",
+     7,
+     0.0149,
+     "ida"
+    ],
+    [
+     "f2",
+     "U' F U2 F2 U' F",
+     6,
+     0.0046,
+     "ida"
+    ],
+    [
+     "f3",
+     "F L2 F' L' F L' F'",
+     7,
+     0.1976,
+     "ida"
+    ],
+    [
+     "f4",
+     "B2 U' B U' B' U2 B2",
+     7,
+     0.0033,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U F' U F U2 F2 U' L' U L F",
+     12,
+     0.0044,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "cross",
+     "B D2 L' D' R'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "L U2 L2 U' L",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "B U R2 B R2 B'",
+     6,
+     0.0562,
+     "ida"
+    ],
+    [
+     "f3",
+     "R U2 B' U2 B R'",
+     6,
+     0.0437,
+     "ida"
+    ],
+    [
+     "f4",
+     "B' U' B U' L U L'",
+     7,
+     0.005,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' U2 F U F' U F B U B' U' B' R B R'",
+     15,
+     9.5737,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "cross",
+     "R L' F' U L2 B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F2 U F U' F2",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "f2",
+     "R U' B2 R' B2",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "f3",
+     "R2 U2 R' U' R U' R2",
+     7,
+     0.1123,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' U2 R U' B U B'",
+     7,
+     0.0023,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U R U' R' F' L U2 L D R' F2 R D' L2",
+     15,
+     9.4643,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "cross",
+     "D B L' D F' B2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 F L F' L' F'",
+     6,
+     0.0052,
+     "ida"
+    ],
+    [
+     "f2",
+     "U L' B2 L B2",
+     5,
+     0.0003,
+     "ida"
+    ],
+    [
+     "f3",
+     "U F' L' U' L U2 F",
+     7,
+     0.0407,
+     "ida"
+    ],
+    [
+     "f4",
+     "U B' U2 B L U L'",
+     7,
+     0.0007,
+     "ida"
+    ],
+    [
+     "ll",
+     "R U' F U' R2 U' R2 U R2 F' U2 R'",
+     12,
+     0.0058,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "cross",
+     "U' D' R2 L F'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "D B U B' D'",
+     5,
+     0.0011,
+     "ida"
+    ],
+    [
+     "f2",
+     "R B' U2 B R'",
+     5,
+     0.0038,
+     "ida"
+    ],
+    [
+     "f3",
+     "U2 F' R' F R F",
+     6,
+     0.0044,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 F2 U F' U F U2 F2",
+     8,
+     0.0049,
+     "ida"
+    ],
+    [
+     "ll",
+     "R2 B2 R' U B U' B' L' B' L2 U2 R' L'",
+     13,
+     0.0074,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "cross",
+     "U D' R' B L' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R2 F R2 F2 U' F",
+     6,
+     0.0118,
+     "ida"
+    ],
+    [
+     "f2",
+     "R' F' U2 F U' R",
+     6,
+     0.0323,
+     "ida"
+    ],
+    [
+     "f3",
+     "L' U F' L F L",
+     6,
+     0.0758,
+     "ida"
+    ],
+    [
+     "f4",
+     "L U2 F' L F L2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U2 D B2 U L U2 L' B2 D' R U2 F'",
+     13,
+     0.0072,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "cross",
+     "F B D2 R' D' B",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F2 U' F' U F2",
+     5,
+     0.0004,
+     "ida"
+    ],
+    [
+     "f2",
+     "D B' U' B D'",
+     5,
+     0.0111,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' F U L U L' F'",
+     7,
+     0.1216,
+     "ida"
+    ],
+    [
+     "f4",
+     "R' F2 D' L D F2 R",
+     7,
+     0.0027,
+     "ida"
+    ],
+    [
+     "ll",
+     "F R B' R B R2 F' B' R' F' U F R B U L U2 L'",
+     18,
+     9.3574,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "cross",
+     "F B' D' F'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F' U2 F L' U' L",
+     6,
+     0.0067,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' D2 L' U' L D2 F",
+     7,
+     0.3017,
+     "ida"
+    ],
+    [
+     "f3",
+     "L' B D' B D L B2",
+     7,
+     0.6007,
+     "ida"
+    ],
+    [
+     "f4",
+     "L2 U L2 U L2 U2 L2",
+     7,
+     0.005,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' R' F' L F' R L' U2 F' U2 F U2 F2",
+     13,
+     0.0141,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "cross",
+     "U R F B'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R F R' U2 F' R'",
+     6,
+     0.0039,
+     "ida"
+    ],
+    [
+     "f2",
+     "L2 U L' D' B2 D",
+     6,
+     0.0666,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' R2 F2 R F2 R",
+     6,
+     0.0082,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 U2 R B2 L' B' L B' R",
+     9,
+     0.1153,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U' L F2 D R' B' R' B R2 D' F2",
+     12,
+     0.0042,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "cross",
+     "R D L' B R F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F' U2 F2 U' F'",
+     5,
+     0.002,
+     "ida"
+    ],
+    [
+     "f2",
+     "F2 L2 F L2 F",
+     5,
+     0.0011,
+     "ida"
+    ],
+    [
+     "f3",
+     "R F R' F' R'",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "f4",
+     "U R2 U' F' U F R2",
+     7,
+     0.0008,
+     "ida"
+    ],
+    [
+     "ll",
+     "L2 U B' U R' F' U' F R B2 L' B' L'",
+     13,
+     0.0111,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "cross",
+     "D B' D R L",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "R' L U R L'",
+     5,
+     0.001,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 R U F U2 F' R'",
+     7,
+     0.0596,
+     "ida"
+    ],
+    [
+     "f3",
+     "U' L' U F' L F L",
+     7,
+     0.1468,
+     "ida"
+    ],
+    [
+     "f4",
+     "R B2 U B' U' B2 R'",
+     7,
+     0.0026,
+     "ida"
+    ],
+    [
+     "ll",
+     "F2 D B' R2 B D' L2 B L B' L2 F2 L'",
+     13,
+     0.0131,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "cross",
+     "U' F R' L2 D R'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U B' R2 B R2",
+     5,
+     0.0004,
+     "ida"
+    ],
+    [
+     "f2",
+     "U B2 L2 B2 L2",
+     5,
+     0.0077,
+     "ida"
+    ],
+    [
+     "f3",
+     "D2 F U' F' D2",
+     5,
+     0.0088,
+     "ida"
+    ],
+    [
+     "f4",
+     "U F2 U2 F' U' F U' F2",
+     8,
+     0.0025,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' U' F U F R' F2 U' F U R",
+     11,
+     0.0016,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "cross",
+     "F' L F D' F R2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F R' U R F'",
+     5,
+     0.0055,
+     "ida"
+    ],
+    [
+     "f2",
+     "D L U2 L' D'",
+     5,
+     0.006,
+     "ida"
+    ],
+    [
+     "f3",
+     "U2 F' U2 F",
+     4,
+     0.0008,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "ll",
+     "R2 B2 D L' B L D' L' B' L B2 R2",
+     12,
+     0.0034,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "cross",
+     "R L B' D B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "F U' F2 U' F",
+     5,
+     0.0006,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L' U2 L",
+     4,
+     0.001,
+     "ida"
+    ],
+    [
+     "f3",
+     "B2 U' B' U B2",
+     5,
+     0.0005,
+     "ida"
+    ],
+    [
+     "f4",
+     "B2 L U L' U' B2",
+     6,
+     0.0007,
+     "ida"
+    ],
+    [
+     "ll",
+     "R D' F2 U D B U' B' D' F2 D R'",
+     12,
+     0.0053,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "cross",
+     "L D2 F' L2 D' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 F2 U F U' F2",
+     6,
+     0.0013,
+     "ida"
+    ],
+    [
+     "f2",
+     "U2 L U L'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "f3",
+     "U R U R2 U2 R",
+     6,
+     0.0086,
+     "ida"
+    ],
+    [
+     "f4",
+     "R2 B U B' U' R2",
+     6,
+     0.0006,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' B L2 U L2 U' L2 U' F U B'",
+     11,
+     0.0019,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "cross",
+     "B R B U F2 L'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "f1",
+     "U2 L' U2 L",
+     4,
+     0.0008,
+     "ida"
+    ],
+    [
+     "f2",
+     "F' U2 F",
+     3,
+     0.0001,
+     "ida"
+    ],
+    [
+     "f3",
+     "B' L' B L B",
+     5,
+     0.0042,
+     "ida"
+    ],
+    [
+     "f4",
+     "U2 B U2 B' U R' U' R",
+     8,
+     0.0056,
+     "ida"
+    ],
+    [
+     "ll",
+     "B U B2 R' B U B U' F' B' U' F R",
+     13,
+     0.0077,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  }
+ ],
+ "Q-FOX/zz": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "eoline",
+     "F' U F' R' B'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R U R'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L2 U' L",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "L U R' U' R L'",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U R' U R' U2 R2 U' R",
+     9,
+     0.0007,
+     "ida"
+    ],
+    [
+     "ll",
+     "F L' D2 L F' U F L' D2 L F'",
+     11,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "eoline",
+     "U2 R2 L' B'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U2 L' U2 L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' L' U2 L U2 L",
+     6,
+     0.0007,
+     "ida"
+    ],
+    [
+     "z4",
+     "R L' U2 L2 U L U' L2 U2 L U2 R'",
+     12,
+     0.0451,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U2 R U R' F2 D' L' D F2 U2 L",
+     12,
+     0.006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "eoline",
+     "D2 R' D F D2",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R2 U R'",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' L' U' R U' L'",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R2 U2 R U R' U R2",
+     8,
+     0.0017,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' R' L' U2 R2 U R' U' R2 U2 R L",
+     12,
+     0.0291,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U2 L' D' L U2 L' D L2",
+     9,
+     0.0008,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "eoline",
+     "F' L' U L2 B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R L U2 R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U L' U' L2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R2 U L U' R2 L'",
+     7,
+     0.0008,
+     "ida"
+    ],
+    [
+     "z4",
+     "L' U' L' U R2 L U R2 L U R2 L' U' R2",
+     14,
+     0.8483,
+     "ida"
+    ],
+    [
+     "ll",
+     "B U2 B' U' B U B' U' B U' B'",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "eoline",
+     "U F B R B U F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L' U' L U L",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R' L U L2 U' L2 U L U R U R U R",
+     15,
+     1.0195,
+     "ida"
+    ],
+    [
+     "ll",
+     "F2 R2 B2 D F' D2 F D' B2 R2 F U F",
+     13,
+     0.024,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "eoline",
+     "U R B D B R' B",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R2 U' R' U2 R2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' R U2 L' U2 R' L",
+     7,
+     0.0006,
+     "ida"
+    ],
+    [
+     "z4",
+     "L U' R' U' R2 U R2 U' L U' L2 U R' L",
+     14,
+     0.7154,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' U' F' U F R B' U' B U B L' B' L",
+     14,
+     8.8177,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 49
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "eoline",
+     "U2 R' B L D' L2 F'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R2 L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U' L U2 R2 L'",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' R' L2 U' R U L2",
+     7,
+     0.0021,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R U R U R U2 R2 U2 R",
+     10,
+     0.002,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' U2 R2 U R2 U R U' R U' R'",
+     11,
+     0.0014,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "eoline",
+     "U F2 L D L' F' B'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R U2 R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L U' L U L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R U2 R U L U R' L'",
+     9,
+     0.0106,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U' L U L2 U' L2 U2 R U' R2 L U2 R",
+     14,
+     0.6555,
+     "ida"
+    ],
+    [
+     "ll",
+     "B L' B' L U L U' L' R U R' U' R' F R F'",
+     16,
+     8.8542,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 56
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "eoline",
+     "B R D2 L' B D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U R'",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "L' U L2 U' L2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "U' L' U2 L U2 L",
+     6,
+     0.0005,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R2 L' U R2 U L2 U2 L2 U2 R2 L' U' R2",
+     14,
+     0.374,
+     "ida"
+    ],
+    [
+     "ll",
+     "F2 R F2 U' F2 D R U D' R U' R2 F2",
+     13,
+     0.0153,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "eoline",
+     "U R B' D R F B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R' U' R2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L U2 L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U2 R' U2 R U2 R",
+     6,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L U2 L U' L' U' L2 U' L",
+     10,
+     0.0015,
+     "ida"
+    ],
+    [
+     "ll",
+     "F2 D' F U2 F' D F U2 F",
+     9,
+     0.0009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "eoline",
+     "U D' L B U' F' B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 R' U2 R L2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U' L2 U2 L' U2 L",
+     8,
+     0.0097,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' L U L2 U' L2 U2 R' U' R L",
+     11,
+     0.0082,
+     "ida"
+    ],
+    [
+     "ll",
+     "R2 F2 R U2 L2 D' L U2 L2 D F2 R L'",
+     13,
+     0.0067,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "eoline",
+     "R2 U' F R D' F'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L' U' L",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R2 U2 R2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R U' R' U R U R'",
+     7,
+     0.0012,
+     "ida"
+    ],
+    [
+     "z4",
+     "R2 L2 U R2 L2 U2 R2 L2 U' R2 L U' L2 U L",
+     15,
+     2.531,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' R' F U' F' U2 F U' F' U' R F",
+     12,
+     0.0061,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "eoline",
+     "U F B' R F B'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U2 R U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' U2 R L' U L2",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' U R U L U L'",
+     7,
+     0.0007,
+     "ida"
+    ],
+    [
+     "z4",
+     "U' R U R2 U' R2 L U L2 U' L2 U R L",
+     14,
+     0.384,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U' L U' L' U2 L",
+     7,
+     0.0006,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "eoline",
+     "D' L' B2 U F' B'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L' U' R' U' R2",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L U L' U L2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z3",
+     "L U' L' U' R U R'",
+     7,
+     0.0016,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R2 U' R2 L U R2 L2 U' L' U L U2 R2",
+     14,
+     0.2603,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' F2 L D' L D L2 F2 R",
+     9,
+     0.0007,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 47
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "eoline",
+     "R L' D F B D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "U' L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L2 U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U R' U2 R U2 R' U2 R",
+     8,
+     0.0064,
+     "ida"
+    ],
+    [
+     "z4",
+     "U2 R' U2 R2 L U R2 U' R2 U' L' U2 R",
+     13,
+     0.1046,
+     "ida"
+    ],
+    [
+     "ll",
+     "R2 U F L2 B' D2 B L2 F' R2 U' R2",
+     12,
+     0.0042,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "eoline",
+     "U' L' F R' L' D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R2 U L' U' R'",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z2",
+     "R' U2 R L' U2 L2",
+     6,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z3",
+     "R U R U' R2 U' R",
+     7,
+     0.0011,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L' U2 L U2 R' L2 U2 R U2 R U R U' R' L'",
+     16,
+     5.0669,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' U B U R2 D2 B' L2 D2 R2 U B'",
+     12,
+     0.0043,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 53
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "eoline",
+     "U L' B' D B2 U' F",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L2",
+     1,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U R' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' L U2 R' U2 R L'",
+     7,
+     0.0012,
+     "ida"
+    ],
+    [
+     "z4",
+     "R U2 R2 U2 R' U2 R L U L2 U' L2 U L",
+     14,
+     0.4174,
+     "ida"
+    ],
+    [
+     "ll",
+     "B' U F' U B2 D L2 D' B2 U2 F B",
+     12,
+     0.0049,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "eoline",
+     "L B' D R B",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "L U2 L2",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "R U R2 U2 R2",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U L' U' L'",
+     6,
+     0.0003,
+     "ida"
+    ],
+    [
+     "z4",
+     "U R2 U2 L2 U R L2 U R' L2 U' L2 U R2",
+     14,
+     0.1934,
+     "ida"
+    ],
+    [
+     "ll",
+     "B L U L2 U2 L2 U L2 U L B'",
+     11,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "eoline",
+     "D F' L' B R' D'",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "z1",
+     "R U R'",
+     3,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U L2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "R' U R U L' U' L",
+     7,
+     0.0014,
+     "ida"
+    ],
+    [
+     "z4",
+     "U L' U' L' U R2 L2 U' L2 U' L U L U R2",
+     15,
+     1.4654,
+     "ida"
+    ],
+    [
+     "ll",
+     "B R' U2 R U2 R B' R' U' R' U R",
+     12,
+     0.005,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "eoline",
+     "F' B' U L F' B'",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "z1",
+     "U L' U R2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z2",
+     "U2 L' U' L2",
+     4,
+     0.0,
+     "ida"
+    ],
+    [
+     "z3",
+     "U L U2 R' U2 R L'",
+     7,
+     0.0004,
+     "ida"
+    ],
+    [
+     "z4",
+     "L' U2 L2 U L' U R' L2 U' R U2 L'",
+     12,
+     0.0539,
+     "ida"
+    ],
+    [
+     "ll",
+     "R L U2 R' U' R U2 L2 U R' U' L",
+     12,
+     0.004,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 46
+  }
+ ],
+ "Q-FOX/222": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "b222",
+     "R F U B' D' F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "R F' D' F R'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L' U' L' F' L2 F U' L",
+     9,
+     0.0066,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U2 F' U' F U' R2 B' R2 F' R B R'",
+     13,
+     0.0093,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "b222",
+     "U' B2 R L2 B R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "R L2 B' R' B'",
+     5,
+     0.0002,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F2 R' F' R F' L' U2 L2",
+     9,
+     0.0027,
+     "ida"
+    ],
+    [
+     "ll",
+     "F U R' F R D F' U F D' F' U2 F'",
+     13,
+     0.009,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "b222",
+     "R D F U L F2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U' B' L U R' U' R",
+     7,
+     0.0037,
+     "ida"
+    ],
+    [
+     "b123",
+     "U B' U' B U L U' L' U L2",
+     10,
+     0.0284,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' F' U' F B L2 D F D' L2 B' U' R",
+     13,
+     0.0074,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 36
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "b222",
+     "U' R F B2 D' L F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "R L B2 R2 U R B'",
+     7,
+     0.001,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U2 F U' L U' L' F' U' L",
+     10,
+     0.1697,
+     "ida"
+    ],
+    [
+     "ll",
+     "R B U2 R' U2 R2 U2 F R F' U2 B' R2",
+     13,
+     0.0114,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "b222",
+     "U F R U F2 U' R'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "L' B2",
+     2,
+     0.0,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U2 B L B' L2 U L",
+     9,
+     0.0019,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U F' U' L' F' U2 F' D' F U2 F' D F2",
+     15,
+     9.4567,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0007,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "b222",
+     "R B' D2 B2 D' R2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "b223",
+     "R2 F2 D2 L' F' D' F' R2",
+     8,
+     0.0149,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U B' U B2 L2 B' L U2 L2",
+     10,
+     0.3683,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' U L' U R' B' R U2 R' B R2 U' L",
+     13,
+     0.0079,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "b222",
+     "R U F2 L U2 L2 F'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U2 R' U R B'",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "b123",
+     "L U' L' U B2 D R' F R D' B2",
+     11,
+     1.6095,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U' L U' R L2 B L B' R' U2 L",
+     12,
+     0.0028,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 36
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "b222",
+     "U B2 U2 F D' R' D'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "B2 L' U2 L' U B'",
+     6,
+     0.0018,
+     "ida"
+    ],
+    [
+     "b123",
+     "L' D' L U L' U2 D L2",
+     8,
+     0.0055,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U F' U' L' F U R U' R' F2 L' U' L U F",
+     17,
+     9.789,
+     "book:product"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 38
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "b222",
+     "U L2 B' R' D2 F",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "b223",
+     "B U F' L' F B2",
+     6,
+     0.0018,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 B' R B' R' F' B2 U' F'",
+     9,
+     0.033,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' L2 F2 U' L U' L' U2 F2 L2 F",
+     11,
+     0.0026,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 33
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "b222",
+     "U R2 F L F2 D R",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U L U' B' L' B",
+     6,
+     0.0004,
+     "ida"
+    ],
+    [
+     "b123",
+     "L B' U2 B L' B L' B'",
+     8,
+     0.0022,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' F2 L F L' F R B' U2 B U B' U B",
+     14,
+     10.6025,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 36
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "b222",
+     "U F U2 R' D F",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U2 B L U' L' B2",
+     6,
+     0.0002,
+     "ida"
+    ],
+    [
+     "b123",
+     "R2 F2 B2 L2 F D F' R2 F2 B2",
+     10,
+     0.3708,
+     "ida"
+    ],
+    [
+     "ll",
+     "R U B U' B' R D L' B2 L D' R' U2 R'",
+     14,
+     10.414,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U'",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "b222",
+     "D' B U2 R F2 D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U' L' B2 U' B' L' B",
+     7,
+     0.0005,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' L' U L' U L U' L2",
+     8,
+     0.0003,
+     "ida"
+    ],
+    [
+     "ll",
+     "R' U2 F R L2 U R' U' L2 F2 U2 F R",
+     13,
+     0.0088,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "",
+     0,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "b222",
+     "F' L' U' R F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U' B2 L U B2 L' B",
+     7,
+     0.001,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 F' L' B L' F2 B2 U2 B U F'",
+     11,
+     0.2887,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F2 R' D R' D L B' R D2 L2 F2 R",
+     13,
+     0.0153,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "b222",
+     "R D2 L B U' R D'",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "R B2 R' U' L2 B",
+     6,
+     0.0007,
+     "ida"
+    ],
+    [
+     "b123",
+     "L' U F U2 F' U2 L2 U' L2",
+     9,
+     0.0404,
+     "ida"
+    ],
+    [
+     "ll",
+     "F' L' U' L U F B L2 F B2 U F' U' B2 L2 B'",
+     16,
+     9.9091,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "b222",
+     "F D' B' L D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U B' U L U L' B2",
+     7,
+     0.0002,
+     "ida"
+    ],
+    [
+     "b123",
+     "U' B L2 B2 U' B U' L2 U' L'",
+     10,
+     0.0454,
+     "ida"
+    ],
+    [
+     "ll",
+     "L2 D' R B' R' D R B L B' R' L",
+     12,
+     0.0073,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 36
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "b222",
+     "R U2 F2 U L2 B' R2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U' L2 B2 U2 B' L' B",
+     7,
+     0.0023,
+     "ida"
+    ],
+    [
+     "b123",
+     "B' U2 B L' F U F' L B' U' B",
+     11,
+     3.2569,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U F' U' L' B' U' B2 L' B' L2 U' L'",
+     14,
+     9.7889,
+     "book:product"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "b222",
+     "U R2 D' L U' R2 F",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U2 L' U B U' B2",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "b123",
+     "U2 B L B2 U2 B2 L2 B' U' L",
+     10,
+     0.0707,
+     "ida"
+    ],
+    [
+     "ll",
+     "L F U R' F R' U' L2 D B2 R2 D' L",
+     13,
+     0.0088,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "b222",
+     "R2 B' R2 U L D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "U' L2 B U L' B",
+     6,
+     0.0002,
+     "ida"
+    ],
+    [
+     "b123",
+     "U L' U' L' F' L' F U2 L2 U' L2",
+     11,
+     0.4878,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' B' U2 L U L' U B2 R B2 R' B L",
+     13,
+     0.0153,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 37
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "b222",
+     "D F' B' R' D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "R' L' U' R B' L' B",
+     7,
+     0.0015,
+     "ida"
+    ],
+    [
+     "b123",
+     "F2 R2 B D' B D2 B2 R2 F2",
+     9,
+     0.1014,
+     "ida"
+    ],
+    [
+     "ll",
+     "L' U R U' D' B2 D L2 U2 R' U L'",
+     12,
+     0.0046,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U",
+     1,
+     0.0006,
+     "book:scan"
+    ]
+   ],
+   "total": 35
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "b222",
+     "R' L' B L2 D' R",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "b223",
+     "B U' B2 L2 B",
+     5,
+     0.0001,
+     "ida"
+    ],
+    [
+     "b123",
+     "U F U F2 L' F L2 U L2",
+     9,
+     0.0012,
+     "ida"
+    ],
+    [
+     "ll",
+     "F B U2 F' L' B' R' U2 R2 B2 L B2 R'",
+     13,
+     0.0085,
+     "book:scan"
+    ],
+    [
+     "auf",
+     "U2",
+     1,
+     0.0005,
+     "book:scan"
+    ]
+   ],
+   "total": 34
+  }
+ ],
+ "Q-FOX/roux-2step": [
+  {
+   "scramble": "U F U D' R' U F2 L F2 R2 F' L2 B R B F2 L2 B2 D' B D L' B2 D L",
+   "stages": [
+    [
+     "fb",
+     "R U2 R2 L2 B' D' F' U2 L'",
+     9,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R U' L2 D2 B' L' F' L B L2",
+     10,
+     0.3376,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L2 U B' U B L U' L' B L' B' L'",
+     12,
+     0.0049,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U2 M' U M2 U2 M2 U M U2",
+     13,
+     0.0289,
+     "centres"
+    ]
+   ],
+   "total": 44
+  },
+  {
+   "scramble": "D' F2 L U' F U B F R' F2 B L D' U2 F2 L D R' L' B2 D2 B2 R2 U' D'",
+   "stages": [
+    [
+     "fb",
+     "B R' F' L",
+     4,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "B2 U B U' B2 U' B R2 U2 B",
+     10,
+     0.2752,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' R' U L F R L' B U' B' U",
+     11,
+     0.3525,
+     "ida"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U' M' U2 M' U2 M2",
+     15,
+     0.0034,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "F U F' R2 D' R B2 L F' U2 R2 L B2 U2 D2 F2 U2 D' L F' U L2 F' D2 B'",
+   "stages": [
+    [
+     "fb",
+     "L2 F' R2 L' U' L2",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R' F' U2 F R' F' U' F R'",
+     9,
+     0.0208,
+     "ida"
+    ],
+    [
+     "cmll",
+     "F U2 F' U' F U F' U2 R' F' R",
+     11,
+     1.0715,
+     "ida"
+    ],
+    [
+     "lse",
+     "U M U2 M' U M' U2 M' U2 M2",
+     15,
+     0.0034,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "R F2 R D R' F2 B' L R B U B' D R' F2 L U D2 R' B2 U B' D2 L' F'",
+   "stages": [
+    [
+     "fb",
+     "F2 L B U' R' D' L",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L D' F' D L' B' R2 B",
+     9,
+     0.0023,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R' U2 R2 D B' U B U' B D' R'",
+     11,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M' U M' U' M U' M' U2 M2",
+     15,
+     0.0352,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "R L2 D B D' F L2 R F B2 U2 R2 B' R U' B2 D U2 L2 U2 F' L F' L F'",
+   "stages": [
+    [
+     "fb",
+     "R F2 R2 D2 B' D B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R2 F2 R F' R' F2 R' U' R",
+     9,
+     0.0034,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F' U2 F U' R U R' U F' U F",
+     12,
+     0.0029,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M U2 M U M U' M' U2 M' U M' U'",
+     18,
+     0.3117,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "D B2 R' B2 U2 L D' L' B2 L U B F R F2 D' U' R2 U2 R F B' D F U",
+   "stages": [
+    [
+     "fb",
+     "F2 B D R2 B2 R' F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "F2 U' R U2 F2 U2 R' U F2",
+     9,
+     0.0085,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U' F' U2 F U L2 U L' F L U' L2",
+     12,
+     5.0504,
+     "ida"
+    ],
+    [
+     "lse",
+     "M2 U' M' U2 M' U M' U2 M",
+     14,
+     0.0274,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "B2 F' L' F' D F' B2 D2 U' L R' B' L2 U' F2 L2 D2 R L U B2 F L B2 D",
+   "stages": [
+    [
+     "fb",
+     "D' F R2 L U2 F' B2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L F' D2 R' F2 R2 D' L' F2",
+     10,
+     0.0604,
+     "ida"
+    ],
+    [
+     "cmll",
+     "B' R' U2 F U2 F' U2 F' R B U'",
+     11,
+     1.6605,
+     "ida"
+    ],
+    [
+     "lse",
+     "M U2 M U' M2 U' M U2 M' U2",
+     15,
+     0.0701,
+     "centres"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "B2 D R D' F' D L' B R' D' U2 B L2 R' F B R2 D' L' B' U' R2 D L' U2",
+   "stages": [
+    [
+     "fb",
+     "U B' R U' L2 F U2 B2",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' R' B2 L' D' L B2 L F' L'",
+     10,
+     0.0414,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 R U R' U R U' B U' B' R'",
+     11,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M U' M U M U M2 U M U2 M2",
+     17,
+     0.1327,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "U2 D' R' B L2 D' F2 D' B' D' U R' U D B' R F2 U B R2 D' F2 L2 D' L2",
+   "stages": [
+    [
+     "fb",
+     "U R2 L' B L2 U' B2",
+     7,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "F R' F2 U2 F U' R'",
+     7,
+     0.003,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R' F R U L' U L2 D R' F' R D' L'",
+     13,
+     107.8833,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M U2 M' U' M U2 M' U'",
+     13,
+     0.0182,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "D2 U R' L' B R' U F' U2 F2 L' R U' D' L' B U F' R' D2 L' R2 U2 R' D",
+   "stages": [
+    [
+     "fb",
+     "U F2 D2 R2 B L' U F'",
+     8,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "R' U2 L2 D' L2 U' F R2 F'",
+     9,
+     0.0569,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U L' B2 R B R' B' R B2 L B' R' B",
+     13,
+     0.0255,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M' U2 M' U' M2",
+     9,
+     0.0004,
+     "centres"
+    ]
+   ],
+   "total": 39
+  },
+  {
+   "scramble": "L' F' R' L' U2 L D' B' L' D2 B U L2 D F' D' F L2 B F2 U2 R2 D' B2 R",
+   "stages": [
+    [
+     "fb",
+     "R' U' B R2 D R2 F2",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U R D' F B2 D F' D' B2 D",
+     10,
+     0.0775,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 R' F U F2 U F2 U2 F' U R",
+     11,
+     0.0023,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M U2 M2 U' M U' M' U' M",
+     15,
+     0.0138,
+     "centres"
+    ]
+   ],
+   "total": 43
+  },
+  {
+   "scramble": "D2 U2 B2 D' U' R' U' R' L2 U2 B' L' U2 F' L B' D2 L' U L2 U' B' L U L",
+   "stages": [
+    [
+     "fb",
+     "U R2 U2 D F2 B' L D",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U2 L' B' R D2 R2 L B R B2",
+     10,
+     0.1062,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F' U2 F U' R U R' U2 L F L'",
+     12,
+     2.4541,
+     "ida"
+    ],
+    [
+     "lse",
+     "U M U2 M' U' M2 U M U2 M U'",
+     16,
+     0.0926,
+     "centres"
+    ]
+   ],
+   "total": 46
+  },
+  {
+   "scramble": "R2 D U L' F' B2 U F' D' F' U2 R B L2 F U2 D F2 B2 L' B' D B' F R",
+   "stages": [
+    [
+     "fb",
+     "D' R' L2 D F",
+     5,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' F U R' L2 D' B' L2 U2 R'",
+     10,
+     0.0339,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U F R' U' F2 U R B U' F2 U F' B'",
+     13,
+     42.973,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U' M' U2 M U M2",
+     12,
+     0.0066,
+     "centres"
+    ]
+   ],
+   "total": 40
+  },
+  {
+   "scramble": "F2 L' F B' L' D L' B2 F2 D2 B R2 B L' U L U' R' B F2 U' D2 L2 F2 L'",
+   "stages": [
+    [
+     "fb",
+     "D F L B' L2 B",
+     6,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "D L' B' L F' U F R' D'",
+     9,
+     0.0348,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U2 L' U2 L' D' R B2 R' D L2",
+     10,
+     0.0018,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U M' U2 M' U' M2 U",
+     16,
+     0.4085,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U2 D2 L' F2 D U' R2 F' D L' B D R' L' F D2 F2 D' U' R D U F L",
+   "stages": [
+    [
+     "fb",
+     "R F2 U B R' F L2 D2",
+     8,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "U2 R F L D' L B L2 F'",
+     9,
+     0.0035,
+     "ida"
+    ],
+    [
+     "cmll",
+     "U B' U2 B2 D L' U L U' L D' B'",
+     12,
+     0.0055,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U' M U2 M' U' M' U2 M' U M2 U",
+     16,
+     0.0595,
+     "centres"
+    ]
+   ],
+   "total": 45
+  },
+  {
+   "scramble": "B L2 B2 F R D2 R B U' F2 R U' B R2 B' R2 U D2 R' D' U2 R2 B R2 D",
+   "stages": [
+    [
+     "fb",
+     "B' D2 F U B D B'",
+     7,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "U' R F' U2 F L' B' L U R2",
+     10,
+     0.053,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R U B U2 B' U' L' B L U R' U'",
+     12,
+     7.763,
+     "ida"
+    ],
+    [
+     "lse",
+     "M U2 M' U2 M2 U' M2 U",
+     12,
+     0.0005,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "L R F D2 B' U2 F2 D' B U' F' L' B U' R' D2 R U' R2 L U2 D2 R F L",
+   "stages": [
+    [
+     "fb",
+     "U' D' F' R' B U' B",
+     7,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "F2 L D R' U D2 F U' L'",
+     9,
+     0.0148,
+     "ida"
+    ],
+    [
+     "cmll",
+     "B' R' F R' F' R F R' F' R2 B",
+     11,
+     0.0013,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "U M U M U' M' U M U2 M2",
+     15,
+     0.0174,
+     "centres"
+    ]
+   ],
+   "total": 42
+  },
+  {
+   "scramble": "R U' L2 R2 B R2 L' F' R' F2 B2 D L' U B U D2 L2 B F' D' F2 B L2 D'",
+   "stages": [
+    [
+     "fb",
+     "F R' F D2 R' D",
+     6,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "L' B' L2 U F' U' L' U' R2",
+     9,
+     0.022,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L' B L U2 R2 F R F' R U'",
+     10,
+     0.2064,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U' M' U2 M' U M' U2 M U2",
+     16,
+     0.0832,
+     "centres"
+    ]
+   ],
+   "total": 41
+  },
+  {
+   "scramble": "B2 U L B' R F' D' R2 L' U' R L2 B U F2 R2 L2 B U2 L D' U' R' L U'",
+   "stages": [
+    [
+     "fb",
+     "U' R2 L D F' L U F'",
+     8,
+     0.0,
+     "ida"
+    ],
+    [
+     "sb",
+     "R2 U2 R' U2 B' R2 D' R2 D B",
+     10,
+     0.0578,
+     "ida"
+    ],
+    [
+     "cmll",
+     "R B L' B L B2 R' F' U' L' U L F",
+     13,
+     0.0132,
+     "book:scan"
+    ],
+    [
+     "lse",
+     "M' U' M' U M U M U M' U2 M",
+     17,
+     0.1237,
+     "centres"
+    ]
+   ],
+   "total": 48
+  },
+  {
+   "scramble": "R2 L2 B L2 B' F2 D2 L' D' B U' F D F' D R2 F B2 L2 B R B L2 B' D",
+   "stages": [
+    [
+     "fb",
+     "B R' B' R B' L2 D2",
+     7,
+     0.0001,
+     "ida"
+    ],
+    [
+     "sb",
+     "U L2 D' L' F R2 F2 L D L2",
+     10,
+     0.026,
+     "ida"
+    ],
+    [
+     "cmll",
+     "L F U F' B' R' F' R B U' L'",
+     11,
+     1.2519,
+     "ida"
+    ],
+    [
+     "lse",
+     "U2 M2 U M U2 M' U2 M2 U",
+     13,
+     0.0013,
+     "centres"
+    ]
+   ],
+   "total": 41
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Q-FOX Algorithm">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0e14"/><stop offset="1" stop-color="#161d2c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="18%" r="62%">
+      <stop offset="0" stop-color="#ff7a1a" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ear" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb03a"/><stop offset="1" stop-color="#ff5f1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(860 190) scale(4.4)">
+    <path d="M15 22 18.5 7 28 16.5Z" fill="url(#ear)"/>
+    <path d="M49 22 45.5 7 36 16.5Z" fill="url(#ear)"/>
+    <path d="M32 15 49 24.5 32 34 15 24.5Z" fill="#ffc463"/>
+    <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
+    <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
+    <g stroke="#0b0e14" stroke-opacity=".45" stroke-width="1.4" fill="none">
+      <path d="M23.5 19.8 40.5 29.3M20.7 27.9 37.7 37.4M23.5 29.3v19M32 34v19"/>
+    </g>
+  </g>
+  <text x="80" y="250" fill="#e8edf7" font-family="Helvetica,Arial,sans-serif" font-size="86" font-weight="700" letter-spacing="-2">Q-FOX Algorithm</text>
+  <text x="80" y="320" fill="#ff9a4d" font-family="Helvetica,Arial,sans-serif" font-size="38" font-weight="600">196 verified last-layer algorithms, by level</text>
+  <text x="80" y="392" fill="#8d99b0" font-family="Helvetica,Arial,sans-serif" font-size="30">own C engine · own case derivation · own benchmark</text>
+  <text x="80" y="540" fill="#c2cbdd" font-family="Helvetica,Arial,sans-serif" font-size="28" font-weight="600">@its.fox_</text>
+  <text x="270" y="540" fill="#5b6577" font-family="Helvetica,Arial,sans-serif" font-size="26">github.com/MoLik-Labs/Q-FOX-Algorithm</text>
+</svg>

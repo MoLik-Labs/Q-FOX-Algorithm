@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Q-FOX">
+  <defs>
+    <linearGradient id="qfx" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb03a"/><stop offset="1" stop-color="#ff5f1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0b0e14"/>
+  <path d="M15 22 18.5 7 28 16.5Z" fill="url(#qfx)"/>
+  <path d="M49 22 45.5 7 36 16.5Z" fill="url(#qfx)"/>
+  <path d="M32 15 49 24.5 32 34 15 24.5Z" fill="#ffc463"/>
+  <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
+  <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
+  <g stroke="#0b0e14" stroke-opacity=".5" stroke-width="1.5" fill="none">
+    <path d="M23.5 19.8 40.5 29.3M20.7 27.9 37.7 37.4M23.5 29.3v19M32 34v19"/>
+  </g>
+</svg>

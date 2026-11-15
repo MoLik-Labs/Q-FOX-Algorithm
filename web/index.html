@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Q-FOX Algorithm — last-layer algorithms by level, verified by a solver engine</title>
+<meta name="description" content="Q-FOX is a self-contained Rubik's cube solver and algorithm generator. This site publishes everything it proves: 196 verified last-layer algorithms, four learning levels from newbie to pro, 13 solving methods and the benchmark behind them.">
+<meta name="theme-color" content="#0b0e14">
+<meta name="author" content="@its.fox_">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/css/app.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Q-FOX Algorithm — learn the cube by level">
+<meta property="og:description" content="196 verified last-layer algorithms, four levels from newbie to pro, 13 methods, and the engine that proves every one of them. @its.fox_">
+<meta property="og:image" content="assets/img/cover.svg">
+</head>
+<body>
+<div class="app" id="app">
+
+  <aside class="side" id="side">
+    <a class="brand" href="#/" aria-label="Q-FOX home">
+      <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="qfx" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffb03a"/><stop offset="1" stop-color="#ff5f1f"/>
+          </linearGradient>
+        </defs>
+        <path d="M15 22 18.5 7 28 16.5Z" fill="url(#qfx)"/>
+        <path d="M49 22 45.5 7 36 16.5Z" fill="url(#qfx)"/>
+        <path d="M32 15 49 24.5 32 34 15 24.5Z" fill="#ffc463"/>
+        <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
+        <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
+        <g stroke="#0b0e14" stroke-opacity=".45" stroke-width="1.4" fill="none">
+          <path d="M23.5 19.8 40.5 29.3M32 15v0M20.7 27.9 37.7 37.4"/>
+          <path d="M23.5 29.3v19M32 34v19"/>
+        </g>
+      </svg>
+      <span class="brand__text">
+        <strong>Q&#8209;FOX</strong>
+        <small>algorithm engine</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a class="nav__item" href="#/" data-route="home"><span class="nav__ico">◎</span>Overview</a>
+      <a class="nav__item" href="#/levels" data-route="levels"><span class="nav__ico">≡</span>Levels</a>
+      <a class="nav__item" href="#/algorithms" data-route="algorithms"><span class="nav__ico">▦</span>Algorithms</a>
+      <a class="nav__item" href="#/trainer" data-route="trainer"><span class="nav__ico">▶</span>Trainer</a>
+      <a class="nav__item" href="#/methods" data-route="methods"><span class="nav__ico">⇄</span>Methods</a>
+      <a class="nav__item" href="#/benchmark" data-route="benchmark"><span class="nav__ico">▲</span>Benchmark</a>
+      <a class="nav__item" href="#/engine" data-route="engine"><span class="nav__ico">⌘</span>Notation &amp; engine</a>
+      <a class="nav__item" href="#/about" data-route="about"><span class="nav__ico">✦</span>About</a>
+    </nav>
+
+    <div class="side__foot">
+      <div class="progress-block" id="side-progress"></div>
+      <a class="tag" href="https://instagram.com/its.fox_" rel="noopener noreferrer me" target="_blank">@its.fox_</a>
+      <a class="tag tag--ghost" href="https://github.com/MoLik-Labs/Q-FOX-Algorithm" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <button class="icon-btn only-mobile" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
+      <div class="top__search">
+        <input id="search" type="search" placeholder="Search 196 cases: “sune”, “R U R'”, “headlights”, “z-perm”…"
+               autocomplete="off" spellcheck="false" aria-label="Search algorithms">
+        <kbd>/</kbd>
+      </div>
+      <div class="top__meta" id="top-meta"></div>
+    </header>
+
+    <main class="view" id="view" tabindex="-1"></main>
+
+    <footer class="foot">
+      <p>
+        Q-FOX Algorithm — every number on this site is derived from the C engine in
+        <code>engine/qfox.c</code> and verified by <code>scripts/validate_web_data.py</code>.
+      </p>
+      <p class="foot__sig">
+        built by <a href="https://instagram.com/its.fox_" rel="noopener noreferrer me" target="_blank">@its.fox_</a>
+        · <a href="https://github.com/MoLik-Labs/Q-FOX-Algorithm" rel="noopener noreferrer" target="_blank">github.com/MoLik-Labs/Q-FOX-Algorithm</a>
+      </p>
+    </footer>
+  </div>
+</div>
+
+<div class="boot" id="boot">
+  <div class="boot__inner">
+    <svg class="boot__mark" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 15 49 24.5 32 34 15 24.5Z" fill="#ffc463"/>
+      <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
+      <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
+    </svg>
+    <p>Loading the engine data…</p>
+  </div>
+</div>
+
+<noscript>
+  <div class="noscript">Q-FOX needs JavaScript: the cube, the trainer and the case diagrams are all drawn in the browser from the generated data in <code>web/data</code>.</div>
+</noscript>
+
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

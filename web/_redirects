@@ -1,0 +1,3 @@
+# Hash routing needs no rewrites; this only keeps deep links to a folder path
+# from 404-ing if someone types one by hand.
+/ /index.html 200
