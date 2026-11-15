@@ -1,0 +1,15 @@
+{
+  "name": "Q-FOX Algorithm",
+  "short_name": "Q-FOX",
+  "description": "Last-layer algorithms by level, generated and verified by the Q-FOX solver engine.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "lang": "en",
+  "categories": ["education", "games"],
+  "icons": [
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

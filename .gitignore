@@ -1,0 +1,12 @@
+# build output -- regenerable with `cd engine && ./build.sh`
+build/
+*.so
+*.o
+
+# BFS table cache: regenerable, and a single table can be hundreds of MB
+data/tables/
+
+# python / editor noise
+__pycache__/
+*.pyc
+.venv/
