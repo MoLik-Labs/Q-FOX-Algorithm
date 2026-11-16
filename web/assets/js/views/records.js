@@ -147,6 +147,7 @@ export function render() {
   }
 
   const milestones = milestonePanel(rec, learnedCount(allKeys));
+  const analytics = analyticsPanel(rec, sessions, learnedCount(allKeys));
 
   mount(view,
     el("div", { class: "section-head" },
@@ -158,6 +159,7 @@ export function render() {
       chip("miễn phí", "mint"), chip("không tài khoản", "mint")),
     overview,
     milestones,
+    analytics,
     el("div", { class: "section-head" }, el("h2", {}, "Kỷ lục")),
     byFamily,
     el("div", { class: "section-head" }, el("h2", {}, "Top nhập nhanh")),
@@ -167,6 +169,50 @@ export function render() {
     sessionPanel);
 
   return { node: view };
+}
+
+/**
+ * Phân tích hiệu quả luyện: tính các chỉ số giúp người học biết mình
+ * luyện thế nào và cải thiện gì -- trực tiếp tối đa hiệu quả thời gian.
+ * Mỗi chỉ số có dòng nhận xét hành động, không chỉ hiển thị con số.
+ */
+function analyticsPanel(rec, sessions, learned) {
+  const totalSecs = sessions.reduce((s, x) => s + (x.seconds || 0), 0);
+  const totalCards = sessions.reduce((s, x) => s + (x.total || 0), 0);
+  const secsPerCard = totalCards ? totalSecs / totalCards : 0;
+  const acc = rec.accuracy !== null ? Math.round(rec.accuracy * 100) : 0;
+  // tốc độ cải thiện: so sánh session đầu và session cuối
+  let trend = null;
+  if (sessions.length >= 2) {
+    const first = sessions[sessions.length - 1];
+    const last = sessions[0];
+    const fAcc = first.total ? first.right / first.total : 0;
+    const lAcc = last.total ? last.right / last.total : 0;
+    trend = lAcc - fAcc;
+  }
+  const items = [
+    { v: acc + "%", k: "đúng xuyên suốt", s: rec.accuracy !== null ? "chung mọi lần luyện" : "chưa đủ dữ liệu",
+      advice: acc >= 80 ? "Giữ đều -- nâng lên bằng luyện nhận dạng nhanh." : "Tập trung bài yếu -- bấm Tập trung bài yếu trong Bài luyện." },
+    { v: secsPerCard ? secsPerCard.toFixed(1) + " s" : "—", k: "mỗi bài tốn", s: totalCards ? `${totalSecs} s cho ${totalCards} bài` : "chưa có session",
+      advice: secsPerCard && secsPerCard < 15 ? "Nhanh tốt -- thử giới hạn thời gian để ép nhớ." : "Rèn tốc độ nhập -- luyện thuộc trước, rồi nhập nhanh." },
+    { v: String(learned), k: "bài đã thuộc", s: `${int(data.cases.length - learned)} bài còn lại`,
+      advice: learned === 0 ? "Bắt đầu từ Cấp 1 -- học từng bài có tên quen thuộc." : learned < 50 ? "Tiếp tục theo lộ trình -- bài mới lên sau bài đến hạn." : "Đã thuộc nhiều -- học bài dài và ngắn nhất của engine." },
+    { v: trend !== null ? (trend >= 0 ? "+" : "") + Math.round(trend * 100) + "%" : "—", k: "xu hướng đúng", s: trend !== null ? "so session đầu vs cuối" : "cần ít nhất 2 session",
+      advice: trend !== null && trend > 0 ? "Đang tiến -- giữ nhịp luyện này." : trend !== null && trend < 0 ? "Sai tăng -- giảm tốc, học kỹ từng cụm trước." : "Luyện thêm -- vài session sẽ thấy xu hướng." },
+  ];
+  return el("section", { class: "panel" },
+    el("div", { class: "panel__head" }, el("h3", {}, "Hiệu quả luyện tập"),
+      el("span", { class: "spacer" }),
+      chip("tối đa thời gian", "sky")),
+    el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+      "Các chỉ số về cách bạn luyện. Mỗi chỉ số có dòng nhận xét hành động -- biết mình luyện thế nào, cải thiện gì, để thời gian luyện đi đúng chỗ."),
+    el("div", { class: "grid grid--2" },
+      ...items.map((it) => el("div", { class: "card card--plain" },
+        el("div", { class: "card__body" },
+          el("div", { class: "card__name" }, it.k, " — ", it.v),
+          el("div", { class: "card__sub" }, it.s),
+          el("div", { class: "hint hint--fox", style: { marginTop: "8px" } },
+            el("span", { class: "tiny muted" }, "làm gì: "), it.advice))))));
 }
 
 /**
