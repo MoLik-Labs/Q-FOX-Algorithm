@@ -357,6 +357,7 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
 .grid { display: grid; gap: var(--s-4); }
 .grid--cases { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 .grid--2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+.grid--3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
 /* ------------------------------------------------------------------- cards */
