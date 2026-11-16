@@ -17,6 +17,7 @@ import { scramble as makeScramble, tokenize } from "../model.js";
 import { topLayer } from "../diagram.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
 import { getFormulas, saveFormula, deleteFormula } from "../store.js";
+import { exportFormulaPng, exportFormulaPdf, drawFormulaCard } from "../export.js";
 
 const MOVES = ["U", "U'", "U2", "R", "R'", "R2", "F", "F'", "F2", "D", "D'", "D2",
               "L", "L'", "L2", "B", "B'", "B2", "M", "M'", "E", "S", "r", "l", "u",
@@ -39,6 +40,7 @@ export function render(params = {}, query = {}) {
   function refresh() {
     const text = history.join(" ");
     mount(seqOut, text ? document.createTextNode(text) : document.createTextNode("—"));
+    drawFormulaPreview();
     const ids = history.map((n) => M.byName.get(n).id);
     const costs = ids.reduce((s, id) => {
       const c = M.byId.get(id).cost;
@@ -156,12 +158,29 @@ export function render(params = {}, query = {}) {
     class: "answer-input", type: "text", spellcheck: "false", autocomplete: "off",
     placeholder: "Tên công thức, ví dụ: Sune của tôi",
     attrs: { "aria-label": "Tên công thức" },
+    onInput: drawFormulaPreview,
   });
   const noteInput = el("input", {
     class: "answer-input", type: "text", spellcheck: "false", autocomplete: "off",
     placeholder: "Ghi chú (tuỳ) — tại sao xây thế này",
     attrs: { "aria-label": "Ghi chú công thức" },
+    onInput: drawFormulaPreview,
   });
+
+  // preview công thức chuẩn sách -- vẽ bằng chính công cụ xuất
+  const formulaPreview = el("canvas", { width: "520", height: "180",
+    style: { width: "100%", maxWidth: "520px", borderRadius: "var(--r-md)", border: "1px solid var(--s-3)", background: "var(--s-2)" },
+    attrs: { "aria-label": "Trước khi lưu -- xem công thức" },
+  });
+  function drawFormulaPreview() {
+    const ctx = formulaPreview.getContext?.("2d");
+    if (!ctx) return;
+    const text = history.join(" ");
+    ctx.clearRect(0, 0, 520, 180);
+    ctx.fillStyle = "#0b0e14";
+    ctx.fillRect(0, 0, 520, 180);
+    drawFormulaCard(ctx, { name: nameInput.value || "Công thức", text, goal: selectedGoal, note: noteInput.value });
+  }
 
   function doSave() {
     const text = history.join(" ");
@@ -275,6 +294,8 @@ export function render(params = {}, query = {}) {
         el("div", { class: "panel__head" }, el("h3", {}, "Lưu công thức")),
         nameInput,
         noteInput,
+        el("div", { class: "tiny muted", style: { marginTop: "8px" } }, "Trước khi lưu -- xem công thức như sách giáo khoa:"),
+        formulaPreview,
         el("div", { class: "row", style: { marginTop: "8px" } },
           el("button", { class: "btn btn--primary", type: "button", onClick: doSave }, "Lưu công thức"),
           el("button", { class: "btn", type: "button", disabled: !history.length,
