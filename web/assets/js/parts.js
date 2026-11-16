@@ -177,6 +177,37 @@ export function openCase(row, ctx = {}) {
 
   function chunkSection() { return chunkHost; }
 
+  /**
+   * Block dạy: nhận dạng bài (nếu có tên quen thuộc) và các cụm động tác
+   * kèm ghi chú. Đây là lớp học thật -- không chỉ trình bày thuật toán, mà
+   * dạy bạn nhận ra nó và hiểu từng cụm làm gì.
+   */
+  function teachBlock() {
+    const teach = row.teach;
+    if (!teach) return null;
+    const chunks = teach.chunks || [];
+    const chipsEl = chunkChips(chunks.map((c) => c.text), null,
+      { title: "Cụm động tác trong thuật toán quen thuộc" });
+    [...chipsEl.children].forEach((node, i) => {
+      const note = chunks[i] && chunks[i].note;
+      if (note) node.title = `Cụm ${i + 1}: ${note}`;
+    });
+    return el("div", { class: "stack", style: { marginTop: "14px", padding: "14px", borderRadius: "var(--r-md)", background: "var(--s-2)", border: "1px solid var(--s-3)" } },
+      el("div", { class: "row row--tight" },
+        el("span", { class: "tiny muted" }, "Nhận dạng"),
+        chip(teach.recognise || "—", "gold"),
+        chip(`${teach.algorithm.split(/\s+/).filter(Boolean).length} động tác`, "mint")),
+      el("div", { class: "tiny muted", style: { marginBottom: "8px" } },
+        "Thuật toán quen thuộc, chia thành cụm. Ghi chú mỗi cụm là gì:"),
+      chipsEl,
+      el("div", { class: "chunk-notes", style: { marginTop: "10px" } },
+        chunks.map((c, i) =>
+          el("div", { class: "chunk-note" },
+            el("b", { class: "mono" }, `${i + 1}.`),
+            el("span", { class: "mono" }, c.text),
+            el("span", { class: "tiny muted" }, ` — ${c.note}`)))));
+  }
+
   const playBtn = el("button", { class: "btn btn--primary btn--sm", type: "button" }, "▶ Chơi");
   const backBtn = el("button", { class: "btn btn--sm", type: "button", title: "Lùi một động tác (←)" }, "⟲ Lùi");
   const stepBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tiến một động tác (→)" }, "Bước ⟳");
@@ -325,6 +356,7 @@ export function openCase(row, ctx = {}) {
         recChip),
       wordTabs,
       algOut,
+      teachBlock(),
       row.auf_text ? el("div", { class: "hint hint--fox" },
         `Xoay mặt trên trước: ${row.auf_text} — rồi thuật toán bên dưới hoàn tất bài.`) : null,
       chipsHost,

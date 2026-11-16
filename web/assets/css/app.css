@@ -533,6 +533,8 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
 }
 .hint--mint { border-color: var(--mint); }
 .hint--fox { border-color: var(--accent); }
+.hint--gold { border-color: var(--gold); }
+.hint--sky { border-color: var(--sky); }
 
 .set-item {
   background: var(--card);
@@ -600,6 +602,10 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
 .chunk:active { transform: translateY(0) scale(.98); }
 .chunk.is-active { border-color: var(--fox); background: var(--fox-soft); color: var(--ink); }
 .chunk.is-done { border-color: var(--mint); background: rgba(62, 207, 142, .12); }
+.chunk-notes { display: flex; flex-direction: column; gap: 6px; }
+.chunk-note { display: flex; align-items: baseline; gap: 8px; font-size: .8rem; line-height: 1.5; }
+.chunk-note b { color: var(--fox); flex: 0 0 auto; }
+.chunk-note .mono { font-family: var(--font-mono); color: var(--ink); flex: 0 0 auto; }
 
 /* --------------------------------------------------------------- progress */
 
