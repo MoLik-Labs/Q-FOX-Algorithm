@@ -13,7 +13,8 @@
  */
 import { data, casesOf, levelKeys, caseByKey } from "../data.js";
 import { el, mount, chip, num, int, toast } from "../util.js";
-import { exportCasesPng, exportCasesPdf, exportFormulaPng, exportFormulaPdf, drawCaseCard } from "../export.js";
+import { exportCasesPng, exportCasesPdf, exportFormulaPng, exportFormulaPdf, drawCaseCard, rasterizeRowDiagram } from "../export.js";
+import { exportCasesPdfFile, exportFormulaPdfFile } from "../pdffile.js";
 import { getFormulas } from "../store.js";
 
 const SCOPES = [
@@ -69,13 +70,33 @@ export function render(params = {}, query = {}) {
     state.chapters ? "Có chương" : "Không chương");
 
   /* -------------------------------------------------------------- công cụ xuất */
-  const pdfBtn = el("button", { class: "btn btn--primary", type: "button" }, "Xuất PDF");
-  pdfBtn.onclick = () => {
+  const pdfBtn = el("button", { class: "btn btn--primary", type: "button" }, "Tải PDF");
+  pdfBtn.onclick = async () => {
     const rows = resolveRows();
     if (state.scope === "formula") {
       const fs = getFormulas();
       if (!fs.length) { toast("Chưa có công thức -- tạo trước ở mục Tạo công thức", "warn"); return; }
-      // xuất từng công thức -- mở lần lượt (browser chặn nhiều cửa sổ)
+      toast("Đang tạo file PDF…", "info");
+      exportFormulaPdfFile(fs[0]);
+      return;
+    }
+    const title = state.scope === "all" ? "Q-FOX · Sách giáo khoa thuật toán"
+      : state.scope === "family" ? `Q-FOX · ${data.algorithms.families[state.family].label}`
+      : `Q-FOX · ${data.levelsList.find((l) => l.key === state.level).title}`;
+    toast("Đang tạo file PDF sách…", "info");
+    await exportCasesPdfFile(rows, { title, detail: state.detail, chapters: state.chapters,
+      subtitle: rows.length + " bài · " + new Date().toLocaleDateString("vi-VN"),
+      filename: "qfox-" + state.scope });
+    toast("Đã tải file PDF -- mở và in ra học", "ok");
+  };
+
+  // nút in trực tiếp (cửa sổ in) -- giữ làm phương án phụ
+  const printBtn = el("button", { class: "btn", type: "button", title: "Mở cửa sổ in của trình duyệt" }, "In trực tiếp");
+  printBtn.onclick = () => {
+    const rows = resolveRows();
+    if (state.scope === "formula") {
+      const fs = getFormulas();
+      if (!fs.length) { toast("Chưa có công thức", "warn"); return; }
       exportFormulaPdf(fs[0]);
       return;
     }
@@ -213,9 +234,9 @@ export function render(params = {}, query = {}) {
       el("div", { class: "panel__head" }, el("h3", {}, "Tải xuống"),
         el("span", { class: "spacer" })),
       el("p", { class: "small muted", style: { marginBottom: "12px" } },
-        "PDF mở cửa sổ in -- dùng \"In thành PDF\" của trình duyệt để lưu. PNG tải ảnh xuống ngay. Cả hai đều giữ màu động tác và sơ đồ lớp trên."),
+        "Tải PDF tải thẳng file sách giáo khoa xuống -- mở trên máy, in ra, hoặc gửi người học. In trực tiếp mở cửa sổ in của trình duyệt nếu muốn in ngay. PNG tải ảnh xuống ngay. Mọi thứ giữ màu động tác và sơ đồ lớp trên."),
       el("div", { class: "row row--tight" },
-        pdfBtn, pngBtn)),
+        pdfBtn, printBtn, pngBtn)),
     el("div", { class: "panel" },
       el("div", { class: "panel__head" }, el("h3", {}, "Công thức tự tạo của bạn"),
         el("span", { class: "spacer" }),

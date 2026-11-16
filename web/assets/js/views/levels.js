@@ -5,7 +5,8 @@
  */
 import { data, levelKeys, caseByKey, METRIC_HINT } from "../data.js";
 import { exportCasesPng, exportCasesPdf } from "../export.js";
-import { el, mount, chip, num, int, progressBar, emptyState } from "../util.js";
+import { exportCasesPdfFile } from "../pdffile.js";
+import { el, mount, chip, num, int, progressBar, emptyState, toast } from "../util.js";
 import { caseCard, openCase } from "../parts.js";
 import { learnedCount, isLearned } from "../store.js";
 
@@ -260,8 +261,14 @@ function detail(key) {
       el("div", { class: "row row--tight" },
         chip(lv.who, "sky"),
         chip(`${rows.length} thẻ trong cấp này`, "gold"),
-        el("button", { class: "btn btn--sm", type: "button", title: "Xuất cả cấp này thành PDF sách",
-          onClick: () => exportCasesPdf(rows, { title: lv.title, subtitle: `${rows.length} bài · ${lv.path} · ${new Date().toLocaleDateString("vi-VN")}` }) }, "Xuất PDF"),
+        el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF sách của cả cấp này",
+          onClick: async () => {
+            toast("Đang tạo file PDF…", "info");
+            await exportCasesPdfFile(rows, { title: lv.title, detail: true, chapters: true, subtitle: `${rows.length} bài · ${lv.path}`, filename: "qfox-" + key });
+            toast("Đã tải file PDF -- in ra học", "ok");
+          } }, "Tải PDF"),
+        el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in cả cấp",
+          onClick: () => exportCasesPdf(rows, { title: lv.title, subtitle: `${rows.length} bài · ${lv.path} · ${new Date().toLocaleDateString("vi-VN")}` }) }, "In"),
         el("button", { class: "btn btn--sm", type: "button", title: "Xuất cả cấp này thành ảnh PNG",
           onClick: () => exportCasesPng(rows, { title: lv.title, cols: 3, filename: "qfox-" + key }) }, "Xuất PNG"),
         el("a", { class: "btn btn--sm btn--primary", href: `#/trainer?level=${key}` }, "Bắt đầu luyện"))),

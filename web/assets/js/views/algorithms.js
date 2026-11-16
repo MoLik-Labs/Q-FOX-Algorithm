@@ -4,11 +4,12 @@
  * chưa, và theo văn bản.
  */
 import { data, casesOf, search, METRIC_HINT } from "../data.js";
-import { el, mount, chip, num, int, emptyState, debounce, progressBar } from "../util.js";
+import { el, mount, chip, num, int, emptyState, debounce, progressBar, toast } from "../util.js";
 import { caseCard, openCase } from "../parts.js";
 import { isLearned, learnedCount } from "../store.js";
 import { topLayer } from "../diagram.js";
 import { exportCasesPng, exportCasesPdf } from "../export.js";
+import { exportCasesPdfFile } from "../pdffile.js";
 
 const SORTS = {
   length: (a, b) => a.count - b.count || a.i - b.i,
@@ -301,19 +302,28 @@ function recognitionTable() {
   return el("section", { class: "panel" }, panelHead, intro, wrap);
 }
 
-  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ bài đang hiện thành PDF sách giáo khoa",
+  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF sách giáo khoa của bài đang hiện",
+    onClick: async () => {
+      const list = rows();
+      const fam = state.family === "*" ? "toàn bộ" : (state.family || "toàn bộ");
+      const today = new Date().toLocaleDateString("vi-VN");
+      toast("Đang tạo file PDF…", "info");
+      await exportCasesPdfFile(list, { title: "Q-FOX · Sách thuật toán", subtitle: list.length + " bài · " + fam + " · " + today, filename: "qfox-algorithms" });
+      toast("Đã tải file PDF -- in ra học", "ok");
+    } }, "Tải PDF");
+  const printBtn = el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in",
     onClick: () => {
       const list = rows();
       const fam = state.family === "*" ? "toàn bộ" : (state.family || "toàn bộ");
       const today = new Date().toLocaleDateString("vi-VN");
       exportCasesPdf(list, { title: "Q-FOX · Sách thuật toán", subtitle: list.length + " bài · " + fam + " · " + today });
-    } }, "Xuất PDF");
+    } }, "In");
   const pngBtn = el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ bài đang hiện thành ảnh PNG",
     onClick: () => exportCasesPng(rows(), { title: "Q-FOX · Sách thuật toán", cols: 4, filename: "qfox-algorithms" }) }, "Xuất PNG");
   const headRow = el("div", { class: "row row--tight" },
     chip(`sách quét tới ${data.book.swept}`, "sky"),
     chip(`chính xác tới ${data.book.reachable_by}`, "mint"),
-    pdfBtn, pngBtn);
+    pdfBtn, printBtn, pngBtn);
   const headBlock = el("div", { class: "section-head" },
     el("div", {},
       el("h1", {}, "Sách thuật toán"),

@@ -1,8 +1,9 @@
 /** Trang chủ: đây là gì, chứng minh được gì, và bắt đầu từ đâu. */
 import { data, totals, levelKeys, METRIC_HINT, caseByKey } from "../data.js";
-import { el, mount, chip, num, int, progressBar, seconds } from "../util.js";
+import { el, mount, chip, num, int, progressBar, seconds, toast } from "../util.js";
 import { cubePanel, caseCard, openCase } from "../parts.js";
 import { exportCasesPng, exportCasesPdf } from "../export.js";
+import { exportCasesPdfFile } from "../pdffile.js";
 import { learnedCount, recentSessions, records, schedule } from "../store.js";
 
 export function render() {
@@ -178,16 +179,22 @@ export function render() {
       el("a", { class: "btn btn--sm", href: st.href }, st.cta));
     return el("div", { class: "card card--plain" }, body);
   });
-  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "In toàn bộ sách thành PDF",
+  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF sách giáo khoa toàn bộ",
+    onClick: async () => {
+      toast("Đang tạo file PDF sách…", "info");
+      await exportCasesPdfFile(data.cases, { title: "Q-FOX · Sách giáo khoa thuật toán", detail: true, chapters: true, filename: "qfox-textbook" });
+      toast("Đã tải file PDF -- in ra học", "ok");
+    } }, "Tải PDF sách");
+  const printBtn = el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in sách",
     onClick: () => {
       const today = new Date().toLocaleDateString("vi-VN");
       exportCasesPdf(data.cases, { title: "Q-FOX · Sách giáo khoa thuật toán", subtitle: data.cases.length + " bài · " + today });
-    } }, "Xuất PDF sách");
+    } }, "In sách");
   const pngBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tải toàn bộ sách thành ảnh PNG",
     onClick: () => exportCasesPng(data.cases, { title: "Q-FOX · Sách giáo khoa", cols: 4, filename: "qfox-textbook" }) }, "Xuất PNG sách");
   const exportRow = el("div", { class: "row row--tight", style: { marginTop: "14px" } },
     el("span", { class: "tiny muted" }, "Muốn in ra hoặc lưu ảnh để học offline:"),
-    pdfBtn, pngBtn);
+    pdfBtn, printBtn, pngBtn);
   const learnPath = el("section", { class: "panel" },
     el("div", { class: "panel__head" }, el("h3", {}, "Lộ trình học — dễ làm, chuẩn phương pháp"),
       el("span", { class: "spacer" }),
