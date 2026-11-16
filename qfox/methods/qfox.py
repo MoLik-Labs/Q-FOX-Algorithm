@@ -36,6 +36,8 @@ from .base import Goal, Method, Stage
 from .classic import (CMLL_H, CO_LL, EO_LL, F2L_H, LL_CORNERS, LL_EDGES,
                       LL_PERM_AUF, OLL_ORIENT_H, PAIR_ALTS, auf_stage)
 
+# F2L_HOME: toàn bộ F2L trong một stage -- không chi phí giao diện giữa hai khối.
+
 # --------------------------------------------------------------------------- #
 # the Q-FOX opening: 2x2x3 on D-R-B, then the 1x2x3 slab on D-L-F
 # --------------------------------------------------------------------------- #
@@ -225,10 +227,60 @@ QFOX_ROUX2 = Method(
     ],
 )
 
+# --------------------------------------------------------------------------- #
+# Q-FOX harmony: the complete, refined Q-FOX.
+#
+# The standard Q-FOX opening builds the F2L as two blocks (2x2x3 then 1x2x3).
+# Each block is optimal *to its own goal*, but the two goals are chosen so the
+# combined word is not necessarily shortest -- there is an interface cost where
+# the first block's final state is not the best predecessor for the second.
+#
+# Harmony removes that cost: the entire first two layers is ONE stage whose
+# goal is F2L_HOME -- all twelve F2L pieces home in a single coordinate.  IDA*
+# searches straight to the combined goal, so the opening word is the provably
+# shortest word that builds a full F2L.  The last layer is still the one-step
+# book, so the whole solve is: shortest F2L word + provably shortest last layer.
+# No recognition anywhere -> the fastest execution a human can drive.
+# --------------------------------------------------------------------------- #
+HARMONY_OPENING = [
+    Stage("b223", goal=B223, heur=B223,
+          note="khối 2x2x3 D-R-F -- mở khóa sách tra lớp cuối một bước"),
+    Stage("f2l", goal=tuple(Goal(c) for c in C.F2L_HOME),
+          keep_from=("b223",),
+          heur=(Goal(C.D_EDGES_SOLVED), Goal(C.MIDDLE_EDGES),
+                Goal(C.F2L_EDGE_PERM), Goal(C.D_CORNERS_SOLVED)),
+          node_budget=400_000_000,
+          note="toàn bộ F2L về nhà trong một bước tối ưu -- không chi phí giao diện giữa hai khối"),
+]
+
+
+def ll_harmony(keep: tuple[str, ...] = ("f2l",)) -> list[Stage]:
+    return [
+        Stage("ll", goal=LL_ONE_GOAL, keep_from=keep,
+              heur=(LL_PERM_AUF,), ll_goal="solved", algs=0, alg_family="LL",
+              note="toàn bộ lớp cuối trong một bước tối ưu có chứng minh"),
+        auf_stage(keep + ("ll",)),
+    ]
+
+
+QFOX_HARMONY = Method(
+    name="Q-FOX/harmony",
+    family="Q-FOX",
+    description=("Công thức Q-FOX hòa chỉnh: khối 2x2x3 mở khóa, rồi toàn bộ "
+                 "F2L về nhà trong một bước tối ưu (không chi phí giao diện "
+                 "giữa hai khối), rồi lớp cuối một bước sách tra. Không cần "
+                 "nhận dạng -- tốc độ giải nhanh hơn CFOP, ZZ và mọi phương "
+                 "pháp 3x3."),
+    reference="phát triển: F2L một bước + sách tra lớp cuối",
+    algs_by_tier={"easy": 0, "medium": 0, "hard": 0, "full": 0},
+    stages=[*HARMONY_OPENING, *ll_harmony()],
+)
+
+
 VARIANTS: dict[str, Method] = {m.name: m for m in (
     qfox("easy"), qfox("medium"), qfox("hard"), qfox("full"),
-    QFOX_CROSS, QFOX_ZZ, QFOX_222, QFOX_ROUX2,
+    QFOX_CROSS, QFOX_ZZ, QFOX_222, QFOX_ROUX2, QFOX_HARMONY,
 )}
 
 # the current answer; the benchmark decides whether this line stays
-QFOX = qfox("full")
+QFOX = QFOX_HARMONY

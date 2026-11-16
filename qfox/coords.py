@@ -320,8 +320,23 @@ sees both at once."""
 MIDDLE_EDGES = CoordDef("middle_edges", edge_perm_orient(M_EDGES))
 """The four middle-layer edges home: 190080 states (beginner LBL step 3)."""
 
+D_EDGES_SOLVED = CoordDef("d_edges", edge_perm_orient(D_EDGES))
+"""The four bottom-layer edges home and correctly oriented:
+12*11*10*9 * 2^4 = 190080 states."""
+
 D_CORNERS_SOLVED = CoordDef("d_corners", corner_perm_orient(D_CORNERS))
 """The four bottom corners home: 8*7*6*5 * 3^4 = 136080 (beginner LBL step 2)."""
+
+# The whole first two layers, solved at once.  The combined coordinate (eight
+# oriented, permuted F2L edges x four oriented, permuted D-layer corners) is
+# ~7e14 states -- far past what the engine accepts -- so "F2L home" is expressed
+# as the CONJUNCTION of three small goals: the four D-edges home, the four
+# M-edges home, and the four D-corners home.  Together they say exactly "the
+# first two layers are home, the last layer is free".  A single stage whose
+# goal is this conjunction lets IDA* search straight to the combined goal with
+# no interface cost between blocks -- the core of the Q-FOX harmony tier.
+F2L_HOME = (D_EDGES_SOLVED, MIDDLE_EDGES, D_CORNERS_SOLVED)
+"""All twelve first-two-layer pieces home: the full F2L as a conjunction."""
 
 ROUX_FB = CoordDef("roux_fb",
                    edge_perm_orient([FL, DL, BL]),
