@@ -13,7 +13,7 @@
  */
 import { data, casesOf, levelKeys, caseByKey } from "../data.js";
 import { el, mount, chip, num, int, toast } from "../util.js";
-import { exportCasesPng, exportCasesPdf, exportFormulaPng, exportFormulaPdf } from "../export.js";
+import { exportCasesPng, exportCasesPdf, exportFormulaPng, exportFormulaPdf, drawCaseCard } from "../export.js";
 import { getFormulas } from "../store.js";
 
 const SCOPES = [
@@ -100,6 +100,39 @@ export function render(params = {}, query = {}) {
       filename: "qfox-" + state.scope });
   };
 
+  /* -------------------------------------------------------------- preview sống */
+  const previewCanvas = el("canvas", { width: "560", height: "300",
+    style: { width: "100%", maxWidth: "560px", borderRadius: "var(--r-md)", border: "1px solid var(--s-3)", background: "var(--s-2)" },
+    attrs: { "aria-label": "Trước khi xuất -- xem mẫu thẻ" },
+  });
+  async function drawPreview() {
+    const rows = resolveRows();
+    let sample;
+    if (state.scope === "formula") {
+      const fs = getFormulas();
+      sample = fs[0];
+    } else {
+      // lấy bài đầu có giáo án nếu chi tiết, ngược lại bài đầu
+      sample = state.detail
+        ? (rows.find((r) => r.teach) || rows[0])
+        : rows[0];
+    }
+    if (!sample) { return; }
+    try {
+      const ctx = previewCanvas.getContext("2d");
+      ctx.clearRect(0, 0, 560, 300);
+      ctx.fillStyle = "#0b0e14";
+      ctx.fillRect(0, 0, 560, 300);
+      const cardW = 280;
+      const cardX = Math.max(0, (560 - cardW) / 2);
+      const cardY = 20;
+      drawCaseCard(ctx, sample, cardX, cardY, cardW, { theme: "dark", detail: state.detail });
+      const imgSize = state.detail ? 100 : 120;
+      const imgCanvas = await rasterizeRowDiagram(sample, imgSize);
+      if (imgCanvas) ctx.drawImage(imgCanvas, cardX + 14, cardY + 56, imgSize, imgSize);
+    } catch { /* canvas không hỗ trợ -- bỏ qua */ }
+  }
+
   /* -------------------------------------------------------------- tổng quan */
   const summaryHost = el("div");
   function drawSummary() {
@@ -125,6 +158,7 @@ export function render(params = {}, query = {}) {
 
   function draw() {
     drawSummary();
+    drawPreview();
     // toggle visibility của family/level selects
     const showFamily = state.scope === "family";
     const showLevel = state.scope === "level";
@@ -168,6 +202,13 @@ export function render(params = {}, query = {}) {
       el("div", { class: "panel__head" }, el("h3", {}, "Tổng quan"),
         el("span", { class: "spacer" })),
       summaryHost),
+    el("div", { class: "panel" },
+      el("div", { class: "panel__head" }, el("h3", {}, "Trước khi xuất"),
+        el("span", { class: "spacer" }),
+        chip("mẫu thẻ thực tế", "mint")),
+      el("p", { class: "tiny muted", style: { marginBottom: "10px" } },
+        "Card mẫu được vẽ bằng chính công cụ xuất -- hình và thuật toán như bạn sẽ nhận được. Thay phạm vi hoặc chi tiết, mẫu thay theo."),
+      el("div", { style: { display: "grid", placeItems: "center", overflow: "auto" } }, previewCanvas)),
     el("div", { class: "panel" },
       el("div", { class: "panel__head" }, el("h3", {}, "Tải xuống"),
         el("span", { class: "spacer" })),

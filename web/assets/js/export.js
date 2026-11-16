@@ -60,6 +60,13 @@ function rasterizeSvg(svg, w, h) {
   });
 }
 
+/** Rasterize sơ đồ lớp trên của một bài thành canvas -- dùng cho preview. */
+export async function rasterizeRowDiagram(row, size = 100) {
+  if (!canCanvas()) return null;
+  const svg = topLayer(row.state, { size, skirt: true });
+  return rasterizeSvg(svg, size, size);
+}
+
 /** Vẽ một khung tròn cạnh cho canvas. */
 function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
