@@ -37,6 +37,7 @@ const DEFAULTS = {
     lastDay: null,
   },
   sessions: [],            // vài session luyện tập gần đây, mới nhất trước
+  formulas: [],            // công thức do người học tạo: {id, name, text, goal, family, note, ts}
 };
 
 let state = null;
@@ -112,6 +113,40 @@ export function toggleTheme() {
   setSetting("theme", next);
   applyTheme(next);
   return next;
+}
+
+/* ---------------------------------------------------- công thức người học tạo */
+
+/** Danh sách công thức do người học tạo, mới nhất trước. */
+export function getFormulas() {
+  return (load().formulas || []).slice().sort((a, b) => b.ts - a.ts);
+}
+
+/** Lưu một công thức. Trả về bản ghi đã lưu. */
+export function saveFormula(f) {
+  const list = load().formulas || [];
+  const rec = {
+    id: f.id || `f${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
+    name: (f.name || "Công thức").trim(),
+    text: (f.text || "").trim(),
+    goal: f.goal || "PLL",
+    family: f.family || "",
+    note: f.note || "",
+    ts: Date.now(),
+  };
+  // thay thế nếu có id trùng, vônế nếu không có id
+  const idx = list.findIndex((x) => x.id === rec.id);
+  if (idx >= 0) list[idx] = rec; else list.push(rec);
+  load().formulas = list;
+  emit("formulas");
+  return rec;
+}
+
+/** Xóa một công thức theo id. */
+export function deleteFormula(id) {
+  const list = load().formulas || [];
+  load().formulas = list.filter((x) => x.id !== id);
+  emit("formulas");
 }
 
 /* --------------------------------------------------------------- tiến độ */
