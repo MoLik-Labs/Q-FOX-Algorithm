@@ -65,7 +65,7 @@ function shape() {
 function assertDrawn(route, min = 40) {
   const s = shape();
   ok(s.elements > min, `${route}: drew a real page`, `${s.elements} elements, ${s.length} chars`);
-  ok(!s.text.includes("This view failed to draw"), `${route}: no error panel`, s.text.slice(0, 160));
+  ok(!s.text.includes("Màn này không vẽ được"), `${route}: no error panel`, s.text.slice(0, 160));
   ok(!s.text.includes("undefined"), `${route}: nothing printed "undefined"`,
      s.text.match(/.{0,50}undefined.{0,50}/)?.[0] || "");
   ok(!s.text.includes("[object Object]"), `${route}: nothing printed an object`,
@@ -148,7 +148,7 @@ for (const m of data.methodsList) routes.push(`#/methods/${encodeURIComponent(m.
 routes.push("#/methods", "#/trainer", "#/trainer?mode=recognise", "#/trainer?mode=flash",
             "#/trainer?level=easy", "#/trainer?family=PLL",
             `#/trainer?keys=${data.cases.slice(0, 4).map((c) => c.key).join(",")}`,
-            "#/benchmark", "#/benchmark?method=Roux", "#/engine", "#/about",
+            "#/benchmark", "#/benchmark?method=Roux", "#/engine", "#/about", "#/records",
             "#/nonsense-route-falls-back-to-home");
 
 for (const route of routes) {
@@ -200,7 +200,7 @@ for (const route of routes) {
   ok(before === 0, "the store was cleared before the progress check", `${before}`);
   const target = data.cases.find((c) => c.moves.length && !learnedCount([c.key]));
   const s = openCase(target);
-  const learnedBtn = s.root.querySelectorAll("button").find((b) => /learned/i.test(b.textContent));
+  const learnedBtn = s.root.querySelectorAll("button").find((b) => /thuộc/i.test(b.textContent));
   ok(!!learnedBtn, "the case sheet has a learned toggle");
   if (learnedBtn) {
     learnedBtn.click();
@@ -254,8 +254,8 @@ for (const route of ["#/", "#/levels", "#/levels/easy", "#/algorithms", "#/algor
   const progress = dom.stats(document.getElementById("side-progress"));
   ok(progress.length > 0, "the sidebar progress block was filled", `${progress.length} chars`);
   const meta = dom.stats(document.getElementById("top-meta"));
-  ok(meta.text.includes("cases"), "the header shows the case count", meta.text);
-  ok(meta.text.includes("verified"), "the header shows the model check", meta.text);
+  ok(meta.text.includes("bài"), "the header shows the case count", meta.text);
+  ok(meta.text.includes("kiểm chứng"), "the header shows the model check", meta.text);
 }
 
 /* -------------------------------------------------------------------- report */

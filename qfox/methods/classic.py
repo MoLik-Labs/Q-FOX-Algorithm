@@ -50,7 +50,7 @@ def auf_stage(keep: tuple[str, ...], mask: int = N.MASK_OUTER) -> Stage:
     made.  Its heuristic is exact, so this costs one U turn and no search.
     """
     return Stage("auf", goal=LL_EXACT, keep_from=keep, heur=LL_EXACT, mask=mask,
-                 intuitive=True, algs=0, note="the final AUF")
+                 intuitive=True, algs=0, note="AUF cuối cùng")
 # Corner placement and edge orientation are coupled, so bounding them together
 # (3.4M states) instead of separately is what makes CMLL searchable at all.
 CMLL_H = Goal(C.CMLL_POS_EO, seeds=C.cmll_seeds())
@@ -75,7 +75,7 @@ def _pair_stage(n: int, keep: tuple[str, ...], last: bool = False) -> Stage:
     """
     return Stage(f"f{n}", goal=PAIR_ALTS[0], alternatives=PAIR_ALTS,
                  keep_from=keep, heur=F2L_H if last else (), node_budget=120_000_000,
-                 note="cheapest of the four remaining pairs")
+                 note="phương án rẻ nhất trong bốn đôi còn lại")
 
 
 def f2l_stages(first_keep: tuple[str, ...] = ("cross",)) -> list[Stage]:
@@ -92,10 +92,8 @@ def f2l_stages(first_keep: tuple[str, ...] = ("cross",)) -> list[Stage]:
 # --------------------------------------------------------------------------- #
 CFOP = Method(
     name="CFOP",
-    family="layer-by-layer, cross first",
-    description=("Cross on the bottom, four F2L pairs, orient the last layer, "
-                 "permute the last layer. The speedcubing default and the "
-                 "baseline every other method is measured against."),
+    family="lop theo lớp, làm cross trước",
+    description=("Làm cross ở dưới, bốn đôi F2L, xác định hướng lớp cuối, rồi hoán vị lớp cuối. Phương pháp chuẩn của speedcubing và là quy chuẩn để mọi phương pháp khác được đo lường."),
     reference="Fridrich / Kociemba / Pochmann / Vandebergh (cross, F2L, OLL, PLL)",
     algs_by_tier={
         # easy:   2-look OLL (9) + 2-look PLL (6) + 4 intuitive F2L cases
@@ -109,14 +107,14 @@ CFOP = Method(
     },
     stages=[
         Stage("cross", goal=(CROSS,), heur=(CROSS,),
-              note="4 bottom edges, oriented"),
+              note="4 cạnh dưới, đã xác định hướng"),
         *f2l_stages(),
         Stage("oll", goal=OLL_DONE, keep_from=F2L_KEEP,
               heur=(OLL_ORIENT_H,), alg_family="OLL", algs=57, ll_goal="oll",
-              note="U layer oriented, permutation free (AUF is free here)"),
+              note="lớp U xác định hướng, hoán vị tự do (AUF tự do ở bước này)"),
         Stage("pll", goal=(LL_PERM_AUF,), keep_from=F2L_KEEP + ("oll",),
               heur=(LL_PERM_AUF,), alg_family="PLL", algs=21, ll_goal="pll",
-              note="U layer solved, up to a final AUF"),
+              note="lớp U hoàn chỉnh, chỉ còn AUF cuối"),
         auf_stage(F2L_KEEP + ("oll",)),
     ],
 )
@@ -130,25 +128,23 @@ ROUX_LSE = Goal(C.LSE)
 
 ROUX = Method(
     name="Roux",
-    family="blockbuilding",
-    description=("Two opposite 1x2x3 blocks, then the last-layer corners with "
-                 "the U edges oriented (CMLL), then the last six edges using "
-                 "only <M,U>. Fewest moves of the mainstream methods."),
+    family="xây khối",
+    description=("Hai khối 1x2x3 đối diện, rồi các góc lớp cuối với các cạnh U xác định hướng (CMLL), sau đó 6 cạnh cuối chỉ dùng <M,U>. Phương pháp chính thống tiết kiệm động tác nhất."),
     reference="Gilles Roux, 2003",
     algs_by_tier={"easy": 2 + 4, "medium": 42 + 6, "hard": 42 + 10, "full": 42 + 29},
     stages=[
         Stage("fb", goal=(ROUX_FB,), heur=(ROUX_FB,),
-              note="left 1x2x3 (FL, DL, BL edges + DLF, DLB corners)"),
+              note="khối 1x2x3 bên trái (cạnh FL, DL, BL + góc DLF, DLB)"),
         Stage("sb", goal=(ROUX_SB,), keep_from=("fb",), heur=(ROUX_SB,),
-              note="right 1x2x3"),
+              note="khối 1x2x3 bên phải"),
         Stage("cmll", goal=(LL_CORNERS, EO_LL), keep_from=("fb", "sb"),
               heur=(CMLL_H, LL_CORNERS, EO_LL, OLL_ORIENT_H), alg_family="CLL",
               algs=42, ll_goal="cmll", node_budget=250_000_000,
-              note="U corners solved and U edges oriented"),
+              note="góc U đã vào vị trí, cạnh U đã xác định hướng"),
         Stage("lse", goal=(ROUX_LSE,), mask=N.MASK_MU, heur=(ROUX_LSE,),
               keep_from=("cmll",), intuitive=True, algs=0, align_centres=True,
-              note="last six edges with <M,U> only; the corners CMLL solved stay "
-                   "solved, so the net AUF has to come out even"),
+              note="6 cạnh cuối chỉ dùng <M,U>; các góc đã xong ở bước CMLL "
+                   "vẫn giữ nguyên, nên AUF ròng phải chẵn"),
     ],
 )
 
@@ -160,25 +156,23 @@ ZZ_F2L = ("eoline", "z1", "z2", "z3", "z4")
 
 ZZ = Method(
     name="ZZ",
-    family="edge-orientation first",
-    description=("Orient every edge and place DF/DB first. After that the whole "
-                 "solve runs in <U,R,L> -- no F or B turns -- and the last layer "
-                 "needs no edge orientation step."),
+    family="xác định hướng cạnh trước",
+    description=("Xác định hướng mọi cạnh và đặt DF/DB trước. Từ đó toàn bộ phần giải chạy trong <U,R,L> -- không xoay F hay B -- và lớp cuối không cần bước xác định hướng cạnh."),
     reference="Zbigniew Zborowski, 2011",
     algs_by_tier={"easy": 8 + 6, "medium": 42 + 21, "hard": 42 + 21 + 12,
                   "full": 42 + 21 + 29},
     stages=[
         Stage("eoline", goal=(EOLINE,), heur=(EOLINE,),
-              note="all 12 edges oriented, DF and DB home"),
+              note="12 cạnh đều xác định hướng, DF và DB đã về chỗ"),
         *[Stage(f"z{i}", goal=PAIR_ALTS[0], alternatives=PAIR_ALTS,
                 keep_from=("eoline",) + tuple(f"z{j}" for j in range(1, i)),
                 mask=N.MASK_ULR, heur=F2L_H if i == 4 else (),
                 node_budget=120_000_000,
-                note="F2L with <U,R,L> only") for i in range(1, 5)],
+                note="F2L chỉ dùng <U,R,L>") for i in range(1, 5)],
         Stage("zco", goal=(CO_LL,), keep_from=ZZ_F2L,
               mask=N.MASK_ULR, heur=(CO_LL,), alg_family="OLL", algs=42,
               ll_goal="oll",
-              note="edges are already oriented, so only the corners twist"),
+              note="cạnh đã xác định hướng rồi, nên chỉ còn góc xoay"),
         Stage("zpll", goal=(LL_PERM_AUF,), keep_from=ZZ_F2L + ("zco",),
               mask=N.MASK_ULR, heur=(LL_PERM_AUF,), alg_family="PLL", algs=21,
               ll_goal="pll"),
@@ -198,34 +192,34 @@ PETRUS_KEEP = ("p223", "eo", "dl", "p4a", "p4b")
 
 PETRUS = Method(
     name="Petrus",
-    family="blockbuilding",
-    description=("Build a 2x2x2, expand to 2x2x3, orient every remaining edge "
-                 "while the block stays free to turn, finish the first two "
-                 "layers, then the last layer. The classic move-efficiency "
-                 "method and the ancestor of blockbuilding."),
+    family="xây khối",
+    description=("Xây 2x2x2, mở rộng thành 2x2x3, xác định hướng mọi cạnh "
+                 "còn lại trong khi khối vẫn có thể xoay, hoàn thiện hai lớp "
+                 "đầu, rồi đến lớp cuối. Phương pháp tiết kiệm động tác kinh "
+                 "điển và là tiên tổ của đường xây khối."),
     reference="Lars Petrus, 1981",
     algs_by_tier={"easy": 0, "medium": 6, "hard": 21 + 9, "full": 21 + 9 + 29},
     stages=[
-        Stage("p222", goal=(P222,), heur=(P222,), note="2x2x2 on D-R-F"),
+        Stage("p222", goal=(P222,), heur=(P222,), note="khối 2x2x2 ở D-R-F"),
         Stage("p223", goal=P223, keep_from=("p222",), heur=P223,
-              note="expand to 2x2x3"),
+              note="mở rộng thành 2x2x3"),
         Stage("eo", goal=(EO_ALL,), keep_from=("p223",), heur=(EO_ALL,),
               intuitive=True, algs=0,
-              note="orient all edges; the block is never broken"),
+              note="xác định hướng tất cả cạnh; khối không bao giờ bị phá"),
         Stage("dl", goal=(DL_EDGE,), keep_from=("p223", "eo"), heur=(DL_EDGE,),
-              note="the last cross edge"),
+              note="cạnh cross cuối cùng"),
         Stage("p4a", goal=PAIR_ALTS[0], alternatives=PAIR_ALTS,
               keep_from=("p223", "eo", "dl"),
-              note="one of the two open pairs"),
+              note="một trong hai đôi còn lại"),
         Stage("p4b", goal=PAIR_ALTS[1], alternatives=PAIR_ALTS,
               keep_from=("p223", "eo", "dl", "p4a"), heur=F2L_H,
-              note="the last pair"),
+              note="đôi cuối cùng"),
         Stage("pco", goal=(CO_LL,), keep_from=PETRUS_KEEP, heur=(CO_LL,),
               ll_goal="oll", alg_family="OLL", algs=0,
-              note="twist the U corners (edges were oriented in step 3)"),
+              note="xoay các góc U (cạnh đã xác định hướng ở bước 3)"),
         Stage("pcp", goal=(LL_PERM_AUF,), keep_from=PETRUS_KEEP + ("pco", "eo"),
               heur=(LL_PERM_AUF,), alg_family="PLL", algs=21, ll_goal="pll",
-              note="place the U corners and edges together"),
+              note="đặt góc và cạnh U cùng lúc"),
         auf_stage(PETRUS_KEEP + ("pco", "eo")),
     ],
 )
@@ -242,10 +236,8 @@ LBL_KEEP = "cross d1 d2 d3 d4 m1 m2 m3 m4"
 
 LBL = Method(
     name="LBL (beginner)",
-    family="layer-by-layer, tutorial",
-    description=("Daisy/cross, bottom corners, middle edges, then four last-layer "
-                 "steps. The method every beginner learns, included so the "
-                 "benchmark has a real floor to stand on."),
+    family="lop theo lớp, sơ cấp",
+    description=("Cross (hoa cúc), các góc dưới, các cạnh giữa, rồi bốn bước lớp cuối. Phương pháp mọi người mới học đều làm, được đưa vào để benchmark có một mặt phẳng thực tế làm chuẩn."),
     reference="any 3x3 beginner tutorial",
     algs_by_tier={"easy": 8, "medium": 12, "hard": 16, "full": 16},
     stages=[
@@ -264,15 +256,15 @@ LBL = Method(
                 heur=(Goal(C.D_CORNERS_SOLVED),) + (F2L_H if i == 4 else ())
                 ) for i in range(1, 5)],
         Stage("leo", goal=(EO_LL,), keep_from=tuple(LBL_KEEP.split()),
-              heur=(EO_LL,), note="make the U cross"),
+              heur=(EO_LL,), note="làm cross trên mặt U"),
         Stage("lco", goal=(CO_LL,), keep_from=tuple(LBL_KEEP.split()) + ("leo",),
-              heur=(CO_LL,), note="twist the U corners"),
+              heur=(CO_LL,), note="xoay các góc U"),
         Stage("lcp", goal=(LL_CORNERS,),
               keep_from=tuple(LBL_KEEP.split()) + ("leo", "lco"),
-              heur=(LL_CORNERS,), note="place the U corners"),
+              heur=(LL_CORNERS,), note="đặt các góc U"),
         Stage("lep", goal=(LL_EDGES,),
               keep_from=tuple(LBL_KEEP.split()) + ("leo", "lco", "lcp"),
-              heur=(LL_EDGES,), note="cycle the U edges"),
+              heur=(LL_EDGES,), note="hoán vị các cạnh U"),
     ],
 )
 

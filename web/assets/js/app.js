@@ -1,33 +1,35 @@
 /**
- * Boot and routing.
+ * Khởi động và điều hướng.
  *
- * Hash routes only, so the site is a folder of static files that works on
- * Cloudflare Pages, `python3 -m http.server`, or anything else that can serve
- * a directory — no rewrites, no build step, no server-side rendering.
+ * Chỉ dùng route bằng hash, nên trang là một tập file tĩnh hoạt động trên
+ * Cloudflare Pages, `python3 -m http.server`, hay bất kỳ thứ gì phục vụ
+ * một thư mục — không rewrite, không build, không render phía máy chủ.
  */
 import { loadAll, data, totals } from "./data.js";
 import { el, mount, chip, toast, debounce } from "./util.js";
-import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll, reset } from "./store.js";
+import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll } from "./store.js";
 import { download } from "./util.js";
 
 import * as home from "./views/home.js";
 import * as levels from "./views/levels.js";
 import * as algorithms from "./views/algorithms.js";
 import * as trainer from "./views/trainer.js";
+import * as records from "./views/records.js";
 import * as methods from "./views/methods.js";
 import * as benchmark from "./views/benchmark.js";
 import * as engine from "./views/engine.js";
 import * as about from "./views/about.js";
 
 const ROUTES = {
-  home: { mod: home, title: "Overview" },
-  levels: { mod: levels, title: "Levels" },
-  algorithms: { mod: algorithms, title: "Algorithms" },
-  trainer: { mod: trainer, title: "Trainer" },
-  methods: { mod: methods, title: "Methods" },
+  home: { mod: home, title: "Trang chủ" },
+  levels: { mod: levels, title: "Cấp độ" },
+  algorithms: { mod: algorithms, title: "Thuật toán" },
+  trainer: { mod: trainer, title: "Luyện tập" },
+  records: { mod: records, title: "Kỷ lục" },
+  methods: { mod: methods, title: "Phương pháp" },
   benchmark: { mod: benchmark, title: "Benchmark" },
-  engine: { mod: engine, title: "Notation & engine" },
-  about: { mod: about, title: "About" },
+  engine: { mod: engine, title: "Ký hiệu & engine" },
+  about: { mod: about, title: "Giới thiệu" },
 };
 
 const viewHost = document.getElementById("view");
@@ -39,7 +41,7 @@ const sideProgress = document.getElementById("side-progress");
 
 let current = null;
 
-/* ---------------------------------------------------------------- routing */
+/* ---------------------------------------------------------------- điều hướng */
 
 function parseHash() {
   const raw = location.hash.replace(/^#\/?/, "");
@@ -59,13 +61,13 @@ function navigate() {
   const { name, params, query } = parseHash();
   const route = ROUTES[name];
 
-  if (current && current.destroy) { try { current.destroy(); } catch { /* view already gone */ } }
+  if (current && current.destroy) { try { current.destroy(); } catch { /* view đã bị xoá */ } }
   document.body.classList.remove("nav-open");
   document.getElementById("menu").setAttribute("aria-expanded", "false");
 
   [...nav.children].forEach((a) => a.classList.toggle("is-active", a.dataset.route === name));
 
-  mount(viewHost, el("div", { class: "spinner-wrap" }, el("div", { class: "spinner" }), el("p", {}, "Drawing…")));
+  mount(viewHost, el("div", { class: "spinner-wrap" }, el("div", { class: "spinner" }), el("p", {}, "Đang vẽ…")));
 
   let out;
   try {
@@ -73,9 +75,9 @@ function navigate() {
   } catch (err) {
     console.error(err);
     out = { node: el("div", { class: "panel" },
-      el("h2", {}, "This view failed to draw"),
+      el("h2", {}, "Màn này không vẽ được"),
       el("pre", { class: "code" }, String(err && err.stack || err)),
-      el("p", { class: "small muted" }, "The data is fine — this is a bug in the page. Reload, and if it persists, report it with the text above.")) };
+      el("p", { class: "small muted" }, "Dữ liệu ổn — đây là lỗi của trang. Làm lại, nếu vẫn vậy hãy báo lỗi bằng văn bản trên.")) };
   }
   const node = out.node || out;
   mount(viewHost, node);
@@ -87,7 +89,7 @@ function navigate() {
   drawSideProgress();
 }
 
-/* ------------------------------------------------------- chrome and status */
+/* --------------------------------------------------- giao diện và trạng thái */
 
 function drawSideProgress() {
   if (!data.ready) return;
@@ -95,13 +97,13 @@ function drawSideProgress() {
   const done = learnedCount(keys);
   mount(sideProgress,
     el("div", { class: "tiny", style: { marginBottom: "4px" } },
-      `${done} / ${keys.length} algorithms learned`),
+      `${done} / ${keys.length} thuật toán đã thuộc`),
     el("div", { class: "progress", style: { height: "8px" } },
       el("div", { class: "progress__bar", style: { width: `${(100 * done) / Math.max(1, keys.length)}%` } })),
     el("div", { class: "row row--tight", style: { marginTop: "8px" } },
       el("button", { class: "btn btn--sm btn--ghost", type: "button",
-                     onClick: () => download("qfox-progress.json", exportAll()) }, "Export"),
-      el("button", { class: "btn btn--sm btn--ghost", type: "button", onClick: pickImport }, "Import")));
+                     onClick: () => download("qfox-progress.json", exportAll()) }, "Xuất"),
+      el("button", { class: "btn btn--sm btn--ghost", type: "button", onClick: pickImport }, "Nhập")));
 }
 
 function pickImport() {
@@ -111,10 +113,10 @@ function pickImport() {
     if (!file) return;
     try {
       const counts = importAll(await file.text());
-      toast(`Imported: ${counts.learned} learned, ${counts.reviewed} drilled`, "ok");
+      toast(`Đã nhập: ${counts.learned} bài thuộc, ${counts.reviewed} bài luyện`, "ok");
       navigate();
     } catch (err) {
-      toast(`Import failed: ${err.message}`, "err");
+      toast(`Nhập thất bại: ${err.message}`, "err");
     }
     input.remove();
   };
@@ -125,15 +127,15 @@ function pickImport() {
 function drawTopMeta() {
   const t = totals();
   mount(topMeta,
-    el("span", { class: "dot", title: "data loaded" }),
-    el("span", {}, `${t.cases} cases`),
+    el("span", { class: "dot", title: "đã tải dữ liệu" }),
+    el("span", {}, `${t.cases} bài`),
     el("span", { class: "tiny" }, "·"),
-    el("span", {}, `${t.methods} methods`),
+    el("span", {}, `${t.methods} phương pháp`),
     el("span", { class: "tiny" }, "·"),
-    chip(data.check.ok ? "verified" : "model mismatch", data.check.ok ? "mint" : "rose"));
+    chip(data.check.ok ? "đã kiểm chứng" : "mô hình bất đồng", data.check.ok ? "mint" : "rose"));
 }
 
-/* --------------------------------------------------------------- shortcuts */
+/* --------------------------------------------------------------- phím tắt */
 
 document.addEventListener("keydown", (e) => {
   const typing = e.target.matches("input, textarea, select");
@@ -144,11 +146,11 @@ document.addEventListener("keydown", (e) => {
   } else if (e.key === "Escape" && document.activeElement === searchInput) {
     searchInput.blur();
   } else if (e.key.toLowerCase() === "g" && !typing) {
-    // g then a letter, the way people expect from a keyboard-first tool
+    // g rồi một chữ, theo thói quen của công cụ thiên về bàn phím
     pendingG = Date.now();
   } else if (pendingG && Date.now() - pendingG < 1200 && !typing) {
-    const jumps = { l: "#/levels", a: "#/algorithms", t: "#/trainer", m: "#/methods",
-                    b: "#/benchmark", e: "#/engine", h: "#/", o: "#/about" };
+    const jumps = { l: "#/levels", a: "#/algorithms", t: "#/trainer", r: "#/records",
+                    m: "#/methods", b: "#/benchmark", e: "#/engine", h: "#/", o: "#/about" };
     const to = jumps[e.key.toLowerCase()];
     pendingG = 0;
     if (to) { e.preventDefault(); location.hash = to; }
@@ -156,18 +158,12 @@ document.addEventListener("keydown", (e) => {
 });
 let pendingG = 0;
 
-/* ------------------------------------------------------------------ search */
+/* ------------------------------------------------------------------- tìm */
 
 searchInput.addEventListener("input", debounce(() => {
   const q = searchInput.value.trim();
   if (!q) return;
-  const { name } = parseHash();
-  if (name !== "algorithms") location.hash = `#/algorithms?q=${encodeURIComponent(q)}`;
-  else {
-    const url = new URL(location.href);
-    location.hash = `#/algorithms?q=${encodeURIComponent(q)}`;
-    navigate();
-  }
+  location.hash = `#/algorithms?q=${encodeURIComponent(q)}`;
 }, 320));
 
 searchInput.addEventListener("keydown", (e) => {
@@ -184,10 +180,11 @@ document.getElementById("menu").addEventListener("click", (e) => {
   e.currentTarget.setAttribute("aria-expanded", String(open));
 });
 
-/* -------------------------------------------------------------------- boot */
+/* -------------------------------------------------------------------- khởi động */
 
 onStoreChange((what) => {
-  if (what === "progress" || what === "srs" || what === "reset" || what === "import") drawSideProgress();
+  if (what === "progress" || what === "srs" || what === "reset" || what === "import" ||
+      what === "records") drawSideProgress();
 });
 document.addEventListener("qfox:progress", drawSideProgress);
 
@@ -200,18 +197,19 @@ async function main() {
     await loadAll("data");
   } catch (err) {
     mount(boot, el("div", { class: "boot__inner" },
-      el("h2", { class: "boot__err" }, "Could not load the engine data"),
+      el("h2", { class: "boot__err" }, "Không tải được dữ liệu engine"),
       el("p", {}, String(err.message || err)),
       el("p", { class: "small" },
-        "This site reads web/data/*.json over HTTP. If you opened index.html straight from disk, serve the folder instead:"),
+        "Trang này đọc web/data/*.json qua HTTP. Nếu bạn mở index.html thẳng từ ổ đĩa, hãy phục vụ thư mục này trước:"),
       el("pre", { class: "code" }, "cd web && python3 -m http.server 8080"),
-      el("p", { class: "tiny muted" }, "Then reload http://localhost:8080.")));
+      el("p", { class: "tiny muted" },
+        "Sau đó tải lại http://localhost:8080.")));
     return;
   }
 
   drawTopMeta();
   if (!data.check.ok) {
-    console.warn("cube model disagrees with the engine", data.check.mismatches);
+    console.warn("mô hình khối bất đồng với engine", data.check.mismatches);
   }
   boot.classList.add("is-gone");
   setTimeout(() => boot.remove(), 400);
@@ -220,10 +218,10 @@ async function main() {
   navigate();
 
   console.info(
-    "%cQ-FOX%c %s · %d cases · %d methods · model check %s · @its.fox_",
+    "%cQ-FOX%c %s · %d bài · %d phương pháp · kiểm tra mô hình %s · @its.fox_",
     "background:#ff7a1a;color:#150b03;font-weight:700;padding:2px 6px;border-radius:4px",
     "color:#8d99b0", data.engine.engine, data.cases.length, data.methodsList.length,
-    data.check.ok ? "passed" : "FAILED");
+    data.check.ok ? "đạt" : "THẤT BẠI");
 }
 
 main();

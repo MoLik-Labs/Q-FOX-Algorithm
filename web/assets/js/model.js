@@ -1,36 +1,35 @@
 /**
- * Q-FOX cube model — pure logic, no DOM, no engine, nothing to install.
+ * Mô hình khối Q-FOX -- logic thuần, không DOM, không engine, không cài đặt gì.
  *
- * The engine (`engine/qfox.c`) stays the source of truth: every move the site
- * can play comes from `data/engine.json`, which carries the 54 facelet
- * permutations the C engine itself reports.  This module adds only the two
- * things a browser needs on top of that and that JSON cannot carry:
+ * Engine (`engine/qfox.c`) vẫn là nguồn chân lý: mọi động tác trang có thể
+ * thực hiện đều đến từ `data/engine.json`, mang 54 hoán vị dán do chính
+ * engine C báo cáo. Module này chỉ bổ sung hai thứ trình duyệt cần mà JSON
+ * không thể chứa:
  *
- *   1. **where a facelet sits** — the cell of the 3×3×3 grid it belongs to and
- *      the direction it faces, so the cube can be drawn as 26 cubies instead
- *      of a flat string;
- *   2. **how a turn moves those cells** — the axis, the cells taken and the
- *      sense, so a layer can be animated instead of teleported.
+ *   1. **mỗi dán ở đâu** -- ô của lưới 3×3×3 mà nó thuộc và hướng nó
+ *      hướng, để khối được vẽ thành 26 khối nhỏ thay vì một chuỗi phẳng;
+ *   2. **một cú xoay di chuyển các ô đó thế nào** -- trục, các ô bị lấy
+ *      và chiều xoay, để một lớp có thể được hoạt hình thay vì dịch vị trí.
  *
- * Both are cross-checked against the engine's own permutations, here at runtime
- * (`selfCheck()`) and in `web/test/model.test.mjs` under node.  If the two ever
- * disagree the site says so instead of quietly drawing a wrong cube.
+ * Cả hai đều được đối chiếu với hoán vị của chính engine: ở đây tại thời
+ * điểm chạy (`selfCheck()`) và trong `web/test/model.test.mjs` dưới node.
+ * Nếu hai bên không khớp, trang sẽ nói rõ thay vì im lặng vẽ sai khối.
  */
 
 export const FACES = "URFDLB";
 
-/** face -> outward normal, the direction rows run in, the direction columns run in */
+/** mặt -> pháp tuyến hướng ra, chiều hàng chạy, chiều cột chạy */
 export const FACE_AXES = {
-  U: { n: [0, 1, 0], row: [0, 0, 1], col: [1, 0, 0] },   // rows towards F, cols towards R
-  F: { n: [0, 0, 1], row: [0, -1, 0], col: [1, 0, 0] },  // rows towards D, cols towards R
-  R: { n: [1, 0, 0], row: [0, -1, 0], col: [0, 0, -1] }, // cols towards B
-  B: { n: [0, 0, -1], row: [0, -1, 0], col: [-1, 0, 0] },// cols towards L
-  L: { n: [-1, 0, 0], row: [0, -1, 0], col: [0, 0, 1] }, // cols towards F
-  D: { n: [0, -1, 0], row: [0, 0, -1], col: [1, 0, 0] }, // rows towards B, cols towards R
+  U: { n: [0, 1, 0], row: [0, 0, 1], col: [1, 0, 0] },   // hàng về F, cột về R
+  F: { n: [0, 0, 1], row: [0, -1, 0], col: [1, 0, 0] },  // hàng về D, cột về R
+  R: { n: [1, 0, 0], row: [0, -1, 0], col: [0, 0, -1] }, // cột về B
+  B: { n: [0, 0, -1], row: [0, -1, 0], col: [-1, 0, 0] },// cột về L
+  L: { n: [-1, 0, 0], row: [0, -1, 0], col: [0, 0, 1] }, // cột về F
+  D: { n: [0, -1, 0], row: [0, 0, -1], col: [1, 0, 0] }, // hàng về B, cột về R
 };
 
-/** The unfolded net, facelet ids per face, row by row.  engine.json carries the
- *  same table; this copy only exists so the model can be tested standalone. */
+/** Lưới mở ra, các chỉ số dán theo từng mặt, hàng theo hàng. engine.json
+ * mang bảng tương tự; bản sao này chỉ để mô hình có thể test độc lập. */
 export const NET = {
   U: [[0, 1, 2], [3, 4, 5], [6, 7, 8]],
   L: [[36, 37, 38], [39, 40, 41], [42, 43, 44]],
@@ -41,12 +40,12 @@ export const NET = {
 };
 
 /**
- * family -> { axis, cells, sense }
+ * họ động tác -> { axis, cells, sense }
  *
- * `cells` are the layers taken, by their coordinate on `axis`
- * (x = R-L, y = U-D, z = F-B).  `sense` is sin(theta): -1 for the clockwise
- * quarter turn seen from the positive end of the axis, which is what every
- * face turn means, and what M/E/S and the wide turns inherit from L/D/F.
+ * `cells` là các lớp bị lấy, theo tọa độ trên `axis`
+ * (x = R-L, y = U-D, z = F-B). `sense` là sin(theta): -1 cho cú quay
+ * 90° theo chiều kim đồng hồ nhìn từ đầu dương của trục, chính là ý nghĩa
+ * của mọi cú xoay mặt, và M/E/S hay các cú wide kế thừa từ L/D/F.
  */
 export const FAMILY_TURNS = {
   U: { axis: "y", cells: [1], sense: -1 },
@@ -55,9 +54,9 @@ export const FAMILY_TURNS = {
   L: { axis: "x", cells: [-1], sense: 1 },
   F: { axis: "z", cells: [1], sense: -1 },
   B: { axis: "z", cells: [-1], sense: 1 },
-  M: { axis: "x", cells: [0], sense: 1 },      // follows L
-  E: { axis: "y", cells: [0], sense: 1 },      // follows D
-  S: { axis: "z", cells: [0], sense: -1 },     // follows F
+  M: { axis: "x", cells: [0], sense: 1 },      // theo L
+  E: { axis: "y", cells: [0], sense: 1 },      // theo D
+  S: { axis: "z", cells: [0], sense: -1 },     // theo F
   u: { axis: "y", cells: [1, 0], sense: -1 },
   d: { axis: "y", cells: [-1, 0], sense: 1 },
   r: { axis: "x", cells: [1, 0], sense: -1 },
@@ -71,11 +70,11 @@ export const FAMILY_TURNS = {
 
 export const AXIS_INDEX = { x: 0, y: 1, z: 2 };
 
-/** how many quarter turns a suffix means */
+/** mỗi hậu tố nghĩa là bao nhiêu bước quarter-turn */
 export const POWERS = { "": 1, "2": 2, "'": 3 };
 
-/** Colour per face.  Standard scheme, and the one the engine's face order
- *  (U R F D L B) is written against. */
+/** Màu theo mặt. Chuẩn rubik, và thứ tự mặt engine dùng
+ * (U R F D L B) được viết dựa trên đó. */
 export const FACE_COLOUR = {
   U: "#f4f6fb", R: "#e0362f", F: "#1fa45c", D: "#ffd23f", L: "#f08a1d", B: "#2159c4",
 };
@@ -92,7 +91,7 @@ const CELLS = (() => {
   return out;
 })();
 
-/** the 26 cubie cells, x = R-L, y = U-D, z = F-B */
+/** 26 ô khối nhỏ, x = R-L, y = U-D, z = F-B */
 export const CUBIE_CELLS = CELLS;
 
 export const key3 = (v) => `${v[0]},${v[1]},${v[2]}`;
@@ -101,8 +100,7 @@ const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
 const scale = (a, k) => [a[0] * k, a[1] * k, a[2] * k];
 
 /**
- * Facelet geometry: for each of the 54 facelets, the cubie cell it belongs to
- * and the direction it faces.
+ * Tịa trị dán: với mỗi trong 54 dán, ô khối nhỏ nó thuộc và hướng nó hướng.
  */
 export function geometry(net = NET) {
   const cells = new Array(54);
@@ -114,13 +112,13 @@ export function geometry(net = NET) {
       dirs[idx] = n;
     }));
   }
-  if (cells.some((v) => !v)) throw new Error("net does not cover all 54 facelets");
+  if (cells.some((v) => !v)) throw new Error("net không phủ đủ 54 dán");
   const at = new Map();
   for (let i = 0; i < 54; i++) at.set(`${key3(cells[i])}|${key3(dirs[i])}`, i);
   return { cells, dirs, at, net };
 }
 
-/** Right-handed rotation of `v` by `theta` about `axis` ("x" | "y" | "z"). */
+/** Quay tay phải vector `v` góc `theta` quanh `axis` ("x" | "y" | "z"). */
 export function rotate(axis, theta, v) {
   const c = Math.cos(theta);
   const s = Math.sin(theta);
@@ -130,16 +128,16 @@ export function rotate(axis, theta, v) {
   return [c * x - s * y, s * x + c * y, z];
 }
 
-/** Snap a rotated cell back to integers (they are always exact multiples). */
+/** Nén một ô đã quay về số nguyên (luôn là bội số chính xác). */
 const snap = (v) => v.map((n) => Math.round(n));
 
 /**
- * The facelet permutation a move implies, from the cubie model alone, in the
- * engine's SOURCE-map form: `next[j] = prev[perm[j]]`.
+ * Hoán vị dán do một động tác ngụ ý, từ mô hình khối nhỏ thuần, ở dạng
+ * SOURCE-map của engine: `next[j] = prev[perm[j]]`.
  */
 export function modelPerm(name, geom) {
   const turn = turnOf(name);
-  if (!turn) throw new Error(`unknown move ${JSON.stringify(name)}`);
+  if (!turn) throw new Error(`động tác không rõ ${JSON.stringify(name)}`);
   const { axis, cells, sense, quarters } = turn;
   const ai = AXIS_INDEX[axis];
   const theta = (sense * Math.PI) / 2 * quarters;
@@ -166,8 +164,8 @@ export function modelPerm(name, geom) {
 }
 
 /**
- * Everything the site needs to animate one token: which axis, which cells,
- * which way, and how many quarter turns.
+ * Mọi thứ trang cần để hoạt hình một token: trục nào, lớp nào, chiều nào,
+ * và bao nhiêu bước quarter-turn.
  */
 export function turnOf(name) {
   const m = /^([URFDLBMES])(2|')?$|^([urfdlbxyz])(2|')?$/.exec(name);
@@ -180,13 +178,13 @@ export function turnOf(name) {
            quarters: POWERS[suffix] };
 }
 
-/** Tokenise notation.  Accepts "R", "R'", "R2", "Rw", "M'", "y2", "u". */
-/** The modifier a token carries, with the typographic apostrophe normalised. */
+/** Tách ký hiệu động tác. Nhận "R", "R'", "R2", "Rw", "M'", "y2", "u". */
+/** Hậu tố của một token, với dấu nháy dạng in được chuẩn hóa. */
 const MOD = (s) => (s || "").replace("’", "'");
 
-/** "Rw'" and friends: the engine spells wide turns in lower case. */
+/** "Rw'" và tương tự: engine viết cú wide ở chữ thường. */
 const WIDE_TOKEN = /^([URFDLB])[wW](2|'|’)?$/;
-/** Every letter the engine names a move with, upper or lower case. */
+/** Mọi chữ cái engine dùng để đặt tên động tác, in hoa hoặc thường. */
 const PLAIN_TOKEN = /^([URFDLBMESurfdlbxyz])(2|'|’)?$/;
 
 export function tokenize(text) {
@@ -198,14 +196,14 @@ export function tokenize(text) {
     const wide = WIDE_TOKEN.exec(bare);
     if (wide) { out.push(wide[1].toLowerCase() + MOD(wide[2])); continue; }
     const plain = PLAIN_TOKEN.exec(bare);
-    if (!plain) throw new Error(`"${raw}" is not a move`);
+    if (!plain) throw new Error(`"${raw}" không phải một động tác`);
     out.push(plain[1] + MOD(plain[2]));
   }
   return out;
 }
 
-/** A scramble that follows the WCA rules: no two turns of the same face in a
- *  row, and never three in a row on the same axis. */
+/** Một cú trộn theo luật WCA: không có hai cú xoay mặt giống nhau liền
+ * nhau, và không có ba cú liên tiếp trên cùng một trục. */
 export function scramble(length = 25, rng = Math.random, moves = null) {
   const outer = moves || ["U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'",
                           "D", "D2", "D'", "L", "L2", "L'", "B", "B2", "B'"];
@@ -223,9 +221,9 @@ export function scramble(length = 25, rng = Math.random, moves = null) {
 }
 
 /**
- * Build the model around the engine's own move table.
+ * Xây mô hình trên bảng động tác của chính engine.
  *
- * @param {object} engine  parsed `data/engine.json`
+ * @param {object} engine  engine.json đã parse
  */
 export function createModel(engine) {
   const geom = geometry(engine.net || NET);
@@ -236,7 +234,7 @@ export function createModel(engine) {
     ? engine.solved.map((c) => FACES[c]).join("")
     : "U".repeat(9) + "R".repeat(9) + "F".repeat(9) + "D".repeat(9) + "L".repeat(9) + "B".repeat(9);
 
-  /** names the site accepts on top of the engine's own: "Rw" -> "r" */
+  /** các tên trang chấp nhận ngoài tên engine: "Rw" -> "r" */
   const alias = new Map(byName);
   for (const m of moves) {
     if (/^[urfdlb]$/.test(m.name)) alias.set(m.name.toUpperCase() + "w", m);
@@ -244,11 +242,11 @@ export function createModel(engine) {
 
   function move(name) {
     const m = alias.get(name);
-    if (!m) throw new Error(`unknown move "${name}"`);
+    if (!m) throw new Error(`không rõ động tác "${name}"`);
     return m;
   }
 
-  /** `next[j] = prev[perm[j]]` — the engine's own source map. */
+  /** `next[j] = prev[perm[j]]` — bản đồ nguồn của chính engine. */
   function apply(state, name) {
     const { perm } = move(name);
     let out = "";
@@ -275,7 +273,7 @@ export function createModel(engine) {
     return state;
   }
 
-  /** Notation for a sequence given as engine ids, move objects, or names. */
+  /** Ký hiệu cho một chuỗi dưới dạng id engine, object động tác, hoặc tên. */
   function format(seq) {
     return seq.map((m) => nameOf(m)).join(" ");
   }
@@ -291,12 +289,12 @@ export function createModel(engine) {
     return names.slice().reverse().map((n) => (n.endsWith("2") ? n : n.endsWith("'") ? n.slice(0, -1) : n + "'"));
   }
 
-  /** Is every facelet its own face colour, centres included? */
+  /** Mọi dán đều là màu mặt của nó, kể cả trung tâm? */
   function isSolved(state) {
     return state === solved;
   }
 
-  /** How many of the last-layer stickers are already home. */
+  /** Có bao nhiêu dán lớp cuối đã ở nhà. */
   function lastLayerProgress(state) {
     let oriented = 0;
     for (const i of geom.net.U.flat()) if (state[i] === "U") oriented++;
@@ -306,7 +304,7 @@ export function createModel(engine) {
     return oriented / 13;
   }
 
-  /** Cross-check the drawing model against the engine's permutations. */
+  /** Đối chiếu mô hình vẽ với hoán vị của engine. */
   function selfCheck() {
     const bad = [];
     for (const m of moves) {

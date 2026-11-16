@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Q-FOX Algorithm — last-layer algorithms by level, verified by a solver engine</title>
-<meta name="description" content="Q-FOX is a self-contained Rubik's cube solver and algorithm generator. This site publishes everything it proves: 196 verified last-layer algorithms, four learning levels from newbie to pro, 13 solving methods and the benchmark behind them.">
+<title>Q-FOX Algorithm — học giải rubik, phá kỷ lục</title>
+<meta name="description" content="Q-FOX là phòng học thuật toán lớp cuối dành cho người học: 196 thuật toán đã được engine C kiểm chứng, 4 cấp độ từ newbie đến bậc thầy, bài tập nhớ - nhận - nói, và bảng kỷ lục cá nhân.">
 <meta name="theme-color" content="#0b0e14">
 <meta name="author" content="@its.fox_">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -12,15 +12,15 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="assets/css/app.css">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Q-FOX Algorithm — learn the cube by level">
-<meta property="og:description" content="196 verified last-layer algorithms, four levels from newbie to pro, 13 methods, and the engine that proves every one of them. @its.fox_">
+<meta property="og:title" content="Q-FOX Algorithm — học giải rubik, phá kỷ lục">
+<meta property="og:description" content="196 thuật toán lớp cuối được engine kiểm chứng, 4 cấp độ, bài tập luyện nhớ, và bảng kỷ lục cá nhân. @its.fox_">
 <meta property="og:image" content="assets/img/cover.svg">
 </head>
 <body>
 <div class="app" id="app">
 
   <aside class="side" id="side">
-    <a class="brand" href="#/" aria-label="Q-FOX home">
+    <a class="brand" href="#/" aria-label="Q-FOX trang chủ">
       <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true">
         <defs>
           <linearGradient id="qfx" x1="0" y1="0" x2="1" y2="1">
@@ -39,19 +39,20 @@
       </svg>
       <span class="brand__text">
         <strong>Q&#8209;FOX</strong>
-        <small>algorithm engine</small>
+        <small>phòng học thuật toán</small>
       </span>
     </a>
 
-    <nav class="nav" id="nav" aria-label="Main">
-      <a class="nav__item" href="#/" data-route="home"><span class="nav__ico">◎</span>Overview</a>
-      <a class="nav__item" href="#/levels" data-route="levels"><span class="nav__ico">≡</span>Levels</a>
-      <a class="nav__item" href="#/algorithms" data-route="algorithms"><span class="nav__ico">▦</span>Algorithms</a>
-      <a class="nav__item" href="#/trainer" data-route="trainer"><span class="nav__ico">▶</span>Trainer</a>
-      <a class="nav__item" href="#/methods" data-route="methods"><span class="nav__ico">⇄</span>Methods</a>
+    <nav class="nav" id="nav" aria-label="Điều hướng chính">
+      <a class="nav__item" href="#/" data-route="home"><span class="nav__ico">◎</span>Trang chủ</a>
+      <a class="nav__item" href="#/levels" data-route="levels"><span class="nav__ico">≡</span>Cấp độ</a>
+      <a class="nav__item" href="#/algorithms" data-route="algorithms"><span class="nav__ico">▦</span>Thuật toán</a>
+      <a class="nav__item" href="#/trainer" data-route="trainer"><span class="nav__ico">▶</span>Luyện tập</a>
+      <a class="nav__item" href="#/records" data-route="records"><span class="nav__ico">★</span>Kỷ lục</a>
+      <a class="nav__item" href="#/methods" data-route="methods"><span class="nav__ico">⇄</span>Phương pháp</a>
       <a class="nav__item" href="#/benchmark" data-route="benchmark"><span class="nav__ico">▲</span>Benchmark</a>
-      <a class="nav__item" href="#/engine" data-route="engine"><span class="nav__ico">⌘</span>Notation &amp; engine</a>
-      <a class="nav__item" href="#/about" data-route="about"><span class="nav__ico">✦</span>About</a>
+      <a class="nav__item" href="#/engine" data-route="engine"><span class="nav__ico">⌘</span>Ký hiệu &amp; engine</a>
+      <a class="nav__item" href="#/about" data-route="about"><span class="nav__ico">✦</span>Giới thiệu</a>
     </nav>
 
     <div class="side__foot">
@@ -65,8 +66,8 @@
     <header class="top">
       <button class="icon-btn only-mobile" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="top__search">
-        <input id="search" type="search" placeholder="Search 196 cases: “sune”, “R U R'”, “headlights”, “z-perm”…"
-               autocomplete="off" spellcheck="false" aria-label="Search algorithms">
+        <input id="search" type="search" placeholder="Tìm 196 bài: “sune”, “R U R'”, “đèn pha”, “z-perm”…"
+               autocomplete="off" spellcheck="false" aria-label="Tìm thuật toán">
         <kbd>/</kbd>
       </div>
       <div class="top__meta" id="top-meta"></div>
@@ -76,11 +77,12 @@
 
     <footer class="foot">
       <p>
-        Q-FOX Algorithm — every number on this site is derived from the C engine in
-        <code>engine/qfox.c</code> and verified by <code>scripts/validate_web_data.py</code>.
+        Q-FOX Algorithm — mọi con số trên trang này đều do engine C trong
+        <code>engine/qfox.c</code> tạo ra và được <code>scripts/validate_web_data.py</code>
+        kiểm chứng lại trước khi xuất bản.
       </p>
       <p class="foot__sig">
-        built by <a href="https://instagram.com/its.fox_" rel="noopener noreferrer me" target="_blank">@its.fox_</a>
+        làm bởi <a href="https://instagram.com/its.fox_" rel="noopener noreferrer me" target="_blank">@its.fox_</a>
         · <a href="https://github.com/MoLik-Labs/Q-FOX-Algorithm" rel="noopener noreferrer" target="_blank">github.com/MoLik-Labs/Q-FOX-Algorithm</a>
       </p>
     </footer>
@@ -94,12 +96,12 @@
       <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
       <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
     </svg>
-    <p>Loading the engine data…</p>
+    <p>Đang tải dữ liệu engine…</p>
   </div>
 </div>
 
 <noscript>
-  <div class="noscript">Q-FOX needs JavaScript: the cube, the trainer and the case diagrams are all drawn in the browser from the generated data in <code>web/data</code>.</div>
+  <div class="noscript">Q-FOX cần JavaScript: khối rubik, bài luyện tập và sơ đồ bài đều được vẽ trong trình duyệt từ dữ liệu đã sinh trong <code>web/data</code>.</div>
 </noscript>
 
 <script type="module" src="assets/js/app.js"></script>

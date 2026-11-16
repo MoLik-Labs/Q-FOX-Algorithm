@@ -1,17 +1,16 @@
 /**
- * The browser cube: 26 cubies in CSS 3-D, animated turn by turn, plus a flat
- * net view for the cases you want to read rather than hold.
+ * Khối trong trình duyệt: 26 khối nhỏ bằng CSS 3-D, hoạt hình từng cú xoay,
+ * kèm bản xem phẳng cho các bài bạn muốn đọc hơn là cầm.
  *
- * Colours always come from the 54-facelet state, and the state always moves by
- * the engine's own permutation (`data/engine.json`).  The rotation you *see* is
- * computed from the same cell/direction geometry the Python validator checks
- * against all 54 engine permutations, so the picture and the state cannot
- * disagree.
+ * Màu luôn đến từ trạng thái 54 dán, và trạng thái luôn di chuyển theo
+ * hoán vị của chính engine (`data/engine.json`). Cú quay bạn *nhìn thấy* được
+ * tính từ cùng tọa độ ô/hướng mà bộ kiểm tra Python đối chiếu với tất cả 54
+ * hoán vị engine, nên hình và trạng thái không thể bất đồng.
  */
 import { AXIS_INDEX, FACE_COLOUR, key3, rotate, turnOf, CUBIE_CELLS } from "./model.js";
 import { el, mount } from "./util.js";
 
-/** World (x right, y up, z front) -> CSS (x right, y down, z front). */
+/** Thế giới (x phải, y lên, z ra trước) -> CSS (x phải, y xuống, z ra trước). */
 const S = [1, -1, 1];
 
 function rotationMatrix(axis, theta) {
@@ -22,7 +21,7 @@ function rotationMatrix(axis, theta) {
   return [[c, -s, 0], [s, c, 0], [0, 0, 1]];
 }
 
-/** The CSS `matrix3d(...)` string for a world rotation. */
+/** Chuỗi CSS `matrix3d(...)` cho một phép quay trong thế giới. */
 export function cssMatrix(R) {
   const m = [0, 1, 2].map((i) => [0, 1, 2].map((j) => S[i] * R[i][j] * S[j]));
   return `matrix3d(${m[0][0]},${m[1][0]},${m[2][0]},0,` +
@@ -30,7 +29,7 @@ export function cssMatrix(R) {
                  `${m[0][2]},${m[1][2]},${m[2][2]},0,0,0,0,1)`;
 }
 
-/** Directions, named the way the stylesheet names the sticker elements. */
+/** Các hướng, đặt tên theo cách stylesheet đặt tên các phần tử dán. */
 const DIRS = [
   { d: [0, 1, 0], cls: "y" },    // U
   { d: [0, -1, 0], cls: "ny" },  // D
@@ -44,7 +43,7 @@ const easeInOut = (u) => (u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) 
 
 export class CubeView {
   /**
-   * @param {HTMLElement} host  element to draw into
+   * @param {HTMLElement} host  phần tử vẽ vào
    * @param {object} opts      { model, state, size, view, highlight, interactive, speed, onTurn }
    */
   constructor(host, opts = {}) {
@@ -71,7 +70,7 @@ export class CubeView {
     this.render();
   }
 
-  /* ------------------------------------------------------------- structure */
+  /* ------------------------------------------------------------- cấu trúc */
 
   build() {
     const cs = Math.round(this.size / 3.35);
@@ -90,7 +89,7 @@ export class CubeView {
     this.stage.append(this.scene);
     mount(this.root, this.stage);
 
-    // one element per cubie cell, six sticker faces each
+    // một phần tử trên mỗi ô khối nhỏ, sáu mặt dán mỗi khối
     this.cubies = CUBIE_CELLS.map((cell) => {
       const stickers = {};
       const node = el("div", { class: "cubie", dataset: { cell: key3(cell) } });
@@ -150,7 +149,7 @@ export class CubeView {
       if (!drag) return;
       drag = null;
       stage.classList.remove("is-dragging");
-      try { stage.releasePointerCapture(e.pointerId); } catch { /* already released */ }
+      try { stage.releasePointerCapture(e.pointerId); } catch { /* đã thả */ }
       if (this.onViewChange) this.onViewChange(this.yaw, this.pitch);
     };
     stage.addEventListener("pointerup", end);
@@ -168,9 +167,9 @@ export class CubeView {
     this.applyView();
   }
 
-  /* ---------------------------------------------------------------- paint */
+  /* ---------------------------------------------------------------- tô */
 
-  /** Repaint every sticker from the current 54-facelet state. */
+  /** Tô lại mọi dán từ trạng thái 54 dán hiện tại. */
   render() {
     if (this.view === "net") {
       for (const face of "URFDLB") {
@@ -200,7 +199,7 @@ export class CubeView {
     }
   }
 
-  /** Which facelets the current highlight leaves in the background. */
+  /** Những dán bị chế độ highlight hiện tại để mờ đi. */
   dimmed(idx) {
     if (this.highlight !== "ll") return false;
     const net = this.geom.net;
@@ -214,7 +213,7 @@ export class CubeView {
     return `translate3d(${cell[0] * s}px, ${-cell[1] * s}px, ${cell[2] * s}px)`;
   }
 
-  /* ---------------------------------------------------------------- state */
+  /* ---------------------------------------------------------------- trạng thái */
 
   setState(state, opts = {}) {
     this.state = state;
@@ -244,12 +243,12 @@ export class CubeView {
     this.setState(this.model.solved);
   }
 
-  /* ---------------------------------------------------------------- turns */
+  /* ---------------------------------------------------------------- xoay */
 
-  /** One turn, animated.  Resolves when the cubies have settled. */
+  /** Một cú xoay, có hoạt hình. Hoàn tất khi các khối nhỏ đã yên. */
   turn(name, ms = this.speed) {
     const spec = turnOf(name);
-    if (!spec) return Promise.reject(new Error(`unknown move ${name}`));
+    if (!spec) return Promise.reject(new Error(`không rõ động tác ${name}`));
     const nextState = this.model.apply(this.state, name);
     if (!this.scene || ms <= 0 || this.model.engine.reducedMotion) {
       this.state = nextState;
@@ -259,7 +258,7 @@ export class CubeView {
     }
     const ai = AXIS_INDEX[spec.axis];
     const moving = this.cubies.filter((c) => spec.cells.includes(c.cell[ai]));
-    // a prime turn takes the short way round: 270 degrees one way is 90 the other
+    // cú prime đi đường ngắn: 270 độ một chiều là 90 độ chiều kia
     const steps = spec.quarters === 3 ? -1 : spec.quarters;
     const total = spec.sense * steps * (Math.PI / 2);
     const start = performance.now();
@@ -294,7 +293,7 @@ export class CubeView {
     });
   }
 
-  /** Play a sequence, one turn at a time.  `tokens` may be names or engine ids. */
+  /** Chơi một chuỗi, từng cú xoay một. `tokens` có thể là tên hoặc id engine. */
   async play(tokens, opts = {}) {
     const names = tokens.map((t) => (typeof t === "number" ? this.model.byId.get(t).name : t));
     const ms = opts.ms === undefined ? this.speed : opts.ms;

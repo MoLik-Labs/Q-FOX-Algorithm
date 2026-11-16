@@ -1,9 +1,10 @@
 /**
- * Methods: the thirteen ways this engine can solve a cube, stage by stage.
+ * Phương pháp: mười ba cách engine này có thể giải một khối, từng bước.
  *
- * Nothing here is hand-written prose about how to cube — every row is the
- * stage list the method actually runs, with the goal, the move mask and the
- * heuristics the search was given, exported from `qfox/methods`.
+ * Không có điều gì ở đây là văn xuôi được viết tay về cách chơi rubik —
+ * mỗi hàng là danh sách bước mà phương pháp thực sự chạy, với mục tiêu,
+ * tập động tác được phép và các hàm đánh giá tìm kiếm được cấp, được
+ * xuất từ `qfox/methods`.
  */
 import { data, bench } from "../data.js";
 import { el, mount, chip, num, int, duration } from "../util.js";
@@ -20,7 +21,7 @@ export function render(params = {}) {
 
   if (name) return detail(name);
 
-  /* -------------------------------------------------------------- overview */
+  /* -------------------------------------------------------------- tổng quan */
   const cards = el("div", { class: "grid grid--2" });
   for (const m of rows) {
     const b = bench(m.name);
@@ -31,27 +32,27 @@ export function render(params = {}) {
           el("span", { class: "spacer" }),
           b ? chip(`${num(b.htm.mean, 1)} htm`, "mint") : null,
           b ? chip(`${num(b.seconds.mean, 2)} s`, "sky") : null,
-          chip(`${m.stages.length} stages`)),
+          chip(`${m.stages.length} bước`)),
         el("div", { class: "card__sub" }, m.family),
         el("p", { class: "small" }, m.description),
         el("code", { class: "tiny muted" }, m.path),
         el("div", { class: "card__foot" },
           ...Object.entries(m.algs_by_tier || {}).map(([tier, n]) =>
-            chip(`${tier}: ${n} algs`, tier === "easy" ? "mint" : tier === "full" ? "fox" : ""))),
-        el("span", { class: "tiny muted" }, "Open for the stage-by-stage breakdown →"))));
+            chip(`${tier}: ${n} thuật toán`, tier === "easy" ? "mint" : tier === "full" ? "fox" : ""))),
+        el("span", { class: "tiny muted" }, "Mở để xem phân tích từng bước →"))));
   }
 
   const compare = el("div", { class: "panel" },
-    el("div", { class: "panel__head" }, el("h3", {}, "Side by side"),
+    el("div", { class: "panel__head" }, el("h3", {}, "So sánh cạnh nhau"),
       el("span", { class: "spacer" }),
       el("span", { class: "tiny muted" },
-        `${(data.benchmark.meta || {}).scrambles || 0} scrambles each, every solution replayed`)),
+        `${(data.benchmark.meta || {}).scrambles || 0} cú trộn mỗi phương pháp, mọi câu trả lời được chạy lại`)),
     el("div", { class: "table-wrap" },
       el("table", { class: "table" },
         el("thead", {}, el("tr", {},
-          el("th", {}, "Method"), el("th", { class: "num" }, "Stages"),
+          el("th", {}, "Phương pháp"), el("th", { class: "num" }, "Bước"),
           el("th", { class: "num" }, "htm"), el("th", { class: "num" }, "qtm"),
-          el("th", { class: "num" }, "Seconds"), el("th", {}, "Solved"))),
+          el("th", { class: "num" }, "Giây"), el("th", {}, "Giải xong"))),
         el("tbody", {}, rows.map((m) => {
           const b = bench(m.name);
           return el("tr", {},
@@ -67,27 +68,27 @@ export function render(params = {}) {
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
-        el("h1", {}, "Thirteen methods, one format"),
+        el("h1", {}, "Mười ba phương pháp, một khuôn dạng"),
         el("p", { class: "panel__note" },
-          "A method here is nothing but an ordered list of stages, and a stage is a goal, the moves allowed, and what must stay solved. CFOP, Roux, ZZ, Petrus, LBL and the Q-FOX tiers are all the same six lines of data.")),
+          "Một phương pháp ở đây chỉ là một danh sách các bước có thứ tự, và một bước là một mục tiêu, tập động tác được phép, và những gì phải giữ nguyên. CFOP, Roux, ZZ, Petrus, LBL và các tầng Q-FOX đều là cùng một sáu dòng dữ liệu.")),
       el("span", { class: "spacer" }),
       el("div", { class: "row row--tight" },
-        chip(`${data.methodsList.length} methods`, "fox"),
-        chip(`${int(data.methodsList.reduce((n, m) => n + m.stages.length, 0))} stages total`, "sky"))),
+        chip(`${data.methodsList.length} phương pháp`, "fox"),
+        chip(`${int(data.methodsList.reduce((n, m) => n + m.stages.length, 0))} bước tổng`, "sky"))),
     compare,
-    el("div", { class: "section-head" }, el("h2", {}, "The roster")),
+    el("div", { class: "section-head" }, el("h2", {}, "Danh sách")),
     cards);
 
   return { node: view };
 }
 
-/* ----------------------------------------------------------------- detail */
+/* ----------------------------------------------------------------- chi tiết */
 
 function detail(name) {
   const m = data.methods.methods[name];
   const view = el("div");
   if (!m) {
-    mount(view, el("div", { class: "empty" }, el("h3", {}, "No such method")));
+    mount(view, el("div", { class: "empty" }, el("h3", {}, "Không có phương pháp này")));
     return { node: view };
   }
   const b = bench(name);
@@ -95,11 +96,11 @@ function detail(name) {
   const stages = el("div", { class: "table-wrap" },
     el("table", { class: "table" },
       el("thead", {}, el("tr", {},
-        el("th", { class: "num" }, "#"), el("th", {}, "Stage"), el("th", {}, "Goal"),
-        el("th", {}, "Moves allowed"), el("th", {}, "Heuristics"),
-        el("th", { class: "num" }, "Alternatives"),
+        el("th", { class: "num" }, "#"), el("th", {}, "Bước"), el("th", {}, "Mục tiêu"),
+        el("th", {}, "Động tác được phép"), el("th", {}, "Hàm đánh giá"),
+        el("th", { class: "num" }, "Phương án"),
         el("th", { class: "num" }, "htm"), el("th", { class: "num" }, "ms"),
-        el("th", {}, "Answered by"))),
+        el("th", {}, "Được trả lời bởi"))),
       el("tbody", {}, m.stages.map((s, i) => {
         const bs = (b && b.stages && b.stages[s.name]) || null;
         return el("tr", {},
@@ -107,11 +108,11 @@ function detail(name) {
           el("td", { class: "name" }, el("code", {}, s.name),
             el("div", { class: "tiny muted" }, s.note || "")),
           el("td", {}, (s.goal || []).map((g) => el("code", { class: "tiny" }, g)),
-            s.align_centres ? chip("centres aligned", "gold") : null),
+            s.align_centres ? chip("trung tâm đã xếp", "gold") : null),
           el("td", { class: "tiny" }, s.mask),
           el("td", {}, (s.heuristics || []).length
             ? (s.heuristics || []).map((h) => el("code", { class: "tiny" }, h))
-            : el("span", { class: "tiny muted" }, "goal table only")),
+            : el("span", { class: "tiny muted" }, "chỉ bảng mục tiêu")),
           el("td", { class: "num" }, String(s.alternatives || 1)),
           el("td", { class: "num" }, bs ? num(bs.htm_mean, 2) : "—"),
           el("td", { class: "num" }, bs ? num(bs.seconds_mean * 1000, 1) : "—"),
@@ -121,27 +122,27 @@ function detail(name) {
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
-        el("a", { class: "tiny muted", href: "#/methods" }, "← all methods"),
+        el("a", { class: "tiny muted", href: "#/methods" }, "← tất cả phương pháp"),
         el("h1", {}, m.name),
         el("p", { class: "panel__note" }, m.family)),
       el("span", { class: "spacer" }),
       b ? el("div", { class: "row row--tight" },
-        chip(`${num(b.htm.mean, 2)} htm mean`, "mint"),
-        chip(`${num(b.seconds.mean, 3)} s mean`, "sky"),
-        chip(`${b.solved}/${b.scrambles} solved`, "fox")) : null),
+        chip(`${num(b.htm.mean, 2)} htm trung bình`, "mint"),
+        chip(`${num(b.seconds.mean, 3)} s trung bình`, "sky"),
+        chip(`${b.solved}/${b.scrambles} giải xong`, "fox")) : null),
     el("div", { class: "split" },
       el("div", { class: "stack" },
         el("div", { class: "panel" },
           el("p", {}, m.description),
-          m.reference ? el("p", { class: "tiny muted" }, "Reference: ", m.reference) : null,
-          el("p", { class: "small" }, el("b", {}, "Path: "), el("code", {}, m.path))),
+          m.reference ? el("p", { class: "tiny muted" }, "Tài liệu tham khảo: ", m.reference) : null,
+          el("p", { class: "small" }, el("b", {}, "Lộ trình: "), el("code", {}, m.path))),
         el("div", { class: "panel" },
-          el("div", { class: "panel__head" }, el("h3", {}, "Stages")),
+          el("div", { class: "panel__head" }, el("h3", {}, "Các bước")),
           stages)),
       el("div", { class: "stack" },
         el("div", { class: "panel" },
-          el("div", { class: "panel__head" }, el("h3", {}, "Memorisation load")),
-          el("p", { class: "tiny muted" }, "How many algorithms each Q-FOX tier asks for if you solve this way."),
+          el("div", { class: "panel__head" }, el("h3", {}, "Khối lượng phải thuộc")),
+          el("p", { class: "tiny muted" }, "Mỗi tầng Q-FOX yêu cầu bao nhiêu thuật toán nếu bạn giải theo cách này."),
           el("div", { class: "stack", style: { gap: "8px" } },
             ...Object.entries(m.algs_by_tier || {}).map(([tier, n]) => el("div", { class: "bar-row" },
               el("span", { class: "bar-row__label" }, tier),
@@ -151,20 +152,20 @@ function detail(name) {
         b ? el("div", { class: "panel" },
           el("div", { class: "panel__head" }, el("h3", {}, "Benchmark")),
           el("div", { class: "stats" },
-            statEl(num(b.htm.mean, 2), "htm mean", `min ${b.htm.min} · max ${b.htm.max}`),
-            statEl(num(b.qtm.mean, 2), "qtm mean", `min ${b.qtm.min} · max ${b.qtm.max}`),
-            statEl(num(b.stm.mean, 2), "stm mean", ""),
-            statEl(num(b.etm.mean, 2), "etm mean", ""),
-            statEl(duration(b.seconds.mean), "solve time", `worst ${duration(b.seconds.max)}`),
-            statEl(duration(b.table_seconds), "tables", "built once, shared")),
+            statEl(num(b.htm.mean, 2), "htm trung bình", `tối thiểu ${b.htm.min} · tối đa ${b.htm.max}`),
+            statEl(num(b.qtm.mean, 2), "qtm trung bình", `tối thiểu ${b.qtm.min} · tối đa ${b.qtm.max}`),
+            statEl(num(b.stm.mean, 2), "stm trung bình", ""),
+            statEl(num(b.etm.mean, 2), "etm trung bình", ""),
+            statEl(duration(b.seconds.mean), "thời gian giải", `tệ nhất ${duration(b.seconds.max)}`),
+            statEl(duration(b.table_seconds), "bảng tọa độ", "xây một lần, dùng chung")),
           el("p", { class: "tiny muted", style: { marginTop: "10px" } },
-            `${b.solved}/${b.scrambles} scrambles solved and verified by replay.`)) : null,
+            `${b.solved}/${b.scrambles} cú trộn được giải và kiểm chứng bằng cách chạy lại.`)) : null,
         el("div", { class: "panel" },
-          el("div", { class: "panel__head" }, el("h3", {}, "Try it")),
-          el("p", { class: "small muted" }, "The engine runs on a server, not in this page — but every move it uses is here."),
+          el("div", { class: "panel__head" }, el("h3", {}, "Thử nó")),
+          el("p", { class: "small muted" }, "Engine chạy trên máy chủ, không trong trang này — nhưng mọi động tác nó dùng đều có ở đây."),
           el("div", { class: "row" },
-            el("a", { class: "btn btn--sm", href: "#/engine" }, "Open the move playground"),
-            el("a", { class: "btn btn--sm", href: "#/benchmark" }, "See the full benchmark"))))));
+            el("a", { class: "btn btn--sm", href: "#/engine" }, "Mở khu thử nghiệm động tác"),
+            el("a", { class: "btn btn--sm", href: "#/benchmark" }, "Xem benchmark đầy đủ"))))));
 
   return { node: view };
 }

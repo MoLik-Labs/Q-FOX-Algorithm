@@ -1,18 +1,18 @@
 /**
- * Shared UI parts: the cube panel with its transport, the case card, and the
- * case detail sheet.  Every screen that shows a cube or an algorithm goes
- * through here, so behaviour is identical wherever you meet it.
+ * Các thành phần UI chia sẻ: panel khối với bộ điều khiển, thẻ bài, và
+ * cửa sổ chi tiết của một bài. Mọi màn hình có khối hoặc thuật toán đều
+ * đi qua đây, nên hành vi giống nhau ở mọi nơi bạn gặp.
  */
 import { data, METRIC_HINT } from "./data.js";
 import { CubeView } from "./cube-view.js";
 import { topLayer, netDiagram } from "./diagram.js";
-import { el, mount, moveChips, chip, toast, copyText, sheet, progressBar, num } from "./util.js";
-import { settings, setSetting, isLearned, toggleLearned, card as srsCard } from "./store.js";
+import { el, mount, moveChips, chip, toast, copyText, sheet, progressBar, num, seconds } from "./util.js";
+import { settings, setSetting, isLearned, toggleLearned, card as srsCard, records } from "./store.js";
 
-/* ------------------------------------------------------------------ cube UI */
+/* ------------------------------------------------------------------ UI khối */
 
 /**
- * A cube with the controls a learner actually uses.
+ * Một khối với các điều khiển người học thực sự dùng.
  *
  * @param {object} opts { state, size, view, highlight, transport, title, scramble }
  * @returns {{ node: HTMLElement, cube: CubeView }}
@@ -41,7 +41,7 @@ export function cubePanel(opts = {}) {
   const tools = el("div", { class: "cube-tools" });
   wrap.append(tools);
 
-  /** Add a tool button; returns it so callers can re-label or disable it. */
+  /** Thêm một nút công cụ; trả nó lại để người gọi đổi nhãn hoặc vô hiệu hóa. */
   function add(label, fn, title = label, cls = "btn btn--sm") {
     const b = el("button", { class: cls, type: "button", title, onClick: fn }, label);
     tools.append(b);
@@ -49,28 +49,28 @@ export function cubePanel(opts = {}) {
   }
 
   if (opts.viewToggle !== false) {
-    const btn = add(cube.view === "net" ? "3D view" : "Flat net", () => {
+    const btn = add(cube.view === "net" ? "Xem 3D" : "Lưới phẳng", () => {
       const next = cube.view === "net" ? "3d" : "net";
       cube.setView(next);
       setSetting("view", next);
-      btn.textContent = next === "net" ? "3D view" : "Flat net";
-    }, "Switch between the 3-D cube and the flat net");
+      btn.textContent = next === "net" ? "Xem 3D" : "Lưới phẳng";
+    }, "Đổi giữa khối 3-D và lưới phẳng");
   }
   if (opts.reset !== false) {
-    add("Reset", () => { cube.reset(); if (opts.onReset) opts.onReset(); },
-        "Back to the solved cube");
+    add("Đặt lại", () => { cube.reset(); if (opts.onReset) opts.onReset(); },
+        "Quay lại khối hoàn chỉnh");
   }
-  if (opts.restore) add("Case", opts.restore, "Back to the case position");
-  if (opts.scramble) add("Scramble", opts.scramble, "Apply a random scramble");
+  if (opts.restore) add("Bài", opts.restore, "Quay lại vị trí của bài");
+  if (opts.scramble) add("Trộn", opts.scramble, "Áp dụng một cú trộn ngẫu nhiên");
 
   return { node: wrap, cube, tools, add };
 }
 
-/* --------------------------------------------------------------- case card */
+/* --------------------------------------------------------------- thẻ bài */
 
 /**
- * One algorithm card: the top-layer diagram you recognise, the name if the
- * engine matched a textbook one, and the algorithm itself.
+ * Một thẻ thuật toán: sơ đồ lớp trên bạn nhận dạng, tên nếu engine khớp
+ * với một thuật toán quen thuộc, và chính thuật toán đó.
  */
 export function caseCard(row, opts = {}) {
   const learned = isLearned(row.key);
@@ -78,7 +78,7 @@ export function caseCard(row, opts = {}) {
   const card = el("div", {
     class: `card ${learned ? "is-learned" : ""}`,
     role: "button", tabindex: "0", dataset: { key: row.key },
-    attrs: { "aria-label": `${row.familyLabel || row.family} case ${name || row.desc.pattern}` },
+    attrs: { "aria-label": `bài ${row.familyLabel || row.family} ${name || row.desc.pattern}` },
     onClick: () => opts.onOpen ? opts.onOpen(row) : openCase(row),
     onKeydown: (e) => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
@@ -90,39 +90,39 @@ export function caseCard(row, opts = {}) {
         el("div", { class: "card__name" }, name || row.desc.pattern.split(" / ")[0]),
         el("div", { class: "card__sub" }, name ? row.desc.pattern : row.desc.permutation),
         el("div", { class: "card__alg", title: row.alt
-              ? `${row.primary.label} at ${row.primary.count} moves. The other verified word is ${row.alt.label.toLowerCase()} at ${row.alt.count} — press W in the case view to run it.`
-              : "The engine's own shortest verified word for this case." },
-          row.text || "already there — no algorithm"),
+              ? `${row.primary.label} ở ${row.primary.count} động tác. Từ đã kiểm chứng còn lại là ${row.alt.label.toLowerCase()} ở ${row.alt.count} -- bấm W trong cửa sổ bài để chạy nó.`
+              : "Từ ngắn nhất đã kiểm chứng của engine cho bài này." },
+          row.text || "đã ở đích -- không cần thuật toán"),
         el("div", { class: "card__foot" },
           chip(row.familyLabel || row.family, "fox"),
-          chip(`${row.count} moves`, row.count <= 8 ? "mint" : row.count <= 11 ? "" : "gold"),
-          row.source === "textbook" ? chip("familiar", "gold") : null,
+          chip(`${row.count} động tác`, row.count <= 8 ? "mint" : row.count <= 11 ? "" : "gold"),
+          row.source === "textbook" ? chip("quen thuộc", "gold") : null,
           row.auf ? chip(`AUF ${row.auf_text}`, "sky") : null,
           opts.extraChip ? opts.extraChip(row) : null)),
     ));
   return card;
 }
 
-/* -------------------------------------------------------------- case sheet */
+/* --------------------------------------------------------------- cửa sổ bài */
 
 /**
- * The full case view: cube, transport, metrics, and what to do with it.
+ * Cửa sổ chi tiết của một bài: khối, bộ điều khiển, chỉ số, và việc cần làm.
  */
 export function openCase(row, ctx = {}) {
   const M = data.model;
 
-  // Two words may exist for one case: the familiar algorithm people learn, and
-  // the engine's own shortest.  Both are verified against the goal by the
-  // generator, so the choice is about what you want to memorise, not about
-  // which one is right.
+  // Một bài có thể có hai từ: thuật toán quen thuộc mọi người học, và từ
+  // ngắn nhất của chính engine. Cả hai đều được generator đối chiếu với
+  // mục tiêu, nên lựa chọn là về việc bạn muốn thuộc cái nào, không phải
+  // từ nào đúng.
   const words = (row.words && row.words.length ? row.words : [{
     key: "engine", text: row.algorithm || "", moves: row.moves || [],
-    count: row.stm || 0, label: "Engine's shortest verified word",
+    count: row.stm || 0, label: "Từ ngắn nhất đã kiểm chứng",
   }]).map((x, i) => ({ ...x, key: x.kind || `w${i}` }));
   let w = 0;
   let word = words[0];
   let moves = word.moves;
-  // every position from the case to the goal, so scrubbing is instant
+  // mọi vị trí từ bài đến đích, để kéo thanh trượt là tức thì
   let states = [row.state];
   for (const id of moves) states.push(M.applyIds(states[states.length - 1], [id]));
 
@@ -138,25 +138,25 @@ export function openCase(row, ctx = {}) {
 
   function drawChips() {
     chips = moveChips(word.text, (i) => { goto(i + 1); },
-                      { title: "Jump to after move" });
+                      { title: "Đi tới sau động tác" });
     mount(chipsHost, chips);
     paintChips();
   }
 
-  const playBtn = el("button", { class: "btn btn--primary btn--sm", type: "button" }, "▶ Play");
-  const backBtn = el("button", { class: "btn btn--sm", type: "button", title: "One move back (←)" }, "⟲ Back");
-  const stepBtn = el("button", { class: "btn btn--sm", type: "button", title: "One move (→)" }, "Step ⟳");
-  const caseBtn = el("button", { class: "btn btn--sm", type: "button", title: "Back to the case position" }, "Case");
-  const solvedBtn = el("button", { class: "btn btn--sm", type: "button", title: "Show the goal position" }, "Goal");
-  const setupBtn = el("button", { class: "btn btn--sm", type: "button", title: "Set this case up from a solved cube (applies the inverse)" }, "Set up from solved");
+  const playBtn = el("button", { class: "btn btn--primary btn--sm", type: "button" }, "▶ Chơi");
+  const backBtn = el("button", { class: "btn btn--sm", type: "button", title: "Lùi một động tác (←)" }, "⟲ Lùi");
+  const stepBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tiến một động tác (→)" }, "Bước ⟳");
+  const caseBtn = el("button", { class: "btn btn--sm", type: "button", title: "Quay lại vị trí của bài" }, "Bài");
+  const solvedBtn = el("button", { class: "btn btn--sm", type: "button", title: "Hiện vị trí đích" }, "Đích");
+  const setupBtn = el("button", { class: "btn btn--sm", type: "button", title: "Đặt bài này từ khối hoàn chỉnh (áp dụng nghịch)" }, "Đặt từ khối hoàn chỉnh");
   const speed = el("input", { type: "range", min: "40", max: "600", step: "20", value: String(cube.speed),
-                              attrs: { "aria-label": "Turn speed" },
+                              attrs: { "aria-label": "Tốc độ xoay" },
                               onInput: (e) => { cube.speed = Number(e.target.value); setSetting("speed", cube.speed); speedOut.textContent = `${cube.speed} ms`; } });
   const speedOut = el("span", {}, `${cube.speed} ms`);
 
   const transport = el("div", { class: "cube-tools" },
     playBtn, backBtn, stepBtn, caseBtn, solvedBtn,
-    el("span", { class: "speed" }, "slow", speed, "fast", speedOut));
+    el("span", { class: "speed" }, "chậm", speed, "nhanh", speedOut));
 
   function paintChips() {
     [...chips.children].forEach((node, i) => {
@@ -184,22 +184,22 @@ export function openCase(row, ctx = {}) {
   }
 
   const posOut = el("span", { class: "badge" }, `0 / ${moves.length}`);
-  const solvedChip = chip("solved", "mint");
+  const solvedChip = chip("hoàn thành", "mint");
   solvedChip.style.display = "none";
 
   async function play() {
-    if (cube.isPlaying) { cube.stop(); playBtn.textContent = "▶ Play"; return; }
+    if (cube.isPlaying) { cube.stop(); playBtn.textContent = "▶ Chơi"; return; }
     if (k >= moves.length) goto(0);
-    playBtn.textContent = "❚❚ Pause";
+    playBtn.textContent = "❚❚ Tạm dừng";
     for (let i = k; i < moves.length; i++) {
-      if (!cube.isPlaying && playBtn.textContent !== "❚❚ Pause") break;
+      if (!cube.isPlaying && playBtn.textContent !== "❚❚ Tạm dừng") break;
       k = i;
       await cube.turn(M.byId.get(moves[i]).name);
       k = i + 1;
       afterMove();
-      if (playBtn.textContent !== "❚❚ Pause") break;
+      if (playBtn.textContent !== "❚❚ Tạm dừng") break;
     }
-    playBtn.textContent = "▶ Play";
+    playBtn.textContent = "▶ Chơi";
     afterMove();
   }
 
@@ -213,7 +213,7 @@ export function openCase(row, ctx = {}) {
     cube.setState(M.solved);
     k = 0;
     afterMove();
-    toast("Solved cube → apply the inverse, then run the algorithm yourself", "info");
+    toast("Khối hoàn chỉnh → áp dụng nghịch, rồi tự chạy thuật toán", "info");
     setTimeout(async () => {
       for (const name of inv) await cube.turn(name, Math.min(cube.speed, 130));
       k = 0;
@@ -223,34 +223,39 @@ export function openCase(row, ctx = {}) {
 
   const learnedBtn = el("button", {
     class: `btn ${isLearned(row.key) ? "btn--on" : ""}`, type: "button",
-  }, isLearned(row.key) ? "✓ Learned" : "Mark as learned");
+  }, isLearned(row.key) ? "✓ Đã thuộc" : "Đánh dấu đã thuộc");
   learnedBtn.onclick = () => {
     const on = toggleLearned(row.key);
     learnedBtn.classList.toggle("btn--on", on);
-    learnedBtn.textContent = on ? "✓ Learned" : "Mark as learned";
+    learnedBtn.textContent = on ? "✓ Đã thuộc" : "Đánh dấu đã thuộc";
     document.dispatchEvent(new CustomEvent("qfox:progress", { detail: { key: row.key, on } }));
   };
 
-  const copyBtn = el("button", { class: "btn", type: "button" }, "Copy");
+  const copyBtn = el("button", { class: "btn", type: "button" }, "Sao chép");
   copyBtn.onclick = async () => {
     const ok = await copyText(word.text || "");
-    toast(ok ? `Copied: ${word.text}` : "Copy failed — select the text instead", ok ? "ok" : "err");
+    toast(ok ? `Đã sao chép: ${word.text}` : "Sao chép thất bại — chọn văn bản đó", ok ? "ok" : "err");
   };
 
+  const rec = records().bestOf(row.key);
+  const recChip = rec
+    ? chip(`Kỷ lục ${seconds(rec.ms / 1000, 2)}`, "sky", "Thời gian nhập nhanh nhất của bạn cho bài này")
+    : null;
+
   const algOut = el("div", { class: `alg alg--lg ${word.text ? "" : "alg--empty"}` },
-    word.text || "No algorithm: this case is already at the goal.");
+    word.text || "Không có thuật toán: bài này đã ở đích.");
 
   const wordTabs = words.length > 1
     ? el("div", { class: "pill-tabs" }, ...words.map((wd, i) => el("button", {
         class: `pill-tab ${i === w ? "is-on" : ""}`, type: "button",
-        title: `${wd.text} — ${wd.count} moves`,
+        title: `${wd.text} — ${wd.count} động tác`,
         onClick: () => {
           w = i; word = words[i]; moves = word.moves;
           states = [row.state];
           for (const id of moves) states.push(M.applyIds(states[states.length - 1], [id]));
           k = 0;
           cube.stop();
-          playBtn.textContent = "▶ Play";
+          playBtn.textContent = "▶ Chơi";
           cube.setState(states[0]);
           drawChips();
           mount(algOut, document.createTextNode(word.text));
@@ -263,7 +268,7 @@ export function openCase(row, ctx = {}) {
 
   const sets = data.levelsList.flatMap((lv) => (lv.curriculum || [])
     .filter((it) => it.cases.some((c) => c.key === row.key))
-    .map((it) => chip(`${lv.title.split(" - ")[0]} · ${it.title.replace(/^Step \d+ - /, "")}`, "sky")));
+    .map((it) => chip(`${lv.title.split(" - ")[0]} · ${it.title.replace(/^Bước \d+ - /, "")}`, "sky")));
 
   const srs = srsCard(row.key);
 
@@ -275,61 +280,62 @@ export function openCase(row, ctx = {}) {
       transport,
       el("div", { class: "row row--tight", style: { justifyContent: "center" } }, posOut, solvedChip),
       el("p", { class: "tiny muted", style: { textAlign: "center" } },
-        "Drag the cube to turn your view. The flat net and the 3-D cube are the same state.")),
+        "Kéo khối để xoay góc nhìn. Lưới phẳng và khối 3-D là cùng một trạng thái.")),
     el("div", { class: "detail__steps" },
       el("div", { class: "row row--tight" },
         chip(row.familyLabel || row.family, "fox"),
         ...(row.names || []).map((n) => chip(n, "gold")),
-        chip(`element ${row.element}`, "muted"),
-        chip(`orbit ${row.orbit}`, "muted")),
+        chip(`phần tử ${row.element}`, "muted"),
+        chip(`quỹ đạo ${row.orbit}`, "muted"),
+        recChip),
       wordTabs,
       algOut,
       row.auf_text ? el("div", { class: "hint hint--fox" },
-        `Turn the top face first: ${row.auf_text} — then the algorithm below finishes the case.`) : null,
+        `Xoay mặt trên trước: ${row.auf_text} — rồi thuật toán bên dưới hoàn tất bài.`) : null,
       chipsHost,
       el("div", { class: "metrics" },
         el("div", { class: "metric", title: METRIC_HINT },
-          el("div", { class: "metric__k" }, "moves"), countOut),
+          el("div", { class: "metric__k" }, "động tác"), countOut),
         metric("htm", row.htm), metric("qtm", row.qtm),
         metric("stm", row.stm), metric("etm", row.etm),
-        metric("found by", row.via === "scan" ? "book scan" : row.via),
-        metric("optimal ≤", row.optimal_within)),
+        metric("tìm bởi", row.via === "scan" ? "quét sách" : row.via),
+        metric("tối ưu ≤", row.optimal_within)),
       row.alt ? el("div", { class: "hint" },
         row.source === "textbook"
-          ? [`This is the familiar ${word.name} at ${word.count} moves. The engine's own shortest for this case is `,
-             el("code", {}, row.alt.text), ` at ${row.alt.count} moves.`]
-          : [`This is the engine's own shortest at ${word.count} moves. The familiar ${row.alt.name} is `,
-             el("code", {}, row.alt.text), ` at ${row.alt.count} moves.`],
-        " Both are replayed against the goal by the engine — press ",
-        el("kbd", {}, "W"), " to switch and watch the other one run.") : null,
+          ? [`Đây là ${word.name} quen thuộc ở ${word.count} động tác. Từ ngắn nhất của engine cho bài này là `,
+             el("code", {}, row.alt.text), ` ở ${row.alt.count} động tác.`]
+          : [`Đây là từ ngắn nhất của engine ở ${word.count} động tác. ${row.alt.name} quen thuộc là `,
+             el("code", {}, row.alt.text), ` ở ${row.alt.count} động tác.`],
+        " Cả hai đều được engine chạy lại đối chiếu với mục tiêu — bấm ",
+        el("kbd", {}, "W"), " để đổi và xem từ kia chạy.") : null,
       el("dl", { class: "kv" },
-        el("dt", {}, "Goal"), el("dd", {}, data.algorithms.families[row.family].goal),
-        el("dt", {}, "Edges"), el("dd", {}, row.desc.edges),
-        el("dt", {}, "Corners"), el("dd", {}, row.desc.corners),
-        el("dt", {}, "Permutation"), el("dd", {}, row.desc.permutation),
-        el("dt", {}, "Verified"),
+        el("dt", {}, "Mục tiêu"), el("dd", {}, data.algorithms.families[row.family].goal),
+        el("dt", {}, "Cạnh"), el("dd", {}, row.desc.edges),
+        el("dt", {}, "Góc"), el("dd", {}, row.desc.corners),
+        el("dt", {}, "Hoán vị"), el("dd", {}, row.desc.permutation),
+        el("dt", {}, "Đã kiểm chứng"),
         el("dd", {}, row.verified
-          ? "replayed against the goal by the engine"
-          : "NOT verified — do not trust this card"),
-        el("dt", {}, "Review box"),
+          ? "được engine chạy lại đối chiếu với mục tiêu"
+          : "CHƯA kiểm chứng — đừng tin thẻ này"),
+        el("dt", {}, "Hộp luyện"),
         el("dd", { class: "row row--tight" }, boxDots(srs.box),
             el("span", { class: "tiny muted" }, srs.seen
-              ? `${srs.seen} reviews, ${Math.round((100 * (srs.right || 0)) / Math.max(1, srs.seen))}% correct`
-              : "not drilled yet"))),
+              ? `${srs.seen} lần luyện, ${Math.round((100 * (srs.right || 0)) / Math.max(1, srs.seen))}% đúng`
+              : "chưa luyện"))),
       sets.length ? el("div", { class: "row row--tight" },
-        el("span", { class: "tiny muted" }, "Appears in:"), ...sets) : null,
+        el("span", { class: "tiny muted" }, "Xuất hiện trong:"), ...sets) : null,
       el("div", { class: "row" }, learnedBtn, copyBtn, setupBtn,
-        el("a", { class: "btn", href: `#/trainer?family=${encodeURIComponent(row.family)}&key=${encodeURIComponent(row.key)}` }, "Drill this case"))));
+        el("a", { class: "btn", href: `#/trainer?family=${encodeURIComponent(row.family)}&key=${encodeURIComponent(row.key)}` }, "Luyện bài này"))));
 
   const famName = row.familyLabel || row.family;
   const title = (row.teach && row.teach.name)
     ? `${row.teach.name} — ${famName}`
     : (row.names && row.names[0])
       ? `${row.names[0]} — ${famName}`
-      : `${famName} case ${row.i + 1}`;
+      : `Bài ${row.familyLabel || row.family} ${row.i + 1}`;
   const s = sheet(title, body, {
     wide: true,
-    subtitle: `${row.desc.pattern} · ${word.count} moves · ${row.desc.permutation}`,
+    subtitle: `${row.desc.pattern} · ${word.count} động tác · ${row.desc.permutation}`,
   });
 
   drawChips();
@@ -366,14 +372,14 @@ function metric(k, v) {
 }
 
 export function boxDots(box) {
-  const wrap = el("span", { class: "box-dots", title: `Review box ${box} of 5` });
+  const wrap = el("span", { class: "box-dots", title: `Hộp luyện ${box} trên 5` });
   for (let i = 0; i <= 5; i++) {
     wrap.append(el("span", { class: `box-dot ${i <= box ? "is-on" : ""}` }));
   }
   return wrap;
 }
 
-/* -------------------------------------------------------------- case grids */
+/* --------------------------------------------------------------- lưới bài */
 
 export function caseGrid(rows, opts = {}) {
   const grid = el("div", { class: "grid grid--cases" });
@@ -384,7 +390,7 @@ export function caseGrid(rows, opts = {}) {
 export function learnedSummary(rows) {
   const done = rows.filter((r) => isLearned(r.key)).length;
   return el("div", { class: "row" },
-    progressBar(done, rows.length, `${done}/${rows.length} learned`));
+    progressBar(done, rows.length, `${done}/${rows.length} đã thuộc`));
 }
 
 export { netDiagram, num };

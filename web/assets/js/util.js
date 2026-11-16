@@ -1,4 +1,6 @@
-/** Tiny DOM + formatting helpers.  No framework, no dependencies. */
+/**
+ * Tiện ích DOM và định dạng nhỏ. Không framework, không phụ thuộc.
+ */
 
 export function el(tag, props = {}, ...kids) {
   const node = document.createElement(tag);
@@ -38,13 +40,13 @@ export function mount(node, ...kids) {
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-/* ------------------------------------------------------------------ numbers */
+/* ------------------------------------------------------------------ số liệu */
 
 export const num = (v, digits = 2) =>
   v === null || v === undefined || Number.isNaN(v) ? "—" : Number(v).toFixed(digits);
 
 export const int = (v) =>
-  v === null || v === undefined ? "—" : Number(v).toLocaleString("en-US");
+  v === null || v === undefined ? "—" : Number(v).toLocaleString("vi-VN");
 
 export function pct(part, whole, digits = 0) {
   if (!whole) return "—";
@@ -53,13 +55,19 @@ export function pct(part, whole, digits = 0) {
 
 export const plural = (n, one, many = one + "s") => `${n} ${n === 1 ? one : many}`;
 
-/** Seconds -> "1.4 s" / "1 min 05 s" */
+/** Giây -> "1,4 s" / "1 phút 05 s" */
 export function duration(sec) {
   if (sec === null || sec === undefined) return "—";
   if (sec < 1) return `${Math.round(sec * 1000)} ms`;
   if (sec < 60) return `${sec.toFixed(sec < 10 ? 2 : 1)} s`;
   const m = Math.floor(sec / 60);
-  return `${m} min ${String(Math.round(sec - m * 60)).padStart(2, "0")} s`;
+  return `${m} phút ${String(Math.round(sec - m * 60)).padStart(2, "0")} s`;
+}
+
+/** Giây -> "12,4 s" theo chuẩn Việt Nam (dấu phẩy thập phân). */
+export function seconds(sec, digits = 2) {
+  if (sec === null || sec === undefined) return "—";
+  return `${Number(sec).toLocaleString("vi-VN", { minimumFractionDigits: digits, maximumFractionDigits: digits })} s`;
 }
 
 /* --------------------------------------------------------------- clipboard */
@@ -100,7 +108,7 @@ export function toast(message, kind = "info", ms = 2600) {
 
 /* ------------------------------------------------------------------ dialog */
 
-/** A modal sheet.  Returns { root, close }.  Esc and backdrop click close it. */
+/** Cửa sổ nổi. Trả về { root, close }. Esc và click nền đóng nó. */
 export function sheet(titleText, bodyNode, opts = {}) {
   const close = () => {
     root.classList.remove("is-on");
@@ -118,7 +126,7 @@ export function sheet(titleText, bodyNode, opts = {}) {
     el("header", { class: "sheet__head" },
        el("h2", {}, titleText),
        opts.subtitle ? el("p", { class: "sheet__sub" }, opts.subtitle) : null,
-       el("button", { class: "icon-btn", title: "Close (Esc)", "aria-label": "Close",
+       el("button", { class: "icon-btn", title: "Đóng (Esc)", "aria-label": "Đóng",
                       onClick: close }, "✕")),
     el("div", { class: "sheet__body" }, bodyNode),
   );
@@ -129,7 +137,7 @@ export function sheet(titleText, bodyNode, opts = {}) {
   return { root, panel, close };
 }
 
-/* ------------------------------------------------------------- small parts */
+/* ------------------------------------------------------------- thành phần nhỏ */
 
 export function chip(text, kind = "", title = "") {
   return el("span", { class: `chip ${kind ? `chip--${kind}` : ""}`, title }, text);
@@ -139,14 +147,14 @@ export function badge(text, kind = "") {
   return el("span", { class: `badge ${kind ? `badge--${kind}` : ""}` }, text);
 }
 
-/** A move sequence as individually clickable chips. */
+/** Một chuỗi động tác thành các chip click được. */
 export function moveChips(seq, onPick = null, opts = {}) {
   const tokens = String(seq || "").split(/\s+/).filter(Boolean);
   return el("div", { class: "moves" }, tokens.map((t, i) =>
     el("button", {
       class: `move ${t.endsWith("'") ? "move--ccw" : t.endsWith("2") ? "move--half" : ""}`,
       dataset: { i, t },
-      title: opts.title ? `${opts.title} ${i + 1}` : `Move ${i + 1}`,
+      title: opts.title ? `${opts.title} ${i + 1}` : `Động tác ${i + 1}`,
       onClick: onPick ? (e) => onPick(i, t, e) : null,
       type: "button",
     }, t)));
@@ -171,12 +179,10 @@ export function ring(part, whole, size = 56) {
       <text x="50%" y="50%" class="ring__text" dominant-baseline="central"
         text-anchor="middle">${Math.round(p * 100)}%</text>
     </svg>`;
-  const node = el("div", { class: "ring-wrap", html: svg,
-                           title: `${part} of ${whole} learned` });
-  return node;
+  return el("div", { class: "ring-wrap", html: svg, title: `${part} trong ${whole} bài đã thuộc` });
 }
 
-export function spinner(text = "Loading") {
+export function spinner(text = "Đang tải") {
   return el("div", { class: "spinner-wrap" },
     el("div", { class: "spinner", attrs: { "aria-hidden": "true" } }),
     el("p", {}, text));

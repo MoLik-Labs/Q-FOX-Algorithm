@@ -110,20 +110,20 @@ def facelet_state(cube: N.Cube) -> str:
 # what a case looks like, in words a human can recognise it by
 # --------------------------------------------------------------------------- #
 EO_SHAPES = {
-    (1, 1, 1, 1): "cross - all four edges oriented",
-    (1, 0, 1, 0): "line - two opposite edges oriented",
-    (0, 1, 0, 1): "line - two opposite edges oriented",
-    (1, 1, 0, 0): "L - two adjacent edges oriented",
-    (0, 1, 1, 0): "L - two adjacent edges oriented",
-    (0, 0, 1, 1): "L - two adjacent edges oriented",
-    (1, 0, 0, 1): "L - two adjacent edges oriented",
+    (1, 1, 1, 1): "cross - cả bốn cạnh xác định hướng",
+    (1, 0, 1, 0): "dòng - hai cạnh đối diện xác định hướng",
+    (0, 1, 0, 1): "dòng - hai cạnh đối diện xác định hướng",
+    (1, 1, 0, 0): "L - hai cạnh kề xác định hướng",
+    (0, 1, 1, 0): "L - hai cạnh kề xác định hướng",
+    (0, 0, 1, 1): "L - hai cạnh kề xác định hướng",
+    (1, 0, 0, 1): "L - hai cạnh kề xác định hướng",
 }
 CO_LABELS = {
-    0: "no corner oriented",
-    1: "one corner oriented",
-    2: "two corners oriented",
-    3: "three corners oriented",
-    4: "all corners oriented",
+    0: "không góc nào xác định hướng",
+    1: "một góc xác định hướng",
+    2: "hai góc xác định hướng",
+    3: "ba góc xác định hướng",
+    4: "cả bốn góc xác định hướng",
 }
 
 
@@ -141,9 +141,9 @@ def _cycle_label(perm) -> str:
             j = perm[j]
         cycles.append(len(cyc))
     cycles.sort(reverse=True)
-    return {(): "solved", (1,): "solved", (2,): "one swap",
-            (3,): "3-cycle", (4,): "4-cycle", (2, 2): "two swaps",
-            (2, 1): "one swap", (2, 2, 1): "two swaps"}.get(
+    return {(): "đã hoàn thành", (1,): "đã hoàn thành", (2,): "một cặp đổi",
+            (3,): "chu trình 3", (4,): "chu trình 4", (2, 2): "hai cặp đổi",
+            (2, 1): "một cặp đổi", (2, 2, 1): "hai cặp đổi"}.get(
         tuple(c for c in cycles if c > 1), str(cycles))
 
 
@@ -159,25 +159,25 @@ def describe(state) -> dict:
     # alike, so both counts test for zero
     n_eo = sum(1 for x in eo if x == 0)
     if n_eo == 4:
-        out["edges"] = "all four edges oriented"
+        out["edges"] = "cả bốn cạnh xác định hướng"
     elif n_eo == 0:
-        out["edges"] = "no edge oriented (dot)"
+        out["edges"] = "không cạnh nào xác định hướng (chấm)"
     else:
         out["edges"] = EO_SHAPES.get(tuple(1 if x == 0 else 0 for x in eo),
-                                     f"{n_eo} edges oriented")
+                                     f"{n_eo} cạnh xác định hướng")
     n_co = sum(1 for x in co if x == 0)
     if n_co == 2:
         # adjacent or opposite, which is the distinction that matters
         idx = [i for i, x in enumerate(co) if x == 0]
-        out["corners"] = ("two corners oriented, opposite (headlights)"
+        out["corners"] = ("hai góc xác định hướng, đối diện (đèn pha)"
                           if (idx[1] - idx[0]) % 4 == 2 else
-                          "two corners oriented, adjacent")
+                          "hai góc xác định hướng, kề nhau")
     else:
-        out["corners"] = CO_LABELS.get(n_co, f"{n_co} corners oriented")
+        out["corners"] = CO_LABELS.get(n_co, f"{n_co} góc xác định hướng")
     out["edge_cycles"] = _cycle_label(ep)
     out["corner_cycles"] = _cycle_label(cp)
     out["pattern"] = f"{out['edges']} / {out['corners']}"
-    out["permutation"] = f"corners: {out['corner_cycles']}, edges: {out['edge_cycles']}"
+    out["permutation"] = f"góc: {out['corner_cycles']}, cạnh: {out['edge_cycles']}"
     return out
 
 
@@ -244,44 +244,43 @@ GOALSETS = {"OLL": L.goal_oll, "PLL": L.goal_auf, "CLL": L.goal_cmll,
 FAMILY_INFO = {
     "OLL": {
         "label": "OLL",
-        "title": "Orient the last layer",
-        "blurb": "Every last-layer sticker facing the right way, permutation "
-                 "ignored.  Recognised by the shape the oriented edges make and "
-                 "by how many corners are oriented.",
-        "goal": "last layer oriented",
+        "title": "Xác định hướng lớp cuối",
+        "blurb": "Mọi dán lớp cuối đều quay đúng hướng, hoán vị không quan "
+                 "trọng. Nhận dạng bằng hình dáng các cạnh đã xác định hướng "
+                 "và số góc đã xác định hướng.",
+        "goal": "lớp cuối đã xác định hướng",
         "level": "medium",
     },
     "PLL": {
         "label": "PLL",
-        "title": "Permute the last layer",
-        "blurb": "Orientation is already right, so this is pure permutation, "
-                 "with a free turn of the top face before and after.",
-        "goal": "cube solved, up to AUF",
+        "title": "Hoán vị lớp cuối",
+        "blurb": "Hướng đã đúng, nên đây thuần là hoán vị, với một cú xoay "
+                 "mặt trên tự do trước và sau.",
+        "goal": "hoàn thành khối, chỉ còn AUF",
         "level": "medium",
     },
     "CLL": {
         "label": "CLL / CMLL",
-        "title": "Solve the corners, orient the edges",
-        "blurb": "The Roux last-layer step: corners completely solved and the "
-                 "last-layer edges oriented, leaving only the six edges.",
-        "goal": "corners solved, last-layer edges oriented",
+        "title": "Giải góc, xác định hướng cạnh",
+        "blurb": "Bước lớp cuối của Roux: các góc hoàn chỉnh và các cạnh lớp "
+                 "cuối xác định hướng, chỉ còn lại 6 cạnh.",
+        "goal": "góc đã giải, cạnh lớp cuối đã xác định hướng",
         "level": "hard",
     },
     "COLL": {
         "label": "COLL",
-        "title": "Corners solved and edges oriented",
-        "blurb": "Same goal as CLL, reached from a different starting shape: "
-                 "the corner orientation is what defines the case.",
+        "title": "Góc đã giải và cạnh đã xác định hướng",
+        "blurb": "Mục tiêu giống CLL, nhưng tiếp cận từ hình dạng ban đầu "
+                 "khác: hướng của các góc là thứ định nghĩa bài.",
         "goal": "corners solved, last-layer edges oriented",
         "level": "hard",
     },
     "ELL": {
         "label": "ELL",
-        "title": "Finish the edges",
-        "blurb": "Corners are done, so only the four last-layer edges move.  "
-                 "Thirty cases, and only a turn of the whole cube to choose "
-                 "between them.",
-        "goal": "edges solved, up to AUF",
+        "title": "Hoàn tất các cạnh",
+        "blurb": "Các góc đã xong, nên chỉ 4 cạnh lớp cuối thay đổi. Ba mươi "
+                 "bài, và chỉ một cú xoay toàn khối để chọn giữa chúng.",
+        "goal": "cạnh đã giải, chỉ còn AUF",
         "level": "hard",
     },
 }
@@ -292,13 +291,13 @@ FAMILY_INFO = {
 # (goal name for the meet in the middle, the goal as the engine states it,
 #  whether the goal is one state rather than an orbit, what it reads as)
 FAMILY_GOALS = {
-    "OLL": ("oll", CL.OLL_DONE, False, "last layer oriented"),
-    "PLL": ("pll", CL.PLL_DONE, True, "cube solved"),
+    "OLL": ("oll", CL.OLL_DONE, False, "lớp cuối đã xác định hướng"),
+    "PLL": ("pll", CL.PLL_DONE, True, "khối đã hoàn thành"),
     "CLL": ("cmll", (CL.LL_CORNERS, CL.EO_LL), False,
-            "corners solved, edges oriented"),
+            "góc đã giải, cạnh đã xác định hướng"),
     "COLL": ("cmll", (CL.LL_CORNERS, CL.EO_LL), False,
-             "corners solved, edges oriented"),
-    "ELL": ("ell", CL.PLL_DONE, True, "cube solved"),
+             "góc đã giải, cạnh đã xác định hướng"),
+    "ELL": ("ell", CL.PLL_DONE, True, "khối đã hoàn thành"),
 }
 
 
@@ -639,8 +638,8 @@ def algorithms_data(book: B.Book) -> dict:
 # --------------------------------------------------------------------------- #
 # methods and levels
 # --------------------------------------------------------------------------- #
-MASK_NAMES = {N.MASK_OUTER: "all 18 outer turns", N.MASK_MU: "<M, U> only",
-              N.MASK_ULR: "<U, R, L> only", N.MASK_SLICE: "slices only"}
+MASK_NAMES = {N.MASK_OUTER: "18 động tác mặt ngoài", N.MASK_MU: "chỉ <M, U>",
+              N.MASK_ULR: "chỉ <U, R, L>", N.MASK_SLICE: "chỉ các slice"}
 
 
 def methods_data() -> dict:
@@ -673,31 +672,31 @@ def methods_data() -> dict:
 
 LEVEL_INFO = {
     "easy": {
-        "order": 1, "title": "Level 1 - Newbie",
-        "who": "Never solved one, or still using a printed sheet.",
-        "promise": "Eight algorithms and the cube is solved.  Nothing to "
-                   "recognise beyond 'is the top face yellow yet'.",
+        "order": 1, "title": "Cấp 1 - Mới làm quen",
+        "who": "Chưa từng giải được khối, hoặc vẫn dùng bài in ra giấy.",
+        "promise": "Tám thuật toán và khối hoàn thành. Không cần nhận dạng gì "
+                   "ngoài \"mặt trên đã vàng chưa\".",
         "path": "Q-FOX/easy",
     },
     "medium": {
-        "order": 2, "title": "Level 2 - Getting serious",
-        "who": "Can solve it, wants to get under a minute.",
-        "promise": "The classic 57 + 21: recognise the top, run one algorithm, "
-                   "recognise the sides, run another.",
+        "order": 2, "title": "Cấp 2 - Bắt đầu nghiêm túc",
+        "who": "Đã giải được, muốn vào dưới một phút.",
+        "promise": "Chuỗi 57 + 21 kinh điển: nhìn mặt trên, chạy một thuật "
+                   "toán, nhìn các mặt bên, chạy thêm một cái nữa.",
         "path": "Q-FOX/medium",
     },
     "hard": {
-        "order": 3, "title": "Level 3 - Roux shaped",
-        "who": "Sub-30, happy to give up the cross.",
-        "promise": "Forty-two algorithms that solve the corners and orient the "
-                   "edges at once, then the last six edges by intuition.",
+        "order": 3, "title": "Cấp 3 - Hình dáng Roux",
+        "who": "Dưới 30 giây, sẵn sàng bỏ cross.",
+        "promise": "Bốn mươi hai thuật toán giải góc và xác định hướng cạnh "
+                   "cùng lúc, rồi 6 cạnh cuối bằng cảm giác.",
         "path": "Q-FOX/hard",
     },
     "full": {
-        "order": 4, "title": "Level 4 - Q-FOX",
-        "who": "Wants the fewest moves a last layer can possibly take.",
-        "promise": "Nothing to memorise: two blocks, then one lookup that is "
-                   "provably the shortest way to finish.",
+        "order": 4, "title": "Cấp 4 - Q-FOX",
+        "who": "Muốn ít động tác nhất có thể cho lớp cuối.",
+        "promise": "Không cần nhớ gì: hai khối, rồi một lần tra sách -- có "
+                   "chứng minh là cách hoàn tất ngắn nhất.",
         "path": "Q-FOX/full",
     },
 }
@@ -713,61 +712,59 @@ LEVEL_INFO = {
 # in both directions, so a card cannot drift into or out of a level unnoticed.
 CURRICULUM = {
     "easy": [
-        {"id": "top-cross", "title": "Step 1 - make the top cross",
-         "why": "Only the four top edges matter, and there are three shapes to "
-                "recognise: a dot, a line, or an L.  Corners are ignored on "
-                "purpose, so this step never has more than one thing to look at.",
-         "family": "OLL", "where": {"corners": "all corners oriented"}},
-        {"id": "top-face", "title": "Step 2 - fill in the top face",
-         "why": "The cross is already there, so this is the eight cases where "
-                "only corners are twisted.  Sune and antisune between them "
-                "cover all of it.",
-         "family": "OLL", "where": {"edges": "all four edges oriented"}},
-        {"id": "corners-home", "title": "Step 3 - corners in their slots",
-         "why": "Edges are left alone: these are the permutations that move "
-                "corners only, so the top face stays yellow while the sides "
-                "line up.",
+        {"id": "top-cross", "title": "Bước 1 - làm cross trên mặt trên",
+         "why": "Chỉ cần 4 cạnh trên, và có ba hình cần nhận: một chấm, một "
+                "dòng, hoặc một chữ L. Các góc được bỏ qua có chủ đích, nên "
+                "bước này không bao giờ có nhiều hơn một thứ để nhìn.",
+         "family": "OLL", "where": {"corners": "cả bốn góc xác định hướng"}},
+        {"id": "top-face", "title": "Bước 2 - lấp đầy mặt trên",
+         "why": "Cross đã có sẵn, nên đây là tám bài chỉ xoay các góc. Sune "
+                "và antisune chung nhau bao quát hết.",
+         "family": "OLL", "where": {"edges": "cả bốn cạnh xác định hướng"}},
+        {"id": "corners-home", "title": "Bước 3 - góc vào đúng khe",
+         "why": "Cạnh để yên: đây là các hoán vị chỉ di chuyển góc, nên mặt "
+                "trên vẫn vàng trong khi các mặt bên xếp vào.",
          "family": "PLL",
-         "where": {"edge_cycles": "solved", "corner_cycles": "!solved"}},
-        {"id": "edges-home", "title": "Step 4 - edges in their slots",
-         "why": "The last look: corners are already home, so only the four top "
-                "edges cycle.  Two of these four are the familiar U-perms.",
+         "where": {"edge_cycles": "đã hoàn thành", "corner_cycles": "!đã hoàn thành"}},
+        {"id": "edges-home", "title": "Bước 4 - cạnh vào đúng khe",
+         "why": "Lần nhìn cuối: các góc đã về chỗ, nên chỉ 4 cạnh trên hoán "
+                "vị. Hai trong bốn bài này là các U-perm quen thuộc.",
          "family": "PLL",
-         "where": {"corner_cycles": "solved", "edge_cycles": "!solved"}},
+         "where": {"corner_cycles": "đã hoàn thành", "edge_cycles": "!đã hoàn thành"}},
     ],
     "medium": [
-        {"id": "oll", "title": "Full OLL - 57 cases",
-         "why": "One look at the top instead of two.  Learn it in the classic "
-                "order (dot, line, L, cross, then the corner shapes) and the "
-                "step above collapses into a single algorithm.",
+        {"id": "oll", "title": "OLL đầy đủ - 57 bài",
+         "why": "Một lần nhìn mặt trên thay vì hai. Học theo thứ tự kinh điển "
+                "(chấm, dòng, L, cross, rồi các hình góc) và bước trên coi "
+                "như coinh lại thành một thuật toán.",
          "family": "OLL", "where": {}},
-        {"id": "pll", "title": "Full PLL - 21 cases",
-         "why": "One look at the sides instead of two, and the two edge/corner "
-                "steps above become one.  AUF before and after is free.",
+        {"id": "pll", "title": "PLL đầy đủ - 21 bài",
+         "why": "Một lần nhìn các mặt bên thay vì hai, và hai bước cạnh/góc "
+                "trên gộp lại thành một. AUF trước và sau là tự do.",
          "family": "PLL", "where": {}},
     ],
     "hard": [
-        {"id": "cll", "title": "CLL - corners solved, edges oriented",
-         "why": "The Roux last layer: solve all four corners while the top "
-                "edges stay oriented, then the last six edges are a short, "
-                "mostly intuitive finish.",
+        {"id": "cll", "title": "CLL - góc đã giải, cạnh đã xác định hướng",
+         "why": "Lớp cuối của Roux: giải cả bốn góc trong khi các cạnh trên "
+                "giữ hướng, rồi 6 cạnh cuối là phần hoàn tất ngắn, hầu như "
+                "toàn cảm giác.",
          "family": "CLL", "where": {}},
-        {"id": "ell", "title": "ELL - edges only",
-         "why": "Corners already home: 29 cases that permute and orient the "
-                "top edges in one look.  This is the second half of Roux and "
-                "of ZZ-a.",
+        {"id": "ell", "title": "ELL - chỉ có cạnh",
+         "why": "Góc đã về chỗ: 29 bài hoán vị và xác định hướng các cạnh "
+                "trên trong một lần nhìn. Đây là nửa sau của Roux và của "
+                "ZZ-a.",
          "family": "ELL", "where": {}},
     ],
     "full": [
-        {"id": "coll", "title": "COLL - corners and orientation at once",
-         "why": "Everything the corner half of the last layer can ask for, "
-                "with the edges kept oriented so the finish stays short.",
+        {"id": "coll", "title": "COLL - góc và hướng cùng lúc",
+         "why": "Tất cả những gì nửa góc của lớp cuối có thể đòi hỏi, với "
+                "các cạnh giữ hướng để phần hoàn tất luôn ngắn.",
          "family": "COLL", "where": {}},
-        {"id": "ell", "title": "ELL - the edge finish",
-         "why": "The same 29 edge cases, reached from a solved corner state.",
+        {"id": "ell", "title": "ELL - hoàn tất các cạnh",
+         "why": "Vẫn 29 bài cạnh đó, tiếp cận từ trạng thái góc đã hoàn chỉnh.",
          "family": "ELL", "where": {}},
-        {"id": "cll", "title": "CLL - corners only",
-         "why": "For the days the edges cooperate and only corners are left.",
+        {"id": "cll", "title": "CLL - chỉ có góc",
+         "why": "Cho những ngày các cạnh hợp tác và chỉ còn góc.",
          "family": "CLL", "where": {}},
     ],
 }
@@ -876,8 +873,8 @@ def book_data(book: B.Book) -> dict:
         "nodes": int(book._b.nodes),
         "histogram": {str(k): v for k, v in sorted(hist.items())},
         "reachable_by": book.swept * 2,
-        "note": "Elements past the sweep are still solved optimally by splitting "
-                "the answer into two halves that are both inside it.",
+        "note": "Các phần tử vượt quá độ quét vẫn được giải tối ưu bằng cách "
+                "chia câu trả lời thành hai nửa đều nằm trong đó.",
     }
 
 
