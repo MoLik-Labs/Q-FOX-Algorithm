@@ -4,6 +4,7 @@
  * trình của bạn.
  */
 import { data, levelKeys, caseByKey, METRIC_HINT } from "../data.js";
+import { exportCasesPng, exportCasesPdf } from "../export.js";
 import { el, mount, chip, num, int, progressBar, emptyState } from "../util.js";
 import { caseCard, openCase } from "../parts.js";
 import { learnedCount, isLearned } from "../store.js";
@@ -259,6 +260,10 @@ function detail(key) {
       el("div", { class: "row row--tight" },
         chip(lv.who, "sky"),
         chip(`${rows.length} thẻ trong cấp này`, "gold"),
+        el("button", { class: "btn btn--sm", type: "button", title: "Xuất cả cấp này thành PDF sách",
+          onClick: () => exportCasesPdf(rows, { title: lv.title, subtitle: `${rows.length} bài · ${lv.path} · ${new Date().toLocaleDateString("vi-VN")}` }) }, "Xuất PDF"),
+        el("button", { class: "btn btn--sm", type: "button", title: "Xuất cả cấp này thành ảnh PNG",
+          onClick: () => exportCasesPng(rows, { title: lv.title, cols: 3, filename: "qfox-" + key }) }, "Xuất PNG"),
         el("a", { class: "btn btn--sm btn--primary", href: `#/trainer?level=${key}` }, "Bắt đầu luyện"))),
     stages,
     el("div", { class: "section-head" }, el("h2", {}, "Các thuật toán")),

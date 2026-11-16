@@ -8,6 +8,7 @@ import { el, mount, chip, num, int, emptyState, debounce, progressBar } from "..
 import { caseCard, openCase } from "../parts.js";
 import { isLearned, learnedCount } from "../store.js";
 import { topLayer } from "../diagram.js";
+import { exportCasesPng, exportCasesPdf } from "../export.js";
 
 const SORTS = {
   length: (a, b) => a.count - b.count || a.i - b.i,
@@ -300,24 +301,27 @@ function recognitionTable() {
   return el("section", { class: "panel" }, panelHead, intro, wrap);
 }
 
-  mount(view,
-    el("div", { class: "section-head" },
-      el("div", {},
-        el("h1", {}, "Sách thuật toán"),
-        el("p", { class: "panel__note" },
-          `${int(data.algorithms.cases)} bài, ${int(data.algorithms.to_learn)} bài có thuật toán, mỗi bài đều được engine chạy lại đối chiếu với mục tiêu.`)),
-      el("span", { class: "spacer" }),
-      el("div", { class: "row row--tight" },
-        chip(`sách quét tới ${data.book.swept}`, "sky"),
-        chip(`chính xác tới ${data.book.reachable_by}`, "mint"))),
-    tabs,
-    filters,
-    head,
-    summary,
-    grid,
-    familyRecognise(),
-    reference,
-    recognition);
+  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ bài đang hiện thành PDF sách giáo khoa",
+    onClick: () => {
+      const list = rows();
+      const fam = state.family === "*" ? "toàn bộ" : (state.family || "toàn bộ");
+      const today = new Date().toLocaleDateString("vi-VN");
+      exportCasesPdf(list, { title: "Q-FOX · Sách thuật toán", subtitle: list.length + " bài · " + fam + " · " + today });
+    } }, "Xuất PDF");
+  const pngBtn = el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ bài đang hiện thành ảnh PNG",
+    onClick: () => exportCasesPng(rows(), { title: "Q-FOX · Sách thuật toán", cols: 4, filename: "qfox-algorithms" }) }, "Xuất PNG");
+  const headRow = el("div", { class: "row row--tight" },
+    chip(`sách quét tới ${data.book.swept}`, "sky"),
+    chip(`chính xác tới ${data.book.reachable_by}`, "mint"),
+    pdfBtn, pngBtn);
+  const headBlock = el("div", { class: "section-head" },
+    el("div", {},
+      el("h1", {}, "Sách thuật toán"),
+      el("p", { class: "panel__note" },
+        `${int(data.algorithms.cases)} bài, ${int(data.algorithms.to_learn)} bài có thuật toán, mỗi bài đều được engine chạy lại đối chiếu với mục tiêu.`)),
+    el("span", { class: "spacer" }),
+    headRow);
+  mount(view, headBlock, tabs, filters, head, summary, grid, familyRecognise(), reference, recognition);
 
   syncTabs();
   draw();

@@ -2,6 +2,7 @@
 import { data, totals, levelKeys, METRIC_HINT, caseByKey } from "../data.js";
 import { el, mount, chip, num, int, progressBar, seconds } from "../util.js";
 import { cubePanel, caseCard, openCase } from "../parts.js";
+import { exportCasesPng, exportCasesPdf } from "../export.js";
 import { learnedCount, recentSessions, records, schedule } from "../store.js";
 
 export function render() {
@@ -151,8 +152,55 @@ export function render() {
     el("p", { class: "tiny muted" },
       "Tiến trình chỉ lưu trong trình duyệt này (localStorage). Nếu muốn giữ, hãy xuất từ Bài luyện."));
 
+  /* ---------------------------------------------------- lộ trình học chuẩn */
+  const learnSteps = [
+    { n: "1", title: "Nhận dạng", what: "Nhìn khối, gọi tên bài. Đây là bước đầu và quyết định tốc độ.",
+      how: "Luyện chế độ Nhận nhanh — chỉ có hình, không có câu hỏi. Gọi tên rồi kiểm tra.",
+      href: "#/trainer", cta: "Luyện nhận dạng", cls: "sky" },
+    { n: "2", title: "Thuộc thuật toán", what: "Biết bài rồi, cần thuộc cách giải nó. Học theo cụm, không thuộc từng chữ.",
+      how: "Mở bài trên Sách thuật toán — có nhận dạng, cụm động tác, ghi nhớ. Luyện từng cụm.",
+      href: "#/algorithms", cta: "Mở sách thuật toán", cls: "fox" },
+    { n: "3", title: "Luyện thực chiến", what: "Nhận dạng + thuộc đã có, giờ luyện đều để giải nhanh và chắc.",
+      how: "Bài luyện có nhận nhanh, nhận+nhớ, khung thời gian, tập trung bài yếu. Chạy đều mỗi ngày.",
+      href: "#/trainer", cta: "Vào bài luyện", cls: "mint" },
+  ];
+  const stepCards = learnSteps.map((st) => {
+    const tag = st.cls === "sky" ? "bước 1" : st.cls === "fox" ? "bước 2" : "bước 3";
+    const headRow = el("div", { class: "row row--tight", style: { marginBottom: "8px" } },
+      el("span", { class: "level-card__n", style: { background: "var(--s-3)" } }, st.n),
+      el("span", { class: "card__name" }, st.title),
+      el("span", { class: "spacer" }),
+      chip(tag, st.cls));
+    const body = el("div", { class: "card__body" },
+      headRow,
+      el("p", { class: "small" }, st.what),
+      el("p", { class: "tiny muted" }, st.how),
+      el("a", { class: "btn btn--sm", href: st.href }, st.cta));
+    return el("div", { class: "card card--plain" }, body);
+  });
+  const pdfBtn = el("button", { class: "btn btn--sm", type: "button", title: "In toàn bộ sách thành PDF",
+    onClick: () => {
+      const today = new Date().toLocaleDateString("vi-VN");
+      exportCasesPdf(data.cases, { title: "Q-FOX · Sách giáo khoa thuật toán", subtitle: data.cases.length + " bài · " + today });
+    } }, "Xuất PDF sách");
+  const pngBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tải toàn bộ sách thành ảnh PNG",
+    onClick: () => exportCasesPng(data.cases, { title: "Q-FOX · Sách giáo khoa", cols: 4, filename: "qfox-textbook" }) }, "Xuất PNG sách");
+  const exportRow = el("div", { class: "row row--tight", style: { marginTop: "14px" } },
+    el("span", { class: "tiny muted" }, "Muốn in ra hoặc lưu ảnh để học offline:"),
+    pdfBtn, pngBtn);
+  const learnPath = el("section", { class: "panel" },
+    el("div", { class: "panel__head" }, el("h3", {}, "Lộ trình học — dễ làm, chuẩn phương pháp"),
+      el("span", { class: "spacer" }),
+      chip("3 bước, mọi cấp độ đều đi qua", "fox")),
+    el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+      "Học giải rubik không cần phức tạp. Ba bước này -- nhận dạng, thuộc, rồi luyện -- là chu trình chuẩn mà mọi phương pháp đều dùng. " +
+      "Đi đúng thứ tự, không nhảy bước: nhận không ra thì không thuộc được, thuộc không thuộc thì không giải được. Mỗi bước có công cụ riêng trên trang này."),
+    el("div", { class: "grid grid--3" }, ...stepCards),
+    exportRow);
+
   mount(view,
     hero,
+    learnPath,
     dailyPlan(),
     weeklyPlan(),
     el("div", { class: "section-head" }, el("h2", {}, "Toàn bộ hệ thống trong một dòng"),

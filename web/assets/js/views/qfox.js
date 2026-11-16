@@ -8,7 +8,8 @@
  * nấc, và trực tiếp nhảy vào luyện tập cấp đó.
  */
 import { data, level, levelKeys, caseByKey, totals } from "../data.js";
-import { el, mount, chip, num, int } from "../util.js";
+import { el, mount, chip, num, int, toast } from "../util.js";
+import { exportCasesPng, exportCasesPdf } from "../export.js";
 import { learnedCount, isLearned } from "../store.js";
 
 const TIER_TONE = { easy: "sky", medium: "mint", hard: "gold", full: "fox" };
@@ -25,7 +26,11 @@ export function render(params = {}) {
   const speedCard = el("div", { class: "panel" },
     el("div", { class: "panel__head" }, el("h3", {}, "Con số tốc độ của engine"),
       el("span", { class: "spacer" }),
-      chip("cùng 20 cú trộn, bảng đã warm", "sky")),
+      chip("cùng 20 cú trộn, bảng đã warm", "sky"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ 196 bài thành PDF sách",
+        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}` }) }, "Xuất PDF toàn bộ"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ 196 bài thành ảnh PNG",
+        onClick: () => { toast("Đang vẽ ảnh PNG…", "info"); exportCasesPng(data.cases, { title: "Q-FOX · Sách thuật toán", cols: 4, filename: "qfox-full" }); } }, "Xuất PNG toàn bộ")),
     el("p", { class: "small muted" },
       "Mỗi cấp độ được engine giải lại trên 20 cú trộn giống nhau. htm là tổng cú xoay mặt (quarter/half tính 1), ",
       "qtm tính quarter là 1, stm là cách đếm speedcubing (mỗi cú xoay 1). Thời gian giải là engine thực tế, ",
