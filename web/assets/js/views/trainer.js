@@ -411,6 +411,8 @@ export function render(params = {}, query = {}) {
         el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
         recognise ? el("div", { class: "hint hint--gold", style: { marginBottom: "8px" } },
           el("span", { class: "tiny muted" }, "Nhận dạng: "), recognise) : null,
+        (row.teach && row.teach.mnemonic) ? el("div", { class: "hint hint--fox", style: { marginBottom: "8px" } },
+          el("span", { class: "tiny muted" }, "Ghi nhớ: "), row.teach.mnemonic) : null,
         row.text ? chunkChips(chunks, null, { title: "Chia thành cụm để thuộc từng nhóm" })
           : el("div", { class: "alg alg--lg" }, "Không có thuật toán — bài này đã ở đích."),
         el("div", { class: "alg alg--lg" }, row.text || ""),
@@ -482,6 +484,8 @@ export function render(params = {}, query = {}) {
           el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
           frec ? el("div", { class: "hint hint--gold", style: { marginBottom: "8px" } },
             el("span", { class: "tiny muted" }, "Nhận dạng: "), frec) : null,
+          (row.teach && row.teach.mnemonic) ? el("div", { class: "hint hint--fox", style: { marginBottom: "8px" } },
+            el("span", { class: "tiny muted" }, "Ghi nhớ: "), row.teach.mnemonic) : null,
           row.text ? chunkChips(fchunks, null, { title: "Chia thành cụm" }) : null,
           el("div", { class: "alg alg--lg" }, row.text || "Không có thuật toán — đã ở đích."),
           el("div", { class: "row row--tight" }, chip(`${row.count} động tác`), chip(`${fchunks.length} cụm`), chip(row.desc.pattern, "muted"))));

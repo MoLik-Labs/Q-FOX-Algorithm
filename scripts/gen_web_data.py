@@ -348,6 +348,44 @@ RECOGNISE = {
     "Nb-perm": "Hai cặp góc và hai cặp cạnh đổi vị trí -- khối xoay kép ngược",
 }
 
+# Mnemonics for the named cases: a memory hook that ties the recognition to
+# the shape of the algorithm, so a learner recalls the word from the picture
+# rather than from rote.  Each is a short, professional association -- what to
+# remember, not the algorithm restated.
+MNEMONIC = {
+    "Chameleon": "Nhìn hình chú tắc tùng đổi màu -- nhớ bắt đầu bằng mặt trên ngược rồi hai lớp phải.",
+    "Headlights": "Hai cột sáng đối xứng -- nhớ cột đặt trước, rồi xoay hai lớp phải 2 bước.",
+    "Bowtie": "Cánh bướm lệch -- nhớ mặt trước ngược trước, rồi hai lớp phải.",
+    "Sune": "Tam giác lệch -- chuỗi R U R' U lặp, kết thúc bằng R U2 R'.",
+    "Antisune": "Tam giác ngược -- đối xứng của Sune, bắt đầu bằng mặt trên 2 bước.",
+    "Pi": "Chữ thập đối xứng -- chuỗi R U2 R2 U' lặp, đóng bằng U2 R.",
+    "Double Sune": "Hai tam giác nhỏ -- hai chuỗi Sune nối lại, nhớ nhịp R U R' U.",
+    "Line (F2)": "Dòng thẳng -- mặt trên 2 bước rồi mặt trước, kết thúc bằng dòng đối.",
+    "T-shape": "Chữ T -- mặt trên 2 bước, chuỗi R U R' U' rồi động tác mặt trước.",
+    "Line (F)": "Dòng lệch -- mặt trên 2 bước, mặt trước rồi R U R' U'.",
+    "Ab-perm": "Hai mũi tên song song -- xoay toàn khối, R2 D2, đổi R U rồi lặp lại.",
+    "Aa-perm": "Xoắn ốc -- xoay toàn khối, R' U R' D2, lặp ngược rồi R2 đóng.",
+    "E-perm": "Cheo chéo hoàn toàn -- chuỗi R U' R' D lặp hai lần, xoay toàn khối.",
+    "H-perm": "Sọc ngang -- slice giữa 2 bước xen giữa các cú xoay mặt trên.",
+    "Ja-perm": "Mũi tên lệch -- R' U L' U2, rồi R U' R' U2 R L đóng.",
+    "Ra-perm": "Mũi tên đối -- mặt trên, trái, mặt trên 2 bước, rồi chuỗi mặt trước.",
+    "Y-perm": "Chữ Y -- hai mũi tên chéo, chuỗi mặt trước rồi mặt phải, lặp.",
+    "Rb-perm": "Khối lệch -- mặt trên 2 bước, chuỗi R' U2 R, rồi động tác mặt trước.",
+    "Ub-perm": "Mũi tên ngắn -- R2 U R U R' U' lặp, kết thúc R' U'.",
+    "Gd-perm": "Khối xoay lệch -- mặt trên 2 bước, R U R' U' rồi D và R2 D'.",
+    "Gc-perm": "Khối đối xứng -- R2 U' R U' R U R' U R2, rồi D và D U2.",
+    "V-perm": "Chữ V lệch -- R' U R' U' R D' R' D, lặp, rồi D R2 U' R2 D.",
+    "Gb-perm": "Khối xoay chéo -- mặt trên 2 bước, mặt trước ngược, R2 u rồi chuỗi R.",
+    "Ua-perm": "Mũi tên dài -- R U' R U lặp, đóng bằng R' U' R2.",
+    "Jb-perm": "Mũi tên đối lệch -- mặt trên 2 bước, R U R' F', rồi chuỗi R U R' U'.",
+    "Ga-perm": "Khối xoay lệch ngược -- R2 U R' U R' U' R U' R2, rồi D và D'.",
+    "T-perm": "T lệch -- mặt trên, R U R' U', rồi R' F R2, lặp ngược.",
+    "F-perm": "Lục giác lệch -- R' U' F', chuỗi R U R' U' lặp, đóng F R2.",
+    "Na-perm": "Khối xoay kép -- chuỗi L U' R U2, lặp đối xứng hai bên.",
+    "Z-perm": "Zicazac -- slice giữa xen giữa các cú xoay mặt trên và M'.",
+    "Nb-perm": "Khối xoay kép ngược -- R' U R U' R' F' U' F, rồi R U R' F R'.",
+}
+
 # Vietnamese names for the moves, used to build a correct per-chunk note from
 # the moves themselves.  The note always describes the actual moves in the
 # chunk, so it can never drift from the algorithm it sits under.
@@ -387,8 +425,8 @@ def build_teaching(label, alg_text):
         grp = tokens[i:i + step]
         note = " rồi ".join(move_note(t) for t in grp)
         chunks.append({"text": " ".join(grp), "note": note})
-    return {"recognise": RECOGNISE.get(label, ""), "chunks": chunks,
-            "has_notes": label in RECOGNISE}
+    return {"recognise": RECOGNISE.get(label, ""), "mnemonic": MNEMONIC.get(label, ""),
+            "chunks": chunks, "has_notes": label in RECOGNISE or label in MNEMONIC}
 
 
 def _triples(goals, cache: StageCache):
@@ -681,6 +719,7 @@ def algorithms_data(book: B.Book) -> dict:
                     # JSON is a result and not a restatement of the code above
                     "verified": _holds(_apply(cube, full), goals, cache),
                     "recognise": teaching["recognise"],
+                    "mnemonic": teaching["mnemonic"],
                     "chunks": teaching["chunks"],
                     "has_notes": teaching["has_notes"],
                 }

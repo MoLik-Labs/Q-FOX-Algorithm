@@ -213,7 +213,11 @@ export function openCase(row, ctx = {}) {
         el("span", { class: "tiny muted" }, "Nhận dạng"),
         chip(recognise, "gold"),
         chip(`${teach.algorithm.split(/\s+/).filter(Boolean).length} động tác`, "mint")),
-      el("div", { class: "tiny muted", style: { marginBottom: "8px" } },
+      teach.mnemonic
+        ? el("div", { class: "hint hint--fox", style: { marginTop: "8px" } },
+            el("span", { class: "tiny muted" }, "Ghi nhớ: "), teach.mnemonic)
+        : null,
+      el("div", { class: "tiny muted", style: { marginBottom: "8px", marginTop: teach.mnemonic ? "8px" : "0" } },
         "Thuật toán quen thuộc, chia thành cụm. Ghi chú mỗi cụm là gì:"),
       chipsEl,
       el("div", { class: "chunk-notes", style: { marginTop: "10px" } },
