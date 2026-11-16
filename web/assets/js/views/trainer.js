@@ -1,38 +1,37 @@
 /**
- * Trainer: the reason to open this site daily.
+ * Bài luyện tập: lý do mở trang này mỗi ngày.
  *
- * Three ways to be asked, one schedule underneath:
+ * Ba cách được hỏi, một lịch học nằm dưới:
+ *   recall     nhập thuật toán. Đánh giá hai cách — có đạt đích không
+ *              (kiểm tra trên khối, không so chuỗi), và có ngắn như của
+ *              engine không. Thời gian nhập được ghi vào kỷ lục cá nhân.
+ *   recognise  chọn đúng thuật toán trong bốn.
+ *   flash      nhìn bài, nói to, hiện đáp án, tự đánh giá.
  *
- *   recall     type the algorithm.  Graded two ways — did it reach the goal
- *              (checked on the cube, not by string compare), and is it as short
- *              as the engine's?
- *   recognise  pick the right algorithm out of four.
- *   flash      look at the case, say it out loud, reveal, and grade yourself.
- *
- * Ordering comes from a six-box review schedule in localStorage, so what you
- * missed ten minutes ago comes back before what you knew last week.
+ * Thứ tự đến từ lịch học nhắc lại sáu hộp trong localStorage, nên bài bạn
+ * sai mười phút trước sẽ quay lại trước bài bạn biết tuần trước.
  */
 import { data, casesOf, caseByKey, levelKeys, search } from "../data.js";
-import { el, mount, chip, num, toast, progressBar, emptyState, download } from "../util.js";
+import { el, mount, chip, num, toast, progressBar, emptyState, download, seconds } from "../util.js";
 import { cubePanel, boxDots, openCase } from "../parts.js";
-import { schedule, review, stats, logSession, card as srsCard, exportAll } from "../store.js";
+import { schedule, review, stats, logSession, card as srsCard, exportAll, recordAnswer, recordActivity, records } from "../store.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
-import { tokenize, scramble as makeScramble } from "../model.js";
+import { tokenize } from "../model.js";
 import { topLayer } from "../diagram.js";
 
 const MODES = {
-  recall: "Type it",
-  recognise: "Pick it",
-  flash: "Say it",
+  recall: "Nhập nó",
+  recognise: "Chọn nó",
+  flash: "Nói nó",
 };
 
 export function render(params = {}, query = {}) {
   const view = el("div");
   const M = data.model;
 
-  /* ---------------------------------------------------------- which cards? */
+  /* ---------------------------------------------------------- chọn bài */
   const setOptions = [];
-  setOptions.push({ id: "*", label: `Everything (${data.cases.length})`, keys: data.cases.map((c) => c.key) });
+  setOptions.push({ id: "*", label: `Tất cả (${data.cases.length})`, keys: data.cases.map((c) => c.key) });
   for (const f of data.families) {
     setOptions.push({ id: f.key, label: `${f.label} (${f.cases})`, keys: casesOf(f.key).map((c) => c.key) });
   }
@@ -63,7 +62,7 @@ export function render(params = {}, query = {}) {
     keys = setOptions[0].keys;
   }
 
-  const chosen = query.keys ? "custom"
+  const chosen = query.keys ? "tùy chỉnh"
     : query.level && query.set ? `set:${query.level}:${query.set}`
     : query.level ? `level:${query.level}`
     : query.family || "*";
@@ -73,9 +72,9 @@ export function render(params = {}, query = {}) {
   let index = 0;
   let session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 };
 
-  /* ---------------------------------------------------------------- chrome */
+  /* ---------------------------------------------------------------- giao diện */
   const setSelect = el("select", {
-    attrs: { "aria-label": "Which cards" },
+    attrs: { "aria-label": "Chọn bài" },
     onChange: (e) => {
       const opt = setOptions.find((o) => o.id === e.target.value);
       if (!opt) return;
@@ -99,55 +98,72 @@ export function render(params = {}, query = {}) {
     }, label)));
 
   const shuffleBtn = el("button", {
-    class: "btn btn--sm", type: "button", title: "Random order, ignore the schedule",
+    class: "btn btn--sm", type: "button", title: "Thứ tự ngẫu nhiên, bỏ qua lịch học",
     onClick: () => {
       queue = keys.slice().sort(() => Math.random() - 0.5);
       index = 0;
       next();
     },
-  }, "Shuffle");
+  }, "Xáo trộn");
 
   const dueOnly = el("button", {
-    class: "btn btn--sm", type: "button", title: "Only cards the schedule says are due",
+    class: "btn btn--sm", type: "button", title: "Chỉ bài mà lịch học báo đến hạn",
     onClick: () => {
       const now = Date.now();
       queue = schedule(keys).filter((r) => r.overdue || r.fresh).map((r) => r.key);
       index = 0;
-      toast(queue.length ? `${queue.length} cards due` : "Nothing due — you are up to date", queue.length ? "info" : "ok");
+      toast(queue.length ? `${queue.length} bài đến hạn` : "Không có bài nào đến hạn — bạn đã học đủ", queue.length ? "info" : "ok");
       next();
     },
-  }, "Due now");
+  }, "Đến hạn");
 
-  /* ----------------------------------------------------------------- stage */
+  /* ----------------------------------------------------------------- khuôn */
   const panel = cubePanel({ size: 268, highlight: "ll", reset: false, viewToggle: true });
   const diagram = el("div", {});
   const question = el("div", { class: "stack" });
   const verdict = el("div");
   const statsBar = el("div", { class: "stats" });
   const progress = el("div", {});
+  const timerOut = el("span", { class: "badge" }, "0,0 s");
 
   const stage = el("div", { class: "trainer" },
     el("div", { class: "trainer__stage panel" },
       el("div", { class: "row row--tight" },
         el("span", { class: "tiny muted", id: "trainer-pos" }, ""),
         el("span", { class: "spacer" }),
-        el("span", { class: "tiny muted" }, "drag to rotate")),
+        timerOut,
+        el("span", { class: "tiny muted" }, "kéo để xoay")),
       panel.node,
       diagram,
       el("div", { class: "cube-tools" },
-        el("button", { class: "btn btn--sm", type: "button", id: "t-hint" }, "Show a hint"),
-        el("button", { class: "btn btn--sm", type: "button", id: "t-replay" }, "Play the answer"),
-        el("button", { class: "btn btn--sm", type: "button", id: "t-again" }, "Show the case again"))),
+        el("button", { class: "btn btn--sm", type: "button", id: "t-hint" }, "Hiện gợi ý"),
+        el("button", { class: "btn btn--sm", type: "button", id: "t-replay" }, "Chạy đáp án"),
+        el("button", { class: "btn btn--sm", type: "button", id: "t-again" }, "Hiện lại bài"))),
     el("div", { class: "panel stack" },
       progress,
       question,
       verdict,
       statsBar));
 
-  /* ------------------------------------------------------------- the card */
+  /* --------------------------------------------------------------- bài hiện tại */
   let current = null;
   let answered = false;
   let askedAt = 0;
+  let timerId = null;
+
+  function startTimer() {
+    clearInterval(timerId);
+    askedAt = Date.now();
+    timerId = setInterval(() => {
+      const s = (Date.now() - askedAt) / 1000;
+      timerOut.textContent = seconds(s, 1);
+    }, 100);
+  }
+
+  function stopTimer() {
+    clearInterval(timerId);
+    timerId = null;
+  }
 
   function draw() {
     if (index >= queue.length) return finish();
@@ -155,7 +171,6 @@ export function render(params = {}, query = {}) {
     if (!row) { index++; return draw(); }
     current = row;
     answered = false;
-    askedAt = Date.now();
 
     panel.cube.stop();
     panel.cube.setState(row.state);
@@ -170,35 +185,36 @@ export function render(params = {}, query = {}) {
         ...(row.names || []).map((n) => chip(n, "gold")),
         el("span", { class: "spacer" }),
         boxDots(c.box),
-        el("span", { class: "tiny muted" }, c.seen ? `${c.seen} reviews` : "new")),
-      progressBar(index, queue.length, `${Math.round((100 * index) / Math.max(1, queue.length))}% of this queue`));
+        el("span", { class: "tiny muted" }, c.seen ? `${c.seen} lần luyện` : "mới")),
+      progressBar(index, queue.length, `${Math.round((100 * index) / Math.max(1, queue.length))}% của luồng này`));
 
     mount(question, askFor(row));
     mount(verdict);
     drawStats();
+    startTimer();
   }
 
   function askFor(row) {
     const goal = GOAL_TEXT[row.family] || data.algorithms.families[row.family].goal;
     const head = el("div", {},
-      el("h3", {}, mode === "recognise" ? "Which algorithm is this?" : "What is this case?"),
+      el("h3", {}, mode === "recognise" ? "Thuật toán nào là đây?" : "Bài này là bài nào?"),
       el("p", { class: "small muted" },
-        `Goal: ${goal}. `,
+        `Mục tiêu: ${goal}. `,
         row.desc.pattern, " · ", row.desc.permutation,
-        row.auf_text ? el("span", {}, ` · pre-AUF ${row.auf_text}`) : null));
+        row.auf_text ? el("span", {}, ` · trước AUF ${row.auf_text}`) : null));
 
     if (mode === "recall") {
       const input = el("input", {
         class: "answer-input", type: "text", spellcheck: "false", autocomplete: "off",
-        placeholder: "Type it, e.g. R U R' U' R' F R F'",
-        attrs: { "aria-label": "Your algorithm" },
+        placeholder: "Nhập nó, ví dụ R U R' U' R' F R F'",
+        attrs: { "aria-label": "Thuật toán của bạn" },
         onKeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); check(input.value); } },
       });
       return el("div", { class: "stack" }, head, input,
         el("div", { class: "row" },
-          el("button", { class: "btn btn--primary", type: "button", onClick: () => check(input.value) }, "Check"),
-          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Give up — show me"),
-          el("span", { class: "tiny muted" }, "Enter to check · graded on whether it solves the case")));
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => check(input.value) }, "Kiểm tra"),
+          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Bỏ cuộc — hiện đáp án"),
+          el("span", { class: "tiny muted" }, "Enter để kiểm tra · đánh giá bằng việc đạt đích trên khối")));
     }
 
     if (mode === "recognise") {
@@ -208,16 +224,16 @@ export function render(params = {}, query = {}) {
           el("button", {
             class: "btn", type: "button", style: { justifyContent: "flex-start", fontFamily: "var(--mono)" },
             onClick: (e) => pick(e.currentTarget, opt, row),
-          }, el("b", {}, `${i + 1}.`), ` ${opt || "(no algorithm needed)"}`))),
-        el("p", { class: "tiny muted" }, "Press 1-4 to answer."));
+          }, el("b", {}, `${i + 1}.`), ` ${opt || "(không cần thuật toán)"}`))),
+        el("p", { class: "tiny muted" }, "Nhấn 1-4 để trả lời."));
     }
 
     // flash
     return el("div", { class: "stack" }, head,
-      el("div", { class: "hint" }, "Say the algorithm out loud, or run it in your head, then reveal it and grade yourself honestly."),
+      el("div", { class: "hint" }, "Nói to thuật toán, hoặc chạy trong đầu, rồi hiện đáp án và tự đánh giá thật với mình."),
       el("div", { class: "row" },
-        el("button", { class: "btn btn--primary", type: "button", onClick: () => reveal(row) }, "Reveal"),
-        el("span", { class: "tiny muted" }, "Space to reveal")));
+        el("button", { class: "btn btn--primary", type: "button", onClick: () => reveal(row) }, "Hiện đáp án"),
+        el("span", { class: "tiny muted" }, "Space để hiện")));
   }
 
   function distractors(row) {
@@ -234,11 +250,11 @@ export function render(params = {}, query = {}) {
     if (answered) return;
     const right = text === row.text;
     [...question.querySelectorAll("button.btn")].forEach((b) => {
-      const isThis = b.textContent.includes(text || "(no algorithm");
+      const isThis = b.textContent.includes(text || "(không cần thuật toán");
       b.classList.toggle("btn--on", isThis && right);
       if (isThis && !right) b.style.borderColor = "var(--rose)";
     });
-    grade(row, right ? 2 : 0, right ? "Correct." : `Not that one.`, text);
+    grade(row, right ? 2 : 0, right ? "Đúng." : "Không phải cái đó.", text);
   }
 
   function normalise(text) {
@@ -253,8 +269,8 @@ export function render(params = {}, query = {}) {
 
     if (!mine) { reveal(row); return; }
 
-    // does it actually work?  the same question the engine answers, asked on
-    // the facelets the engine published
+    // nó thực sự hoạt động không? cùng câu hỏi engine trả lời, nhưng hỏi trên
+    // các dán chính engine xuất bản
     let after = row.state;
     let legal = true;
     try {
@@ -268,42 +284,56 @@ export function render(params = {}, query = {}) {
     const myLen = legal ? tokenize(typed).length : 0;
 
     if (sameWord || (reaches && myLen <= row.count)) {
-      grade(row, 2, sameWord ? "Exactly the algorithm on the card." :
-        `It works, and at ${myLen} moves it is ${myLen === row.count ? "as short as" : "shorter than"} the card's ${row.count}.`, mine);
+      const elapsed = Date.now() - askedAt;
+      const prevBest = records().bestOf(row.key);
+      recordAnswer(row.key, elapsed, true);
+      const recMsg = (!prevBest || elapsed < prevBest.ms) ? " Kỷ lục mới của bạn!" : "";
+      stopTimer();
+      grade(row, 2, sameWord ? "Đúng hệt thuật toán trên thẻ." :
+        `Vận hành, và ở ${myLen} động tác thì ${myLen === row.count ? "ngắn như" : "ngắn hơn"} ${row.count} của thẻ.`,
+        mine, recMsg);
+      recordActivity(2);
     } else if (reaches) {
-      grade(row, 1, `It solves the case, but the card does it in ${row.count} moves and yours takes ${myLen}.`, mine);
+      stopTimer();
+      grade(row, 1, `Giải được bài, nhưng thẻ làm trong ${row.count} động tác và của bạn mất ${myLen}.`, mine);
+      recordActivity(1);
     } else if (auf) {
-      grade(row, 1, `Almost — that leaves it one ${auf} short of the goal.`, mine);
+      stopTimer();
+      grade(row, 1, `Gần rồi — thiếu một cú ${auf} nữa là tới đích.`, mine);
+      recordActivity(1);
     } else {
-      grade(row, 0, legal ? "That does not reach the goal." : "That is not notation I can read.", mine);
+      stopTimer();
+      grade(row, 0, legal ? "Chưa tới đích." : "Không phải ký hiệu tôi đọc được.", mine);
+      recordActivity(0);
     }
   }
 
   function reveal(row) {
     answered = true;
+    stopTimer();
     panel.cube.setState(row.state);
     mount(question,
       el("div", { class: "stack" },
-        el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `${row.familyLabel || row.family} case ${row.i + 1}`),
-        el("div", { class: "alg alg--lg" }, row.text || "No algorithm — this case is already at the goal."),
-        row.auf_text ? el("div", { class: "hint hint--fox" }, `Pre-AUF: ${row.auf_text}`) : null,
+        el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
+        el("div", { class: "alg alg--lg" }, row.text || "Không có thuật toán — bài này đã ở đích."),
+        row.auf_text ? el("div", { class: "hint hint--fox" }, `Trước AUF: ${row.auf_text}`) : null,
         el("div", { class: "row row--tight" },
-          chip(`${row.count} moves`, "mint"),
-          chip(row.source === "textbook" ? `familiar ${row.teach.name}` : "engine's own", "gold"),
-          chip(row.via === "scan" ? "book scan" : row.via, "sky"),
+          chip(`${row.count} động tác`, "mint"),
+          chip(row.source === "textbook" ? `quen thuộc ${row.teach.name}` : "của chính engine", "gold"),
+          chip(row.via === "scan" ? "quét sách" : row.via, "sky"),
           chip(row.desc.pattern, "muted")),
         row.alt
           ? el("p", { class: "tiny muted" }, `${row.alt.label}: `, el("code", {}, row.alt.text),
-              ` (${row.alt.count} moves — open the full card and press W to run it)`)
+              ` (${row.alt.count} động tác — mở thẻ đầy đủ và bấm W để chạy)`)
           : null));
     playAnswer(row);
     if (mode === "flash") {
       mount(verdict,
         el("div", { class: "grade" },
-          gradeBtn("Knew it", 2, "verdict--right"),
-          gradeBtn("Hesitated", 1, "verdict--near"),
-          gradeBtn("Missed", 0, "verdict--wrong")),
-        el("p", { class: "tiny muted", style: { marginTop: "8px" } }, "Keys: 1 knew · 2 hesitated · 3 missed · n next"));
+          gradeBtn("Biết luôn", 2, "verdict--right"),
+          gradeBtn("Do dự", 1, "verdict--near"),
+          gradeBtn("Sai", 0, "verdict--wrong")),
+        el("p", { class: "tiny muted", style: { marginTop: "8px" } }, "Phím: 1 biết · 2 do dự · 3 sai · n bài tiếp"));
     }
   }
 
@@ -321,33 +351,34 @@ export function render(params = {}, query = {}) {
     }
   }
 
-  function grade(row, g, message, mine = null) {
+  function grade(row, g, message, mine = null, extra = "") {
     answered = true;
+    stopTimer();
     session.total++;
     if (g === 2) session.right++;
     else if (g === 1) session.near++;
     else session.wrong++;
-    const c = review(row.key, g);
     session.ms += Date.now() - askedAt;
+    const c = review(row.key, g);
 
     mount(verdict,
       el("div", { class: `verdict ${g === 2 ? "verdict--right" : g === 1 ? "verdict--near" : "verdict--wrong"}` },
-        el("b", {}, message),
-        mine ? el("div", { class: "mono small", style: { marginTop: "6px" } }, "yours: ", mine) : null,
-        mine && mine !== normalise(row.text) ? el("div", { class: "mono small" }, "card:  ", row.text) : null,
+        el("b", {}, message, extra),
+        mine ? el("div", { class: "mono small", style: { marginTop: "6px" } }, "của bạn: ", mine) : null,
+        mine && mine !== normalise(row.text) ? el("div", { class: "mono small" }, "trên thẻ:  ", row.text) : null,
         el("div", { class: "tiny muted", style: { marginTop: "8px" } },
-          `Box ${c.box}/5 · next review ${c.due ? new Date(c.due).toLocaleString() : "now"}`)),
+          `Hộp ${c.box}/5 · luyện tiếp vào ${c.due ? new Date(c.due).toLocaleString("vi-VN") : "ngay bây giờ"}`)),
       el("div", { class: "row", style: { marginTop: "12px" } },
-        el("button", { class: "btn btn--primary", type: "button", onClick: next }, "Next card (n)"),
-        el("button", { class: "btn btn--sm", type: "button", onClick: () => playAnswer(row) }, "Play it again"),
-        el("button", { class: "btn btn--sm", type: "button", onClick: () => openCaseSheet(row) }, "Open the full card")));
+        el("button", { class: "btn btn--primary", type: "button", onClick: next }, "Bài tiếp theo (n)"),
+        el("button", { class: "btn btn--sm", type: "button", onClick: () => playAnswer(row) }, "Chạy lại"),
+        el("button", { class: "btn btn--sm", type: "button", onClick: () => openCaseSheet(row) }, "Mở thẻ đầy đủ")));
 
     if (mode === "flash") {
       mount(question,
         el("div", { class: "stack" },
-          el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `${row.familyLabel || row.family} case ${row.i + 1}`),
-          el("div", { class: "alg alg--lg" }, row.text || "No algorithm — already at the goal."),
-          el("div", { class: "row row--tight" }, chip(`${row.count} moves`), chip(row.desc.pattern, "muted"))));
+          el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
+          el("div", { class: "alg alg--lg" }, row.text || "Không có thuật toán — đã ở đích."),
+          el("div", { class: "row row--tight" }, chip(`${row.count} động tác`), chip(row.desc.pattern, "muted"))));
     }
     drawStats();
   }
@@ -363,35 +394,36 @@ export function render(params = {}, query = {}) {
   function drawStats() {
     const s = stats(keys);
     mount(statsBar,
-      statEl(String(session.right), "correct", `of ${session.total} asked`),
-      statEl(String(session.near), "close", "worked, not the book's"),
-      statEl(String(session.wrong), "missed", ""),
-      statEl(s.accuracy === null ? "—" : `${Math.round(s.accuracy * 100)}%`, "all-time accuracy", `${s.seen} reviews`),
-      statEl(String(s.mature), "mature cards", "box 3 or higher"),
-      statEl(queue.length - index - 1 > 0 ? String(queue.length - index - 1) : "0", "left in queue", ""));
+      statEl(String(session.right), "đúng", `trong ${session.total} bài đã hỏi`),
+      statEl(String(session.near), "gần", "vận hành, không phải của sách"),
+      statEl(String(session.wrong), "sai", ""),
+      statEl(s.accuracy === null ? "—" : `${Math.round(s.accuracy * 100)}%`, "đúng xuyên suốt", `${s.seen} lần luyện`),
+      statEl(String(s.mature), "bài trưởng thành", "hộp 3 trở lên"),
+      statEl(String(Math.max(0, queue.length - index - 1)), "còn lại", ""));
   }
 
   function finish() {
+    stopTimer();
     const secs = (Date.now() - session.startedAt) / 1000;
     logSession({ total: session.total, right: session.right, near: session.near,
                  wrong: session.wrong, seconds: Math.round(secs), set: chosen, mode });
     mount(stage,
       el("div", { class: "panel", style: { gridColumn: "1 / -1" } },
-        el("h2", {}, session.total ? "Queue done" : "Nothing to do"),
+        el("h2", {}, session.total ? "Hết luồng" : "Chưa có gì để làm"),
         el("p", {}, session.total
-          ? `${session.right} correct, ${session.near} close, ${session.wrong} missed in ${Math.round(secs)} s.`
-          : "Pick a set, or press “Due now” when the schedule has something for you."),
+          ? `${session.right} đúng, ${session.near} gần, ${session.wrong} sai trong ${Math.round(secs)} s.`
+          : "Chọn một bài học, hoặc bấm “Đến hạn” khi lịch học có bài cho bạn."),
         el("div", { class: "row" },
-          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = schedule(keys).map((r) => r.key); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; draw(); } }, "Run this set again"),
-          el("a", { class: "btn", href: "#/levels" }, "Back to the levels"),
-          el("button", { class: "btn btn--ghost", type: "button", onClick: () => download("qfox-progress.json", exportAll()) }, "Export progress"))));
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = schedule(keys).map((r) => r.key); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; draw(); } }, "Chạy lại bài học này"),
+          el("a", { class: "btn", href: "#/levels" }, "Về cấp độ"),
+          el("button", { class: "btn btn--ghost", type: "button", onClick: () => download("qfox-progress.json", exportAll()) }, "Xuất tiến trình"))));
   }
 
   function openCaseSheet(row) {
     openCase(row);
   }
 
-  /* ------------------------------------------------------------- shortcuts */
+  /* --------------------------------------------------------------- phím tắt */
   function onKey(e) {
     if (e.target.matches("input, textarea, select")) return;
     if (e.key === "n") { e.preventDefault(); if (answered) next(); }
@@ -405,7 +437,7 @@ export function render(params = {}, query = {}) {
         if (b) b.click();
       } else if (answered && mode === "flash") {
         const g = { 1: 2, 2: 1, 3: 0 }[e.key];
-        if (g !== undefined) grade(current, g, ["", "Knew it", "Hesitated", "Missed"][Number(e.key)]);
+        if (g !== undefined) grade(current, g, ["", "Biết luôn", "Do dự", "Sai"][Number(e.key)]);
       }
     }
   }
@@ -417,16 +449,16 @@ export function render(params = {}, query = {}) {
   hintBtn.onclick = () => {
     if (!current) return;
     const first = (current.text || "").split(" ")[0] || "—";
-    toast(`It starts with ${first} · ${current.count} moves · ${current.desc.pattern}`, "info", 4200);
+    toast(`Bắt đầu bằng ${first} · ${current.count} động tác · ${current.desc.pattern}`, "info", 4200);
   };
   replayBtn.onclick = () => { if (current) { panel.cube.setState(current.state); playAnswer(current); } };
   againBtn.onclick = () => { if (current) { panel.cube.setState(current.state); mount(diagram, topLayer(current.state, { size: 108 })); } };
 
   const head = el("div", { class: "section-head" },
     el("div", {},
-      el("h1", {}, "Trainer"),
+      el("h1", {}, "Bài luyện tập"),
       el("p", { class: "panel__note" },
-        "Asked in review order, graded by whether your algorithm actually reaches the goal, and remembered in this browser.")),
+        "Hỏi theo thứ tự học nhắc lại, đánh giá bằng việc thuật toán của bạn thực sự đạt đích, và ghi nhớ trong trình duyệt này. Thời gian nhập được ghi vào kỷ lục cá nhân.")),
     el("span", { class: "spacer" }),
     el("div", { class: "row row--tight" }, setSelect, modeTabs, shuffleBtn, dueOnly));
 
@@ -436,13 +468,17 @@ export function render(params = {}, query = {}) {
   const observer = new MutationObserver(() => {
     if (!document.body.contains(view)) {
       document.removeEventListener("keydown", onKey);
+      stopTimer();
       panel.cube.stop();
       observer.disconnect();
     }
   });
   observer.observe(document.body, { childList: true, subtree: true });
 
-  return { node: view };
+  return {
+    node: view,
+    destroy() { stopTimer(); panel.cube.stop(); },
+  };
 }
 
 function statEl(v, k, s) {

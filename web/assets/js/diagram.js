@@ -1,11 +1,11 @@
 /**
- * Flat case diagrams.
+ * Sơ đồ bài phẳng.
  *
- * A card grid cannot carry 58 animated 3-D cubes, and does not need to: to
- * recognise a case you look at the top face and the skirt of side stickers
- * around it.  That is what this draws, as inline SVG, straight from the
- * 54-facelet state the engine published — positioned from the same cell and
- * direction geometry the 3-D cube uses, so the two views can never disagree.
+ * Một lưới bài không thể mang 58 khối 3-D đang hoạt hình, và cũng không cần:
+ * để nhận dạng một bài bạn nhìn mặt trên và vành các dán bên quanh nó. Đây
+ * chính là thứ được vẽ, dưới dạng SVG nội tuyến, thẳng từ trạng thái
+ * 54 dán engine đã xuất bản -- vị trí tính từ cùng tọa độ ô/hướng mà khối
+ * 3-D dùng, nên hai cách xem không bao giờ bất đồng.
  */
 import { FACE_COLOUR, NET, geometry, key3 } from "./model.js";
 
@@ -18,7 +18,7 @@ function svgEl(name, attrs = {}) {
   return node;
 }
 
-/** The 21 top-layer facelets, as { index, cell, dir }. */
+/** 21 dán lớp trên, dưới dạng { index, cell, dir }. */
 export const TOP_LAYER = (() => {
   const out = [];
   for (let i = 0; i < 54; i++) {
@@ -28,10 +28,10 @@ export const TOP_LAYER = (() => {
 })();
 
 /**
- * The last layer seen from above: the U face with the side stickers that show
- * above the F, R, B and L faces.
+ * Lớp cuối nhìn từ trên xuống: mặt U với các dán bên hiển thị phía trên
+ * các mặt F, R, B và L.
  *
- * @param {string} state  54 facelets in engine order (U R F D L B)
+ * @param {string} state  54 dán theo thứ tự engine (U R F D L B)
  * @param {object} opts   { size, skirt, marks }
  */
 export function topLayer(state, opts = {}) {
@@ -49,26 +49,26 @@ export function topLayer(state, opts = {}) {
     x: 0, y: 0, width: size, height: size, rx: cell * 0.3, class: "diagram__plate",
   }));
 
-  // In the 5x5 top view the U face fills rows and columns 1..3, with the front
-  // of the cube at the bottom: col = x + 2, row = z + 2.  Without the skirt the
-  // U face fills the whole 3x3 box instead.
+  // Trong lưới 5x5 nhìn từ trên, mặt U chiếm hàng và cột 1..3, với phía
+  // trước của khối ở dưới: col = x + 2, row = z + 2. Không có vành thì
+  // mặt U chiếm trọn ô 3x3.
   const base = skirt ? 2 : 1;
   for (const f of TOP_LAYER) {
     const [x, , z] = f.cell;
     const [dx, dy, dz] = f.dir;
     let col, row;
-    if (dy === 1) {                 // on the U face itself
+    if (dy === 1) {                 // trên chính mặt U
       col = x + base;
       row = z + base;
     } else if (!skirt) {
       continue;
-    } else if (dz === 1) {          // shows on F, drawn below the U face
+    } else if (dz === 1) {          // hiện trên F, vẽ dưới mặt U
       col = x + 2; row = 4;
-    } else if (dz === -1) {         // shows on B, drawn above
+    } else if (dz === -1) {         // hiện trên B, vẽ trên
       col = x + 2; row = 0;
-    } else if (dx === 1) {          // shows on R, drawn to the right
+    } else if (dx === 1) {          // hiện trên R, vẽ bên phải
       col = 4; row = z + 2;
-    } else {                        // shows on L, drawn to the left
+    } else {                        // hiện trên L, vẽ bên trái
       col = 0; row = z + 2;
     }
     const px = col * cell;
@@ -84,7 +84,7 @@ export function topLayer(state, opts = {}) {
   return svg;
 }
 
-/** The whole cube unfolded, laid out the way engine.json lays the net out. */
+/** Toàn bộ khối mở ra, trình bày như engine.json trình bày lưới. */
 export function netDiagram(state, opts = {}) {
   const cell = opts.cell || 17;
   const gap = opts.gap === undefined ? cell * 0.18 : opts.gap;
@@ -110,7 +110,7 @@ export function netDiagram(state, opts = {}) {
   return svg;
 }
 
-/** One face on its own, for the notation helper. */
+/** Một mặt riêng, cho bộ trợ ký hiệu. */
 export function faceDiagram(state, face, opts = {}) {
   const cell = opts.cell || 22;
   const gap = cell * 0.14;

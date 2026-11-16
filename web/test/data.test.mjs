@@ -164,14 +164,14 @@ function goalUpToOf(row) {
   const hperm = search("M2 U M2 U2");
   ok(hperm.some((c) => c.key === "PLL:4"), "search finds a case by the moves in its algorithm",
      hperm.map((c) => c.key).join(","));
-  ok(search("headlights").length >= 1, "search finds cases by their shape name");
+  ok(search("đèn pha").length >= 1, "search finds cases by their shape name");
   ok(search("qqqqqq").length === 0, "search returns nothing for nonsense");
   ok(search("pll corners").every((c) => c.family === "PLL"),
      "multi-word search ANDs its terms");
   ok(search("cmll").length > 0, "search reaches a family by its display label, not only its key");
   ok(search("cll").every((c) => c.family === "CLL" || c.family === "COLL"),
      "searching a family key narrows to that family");
-  ok(search("element 0").length >= 1, "search reaches the book element");
+  ok(search("phần tử 0").length >= 1, "search reaches the book element");
 }
 
 /* -------------------------------------------------------------- 7. levels */

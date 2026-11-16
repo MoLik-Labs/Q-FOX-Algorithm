@@ -45,9 +45,9 @@ B222 = Goal(C.PETRUS_222)
 
 OPENING = [
     Stage("b223", goal=B223, heur=B223,
-          note="2x2x3 block: DR FR DF BR DB edges, DRF DRB corners"),
+          note="khối 2x2x3: các cạnh DR FR DF BR DB, các góc DRF DRB"),
     Stage("b123", goal=(B123,), keep_from=("b223",), heur=(B123,),
-          note="the opposite 1x2x3: FL DL BL edges, DLF DLB corners"),
+          note="khối 1x2x3 đối diện: các cạnh FL DL BL, các góc DLF DLB"),
 ]
 F2L_KEEP = ("b223", "b123")
 
@@ -56,9 +56,9 @@ F2L_KEEP = ("b223", "b123")
 # layer has to be split.
 ROUX_OPENING = [
     Stage("fb", goal=(Goal(C.ROUX_FB),), heur=(Goal(C.ROUX_FB),),
-          note="left 1x2x3 block"),
+          note="khối 1x2x3 bên trái"),
     Stage("sb", goal=(Goal(C.ROUX_SB),), keep_from=("fb",),
-          heur=(Goal(C.ROUX_SB),), note="right 1x2x3 block"),
+          heur=(Goal(C.ROUX_SB),), note="khối 1x2x3 bên phải"),
 ]
 
 # --------------------------------------------------------------------------- #
@@ -75,7 +75,7 @@ def ll_one(keep: tuple[str, ...] = F2L_KEEP) -> list[Stage]:
     return [
         Stage("ll", goal=LL_ONE_GOAL, keep_from=keep,
               heur=(LL_PERM_AUF,), ll_goal="solved", algs=0, alg_family="LL",
-              note="the whole last layer in one provably optimal step"),
+              note="toàn bộ lớp cuối trong một bước tối ưu có chứng minh"),
         auf_stage(keep + ("ll",)),
     ]
 
@@ -84,10 +84,10 @@ def ll_oll_pll() -> list[Stage]:
     return [
         Stage("oll", goal=(EO_LL, CO_LL), keep_from=F2L_KEEP,
               heur=(OLL_ORIENT_H,), ll_goal="oll", alg_family="OLL", algs=57,
-              note="orient the last layer, permutation free"),
+              note="xác định hướng lớp cuối, hoán vị tự do"),
         Stage("pll", goal=(LL_PERM_AUF,), keep_from=F2L_KEEP + ("oll",),
               heur=(LL_PERM_AUF,), ll_goal="pll", alg_family="PLL", algs=21,
-              note="permute the last layer, up to a final AUF"),
+              note="hoán vị lớp cuối, chỉ còn AUF cuối"),
         auf_stage(F2L_KEEP + ("oll",)),
     ]
 
@@ -97,36 +97,36 @@ def ll_cmll_lse() -> list[Stage]:
         Stage("cmll", goal=(LL_CORNERS, EO_LL), keep_from=F2L_KEEP,
               heur=(CMLL_H, LL_CORNERS, EO_LL, OLL_ORIENT_H), ll_goal="cmll",
               alg_family="CLL", algs=42, node_budget=250_000_000,
-              note="solve the last-layer corners, keep the edges oriented"),
+              note="giải các góc lớp cuối, giữ các cạnh xác định hướng"),
         Stage("lse", goal=(Goal(C.LSE),), mask=N.MASK_MU, heur=(Goal(C.LSE),),
               keep_from=("cmll",), intuitive=True, algs=0, align_centres=True,
-              note="the last six edges with <M,U> only"),
+              note="6 cạnh cuối chỉ dùng <M,U>"),
     ]
 
 
 def ll_four_look() -> list[Stage]:
     return [
         Stage("leo", goal=(EO_LL,), keep_from=F2L_KEEP, heur=(EO_LL,), algs=2,
-              note="make the U cross"),
+              note="làm cross trên mặt U"),
         Stage("lco", goal=(CO_LL,), keep_from=F2L_KEEP + ("leo",), heur=(CO_LL,),
-              algs=2, note="twist the U corners"),
+              algs=2, note="xoay các góc U"),
         Stage("lcp", goal=(LL_CORNERS,), keep_from=F2L_KEEP + ("leo", "lco"),
               heur=(LL_CORNERS,), ll_goal="cmll", algs=2,
-              note="place the U corners"),
+              note="đặt các góc U"),
         Stage("lep", goal=(LL_EDGES,), keep_from=F2L_KEEP + ("leo", "lco", "lcp"),
-              heur=(LL_EDGES,), ll_goal="ell", algs=2, note="cycle the U edges"),
+              heur=(LL_EDGES,), ll_goal="ell", algs=2, note="hoán vị các cạnh U"),
     ]
 
 
 TIERS = {
     "easy": (ll_four_look, {"easy": 8, "medium": 8, "hard": 8, "full": 8},
-             "four looks at the last layer: 8 algorithms, the tutorial shape"),
+             "bốn lần nhìn lớp cuối: 8 thuật toán, dạng hướng dẫn sơ cấp"),
     "medium": (ll_oll_pll, {"easy": 8, "medium": 78, "hard": 78, "full": 78},
-               "OLL then PLL: 78 algorithms, the CFOP-shaped last layer"),
+               "OLL rồi PLL: 78 thuật toán, lớp cuối theo dạng CFOP"),
     "hard": (ll_cmll_lse, {"easy": 8, "medium": 42, "hard": 42, "full": 42},
-             "CMLL then LSE: 42 algorithms, the Roux-shaped last layer"),
+             "CMLL rồi LSE: 42 thuật toán, lớp cuối theo dạng Roux"),
     "full": (ll_one, {"easy": 8, "medium": 78, "hard": 42, "full": 0},
-             "one step, no algorithms: the book names the case"),
+             "một bước, không cần thuật toán: sách tra tên bài"),
 }
 
 
@@ -136,9 +136,9 @@ def qfox(tier: str = "full") -> Method:
     return Method(
         name=f"Q-FOX/{tier}",
         family="Q-FOX",
-        description=("A 2x2x3 block, the opposite 1x2x3 block, and then "
+        description=("Một khối 2x2x3, khối 1x2x3 đối diện, rồi "
                      + note + "."),
-        reference="derived: blockbuilding + the last-layer book",
+        reference="phát triển: xây khối + sách tra lớp cuối",
         algs_by_tier=algs,
         stages=[*OPENING, *builder()],
     )
@@ -154,7 +154,7 @@ def _pairs(keep0: tuple[str, ...], names: tuple[str, ...],
         out.append(Stage(nm, goal=PAIR_ALTS[0], alternatives=PAIR_ALTS,
                          keep_from=keep, mask=mask, node_budget=120_000_000,
                          heur=F2L_H if i == len(names) - 1 else (),
-                         note="cheapest of the remaining pairs"))
+                         note="phương án rẻ nhất trong các đôi còn lại"))
         keep = keep + (nm,)
     return out
 
@@ -163,9 +163,9 @@ CFOP_KEEP = ("cross", "f1", "f2", "f3", "f4")
 
 QFOX_CROSS = Method(
     name="Q-FOX/cross",
-    family="Q-FOX-variant",
-    description=("CFOP's opening -- cross and four pairs -- with Q-FOX's one-step "
-                 "last layer. Isolates what the opening is worth."),
+    family="biến thể Q-FOX",
+    description=("Khai màn của CFOP -- cross và bốn đôi -- với lớp cuối một bước "
+                 "của Q-FOX. Tách riêng giá trị của phần khai màn ra để so sánh."),
     reference="derived",
     algs_by_tier={"full": 0},
     stages=[
@@ -177,9 +177,9 @@ QFOX_CROSS = Method(
 
 QFOX_ZZ = Method(
     name="Q-FOX/zz",
-    family="Q-FOX-variant",
-    description=("EOLine, four pairs with <U,R,L> only, then the one-step last "
-                 "layer. The edges are oriented from the first stage."),
+    family="biến thể Q-FOX",
+    description=("EOLine, bốn đôi chỉ dùng <U,R,L>, rồi lớp cuối một bước "
+                 "của Q-FOX. Các cạnh được xác định hướng ngay từ bước đầu."),
     reference="derived",
     algs_by_tier={"full": 0},
     stages=[
@@ -191,10 +191,10 @@ QFOX_ZZ = Method(
 
 QFOX_222 = Method(
     name="Q-FOX/222",
-    family="Q-FOX-variant",
-    description=("The same block idea in three steps instead of two: 2x2x2, then "
-                 "2x2x3, then the opposite slab. Tests whether splitting the "
-                 "opening helps or hurts."),
+    family="biến thể Q-FOX",
+    description=("Ý tưởng xây khối như vậy nhưng chia làm ba bước thay vì hai: 2x2x2, "
+                 "rồi 2x2x3, rồi khối dải đối diện. Thử xem việc chia nhỏ phần "
+                 "khai màn có lợi hay hại."),
     reference="derived",
     algs_by_tier={"full": 0},
     stages=[
@@ -207,10 +207,10 @@ QFOX_222 = Method(
 
 QFOX_ROUX2 = Method(
     name="Q-FOX/roux-2step",
-    family="Q-FOX-variant",
-    description=("Roux's two 1x2x3 blocks, then CMLL and LSE, both optimal. The "
-                 "control for the one-step last layer: same block skill, split "
-                 "last layer, and DF/DB left to the end."),
+    family="biến thể Q-FOX",
+    description=("Hai khối 1x2x3 của Roux, rồi CMLL và LSE, đều tối ưu. Đây là "
+                 "phương án đối chứng cho lớp cuối một bước: kỹ thuật xây khối "
+                 "giống nhau, lớp cuối bị chia nhỏ, DF/DB để đến cuối."),
     reference="derived",
     algs_by_tier={"full": 42},
     stages=[
@@ -218,8 +218,8 @@ QFOX_ROUX2 = Method(
         Stage("cmll", goal=(LL_CORNERS, EO_LL), keep_from=("fb", "sb"),
               heur=(CMLL_H, LL_CORNERS, EO_LL, OLL_ORIENT_H), alg_family="CLL",
               algs=42, ll_goal="cmll", node_budget=250_000_000,
-              note="U corners solved and U edges oriented; ll_goal lets the "
-                   "book answer it even with DF/DB still in the M slice"),
+              note="góc U đã về vị trí, cạnh U đã xác định hướng; ll_goal cho phép "
+                   "sách tra trả lời bài dù DF/DB vẫn nằm trong slice M"),
         Stage("lse", goal=(Goal(C.LSE),), mask=N.MASK_MU, heur=(Goal(C.LSE),),
               keep_from=("cmll",), intuitive=True, algs=0, align_centres=True),
     ],

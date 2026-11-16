@@ -1,7 +1,7 @@
 /**
- * Algorithms: every case the engine published, filterable the way a cuber
- * thinks — by family, by how long it takes, by whether it is named, by whether
- * you have learned it yet, and by text.
+ * Thuật toán: mọi bài engine đã xuất bản, lọc theo cách người chơi rubik
+ * nghĩ -- theo họ, theo độ dài, theo có tên hay không, theo đã thuộc hay
+ * chưa, và theo văn bản.
  */
 import { data, casesOf, search, METRIC_HINT } from "../data.js";
 import { el, mount, chip, num, int, emptyState, debounce, progressBar } from "../util.js";
@@ -17,14 +17,14 @@ const SORTS = {
   orbit: (a, b) => b.orbit - a.orbit || a.i - b.i,
 };
 
-/** Filter state lives in the URL so a filtered list can be shared or bookmarked. */
+/** Trạng thái lọc nằm trong URL, nên một danh sách đã lọc có thể chia sẻ hoặc đánh dấu. */
 const state = {
   family: "OLL",
   q: "",
   sort: "case",
   learned: "all",       // all | todo | done
   named: false,
-  maxLen: 0,            // 0 = no limit
+  maxLen: 0,            // 0 = không giới hạn
 };
 
 export function render(params = {}, query = {}) {
@@ -42,66 +42,66 @@ export function render(params = {}, query = {}) {
   const count = el("span", { class: "panel__note" });
   const summary = el("div", { class: "row" });
 
-  /* ------------------------------------------------------------ family tabs */
+  /* ------------------------------------------------------------ tab họ */
   const tabs = el("div", { class: "pill-tabs" });
   const familyTab = (key, label, title, n) => {
     const b = el("button", {
       class: "pill-tab", type: "button", title,
       onClick: () => { state.family = key; draw(); syncTabs(); },
-    }, key === "*" ? `All (${int(data.cases.length)})` : `${label} (${n})`);
+    }, key === "*" ? `Tất cả (${int(data.cases.length)})` : `${label} (${n})`);
     b.dataset.family = key;
     return b;
   };
-  tabs.append(familyTab("*", "All", "Every family", data.cases.length));
+  tabs.append(familyTab("*", "Tất cả", "Mọi họ", data.cases.length));
   for (const f of data.families) {
     tabs.append(familyTab(f.key, f.label, f.title, f.cases));
   }
 
-  /* --------------------------------------------------------------- filters */
+  /* --------------------------------------------------------------- lọc */
   const searchInput = el("input", {
-    type: "search", value: state.q, placeholder: "Filter this family: name, algorithm, pattern…",
-    attrs: { "aria-label": "Filter cases" },
+    type: "search", value: state.q, placeholder: "Lọc họ này: tên, thuật toán, hình…",
+    attrs: { "aria-label": "Lọc bài" },
     onInput: debounce((e) => { state.q = e.target.value; draw(); }, 140),
   });
   const sortSelect = el("select", {
-    attrs: { "aria-label": "Sort" },
+    attrs: { "aria-label": "Sắp xếp" },
     onChange: (e) => { state.sort = e.target.value; draw(); },
   }, ...Object.entries({
-    case: "Case order", length: "Shortest first", longest: "Longest first",
-    name: "Named first", orbit: "Biggest orbit first",
+    case: "Theo thứ bài", length: "Ngắn nhất trước", longest: "Dài nhất trước",
+    name: "Có tên trước", orbit: "Quỹ đạo lớn trước",
   }).map(([k, label]) => el("option", { value: k, selected: k === state.sort }, label)));
 
   const learnedSelect = el("select", {
-    attrs: { "aria-label": "Progress filter" },
+    attrs: { "aria-label": "Lọc tiến độ" },
     onChange: (e) => { state.learned = e.target.value; draw(); },
-  }, ...[["all", "All cases"], ["todo", "Not learned yet"], ["done", "Learned"]]
+  }, ...[["all", "Tất cả bài"], ["todo", "Chưa thuộc"], ["done", "Đã thuộc"]]
     .map(([k, label]) => el("option", { value: k, selected: k === state.learned }, label)));
 
   const namedBtn = el("button", {
     class: `pill-tab ${state.named ? "is-on" : ""}`, type: "button",
     onClick: () => { state.named = !state.named; namedBtn.classList.toggle("is-on", state.named); draw(); },
-  }, "Named only");
+  }, "Chỉ có tên");
 
   const maxField = el("div", { class: "field" },
-    el("label", { for: "maxlen", title: METRIC_HINT }, "Max moves"),
+    el("label", { for: "maxlen", title: METRIC_HINT }, "Tối đa động tác"),
     el("input", {
       id: "maxlen", type: "number", min: "0", max: "20", step: "1",
-      value: String(state.maxLen || ""), placeholder: "any", style: { width: "74px" },
+      value: String(state.maxLen || ""), placeholder: "bất kỳ", style: { width: "74px" },
       onInput: (e) => { state.maxLen = Number(e.target.value || 0); draw(); },
     }));
 
   const filters = el("div", { class: "filters panel panel--tight" },
     el("div", { class: "field", style: { flex: "1 1 260px" } },
-      el("label", { for: "q" }, "Search"), searchInput),
-    el("div", { class: "field" }, el("label", { for: "sort" }, "Sort"), sortSelect),
-    el("div", { class: "field" }, el("label", { for: "learned" }, "Progress"), learnedSelect),
+      el("label", { for: "q" }, "Tìm"), searchInput),
+    el("div", { class: "field" }, el("label", { for: "sort" }, "Sắp xếp"), sortSelect),
+    el("div", { class: "field" }, el("label", { for: "learned" }, "Tiến độ"), learnedSelect),
     maxField,
     namedBtn,
     el("span", { class: "spacer" }),
     count);
   searchInput.id = "q"; sortSelect.id = "sort"; learnedSelect.id = "learned";
 
-  /* ------------------------------------------------------------ family head */
+  /* ------------------------------------------------------------ đầu họ */
   const head = el("div", {});
 
   function syncTabs() {
@@ -128,26 +128,26 @@ export function render(params = {}, query = {}) {
         el("p", { class: "panel__note", style: { maxWidth: "72ch" } }, fam.blurb)),
       el("span", { class: "spacer" }),
       el("div", { class: "stats", style: { gridTemplateColumns: "repeat(auto-fit,minmax(112px,1fr))", minWidth: "330px" } },
-        miniStat(String(fam.non_trivial), "to learn"),
-        miniStat(num(fam.mean, 2), "mean moves"),
-        miniStat(`${fam.longest}`, "longest"),
-        miniStat(String(fam.with_textbook || 0), "familiar"),
-        miniStat(fam.symmetry, "symmetry")))
+        miniStat(String(fam.non_trivial), "cần học"),
+        miniStat(num(fam.mean, 2), "động tác trung bình"),
+        miniStat(`${fam.longest}`, "dài nhất"),
+        miniStat(String(fam.with_textbook || 0), "quen thuộc"),
+        miniStat(fam.symmetry, "đối xứng")))
       : el("div", { class: "section-head" },
-        el("div", {}, el("h1", {}, "All families"),
+        el("div", {}, el("h1", {}, "Tất cả các họ"),
           el("p", { class: "panel__note" },
-            `${int(data.cases.length)} verified cases across ${data.families.length} families.`))));
+            `${int(data.cases.length)} bài đã kiểm chứng trên ${data.families.length} họ.`))));
 
     mount(grid, list.length
       ? list.map((r) => caseCard(r, { onOpen: openCase }))
-      : emptyState("Nothing matches", "Loosen the filter, or clear the search box."));
+      : emptyState("Không có bài nào khớp", "Nới lỏng điều kiện lọc, hoặc bỏ trống ô tìm."));
 
     const learned = learnedCount(list.map((r) => r.key));
-    count.textContent = `${int(list.length)} cases`;
+    count.textContent = `${int(list.length)} bài`;
     mount(summary,
-      progressBar(learned, list.length, `${learned}/${list.length} learned`),
+      progressBar(learned, list.length, `${learned}/${list.length} đã thuộc`),
       el("span", { class: "tiny muted" },
-        `mean ${num(list.length ? list.reduce((s, r) => s + r.count, 0) / list.length : 0, 2)} moves in this view`),
+        `trung bình ${num(list.length ? list.reduce((s, r) => s + r.count, 0) / list.length : 0, 2)} động tác trong danh sách này`),
       el("span", { class: "spacer" }),
       el("button", {
         class: "btn btn--sm", type: "button",
@@ -155,31 +155,31 @@ export function render(params = {}, query = {}) {
           const keys = list.map((r) => r.key).join(",");
           location.hash = `#/trainer?keys=${encodeURIComponent(keys)}`;
         },
-      }, `Drill these ${list.length}`));
+      }, `Luyện ${list.length} bài này`));
   }
 
-  /* ------------------------------------------------------------- recognition */
+  /* ------------------------------------------------------------ hướng dẫn nhận dạng */
   const recognition = el("section", { class: "panel" },
-    el("div", { class: "panel__head" }, el("h3", {}, "Reading a card")),
+    el("div", { class: "panel__head" }, el("h3", {}, "Đọc một thẻ bài")),
     el("div", { class: "row", style: { alignItems: "flex-start", gap: "18px" } },
       topLayer(data.cases.find((c) => c.names[0] === "Sune")?.state || data.model.solved, { size: 118 }),
       el("div", { class: "small" },
-        el("p", {}, "The diagram is the last layer from above: the top face, and the skirt of side stickers around it. That is all you look at when recognising a case."),
-        el("p", {}, "The ", el("b", {}, "colours"), " are the engine's own facelets — U white, R red, F green, D yellow, L orange, B blue — in the engine's face order U R F D L B."),
-        el("p", {}, "Cards are shown ", el("b", {}, "before"), " the algorithm. Press ", el("kbd", {}, "Play"), " in the card to watch it reach the goal, or ", el("kbd", {}, "Set up from solved"), " to build the case on a solved cube and run it yourself."),
-        el("p", {}, "A ", el("b", {}, "familiar"), " badge means the engine recognised the case, took the standard algorithm for it, and verified that word against the goal with its own tables. The card shows that word, because it is the one worth memorising, and keeps the engine's own shortest alongside it — press ", el("kbd", {}, "W"), " in the card to switch."),
-        el("p", { class: "tiny muted" }, "Move counts are ", el("b", {}, "stm"), ": a slice turn is one move, which is how speedcubing notation counts. The engine's own htm charges a slice turn two, so the two differ only on M-slice algorithms."))));
+        el("p", {}, "Sơ đồ là lớp cuối nhìn từ trên xuống: mặt trên, và vành các dán bên quanh nó. Đó là tất cả bạn nhìn khi nhận dạng một bài."),
+        el("p", {}, "Các ", el("b", {}, "màu"), " là dán của chính engine — U trắng, R đỏ, F xanh lá, D vàng, L cam, B xanh dương — theo thứ tự mặt của engine U R F D L B."),
+        el("p", {}, "Thẻ bài hiển thị ", el("b", {}, "trước"), " thuật toán. Bấm ", el("kbd", {}, "Chơi"), " trong thẻ để xem nó đi tới đích, hoặc ", el("kbd", {}, "Đặt từ khối hoàn chỉnh"), " để dựng bài trên khối hoàn chỉnh và tự chạy."),
+        el("p", {}, "Một badge ", el("b", {}, "quen thuộc"), " nghĩa là engine nhận ra bài, lấy thuật toán chuẩn cho nó, và kiểm chứng từ đó đối chiếu với mục tiêu bằng chính các bảng của nó. Thẻ hiển thị từ đó, vì nó là thứ đáng thuộc, và giữ từ ngắn nhất của engine bên cạnh — bấm ", el("kbd", {}, "W"), " trong cửa sổ bài để đổi."),
+        el("p", { class: "tiny muted" }, "Đếm động tác theo ", el("b", {}, "stm"), ": một cú slice là một động tác, đúng cách ký hiệu speedcubing đếm. htm của engine tính một cú slice là hai, nên hai con số chỉ khác ở các thuật toán dùng slice M."))));
 
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
-        el("h1", {}, "Algorithm book"),
+        el("h1", {}, "Sách thuật toán"),
         el("p", { class: "panel__note" },
-          `${int(data.algorithms.cases)} cases, ${int(data.algorithms.to_learn)} with an algorithm, every one replayed against its goal by the engine.`)),
+          `${int(data.algorithms.cases)} bài, ${int(data.algorithms.to_learn)} bài có thuật toán, mỗi bài đều được engine chạy lại đối chiếu với mục tiêu.`)),
       el("span", { class: "spacer" }),
       el("div", { class: "row row--tight" },
-        chip(`book swept to ${data.book.swept}`, "sky"),
-        chip(`exact out to ${data.book.reachable_by}`, "mint"))),
+        chip(`sách quét tới ${data.book.swept}`, "sky"),
+        chip(`chính xác tới ${data.book.reachable_by}`, "mint"))),
     tabs,
     filters,
     head,
@@ -190,7 +190,7 @@ export function render(params = {}, query = {}) {
   syncTabs();
   draw();
 
-  // keep the grid in step with "mark as learned" from a card sheet
+  // giữ lưới đồng bộ với "đánh dấu đã thuộc" từ cửa sổ bài
   const onProgress = () => draw();
   document.addEventListener("qfox:progress", onProgress);
   const observer = new MutationObserver(() => {

@@ -435,8 +435,8 @@ def check_alignment(algs, levels, book):
             def drawn(home, turned):
                 """Names of the cases drawn with `home` still and `turned` moving."""
                 return {n for c in block["list"]
-                        if c["desc"][home] == "solved"
-                        and c["desc"][turned] != "solved"
+                        if c["desc"][home] == "đã hoàn thành"
+                        and c["desc"][turned] != "đã hoàn thành"
                         for n in c["names"]}
 
             for home, turned, words, want in (

@@ -1,9 +1,9 @@
 /**
- * Loads the six generated JSON files and indexes them for the views.
+ * Tải sáu file JSON đã sinh và lập chỉ mục cho các view.
  *
- * Nothing is derived here that `scripts/gen_web_data.py` did not already
- * compute: this module only reshapes the export so a view can ask for
- * "every PLL case whose name contains 'perm'" without walking the tree.
+ * Không có gì ở đây được suy ra ngoài những gì `scripts/gen_web_data.py` đã
+ * tính sẵn: module này chỉ định dạng lại bản xuất để một view có thể hỏi
+ * "mọi bài PLL có tên chứa 'perm'" mà không cần đi dò cây.
  */
 import { createModel } from "./model.js";
 
@@ -41,29 +41,29 @@ export function hydrate(found) {
   data.cases = [];
   for (const fam of data.families) {
     for (const c of fam.list) {
-      // `family` is the KEY -- "CLL", the one every lookup is indexed by
-      // (algorithms.families, GOAL_TEXT, goalReached, casesOf, the URL).
-      // `familyLabel` is what a human reads -- "CLL / CMLL".  Conflating the two
-      // sends goalReached() down its fall-through branch and grades a correct
-      // answer as wrong, so they stay separate fields.
+      // `family` là TRUYỀN KHÓA -- "CLL", thứ mọi tra cứu lập chỉ mục theo
+      // (algorithms.families, GOAL_TEXT, goalReached, casesOf, URL).
+      // `familyLabel` là thứ người đọc thấy -- "CLL / CMLL". Trộn hai thứ này
+      // sẽ đẩy goalReached() xuống nhánh dự phòng và đánh giá một câu trả
+      // lời đúng là sai, nên chúng giữ là hai field riêng.
       const row = { ...c, family: fam.key, familyLabel: fam.label,
                     familyTitle: fam.title, level: fam.level };
-      // Up to two words exist for a case, and both are verified against the
-      // goal by the generator: the engine's own shortest, and the familiar
-      // algorithm when the engine recognised the case.  The card shows the
-      // shorter one and keeps the other a keystroke away, because "shortest"
-      // and "the one everyone learns" are not always the same word -- the
-      // H-perm is 7 moves with the M slice and 10 without it.
-      // Lengths are stm, where a slice turn is one move: that is how
-      // speedcubing notation counts, so the number matches what people quote.
+      // Một bài có tối đa hai từ, và cả hai đều được generator đối chiếu với
+      // mục tiêu: từ ngắn nhất của chính engine, và thuật toán quen thuộc
+      // khi engine nhận ra bài. Thẻ bài hiển thị từ ngắn hơn và giữ từ kia
+      // cách một phím, vì "ngắn nhất" và "cái mọi người học" không phải
+      // lúc nào cũng là cùng một từ -- H-perm là 7 động tác với slice M và
+      // 10 động tác nếu không dùng.
+      // Độ dài tính theo stm, một cú slice là một động tác: đó là cách
+      // ký hiệu speedcubing đếm, nên con số khớp với số người trích dẫn.
       const cand = [];
       if (row.moves && row.moves.length) {
         cand.push({ kind: "engine", text: row.algorithm, moves: row.moves,
-                    count: row.stm, label: "Engine's shortest" });
+                    count: row.stm, label: "Ngắn nhất của engine" });
       }
       if (row.teach) {
         cand.push({ kind: "textbook", text: row.teach.algorithm, moves: row.teach.moves,
-                    count: row.teach.stm, label: `Familiar — ${row.teach.name}`,
+                    count: row.teach.stm, label: `Quen thuộc — ${row.teach.name}`,
                     name: row.teach.name });
       }
       cand.sort((a, b) => a.count - b.count || a.moves.length - b.moves.length);
@@ -88,7 +88,7 @@ export function hydrate(found) {
   return data;
 }
 
-/* ------------------------------------------------------------------- lookup */
+/* ------------------------------------------------------------------- tra cứu */
 
 export const caseByKey = (key) => data.casesByKey.get(key);
 
@@ -103,14 +103,14 @@ export const level = (key) => data.levelsList.find((l) => l.key === key);
 export const method = (name) => data.methods.methods[name];
 export const bench = (name) => data.benchByMethod.get(name);
 
-/** Every case key a level's curriculum asks for, in curriculum order. */
+/** Mọi khóa bài mà chương trình học của một cấp độ yêu cầu, theo thứ tự chương. */
 export function levelKeys(key) {
   const lv = level(key);
   if (!lv) return [];
   return (lv.curriculum || []).flatMap((item) => item.cases.map((c) => c.key));
 }
 
-/** All curriculum items of all levels that contain a case key. */
+/** Mọi mục chương của mọi cấp độ có chứa một khóa bài. */
 export function setsContaining(key) {
   const out = [];
   for (const lv of data.levelsList) {
@@ -121,7 +121,7 @@ export function setsContaining(key) {
   return out;
 }
 
-/* ------------------------------------------------------------------- search */
+/* --------------------------------------------------------------------- tìm */
 
 function haystack(c) {
   const d = c.desc || {};
@@ -129,8 +129,8 @@ function haystack(c) {
     c.family, c.familyLabel, c.familyTitle, ...(c.names || []), c.algorithm || "",
     (c.teach && c.teach.name) || "", (c.teach && c.teach.algorithm) || "",
     d.pattern || "", d.permutation || "", d.edges || "", d.corners || "",
-    d.edge_cycles || "", d.corner_cycles || "", `element ${c.element}`,
-    `case ${c.i}`, c.htm, c.stm, c.count, c.via,
+    d.edge_cycles || "", d.corner_cycles || "", `phần tử ${c.element}`,
+    `bài ${c.i}`, c.htm, c.stm, c.count, c.via,
   ].join(" ").toLowerCase();
 }
 
@@ -148,7 +148,7 @@ export function search(q, cases = data.cases) {
   });
 }
 
-/* ------------------------------------------------------------------- totals */
+/* ------------------------------------------------------------------- tổng quan */
 
 export function totals() {
   const a = data.algorithms;
@@ -175,19 +175,19 @@ export function totals() {
   };
 }
 
-/* ------------------------------------------------------------- the word itself */
+/* --------------------------------------------------------------- bản từ đó */
 
-/** The algorithm a card shows: the familiar word when the engine verified one. */
+/** Thuật toán một thẻ bài hiển thị: từ quen thuộc khi engine đã kiểm chứng. */
 export const word = (row) => (row && row.text) || "";
 
-/** Its tokens, as engine move ids. */
+/** Các token của nó, dưới dạng id động tác engine. */
 export const wordTokens = (row) => (row && row.tokens) || [];
 
-/** Its length in the metric people quote: a slice turn counts as one move. */
+/** Độ dài theo chỉ số mọi người trích dẫn: một cú slice là một động tác. */
 export const wordCount = (row) => (row && row.count) || 0;
 
 export const METRIC = "moves";
 export const METRIC_HINT =
-  "Counted the way speedcubing notation counts: every turn of a layer, slice " +
-  "included, is one move (the engine calls this stm). Its own htm charges a " +
-  "slice turn two, which is why the two numbers differ on M-slice algorithms.";
+  "Đếm theo cách ký hiệu speedcubing đếm: mọi cú xoay lớp, kể cả slice, là " +
+  "một động tác (engine gọi là stm). htm của engine tính một cú slice là " +
+  "hai, đó là lý do hai con số khác nhau ở các thuật toán dùng slice M.";

@@ -1,20 +1,20 @@
 /**
- * Benchmark: what the engine actually achieved, over the same scrambles for
- * every method, with every solution replayed before it was counted.
+ * Benchmark: engine thực sự đạt được gì, trên cùng các cú trộn cho mọi
+ * phương pháp, với mọi câu trả lời được chạy lại trước khi được tính.
  */
 import { data, bench } from "../data.js";
 import { el, mount, chip, num, int, duration, emptyState } from "../util.js";
 
 const COLUMNS = [
-  { key: "method", label: "Method", get: (r) => r.method, name: true },
-  { key: "solved", label: "Solved", get: (r) => r.solved, num: true },
+  { key: "method", label: "Phương pháp", get: (r) => r.method, name: true },
+  { key: "solved", label: "Giải xong", get: (r) => r.solved, num: true },
   { key: "htm", label: "htm", get: (r) => r.htm.mean, num: true, best: "min" },
   { key: "qtm", label: "qtm", get: (r) => r.qtm.mean, num: true, best: "min" },
   { key: "stm", label: "stm", get: (r) => r.stm.mean, num: true, best: "min" },
   { key: "etm", label: "etm", get: (r) => r.etm.mean, num: true, best: "min" },
-  { key: "seconds", label: "Seconds", get: (r) => r.seconds.mean, num: true, best: "min" },
-  { key: "worst", label: "Worst solve", get: (r) => r.seconds.max, num: true, best: "min" },
-  { key: "stages", label: "Stages", get: (r) => Object.keys(r.stages || {}).length, num: true },
+  { key: "seconds", label: "Giây", get: (r) => r.seconds.mean, num: true, best: "min" },
+  { key: "worst", label: "Tệ nhất", get: (r) => r.seconds.max, num: true, best: "min" },
+  { key: "stages", label: "Bước", get: (r) => Object.keys(r.stages || {}).length, num: true },
 ];
 
 let sortKey = "htm";
@@ -26,37 +26,37 @@ export function render(params = {}, query = {}) {
   const meta = data.benchmark.meta || {};
 
   if (!rows.length) {
-    mount(view, emptyState("No benchmark yet",
-      "Run scripts/bench.py --all --scrambles 20 and then scripts/gen_web_data.py."));
+    mount(view, emptyState("Chưa có benchmark",
+      "Chạy scripts/bench.py --all --scrambles 20 rồi scripts/gen_web_data.py."));
     return { node: view };
   }
 
-  /* ------------------------------------------------------------------ meta */
+  /* ------------------------------------------------------------------ thông tin */
   const solvedAll = rows.filter((r) => r.solved === r.scrambles).length;
   const totalSeconds = rows.reduce((s, r) => s + r.seconds.mean * r.scrambles, 0);
   const metaPanel = el("div", { class: "panel" },
     el("div", { class: "panel__head" },
-      el("h3", {}, "How this was measured"),
+      el("h3", {}, "Đo như thế nào"),
       el("span", { class: "spacer" }),
       chip(data.benchmark.engine || "engine", "fox"),
       chip(new Date(data.benchmark.generated || Date.now()).toUTCString().slice(0, 22), "muted")),
     el("div", { class: "stats" },
-      stat(int(meta.scrambles || rows[0].scrambles), "scrambles per method", `seed ${meta.seed}, length ${meta.scramble_length}`),
-      stat(String(rows.length), "methods", "every one of them, same scrambles"),
-      stat(`${solvedAll}/${rows.length}`, "solved every scramble", "verified by replay, centres included"),
-      stat(duration(meta.table_seconds), "coordinate tables", "built once, shared by all methods"),
-      stat(duration(totalSeconds), "total solving time", "sum over every solve"),
-      stat(`${meta.book_swept || 0}`, "book depth", `${int(meta.book_found || 0)} last-layer elements known exactly`)),
+      stat(int(meta.scrambles || rows[0].scrambles), "cú trộn mỗi phương pháp", `hạt giống ${meta.seed}, độ dài ${meta.scramble_length}`),
+      stat(String(rows.length), "phương pháp", "mọi phương pháp, cùng các cú trộn"),
+      stat(`${solvedAll}/${rows.length}`, "giải xong mọi cú trộn", "được chạy lại kiểm chứng, kể cả trung tâm"),
+      stat(duration(meta.table_seconds), "bảng tọa độ", "xây một lần, dùng chung cho mọi phương pháp"),
+      stat(duration(totalSeconds), "tổng thời gian giải", "cộng trên mọi lần giải"),
+      stat(`${meta.book_swept || 0}`, "độ quét sách", `${int(meta.book_found || 0)} phần tử lớp cuối đã biết chính xác`)),
     el("p", { class: "small muted", style: { marginTop: "12px" } },
-      "The four counts are the engine's own metrics. ",
-      "htm: an outer turn costs 1 whether quarter or half, a wide/slice/rotation turn costs 2. ",
-      "qtm: quarter turns 1, half turns 2, wide/slice/rotation double. ",
-      "stm: every turn costs 1, which is how speedcubing notation counts. ",
-      "etm: like stm, but a slice turn costs 2. ",
-      "Whole solves here use outer turns only, so htm and stm agree. ",
-      "Solve time is engine time on this machine with warm tables — it is not a human TPS figure."));
+      "Bốn cách đếm là các chỉ số của chính engine. ",
+      "htm: một cú xoay mặt tính 1 dù quarter hay half, cú wide/slice/xoay toàn khối tính 2. ",
+      "qtm: quarter-turn tính 1, half tính 2, wide/slice/xoay gấp đôi. ",
+      "stm: mọi cú xoay tính 1, đúng cách ký hiệu speedcubing đếm. ",
+      "etm: như stm, nhưng một cú slice tính 2. ",
+      "Các lần giải trọn vẹn ở đây chỉ dùng cú xoay mặt, nên htm và stm trùng nhau. ",
+      "Thời gian giải là thời gian engine trên máy này với bảng đã warm — không phải con số TPS của người."));
 
-  /* ----------------------------------------------------------------- table */
+  /* ----------------------------------------------------------------- bảng */
   const tableWrap = el("div", { class: "table-wrap" });
 
   function draw() {
@@ -75,10 +75,10 @@ export function render(params = {}, query = {}) {
     mount(tableWrap, el("table", { class: "table" },
       el("thead", {}, el("tr", {}, COLUMNS.map((c) => el("th", {
         class: `${c.num ? "num " : ""}is-sortable`,
-        title: "Sort by this column",
+        title: "Sắp xếp theo cột này",
         onClick: () => {
           if (sortKey === c.key) sortDir *= -1;
-          else { sortKey = c.key; sortDir = c.key === "method" ? 1 : 1; }
+          else { sortKey = c.key; sortDir = 1; }
           draw();
           drawBars();
         },
@@ -110,7 +110,7 @@ export function render(params = {}, query = {}) {
     return String(v);
   }
 
-  /* ------------------------------------------------------------------ bars */
+  /* ------------------------------------------------------------------ biểu đồ */
   const bars = el("div", { class: "panel" });
   function drawBars() {
     const metric = sortKey === "seconds" || sortKey === "worst" ? "seconds" : "htm";
@@ -119,13 +119,13 @@ export function render(params = {}, query = {}) {
     const max = Math.max(...sorted.map(get));
     mount(bars,
       el("div", { class: "panel__head" },
-        el("h3", {}, metric === "seconds" ? "Engine seconds per solve" : "Move count per solve (htm)"),
+        el("h3", {}, metric === "seconds" ? "Giây engine trên mỗi lần giải" : "Đếm động tác trên mỗi lần giải (htm)"),
         el("span", { class: "spacer" }),
         el("div", { class: "pill-tabs" },
           el("button", { class: `pill-tab ${metric === "htm" ? "is-on" : ""}`, type: "button",
-                         onClick: () => { sortKey = "htm"; draw(); drawBars(); } }, "Moves"),
+                         onClick: () => { sortKey = "htm"; draw(); drawBars(); } }, "Động tác"),
           el("button", { class: `pill-tab ${metric === "seconds" ? "is-on" : ""}`, type: "button",
-                         onClick: () => { sortKey = "seconds"; draw(); drawBars(); } }, "Time"))),
+                         onClick: () => { sortKey = "seconds"; draw(); drawBars(); } }, "Thời gian"))),
       ...sorted.map((r) => el("div", { class: "bar-row" },
         el("span", { class: "bar-row__label" }, r.method),
         el("div", { class: "bar-track" },
@@ -134,29 +134,29 @@ export function render(params = {}, query = {}) {
         el("span", { class: "bar-row__val" }, metric === "seconds" ? `${num(get(r), 2)} s` : num(get(r), 2)))));
   }
 
-  /* -------------------------------------------------------------- stages */
+  /* ------------------------------------------------------------ theo bước */
   const stagePanel = el("div", { class: "panel" });
   function drawStages(name) {
     const r = bench(name);
     if (!r || !r.stages) {
-      mount(stagePanel, emptyState("No stage detail", "Re-run bench.py with --stages."));
+      mount(stagePanel, emptyState("Chưa có chi tiết bước", "Chạy lại bench.py với --stages."));
       return;
     }
     const entries = Object.entries(r.stages);
     const maxHtm = Math.max(...entries.map(([, d]) => d.htm_mean), 1);
     mount(stagePanel,
-      el("div", { class: "panel__head" }, el("h3", {}, `Where the moves go — ${name}`),
+      el("div", { class: "panel__head" }, el("h3", {}, `Động tác đi vào đâu — ${name}`),
         el("span", { class: "spacer" }),
         el("select", {
-          attrs: { "aria-label": "Method" },
+          attrs: { "aria-label": "Phương pháp" },
           onChange: (e) => drawStages(e.target.value),
         }, ...rows.map((x) => el("option", { value: x.method, selected: x.method === name }, x.method)))),
       el("div", { class: "table-wrap" },
         el("table", { class: "table" },
           el("thead", {}, el("tr", {},
-            el("th", {}, "Stage"), el("th", { class: "num" }, "htm mean"),
-            el("th", {}, ""), el("th", { class: "num" }, "ms mean"),
-            el("th", { class: "num" }, "nodes mean"), el("th", {}, "Answered by"))),
+            el("th", {}, "Bước"), el("th", { class: "num" }, "htm trung bình"),
+            el("th", {}, ""), el("th", { class: "num" }, "ms trung bình"),
+            el("th", { class: "num" }, "nút trung bình"), el("th", {}, "Được trả lời bởi"))),
           el("tbody", {}, entries.map(([stage, d]) => el("tr", {},
             el("td", { class: "name" }, el("code", {}, stage)),
             el("td", { class: "num" }, num(d.htm_mean, 2)),
@@ -166,9 +166,9 @@ export function render(params = {}, query = {}) {
             el("td", { class: "num" }, int(Math.round(d.nodes_mean))),
             el("td", {}, Object.entries(d.via || {}).map(([via, n]) => chip(`${via} ×${n}`, "sky")))))))),
       el("p", { class: "tiny muted", style: { marginTop: "10px" } },
-        "“book:scan” means the answer came straight out of the last-layer book — no search at all. ",
-        "“ida” is the engine's IDA* with the stage's heuristic tables. ",
-        "“centres” means the stage enumerated centre-aligned candidates because a slice move can leave the centres swapped."));
+        "“book:scan” nghĩa là câu trả lời ra thẳng từ sách lớp cuối — không tìm kiếm. ",
+        "“ida” là IDA* của engine với các bảng hàm đánh giá của bước. ",
+        "“centres” nghĩa là bước đã liệt kê các ứng cử viên đã xếp trung tâm, vì một cú slice có thể để hai trung tâm bị đổi chỗ."));
   }
 
   const first = rows.slice().sort((a, b) => a.htm.mean - b.htm.mean)[0].method;
@@ -181,17 +181,17 @@ export function render(params = {}, query = {}) {
       el("div", {},
         el("h1", {}, "Benchmark"),
         el("p", { class: "panel__note" },
-          `${rows.length} methods × ${int(meta.scrambles || rows[0].scrambles)} scrambles, every solution replayed on the cube before it was counted. Click a column to sort.`)),
+          `${rows.length} phương pháp × ${int(meta.scrambles || rows[0].scrambles)} cú trộn, mọi câu trả lời được chạy lại trên khối trước khi được tính. Bấm một cột để sắp xếp.`)),
       el("span", { class: "spacer" }),
       el("div", { class: "row row--tight" },
-        chip(`${solvedAll}/${rows.length} perfect`, "mint"),
-        chip(`tables ${duration(meta.table_seconds)}`, "sky"))),
+        chip(`${solvedAll}/${rows.length} hoàn hảo`, "mint"),
+        chip(`bảng ${duration(meta.table_seconds)}`, "sky"))),
     metaPanel,
-    el("div", { class: "section-head" }, el("h2", {}, "Results")),
+    el("div", { class: "section-head" }, el("h2", {}, "Kết quả")),
     tableWrap,
-    el("div", { class: "section-head" }, el("h2", {}, "Ranking")),
+    el("div", { class: "section-head" }, el("h2", {}, "Xếp hạng")),
     bars,
-    el("div", { class: "section-head" }, el("h2", {}, "Stage by stage")),
+    el("div", { class: "section-head" }, el("h2", {}, "Từng bước một")),
     stagePanel);
 
   return { node: view };

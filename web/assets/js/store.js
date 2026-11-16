@@ -1,21 +1,23 @@
 /**
- * Everything the site remembers, in localStorage, under one versioned key.
+ * Mọi thứ trang nhớ được, trong localStorage, dưới một khóa có phiên bản.
  *
- * Three kinds of state:
- *   settings  — how the cube is drawn and how fast turns animate
- *   progress  — which cases you have marked as learned, per case key
- *   srs       — the trainer's review schedule (boxes, due times, streaks)
+ * Bốn loại trạng thái:
+ *   settings  — cách khối được vẽ và tốc độ hoạt hình
+ *   progress  — bài nào bạn đã đánh dấu "đã thuộc", theo khóa bài
+ *   srs       — lịch học nhắc lại của bài luyện (hộp, giờ đến hạn, chuỗi)
+ *   records   — bảng kỷ lục cá nhân: thời gian nhanh nhất, số lần thử,
+ *              chuỗi ngày liên tục, thống kê theo ngày
  *
- * Nothing here talks to the network, so a session on Cloudflare Pages works
- * offline after the first load and no account is needed.
+ * Không có gì ở đây nói chuyện qua mạng, nên một session trên Cloudflare
+ * Pages hoạt động offline sau lần tải đầu và không cần tài khoản.
  */
 
-const KEY = "qfox.web.v1";
+const KEY = "qfox.web.v2";
 
 const DEFAULTS = {
   settings: {
     view: "3d",            // "3d" | "net"
-    speed: 220,            // ms per quarter turn
+    speed: 220,            // ms mỗi quarter-turn
     autoPlay: true,
     highlight: "ll",       // "ll" | "none"
     yaw: -34,
@@ -23,9 +25,17 @@ const DEFAULTS = {
     notation: "standard",  // "standard" | "wide"
     reducedMotion: false,
   },
-  progress: {},            // case key -> { learned, ts }
-  srs: {},                 // case key -> { box, due, seen, right, wrong, streak }
-  sessions: [],            // last few trainer sessions, newest first
+  progress: {},            // khóa bài -> { learned, ts }
+  srs: {},                 // khóa bài -> { box, due, seen, right, wrong, streak }
+  records: {
+    best: {},              // khóa bài -> { ms, at } thời gian nhập nhanh nhất
+    attempts: {},          // khóa bài -> số lần thử
+    days: {},              // "YYYY-MM-DD" -> { reviews, correct, cards }
+    streak: 0,             // số ngày liên tục hiện tại (có luyện tập)
+    bestStreak: 0,
+    lastDay: null,
+  },
+  sessions: [],            // vài session luyện tập gần đây, mới nhất trước
 };
 
 let state = null;
@@ -40,6 +50,7 @@ function load() {
     settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
     progress: parsed.progress || {},
     srs: parsed.srs || {},
+    records: { ...JSON.parse(JSON.stringify(DEFAULTS.records)), ...(parsed.records || {}) },
     sessions: Array.isArray(parsed.sessions) ? parsed.sessions : [],
   };
   return state;
@@ -49,7 +60,7 @@ let saveTimer = null;
 function save() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* private mode */ }
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* chế độ riêng tư */ }
   }, 120);
 }
 
@@ -59,10 +70,10 @@ export function onChange(fn) {
 }
 function emit(what) {
   save();
-  for (const fn of listeners) { try { fn(what, state); } catch { /* a view died */ } }
+  for (const fn of listeners) { try { fn(what, state); } catch { /* một view bị lỗi */ } }
 }
 
-/* ---------------------------------------------------------------- settings */
+/* ---------------------------------------------------------------- cài đặt */
 
 export const settings = () => load().settings;
 
@@ -71,7 +82,7 @@ export function setSetting(name, value) {
   emit("settings");
 }
 
-/* ---------------------------------------------------------------- progress */
+/* --------------------------------------------------------------- tiến độ */
 
 export function isLearned(key) {
   return Boolean(load().progress[key]);
@@ -98,9 +109,9 @@ export function learnedCount(keys) {
   return keys.filter((k) => p[k]).length;
 }
 
-/* ------------------------------------------------- spaced review (the trainer) */
+/* ------------------------------------------------------- học nhắc lại (bài luyện) */
 
-/** Box intervals in minutes: 0 = new, 5 = learned today, up to 30 days. */
+/** Khoảng cách hộp tính theo phút: 0 = mới, 5 = thuộc hôm nay, tới 30 ngày. */
 const BOX_MINUTES = [0, 10, 60 * 24, 60 * 24 * 3, 60 * 24 * 7, 60 * 24 * 30];
 export const MAX_BOX = BOX_MINUTES.length - 1;
 
@@ -110,9 +121,9 @@ export function card(key) {
 }
 
 /**
- * Record a review.
- * @param {string} key   case key
- * @param {number} grade 2 = knew it, 1 = hesitated, 0 = missed
+ * Ghi một lần luyện.
+ * @param {string} key   khóa bài
+ * @param {number} grade 2 = thuộc, 1 = do dự, 0 = sai
  */
 export function review(key, grade) {
   const s = load().srs;
@@ -139,7 +150,7 @@ export function review(key, grade) {
   return c;
 }
 
-/** The order the trainer should ask in: overdue first, then new, then future. */
+/** Thứ tự bài luyện nên hỏi: đến hạn trước, rồi mới, rồi tương lai. */
 export function schedule(keys) {
   const now = Date.now();
   const s = load().srs;
@@ -172,6 +183,68 @@ export function stats(keys) {
            accuracy: right + wrong ? right / (right + wrong) : null };
 }
 
+/* ------------------------------------------------------------- kỷ lục cá nhân */
+
+const todayKey = (d = new Date()) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+/** Ghi một lần trả lời trong bài luyện (kỷ lục thời gian nhập). */
+export function recordAnswer(key, ms, correct) {
+  const rec = load().records;
+  rec.attempts[key] = (rec.attempts[key] || 0) + 1;
+  if (correct) {
+    const prev = rec.best[key];
+    if (!prev || ms < prev.ms) rec.best[key] = { ms: Math.round(ms), at: Date.now() };
+  }
+  return rec.best[key] || null;
+}
+
+/** Ghi một lần luyện vào thống kê theo ngày và cập nhật chuỗi ngày. */
+export function recordActivity(grade) {
+  const rec = load().records;
+  const key = todayKey();
+  const day = rec.days[key] || { reviews: 0, correct: 0, cards: 0 };
+  day.reviews += 1;
+  if (grade >= 2) day.correct += 1;
+  if (grade >= 1) day.cards += 1;
+  rec.days[key] = day;
+
+  const yesterday = todayKey(new Date(Date.now() - 86_400_000));
+  const active = rec.days[key].reviews > 0;
+  if (active && rec.lastDay !== key) {
+    rec.streak = rec.lastDay === yesterday ? rec.streak + 1 : 1;
+    rec.bestStreak = Math.max(rec.bestStreak, rec.streak);
+    rec.lastDay = key;
+  }
+  emit("records");
+  return rec;
+}
+
+/** Thống kê kỷ lục tổng hợp. */
+export function records(keys) {
+  const rec = load().records;
+  let bestCount = 0, attempts = 0, bestMs = null;
+  for (const k of keys) {
+    const b = rec.best[k];
+    if (b) { bestCount += 1; attempts += rec.attempts[k] || 0;
+             if (bestMs === null || b.ms < bestMs) bestMs = b.ms; }
+  }
+  const days = Object.entries(rec.days)
+    .sort((a, b) => (a[0] < b[0] ? 1 : -1))
+    .slice(0, 60);
+  const totalReviews = days.reduce((s, [, d]) => s + d.reviews, 0);
+  const totalCorrect = days.reduce((s, [, d]) => s + d.correct, 0);
+  return {
+    bestCount, attempts, bestMs,
+    streak: rec.streak, bestStreak: rec.bestStreak,
+    days, totalReviews, totalCorrect,
+    accuracy: totalReviews ? totalCorrect / totalReviews : null,
+    perDay: (key) => rec.days[todayKey()] || null,
+    bestOf: (key) => rec.best[key] || null,
+    attemptsOf: (key) => rec.attempts[key] || 0,
+  };
+}
+
 export function logSession(row) {
   const sessions = load().sessions;
   sessions.unshift({ ...row, at: Date.now() });
@@ -181,7 +254,7 @@ export function logSession(row) {
 
 export const recentSessions = () => load().sessions;
 
-/* ------------------------------------------------------------- whole store */
+/* ------------------------------------------------------------ toàn bộ kho */
 
 export function exportAll() {
   return JSON.stringify({ exported: new Date().toISOString(), ...load() }, null, 2);
@@ -189,11 +262,12 @@ export function exportAll() {
 
 export function importAll(text) {
   const parsed = JSON.parse(text);
-  if (!parsed || typeof parsed !== "object") throw new Error("not a Q-FOX export");
+  if (!parsed || typeof parsed !== "object") throw new Error("không phải bản xuất Q-FOX");
   state = {
     settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
     progress: parsed.progress || {},
     srs: parsed.srs || {},
+    records: { ...JSON.parse(JSON.stringify(DEFAULTS.records)), ...(parsed.records || {}) },
     sessions: Array.isArray(parsed.sessions) ? parsed.sessions : [],
   };
   emit("import");
