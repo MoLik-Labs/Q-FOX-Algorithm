@@ -18,6 +18,7 @@ import { topLayer } from "../diagram.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
 import { getFormulas, saveFormula, deleteFormula } from "../store.js";
 import { exportFormulaPng, exportFormulaPdf, drawFormulaCard } from "../export.js";
+import { exportFormulaPdfFile, exportCasesPdfFile } from "../pdffile.js";
 
 const MOVES = ["U", "U'", "U2", "R", "R'", "R2", "F", "F'", "F2", "D", "D'", "D2",
               "L", "L'", "L2", "B", "B'", "B2", "M", "M'", "E", "S", "r", "l", "u",
@@ -221,7 +222,7 @@ export function render(params = {}, query = {}) {
       const pngBtn = el("button", { class: "btn btn--sm", type: "button",
         onClick: () => exportFormulaPng(f).then(() => toast("Đã tải PNG", "ok")).catch(() => toast("Xuất PNG thất bại", "err")) }, "PNG");
       const pdfBtn = el("button", { class: "btn btn--sm", type: "button",
-        onClick: () => exportFormulaPdf(f) }, "PDF");
+        onClick: () => exportFormulaPdfFile(f) }, "Tải PDF");
       const actions = el("div", { class: "row row--tight" }, openBtn, pngBtn, pdfBtn, copyBtn, actBtn);
       const nameCell = el("td", { class: "name" }, f.name,
         f.note ? el("div", { class: "tiny muted" }, f.note) : null);
@@ -301,7 +302,7 @@ export function render(params = {}, query = {}) {
           el("button", { class: "btn", type: "button", disabled: !history.length,
             onClick: () => exportFormulaPng({ name: nameInput.value || "Công thức", text: history.join(" "), goal: selectedGoal, note: noteInput.value }).then(() => toast("Đã tải PNG công thức", "ok")).catch(() => toast("Xuất PNG thất bại", "err")) }, "PNG công thức"),
           el("button", { class: "btn", type: "button", disabled: !history.length,
-            onClick: () => exportFormulaPdf({ name: nameInput.value || "Công thức", text: history.join(" "), goal: selectedGoal, note: noteInput.value }) }, "PDF công thức")),
+            onClick: () => exportFormulaPdfFile({ name: nameInput.value || "Công thức", text: history.join(" "), goal: selectedGoal, note: noteInput.value }) }, "Tải PDF công thức")),
         el("p", { class: "tiny muted", style: { marginTop: "8px" } },
           "Lưu khi chuỗi đạt mục tiêu. Công thức được lưu trong trình duyệt này và có thể mở lại, sao chép, hoặc dùng trong bài luyện.")),
       el("div", { class: "panel" },

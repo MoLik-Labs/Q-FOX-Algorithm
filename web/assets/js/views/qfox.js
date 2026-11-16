@@ -10,6 +10,7 @@
 import { data, level, levelKeys, caseByKey, totals } from "../data.js";
 import { el, mount, chip, num, int, toast } from "../util.js";
 import { exportCasesPng, exportCasesPdf } from "../export.js";
+import { exportCasesPdfFile } from "../pdffile.js";
 import { learnedCount, isLearned } from "../store.js";
 
 const TIER_TONE = { easy: "sky", medium: "mint", hard: "gold", full: "fox" };
@@ -27,8 +28,14 @@ export function render(params = {}) {
     el("div", { class: "panel__head" }, el("h3", {}, "Con số tốc độ của engine"),
       el("span", { class: "spacer" }),
       chip("cùng 20 cú trộn, bảng đã warm", "sky"),
-      el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ 196 bài thành PDF sách",
-        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}` }) }, "Xuất PDF toàn bộ"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF sách toàn bộ 196 bài",
+        onClick: async () => {
+          toast("Đang tạo file PDF sách…", "info");
+          await exportCasesPdfFile(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", detail: true, chapters: true, filename: "qfox-full" });
+          toast("Đã tải file PDF -- in ra học", "ok");
+        } }, "Tải PDF toàn bộ"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in toàn bộ",
+        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}` }) }, "In toàn bộ"),
       el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ 196 bài thành ảnh PNG",
         onClick: () => { toast("Đang vẽ ảnh PNG…", "info"); exportCasesPng(data.cases, { title: "Q-FOX · Sách thuật toán", cols: 4, filename: "qfox-full" }); } }, "Xuất PNG toàn bộ")),
     el("p", { class: "small muted" },

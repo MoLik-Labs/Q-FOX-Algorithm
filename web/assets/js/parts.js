@@ -8,6 +8,7 @@ import { CubeView } from "./cube-view.js";
 import { topLayer, netDiagram } from "./diagram.js";
 import { el, mount, moveChips, chunkAlg, chunkChips, chip, toast, copyText, sheet, progressBar, num, seconds } from "./util.js";
 import { exportCasesPng, exportCasesPdf } from "./export.js";
+import { exportCasesPdfFile } from "./pdffile.js";
 import { settings, setSetting, isLearned, toggleLearned, card as srsCard, records } from "./store.js";
 
 /* ------------------------------------------------------------------ UI khối */
@@ -419,8 +420,14 @@ export function openCase(row, ctx = {}) {
     await exportCasesPng([row], { title: (row.teach && row.teach.name) || (row.names && row.names[0]) || "Bài", cols: 1, filename: "qfox-case" });
     toast("Đã tải ảnh PNG", "ok");
   };
-  const exportPdfBtn = el("button", { class: "btn", type: "button", title: "In bài này thành PDF chuẩn sách" }, "Xuất PDF");
-  exportPdfBtn.onclick = () => {
+  const exportPdfBtn = el("button", { class: "btn", type: "button", title: "Tải file PDF bài này -- in ra học" }, "Tải PDF");
+  exportPdfBtn.onclick = async () => {
+    toast("Đang tạo file PDF…", "info");
+    await exportCasesPdfFile([row], { title: (row.teach && row.teach.name) || (row.names && row.names[0]) || "Bài", detail: true, filename: "qfox-case" });
+    toast("Đã tải file PDF -- in ra học", "ok");
+  };
+  const printPdfBtn = el("button", { class: "btn", type: "button", title: "Mở cửa sổ in bài này" }, "In");
+  printPdfBtn.onclick = () => {
     exportCasesPdf([row], { title: (row.teach && row.teach.name) || (row.names && row.names[0]) || "Bài", subtitle: `${row.familyLabel || row.family} · ${word.count} động tác` });
   };
 
@@ -513,7 +520,7 @@ export function openCase(row, ctx = {}) {
               : "chưa luyện"))),
       sets.length ? el("div", { class: "row row--tight" },
         el("span", { class: "tiny muted" }, "Xuất hiện trong:"), ...sets) : null,
-      el("div", { class: "row" }, learnedBtn, copyBtn, exportPngBtn, exportPdfBtn, setupBtn,
+      el("div", { class: "row" }, learnedBtn, copyBtn, exportPngBtn, exportPdfBtn, printPdfBtn, setupBtn,
         chunkPracticeBtn(row, () => goto, cube),
         el("a", { class: "btn", href: `#/trainer?family=${encodeURIComponent(row.family)}&key=${encodeURIComponent(row.key)}` }, "Luyện bài này"))));
 
