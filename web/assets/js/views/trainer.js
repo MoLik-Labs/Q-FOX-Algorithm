@@ -24,6 +24,7 @@ const MODES = {
   recognise: "Chọn nó",
   flash: "Nói nó",
   drill: "Nhận nhanh",
+  combo: "Nhận + Nhớ",
 };
 
 export function render(params = {}, query = {}) {
@@ -334,6 +335,31 @@ export function render(params = {}, query = {}) {
         el("div", { class: "row" },
           el("button", { class: "btn btn--primary", type: "button", onClick: () => reveal(row) }, "Hiện đáp án"),
           el("span", { class: "tiny muted" }, "Space để hiện")));
+    }
+
+    // combo: nhận dạng rồi nhớ -- vòng học hiệu quả nhất. Mỗi bài đi qua
+    // hai bước: nhìn hình, nhận dạng (như drill), rồi nhập thuật toán
+    // (như recall). Nhận trước, nhớ sau, lặp lại -- chu trình tối ưu để
+    // vừa nhận nhanh vừa nhớ lâu.
+    if (mode === "combo") {
+      const recog = (row.teach && row.teach.recognise) ||
+        `${row.desc.pattern} · ${row.desc.permutation}`;
+      const input = el("input", {
+        class: "answer-input", type: "text", spellcheck: "false", autocomplete: "off",
+        placeholder: "Nhập thuật toán",
+        attrs: { "aria-label": "Thuật toán của bạn" },
+        onKeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); check(input.value); } },
+      });
+      return el("div", { class: "stack" },
+        el("div", { class: "hint hint--gold" },
+          el("span", { class: "tiny muted" }, "Bước 1 — nhận dạng: "), recog),
+        el("div", { class: "hint hint--fox" },
+          el("span", { class: "tiny muted" }, "Bước 2 — nhớ và nhập: ")),
+        input,
+        el("div", { class: "row" },
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => check(input.value) }, "Kiểm tra"),
+          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Bỏ cuộc — hiện"),
+          el("span", { class: "tiny muted" }, "Nhận dạng trước, rồi nhập -- vòng nhận + nhớ")));
     }
 
     // drill: nhận dạng nhanh thuần túy -- chỉ có hình, không có câu hỏi
