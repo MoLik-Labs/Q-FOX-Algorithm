@@ -1,8 +1,8 @@
 /** Trang chủ: đây là gì, chứng minh được gì, và bắt đầu từ đâu. */
-import { data, totals, levelKeys, METRIC_HINT } from "../data.js";
+import { data, totals, levelKeys, METRIC_HINT, caseByKey } from "../data.js";
 import { el, mount, chip, num, int, progressBar, seconds } from "../util.js";
 import { cubePanel, caseCard, openCase } from "../parts.js";
-import { learnedCount, recentSessions, records } from "../store.js";
+import { learnedCount, recentSessions, records, schedule } from "../store.js";
 
 export function render() {
   const t = totals();
@@ -153,6 +153,7 @@ export function render() {
 
   mount(view,
     hero,
+    dailyPlan(),
     el("div", { class: "section-head" }, el("h2", {}, "Toàn bộ hệ thống trong một dòng"),
       el("span", { class: "panel__note" }, `${int(t.elements)} phần tử lớp cuối · ${num(t.coverage, 2)}% đã quét · câu trả lời chính xác tới ${t.exactTo} động tác`)),
     stats,
@@ -173,6 +174,61 @@ export function render() {
       panel.cube.stop();
     },
   };
+}
+
+/**
+ * Lộ trình luyện mỗi ngày: tính từ tiến trình thực tế của bạn trong
+ * trình duyệt này. Đề xuất những bài nên luyện trước -- bài đến hạn,
+ * bài chưa thuộc, và bài mới -- để thời gian luyện đi đúng chỗ. Đây là
+ * cách tối đa hiệu quả thời gian: không phải tự nghĩ hôm nay luyện gì.
+ */
+function dailyPlan() {
+  const all = data.cases.filter((c) => c.moves.length);
+  const learned = all.filter((c) => learnedCount([c.key]));
+  const todo = all.filter((c) => !learnedCount([c.key]));
+  // bài đến hạn theo lịch học nhắc lại
+  const due = schedule(all.map((c) => c.key)).filter((r) => r.overdue).map((r) => r.key);
+  const dueRows = due.map((k) => caseByKey(k)).filter(Boolean);
+  const freshRows = todo.filter((r) => !due.includes(r.key)).slice(0, 6);
+
+  const items = [];
+  if (dueRows.length) {
+    items.push({ title: "Bài đến hạn -- luyện trước", rows: dueRows, cls: "fox",
+      note: `${dueRows.length} bài mà lịch học báo đã tới hạn. Luyện trước -- chúng giữ kiến thức của bạn chắc.` });
+  }
+  if (freshRows.length) {
+    items.push({ title: "Bài mới -- học thêm", rows: freshRows, cls: "sky",
+      note: `${freshRows.length} bài chưa thuộc. Chọn vài bài để mở rộng số lượng bạn biết.` });
+  }
+  if (!items.length) {
+    return el("section", { class: "panel" },
+      el("div", { class: "panel__head" }, el("h3", {}, "Lộ trình luyện hôm nay")),
+      el("p", { class: "small" }, "Không có bài đến hạn và bạn đã thuộc toàn bộ bài có thuật toán. Tuyệt vời -- hôm nay là ngày nghỉ, hoặc học một phương pháp mới trong Mục phương pháp."));
+  }
+
+  const cards = el("div", { class: "grid grid--cases" },
+    ...items.flatMap((it) => it.rows.slice(0, 8).map((r) => caseCard(r, { onOpen: openCase }))))
+
+  const head = el("div", { class: "panel__head" },
+    el("h3", {}, "Lộ trình luyện hôm nay"),
+    el("span", { class: "spacer" }),
+    chip(`${learned.length}/${all.length} bài đã thuộc`, "mint"),
+    chip(`${dueRows.length} bài đến hạn`, "fox"));
+
+  const group = (it) => el("div", {},
+    el("div", { class: "row row--tight", style: { marginBottom: "6px" } },
+      chip(it.title, it.cls),
+      el("span", { class: "tiny muted" }, it.note)),
+    cards);
+
+  const groups = el("div", { class: "stack", style: { gap: "10px" } },
+    ...items.map(group));
+
+  const actions = el("div", { class: "row", style: { marginTop: "12px" } },
+    el("a", { class: "btn btn--primary btn--sm", href: "#/trainer" }, "Bắt đầu luyện"),
+    el("a", { class: "btn btn--sm", href: "#/levels" }, "Xem lộ trình cấp độ"));
+
+  return el("section", { class: "panel" }, head, groups, actions);
 }
 
 function stat(value, key, sub = "", fox = false) {
