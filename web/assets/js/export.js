@@ -470,6 +470,52 @@ function escapeHtml(s) {
 }
 
 /**
+ * Vẽ một công thức do người học tạo thành thẻ chuẩn sách lên canvas.
+ * Dùng cho preview trong Tạo công thức -- giống hệt ảnh PNG sẽ xuất.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {object} formula { name, text, goal, note }
+ */
+export function drawFormulaCard(ctx, formula) {
+  const pal = PNG_PALETTE[isLight() ? "light" : "dark"];
+  const w = 520, h = 180;
+  ctx.fillStyle = pal.bg;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.fillStyle = pal.surface;
+  roundRect(ctx, 8, 8, w - 16, h - 16, 14); ctx.fill();
+  ctx.strokeStyle = pal.line; ctx.lineWidth = 1; ctx.stroke();
+
+  ctx.fillStyle = pal.muted;
+  ctx.font = "600 11px ui-sans-serif, system-ui, sans-serif";
+  ctx.textBaseline = "top";
+  ctx.fillText("MỤC TIÊU: " + ((formula.goal || "PLL").toUpperCase()) + " · CÔNG THỨC TỰ TẠO", 24, 20);
+
+  ctx.fillStyle = pal.ink;
+  ctx.font = "700 22px ui-sans-serif, system-ui, sans-serif";
+  ctx.fillText(formula.name || "Công thức", 24, 40);
+
+  ctx.font = "700 22px ui-monospace, 'Geist Mono', monospace";
+  let cx = 24, cy = 78;
+  for (const t of String(formula.text || "").split(/\s+/).filter(Boolean)) {
+    const tw = ctx.measureText(t + " ").width;
+    if (cx + tw > w - 24) { cx = 24; cy += 30; }
+    ctx.fillStyle = moveColour(t);
+    ctx.fillText(t, cx, cy);
+    cx += tw;
+  }
+
+  if (formula.note) {
+    ctx.fillStyle = pal.muted;
+    ctx.font = "500 11px ui-sans-serif, system-ui, sans-serif";
+    wrapText(ctx, formula.note, 24, 130, w - 48, 15);
+  }
+  ctx.fillStyle = pal.muted;
+  ctx.font = "500 10px ui-sans-serif, system-ui, sans-serif";
+  ctx.fillText("Q-FOX Algorithm · " + new Date().toLocaleDateString("vi-VN"), 24, h - 24);
+}
+
+/**
  * Xuất một công thức do người học tạo thành PDF/PNG -- một thẻ lớn.
  *
  * @param {object} formula { name, text, goal, note }
