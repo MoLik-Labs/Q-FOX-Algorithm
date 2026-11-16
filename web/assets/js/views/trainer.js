@@ -23,6 +23,7 @@ const MODES = {
   recall: "Nhập nó",
   recognise: "Chọn nó",
   flash: "Nói nó",
+  drill: "Nhận nhanh",
 };
 
 export function render(params = {}, query = {}) {
@@ -327,11 +328,31 @@ export function render(params = {}, query = {}) {
     }
 
     // flash
-    return el("div", { class: "stack" }, head,
-      el("div", { class: "hint" }, "Nói to thuật toán, hoặc chạy trong đầu, rồi hiện đáp án và tự đánh giá thật với mình."),
-      el("div", { class: "row" },
-        el("button", { class: "btn btn--primary", type: "button", onClick: () => reveal(row) }, "Hiện đáp án"),
-        el("span", { class: "tiny muted" }, "Space để hiện")));
+    if (mode === "flash") {
+      return el("div", { class: "stack" }, head,
+        el("div", { class: "hint" }, "Nói to thuật toán, hoặc chạy trong đầu, rồi hiện đáp án và tự đánh giá thật với mình."),
+        el("div", { class: "row" },
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => reveal(row) }, "Hiện đáp án"),
+          el("span", { class: "tiny muted" }, "Space để hiện")));
+    }
+
+    // drill: nhận dạng nhanh thuần túy -- chỉ có hình, không có câu hỏi
+    // thuật toán. Tập tốc độ nhận bài: nhìn, gọi tên, tự kiểm tra. Tối đa
+    // tốc độ nhận dạng, không mất thời gian nhớ ký hiệu.
+    if (mode === "drill") {
+      const recog = (row.teach && row.teach.recognise) ||
+        `${row.desc.pattern} · ${row.desc.permutation}`;
+      return el("div", { class: "stack" },
+        el("div", { class: "hint hint--gold" },
+          el("span", { class: "tiny muted" }, "Nhận dạng: "), recog),
+        el("div", { class: "row" },
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => {
+            const name = (row.teach && row.teach.name) || (row.names && row.names[0]) || null;
+            grade(row, name ? 2 : 1, name ? `Gọi đúng: ${name}.` : "Nhận dạng đúng -- bài này không có tên quen thuộc.");
+          } }, "Gọi tên rồi kiểm tra"),
+          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Không biết — hiện"),
+          el("span", { class: "tiny muted" }, "Nhìn hình, gọi tên bài, rồi kiểm tra -- rèn tốc độ nhận dạng")));
+    }
   }
 
   function distractors(row) {
@@ -547,7 +568,7 @@ export function render(params = {}, query = {}) {
     if (e.key === "n") { e.preventDefault(); if (answered) next(); }
     else if (e.key === " ") {
       e.preventDefault();
-      if (!answered && mode === "flash") reveal(current);
+      if (!answered && (mode === "flash" || mode === "drill")) reveal(current);
     } else if (["1", "2", "3", "4"].includes(e.key)) {
       if (!answered && mode === "recognise") {
         const btns = [...question.querySelectorAll("button.btn")];

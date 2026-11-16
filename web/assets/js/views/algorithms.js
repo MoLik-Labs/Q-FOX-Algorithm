@@ -25,6 +25,7 @@ const state = {
   learned: "all",       // all | todo | done
   named: false,
   maxLen: 0,            // 0 = không giới hạn
+  pattern: "",          // lọc theo pattern nhận dạng
 };
 
 export function render(params = {}, query = {}) {
@@ -35,6 +36,7 @@ export function render(params = {}, query = {}) {
     learned: query.learned || state.learned,
     named: query.named === "1",
     maxLen: Number(query.max || 0),
+    pattern: query.pattern || state.pattern,
   });
 
   const view = el("div");
@@ -90,12 +92,22 @@ export function render(params = {}, query = {}) {
       onInput: (e) => { state.maxLen = Number(e.target.value || 0); draw(); },
     }));
 
+  // lọc theo pattern nhận dạng: học nhận dạng theo nhóm hệ thống
+  const allPatterns = [...new Set(data.cases.map((c) => c.desc.pattern))].sort();
+  const patternSelect = el("select", {
+    id: "pattern",
+    attrs: { "aria-label": "Lọc theo nhận dạng" },
+    onChange: (e) => { state.pattern = e.target.value; draw(); },
+  }, ...[[ "", "Mọi pattern nhận dạng" ], ...allPatterns.map((p) => [p, p])]
+    .map(([k, label]) => el("option", { value: k, selected: k === state.pattern }, label)));
+
   const filters = el("div", { class: "filters panel panel--tight" },
     el("div", { class: "field", style: { flex: "1 1 260px" } },
       el("label", { for: "q" }, "Tìm"), searchInput),
     el("div", { class: "field" }, el("label", { for: "sort" }, "Sắp xếp"), sortSelect),
     el("div", { class: "field" }, el("label", { for: "learned" }, "Tiến độ"), learnedSelect),
     maxField,
+    el("div", { class: "field" }, el("label", { for: "pattern" }, "Nhận dạng"), patternSelect),
     namedBtn,
     el("span", { class: "spacer" }),
     count);
@@ -113,6 +125,7 @@ export function render(params = {}, query = {}) {
     let out = search(state.q, base);
     if (state.named) out = out.filter((r) => r.names.length);
     if (state.maxLen) out = out.filter((r) => r.count <= state.maxLen);
+    if (state.pattern) out = out.filter((r) => r.desc.pattern === state.pattern);
     if (state.learned === "todo") out = out.filter((r) => !isLearned(r.key));
     if (state.learned === "done") out = out.filter((r) => isLearned(r.key));
     return out.slice().sort(SORTS[state.sort] || SORTS.case);

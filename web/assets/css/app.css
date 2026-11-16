@@ -549,6 +549,9 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
 
 .timeline { display: flex; flex-direction: column; gap: var(--s-3); }
 .step { display: flex; gap: var(--s-3); align-items: flex-start; }
+.step.is-done .step__n { background: var(--mint); color: #052416; }
+.step.is-now .step__n { background: var(--accent); color: var(--accent-ink); }
+.step.is-done .step__n, .step.is-now .step__n { border-color: transparent; }
 .step__n {
   flex: none;
   width: 26px; height: 26px;
