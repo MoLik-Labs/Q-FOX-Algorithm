@@ -6,7 +6,7 @@
 import { data, METRIC_HINT } from "./data.js";
 import { CubeView } from "./cube-view.js";
 import { topLayer, netDiagram } from "./diagram.js";
-import { el, mount, moveChips, chip, toast, copyText, sheet, progressBar, num, seconds } from "./util.js";
+import { el, mount, moveChips, chunkAlg, chunkChips, chip, toast, copyText, sheet, progressBar, num, seconds } from "./util.js";
 import { settings, setSetting, isLearned, toggleLearned, card as srsCard, records } from "./store.js";
 
 /* ------------------------------------------------------------------ UI khối */
@@ -143,6 +143,91 @@ export function openCase(row, ctx = {}) {
     paintChips();
   }
 
+  /**
+   * Học theo cụm: chia thuật toán thành các cụm (2 hoặc 3 động tác) để
+   * thuộc từng nhóm. Chọn cụm sẽ nhảy khối tới đầu cụm đó; cụm đã qua
+   * chuyển màu. Một công cụ học thật sự, không chỉ trình bày.
+   */
+  let chunkPer = 2;
+  let chunkHost = el("div");
+  function drawChunks() {
+    const text = word.text || "";
+    if (!text) { chunkHost.style.display = "none"; return; }
+    chunkHost.style.display = "";
+    const chunks = chunkAlg(text, chunkPer);
+    const cur = Math.floor(k / chunkPer);
+    const chipsEl = chunkChips(chunks, (i) => goto(i * chunkPer),
+      { title: "Nhấn để nhảy tới đầu cụm" });
+    [...chipsEl.children].forEach((node, i) => {
+      node.classList.toggle("is-done", i < cur);
+      node.classList.toggle("is-active", i === cur);
+    });
+    mount(chunkHost,
+      el("div", { class: "row row--tight", style: { marginBottom: "8px" } },
+        el("span", { class: "tiny muted" }, `Chia thành ${chunks.length} cụm, mỗi cụm ${chunkPer} động tác — học từng nhóm`),
+        el("span", { class: "spacer" }),
+        el("span", { class: "tiny muted" }, "cụm"),
+        el("div", { class: "pill-tabs", style: { gap: "4px" } },
+          el("button", { class: `pill-tab ${chunkPer === 2 ? "is-on" : ""}`, type: "button",
+            onClick: () => { chunkPer = 2; drawChunks(); } }, "2"),
+          el("button", { class: `pill-tab ${chunkPer === 3 ? "is-on" : ""}`, type: "button",
+            onClick: () => { chunkPer = 3; drawChunks(); } }, "3"))),
+      chipsEl);
+  }
+
+  function chunkSection() { return chunkHost; }
+
+  /**
+   * Block dạy: nhận dạng bài (nếu có tên quen thuộc) và các cụm động tác
+   * kèm ghi chú. Đây là lớp học thật -- không chỉ trình bày thuật toán, mà
+   * dạy bạn nhận ra nó và hiểu từng cụm làm gì.
+   */
+  function teachBlock() {
+    const teach = row.teach;
+    // Mọi bài đều có nhận dạng -- bài có tên quen thuộc dùng cue được viết
+    // tay, bài còn lại suy nhận dạng từ chính mô tả của engine (pattern +
+    // hoán vị). Như vậy mỗi thẻ bài dạy bạn nhận ra nó, không chỉ hiển thị
+    // thuật toán.
+    const recognise = (teach && teach.recognise) ||
+      `${row.desc.pattern} · ${row.desc.permutation}`;
+    if (!teach) {
+      // bài không có tên quen thuộc: vẫn dạy nhận dạng + mục tiêu, không
+      // có cụm ghi chú
+      return el("div", { class: "stack", style: { marginTop: "14px", padding: "14px", borderRadius: "var(--r-md)", background: "var(--s-2)", border: "1px solid var(--s-3)" } },
+        el("div", { class: "row row--tight" },
+          el("span", { class: "tiny muted" }, "Nhận dạng"),
+          chip(recognise, "gold")),
+        el("div", { class: "tiny muted", style: { marginTop: "8px" } },
+          "Mục tiêu: ", data.algorithms.families[row.family].goal,
+          ". Thuật toán bên trên là từ ngắn nhất đã kiểm chứng của engine."));
+    }
+    const chunks = teach.chunks || [];
+    const chipsEl = chunkChips(chunks.map((c) => c.text), null,
+      { title: "Cụm động tác trong thuật toán quen thuộc" });
+    [...chipsEl.children].forEach((node, i) => {
+      const note = chunks[i] && chunks[i].note;
+      if (note) node.title = `Cụm ${i + 1}: ${note}`;
+    });
+    return el("div", { class: "stack", style: { marginTop: "14px", padding: "14px", borderRadius: "var(--r-md)", background: "var(--s-2)", border: "1px solid var(--s-3)" } },
+      el("div", { class: "row row--tight" },
+        el("span", { class: "tiny muted" }, "Nhận dạng"),
+        chip(recognise, "gold"),
+        chip(`${teach.algorithm.split(/\s+/).filter(Boolean).length} động tác`, "mint")),
+      teach.mnemonic
+        ? el("div", { class: "hint hint--fox", style: { marginTop: "8px" } },
+            el("span", { class: "tiny muted" }, "Ghi nhớ: "), teach.mnemonic)
+        : null,
+      el("div", { class: "tiny muted", style: { marginBottom: "8px", marginTop: teach.mnemonic ? "8px" : "0" } },
+        "Thuật toán quen thuộc, chia thành cụm. Ghi chú mỗi cụm là gì:"),
+      chipsEl,
+      el("div", { class: "chunk-notes", style: { marginTop: "10px" } },
+        chunks.map((c, i) =>
+          el("div", { class: "chunk-note" },
+            el("b", { class: "mono" }, `${i + 1}.`),
+            el("span", { class: "mono" }, c.text),
+            el("span", { class: "tiny muted" }, ` — ${c.note}`)))));
+  }
+
   const playBtn = el("button", { class: "btn btn--primary btn--sm", type: "button" }, "▶ Chơi");
   const backBtn = el("button", { class: "btn btn--sm", type: "button", title: "Lùi một động tác (←)" }, "⟲ Lùi");
   const stepBtn = el("button", { class: "btn btn--sm", type: "button", title: "Tiến một động tác (→)" }, "Bước ⟳");
@@ -178,6 +263,7 @@ export function openCase(row, ctx = {}) {
 
   function afterMove() {
     paintChips();
+    drawChunks();
     posOut.textContent = `${k} / ${moves.length}`;
     solvedChip.style.display = M.isSolved(cube.getState()) ? "" : "none";
     if (ctx.onStep) ctx.onStep(k, moves.length);
@@ -221,6 +307,94 @@ export function openCase(row, ctx = {}) {
     }, 260);
   };
 
+  /**
+   * Nút "Luyện từng cụm": mở một luồng học tập trung -- đi từng cụm của
+   * thuật toán, đặt khối ở đầu cụm, chạy nó, và yêu cầu bạn nhận diện
+   * kết quả trước khi tiến cụm tiếp. Đây là cách học sâu nhất: bạn không
+   * chỉ xem thuật toán chạy, mà tự nhận ra từng bước nó tạo ra cái gì.
+   */
+  function chunkPracticeBtn(row, getGoto, cube) {
+    const btn = el("button", { class: "btn", type: "button", title: "Học từng cụm: đặt khối, chạy cụm, nhận diện, rồi tiếp" },
+      "Luyện từng cụm");
+    btn.addEventListener("click", (e) => { e.preventDefault(); openChunkPractice(row); });
+    return btn;
+  }
+
+  /**
+   * Cửa sổ luyện từng cụm: một luồng có hướng dẫn đi qua từng cụm của
+   * thuật toán. Mỗi cụm: đặt khối về đầu cụm, chạy nó trên khối, rồi yêu
+   * bạn tự nhận diện kết quả trước khi bấm "Tới cụm tiếp". Học sâu --
+   * bạn xây dựng nhận thức từng bước, không chỉ xem thuật toán chạy.
+   */
+  function openChunkPractice(row) {
+    const alg = word.text || "";
+    if (!alg) { toast("Bài này không có thuật toán để luyện", "err"); return; }
+    const groups = chunkAlg(alg, 2);
+    let ci = 0;
+    let states = [row.state];
+    for (const id of moves) states.push(M.applyIds(states[states.length - 1], [id]));
+    const stepOf = (g) => g * 2;
+
+    const cubeHost = el("div", { class: "cube-host" });
+    const miniCube = new CubeView(cubeHost, {
+      model: data.model, state: row.state, size: 200,
+      view: "3d", highlight: "ll", interactive: true, speed: settings().speed,
+    });
+    const status = el("p", { class: "tiny muted", style: { textAlign: "center" } }, "");
+    const body = el("div", { class: "stack" },
+      el("p", { class: "small" },
+        "Đi từng cụm của thuật toán. Mỗi cụm: tôi chạy nó trên khối, bạn nhận diện điều nó tạo ra, rồi bấm tiếp. Thuộc từng cụm trước khi đi tiếp."),
+      miniCube ? el("div", { class: "stack", style: { alignItems: "center" } }, cubeHost, status) : null);
+
+    const stepBtn = el("button", { class: "btn btn--primary", type: "button" }, "Chạy cụm 1");
+    const nextBtn = el("button", { class: "btn", type: "button" }, "Tới cụm tiếp");
+    const doneBtn = el("button", { class: "btn btn--on", type: "button" }, "Đã thuộc — đóng");
+
+    function render() {
+      if (ci >= groups.length) {
+        mount(status, el("div", { class: "hint hint--mint" },
+          "Hoàn tất! Toàn bộ thuật toán đã đi qua từng cụm. Thuộc từng cụm, bạn đã nắm nó."));
+        mount(body,
+          el("p", { class: "small" }, "Đi từng cụm của thuật toán. Mỗi cụm: tôi chạy nó trên khối, bạn nhận diện điều nó tạo ra, rồi bấm tiếp."),
+          el("div", { class: "stack", style: { alignItems: "center" } }, cubeHost, status),
+          el("div", { class: "row", style: { justifyContent: "center" } }, doneBtn));
+        return;
+      }
+      const at = stepOf(ci);
+      miniCube.stop();
+      miniCube.setState(states[at]);
+      status.textContent = `Cụm ${ci + 1}/${groups.length}: ${groups[ci]} -- nhận diện điều cụm này tạo ra trên khối`;
+      stepBtn.textContent = `Chạy cụm ${ci + 1}`;
+      nextBtn.style.display = "";
+      mount(body,
+        el("p", { class: "small" },
+          "Đi từng cụm của thuật toán. Mỗi cụm: tôi chạy nó trên khối, bạn nhận diện điều nó tạo ra, rồi bấm tiếp."),
+        el("div", { class: "stack", style: { alignItems: "center" } }, cubeHost, status),
+        el("div", { class: "row row--tight", style: { justifyContent: "center" } },
+          stepBtn, nextBtn));
+    }
+
+    let running = false;
+    async function runChunk() {
+      if (running) return;
+      running = true;
+      miniCube.setState(states[stepOf(ci)]);
+      for (let i = stepOf(ci); i < stepOf(ci) + 2 && i < moves.length; i++) {
+        if (!running) break;
+        await miniCube.turn(M.byId.get(moves[i]).name, Math.min(miniCube.speed, 160));
+      }
+      running = false;
+      status.textContent = `Cụm ${ci + 1} đã chạy -- nhận diện kết quả, rồi bấm "Tới cụm tiếp"`;
+    }
+    stepBtn.addEventListener("click", runChunk);
+    nextBtn.addEventListener("click", () => { ci++; render(); });
+    doneBtn.addEventListener("click", () => { s.close(); });
+
+    const cp = sheet(`Luyện từng cụm — ${(row.teach && row.teach.name) || row.names[0] || row.key}`, body, { wide: true });
+    render();
+    return cp;
+  }
+
   const learnedBtn = el("button", {
     class: `btn ${isLearned(row.key) ? "btn--on" : ""}`, type: "button",
   }, isLearned(row.key) ? "✓ Đã thuộc" : "Đánh dấu đã thuộc");
@@ -237,7 +411,7 @@ export function openCase(row, ctx = {}) {
     toast(ok ? `Đã sao chép: ${word.text}` : "Sao chép thất bại — chọn văn bản đó", ok ? "ok" : "err");
   };
 
-  const rec = records().bestOf(row.key);
+  const rec = records([row.key]).bestOf(row.key);
   const recChip = rec
     ? chip(`Kỷ lục ${seconds(rec.ms / 1000, 2)}`, "sky", "Thời gian nhập nhanh nhất của bạn cho bài này")
     : null;
@@ -290,9 +464,11 @@ export function openCase(row, ctx = {}) {
         recChip),
       wordTabs,
       algOut,
+      teachBlock(),
       row.auf_text ? el("div", { class: "hint hint--fox" },
         `Xoay mặt trên trước: ${row.auf_text} — rồi thuật toán bên dưới hoàn tất bài.`) : null,
       chipsHost,
+      chunkSection(),
       el("div", { class: "metrics" },
         el("div", { class: "metric", title: METRIC_HINT },
           el("div", { class: "metric__k" }, "động tác"), countOut),
@@ -325,6 +501,7 @@ export function openCase(row, ctx = {}) {
       sets.length ? el("div", { class: "row row--tight" },
         el("span", { class: "tiny muted" }, "Xuất hiện trong:"), ...sets) : null,
       el("div", { class: "row" }, learnedBtn, copyBtn, setupBtn,
+        chunkPracticeBtn(row, () => goto, cube),
         el("a", { class: "btn", href: `#/trainer?family=${encodeURIComponent(row.family)}&key=${encodeURIComponent(row.key)}` }, "Luyện bài này"))));
 
   const famName = row.familyLabel || row.family;
@@ -339,6 +516,7 @@ export function openCase(row, ctx = {}) {
   });
 
   drawChips();
+  drawChunks();
   afterMove();
 
   const onKey = (e) => {

@@ -212,3 +212,36 @@ export function debounce(fn, ms = 180) {
     t = setTimeout(() => fn(...args), ms);
   };
 }
+
+/* --------------------------------------------------------------- học theo cụm */
+
+/**
+ * Chia một chuỗi động tác thành các cụm để thuộc. Một cụm là một nhóm
+ * động tác liên tiếp người học có thể nhớ cùng lúc (thường là một cặp
+ * hoặc một bộ ba). Khoảng trắng được bỏ, dấu ghép (R U) giữ nguyên.
+ *
+ * @param {string} text  chuỗi động tác, ví dụ "R U R' U' R' F R F'"
+ * @param {number} per   số động tác mỗi cụm (2 hoặc 3)
+ * @returns {string[]}   các cụm, mỗi cụm là một chuỗi động tác
+ */
+export function chunkAlg(text, per = 2) {
+  const tokens = String(text || "").split(/\s+/).filter(Boolean);
+  const size = Math.max(1, Math.min(4, per || 2));
+  const chunks = [];
+  for (let i = 0; i < tokens.length; i += size) {
+    chunks.push(tokens.slice(i, i + size).join(" "));
+  }
+  return chunks;
+}
+
+/** Một cụm động tác thành một thẻ nhóm, click được để nhảy tới nó. */
+export function chunkChips(chunks, onPick = null, opts = {}) {
+  return el("div", { class: "chunks" }, chunks.map((c, i) =>
+    el("button", {
+      class: "chunk",
+      dataset: { i },
+      title: opts.title ? `${opts.title} — cụm ${i + 1}` : `Cụm ${i + 1}`,
+      onClick: onPick ? (e) => onPick(i, c, e) : null,
+      type: "button",
+    }, c)));
+}

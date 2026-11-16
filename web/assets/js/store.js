@@ -41,7 +41,7 @@ const DEFAULTS = {
 let state = null;
 let listeners = [];
 
-function load() {
+export function load() {
   if (state) return state;
   let raw = null;
   try { raw = localStorage.getItem(KEY); } catch { raw = null; }
@@ -223,8 +223,9 @@ export function recordActivity(grade) {
 /** Thống kê kỷ lục tổng hợp. */
 export function records(keys) {
   const rec = load().records;
+  const keyList = keys || [];
   let bestCount = 0, attempts = 0, bestMs = null;
-  for (const k of keys) {
+  for (const k of keyList) {
     const b = rec.best[k];
     if (b) { bestCount += 1; attempts += rec.attempts[k] || 0;
              if (bestMs === null || b.ms < bestMs) bestMs = b.ms; }

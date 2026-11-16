@@ -79,9 +79,32 @@ function overview() {
         chip(`${int(data.cases.length)} bài trong bản xuất`, "sky"),
         chip(`${int(data.levelsList.reduce((n, l) => n + l.distinct_algorithms, 0))} thuật toán trên bốn cấp`, "gold"))),
     cards,
+    methodPanel(),
     compare());
 
   return { node: view };
+}
+
+/** Phương pháp học chung: kỹ thuật thuộc thuật toán nhanh và nhớ lâu. */
+function methodPanel() {
+  const steps = [
+    { n: "1", t: "Nhận dạng trước, thuộc sau", d: "Nhìn sơ đồ lớp trên, gọi tên bài trước khi mở thẻ. Nhận dạng là phần bạn thực sự dùng khi giải nhanh — thuộc thuật toán mà không nhận ra bài thì vô dụng." },
+    { n: "2", t: "Chia thành cụm", d: "Không đọc thuật toán như một dãy dài. Chia thành cụm hai hoặc ba động tác. Cửa sổ bài tự làm việc này — chọn 2 hoặc 3 động tác một cụm." },
+    { n: "3", t: "Xây từng cụm trên khối", d: "Đặt khối hoàn chỉnh, chạy cụm 1, nhận diện điều nó tạo ra, rồi chạy cụm 2. Thuộc hình ảnh của cụm trên khối, không chỉ ký hiệu." },
+    { n: "4", t: "Hé đáp án, tự hoàn thành", d: "Trong bài luyện, bấm Hiện cụm để hé đáp án từng nhóm, rồi tự nêu cụm còn lại trong đầu trước khi nhìn tiếp. Kỹ thuật này ghi nhớ mạnh hơn đọc cả hàng một lần." },
+    { n: "5", t: "Nhập và đạt đích", d: "Nhập toàn bộ thuật toán. Đánh giá không phải bằng so chuỗi, mà bằng việc thuật toán của bạn thực sự đưa khối tới đích trên chính bảng của engine." },
+    { n: "6", t: "Ngắn nhất trước", d: "Khi thuộc xong, học từ ngắn nhất của engine bên cạnh thuật toán quen thuộc. Bấm W trong cửa sổ bài để đổi và xem cả hai chạy." },
+  ];
+  return el("section", { class: "panel", style: { marginTop: "20px" } },
+    el("div", { class: "panel__head" }, el("h3", {}, "Phương pháp học — thuộc nhanh, nhớ lâu")),
+    el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+      "Cả bốn cấp độ đều dùng cùng một cách học. Làm theo sáu bước này với mỗi bài, bạn thuộc thuật toán đúng cách người phá kỷ lục làm — và nhớ chúng đủ lâu để dùng trong giải thực sự."),
+    el("div", { class: "timeline" }, steps.map((s) =>
+      el("div", { class: "step" },
+        el("div", { class: "step__n" }, s.n),
+        el("div", {},
+          el("div", { class: "step__t" }, s.t),
+          el("div", { class: "step__d" }, s.d))))));
 }
 
 /** So sánh cấp này với cấp kia, trả lời "cấp tiếp theo có đáng không?". */

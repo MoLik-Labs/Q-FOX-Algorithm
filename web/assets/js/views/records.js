@@ -146,6 +146,8 @@ export function render() {
     mount(sessionPanel, el("p", { class: "small muted" }, "Chưa có session nào. Một lần luyện xong sẽ được lưu ở đây."));
   }
 
+  const milestones = milestonePanel(rec, learnedCount(allKeys));
+
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
@@ -155,6 +157,7 @@ export function render() {
       el("span", { class: "spacer" }),
       chip("miễn phí", "mint"), chip("không tài khoản", "mint")),
     overview,
+    milestones,
     el("div", { class: "section-head" }, el("h2", {}, "Kỷ lục")),
     byFamily,
     el("div", { class: "section-head" }, el("h2", {}, "Top nhập nhanh")),
@@ -164,6 +167,52 @@ export function render() {
     sessionPanel);
 
   return { node: view };
+}
+
+/**
+ * Cột mốc luyện tập: những mục tiêu cố định đánh dấu hành trình luyện
+ * đều đặn. Mỗi mốc cho biết bạn đã đạt hay còn cách bao xa -- một cách
+ * nhìn tiến bộ rõ ràng, khuyến khích luyện tiếp tục và tối đa hiệu quả
+ * thời gian.
+ */
+function milestonePanel(rec, learned) {
+  const items = [
+    { id: "streak1", label: "Luyện 1 ngày liên tục", done: rec.streak >= 1,
+      cur: rec.streak, target: 1, kind: "fox" },
+    { id: "streak7", label: "Luyện 7 ngày liên tục", done: rec.bestStreak >= 7,
+      cur: rec.bestStreak, target: 7, kind: "fox" },
+    { id: "streak30", label: "Luyện 30 ngày liên tục", done: rec.bestStreak >= 30,
+      cur: rec.bestStreak, target: 30, kind: "gold" },
+    { id: "learned10", label: "Thuộc 10 thuật toán", done: learned >= 10,
+      cur: learned, target: 10, kind: "mint" },
+    { id: "learned50", label: "Thuộc 50 thuật toán", done: learned >= 50,
+      cur: learned, target: 50, kind: "mint" },
+    { id: "learned100", label: "Thuộc 100 thuật toán", done: learned >= 100,
+      cur: learned, target: 100, kind: "gold" },
+    { id: "reviews500", label: "500 lần luyện", done: rec.totalReviews >= 500,
+      cur: rec.totalReviews, target: 500, kind: "sky" },
+    { id: "reviews1000", label: "1000 lần luyện", done: rec.totalReviews >= 1000,
+      cur: rec.totalReviews, target: 1000, kind: "sky" },
+  ];
+  const reached = items.filter((m) => m.done).length;
+  return el("section", { class: "panel" },
+    el("div", { class: "panel__head" }, el("h3", {}, "Cột mốc luyện tập"),
+      el("span", { class: "spacer" }),
+      chip(`${reached}/${items.length} đã đạt`, reached === items.length ? "mint" : "gold")),
+    el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+      "Những mục tiêu cố định đánh dấu hành trình luyện đều đaren. Đạt từng mốc là bạn đang tiến -- luyện tiếp để vượt mốc tiếp theo."),
+    el("div", { class: "grid grid--4" },
+      ...items.map((m) => {
+        const pct = Math.min(100, Math.round((100 * m.cur) / m.target));
+        return el("div", { class: "card card--plain", style: m.done ? { borderColor: "var(--mint)" } : null },
+          el("div", { class: "card__body" },
+            el("div", { class: "card__name", style: { fontSize: ".92rem" } },
+              m.done ? "✓" : "", " ", m.label),
+            el("div", { class: "card__sub" },
+              m.done ? "đã đạt" : `còn ${Math.max(0, m.target - m.cur)} nữa`,
+              ` · ${m.cur}/${m.target}`),
+            progressBar(m.cur, m.target, `${pct}%`)));
+      })));
 }
 
 function stat(value, key, sub = "") {

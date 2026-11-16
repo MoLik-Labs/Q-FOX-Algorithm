@@ -9,6 +9,7 @@ import { loadAll, data, totals } from "./data.js";
 import { el, mount, chip, toast, debounce } from "./util.js";
 import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll } from "./store.js";
 import { download } from "./util.js";
+import { refresh as refreshMotion } from "../css/taste/motion.js";
 
 import * as home from "./views/home.js";
 import * as levels from "./views/levels.js";
@@ -87,6 +88,7 @@ function navigate() {
   window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   if (out.focus) setTimeout(() => out.focus.focus(), 60);
   drawSideProgress();
+  try { refreshMotion(); } catch { /* motion layer optional */ }
 }
 
 /* --------------------------------------------------- giao diện và trạng thái */

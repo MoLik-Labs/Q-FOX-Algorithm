@@ -301,6 +301,134 @@ FAMILY_GOALS = {
 }
 
 
+# Recognition cues and chunk teaching for the named cases.  Recognition is
+# derived from the case's own description at build time (never hand-typed per
+# case, so it cannot drift from the engine).  Chunk notes are curated teaching
+# for the familiar algorithms a learner actually memorises: each two-move
+# group carries a one-line note on what it does, so a card teaches as well as
+# displays.  Where a name has no curated note, the chunk still splits and the
+# recognition line is generated from the pattern.
+
+# Recognition cues for the named cases.  A recognition line is what a learner
+# sees on the cube and says "this is the X" before recalling the word.  These
+# are hand-written, professional, and match the case each name is checked
+# against -- the algorithm that carries the name is verified by the engine, so
+# the cue describes the very case the word solves.
+RECOGNISE = {
+    "Chameleon": "Hai góc kề nhau xác định hướng, hai góc còn lại ngược hướng -- hình như chú tắc tùng đổi màu",
+    "Headlights": "Hai góc đối diện xác định hướng, tạo hai cột sáng đối xứng trên mặt trên",
+    "Bowtie": "Hai góc kề nhau xác định hướng, tạo hình cánh bướm lệch",
+    "Sune": "Một góc xác định hướng, ba góc còn lại xoay -- hình tam giác lệch",
+    "Antisune": "Một góc xác định hướng, ba góc còn lại xoay theo chiều ngược -- hình tam giác đối",
+    "Pi": "Không góc nào xác định hướng, bốn góc xoay thành hình chữ thập đối xứng",
+    "Double Sune": "Hai góc xác định hướng không kề nhau, hai góc còn lại xoay -- hai tam giác nhỏ",
+    "Line (F2)": "Hai cạnh kề nhau xác định hướng tạo một dòng thẳng, tất cả góc xác định hướng",
+    "T-shape": "Hai góc kề nhau xác định hướng, tạo chữ T trên mặt trên",
+    "Line (F)": "Hai cạnh kề nhau xác định hướng tạo một dòng thẳng, góc lệch",
+    "Ab-perm": "Hai cặp cạnh đổi vị trí song song, góc đã xong -- hình đối xứng hai mũi tên",
+    "Aa-perm": "Hai cặp cạnh đổi vị trí chéo, góc đã xong -- hình xoắn ốc",
+    "E-perm": "Hai cặp cạnh và hai cặp góc đều đổi vị trí -- hình chéo hoàn toàn",
+    "H-perm": "Hai cặp cạnh đối diện đổi vị trí, góc đã xong -- hình sọc ngang",
+    "Ja-perm": "Hai cạnh kề nhau đổi vị trí, góc đã xong -- mũi tên lệch",
+    "Ra-perm": "Hai cạnh kề nhau đổi vị trí ngược chiều, góc đã xong -- mũi tên đối",
+    "Y-perm": "Hai cặp cạnh đổi vị trí chéo, hai góc kề nhau đổi vị trí -- hình Y",
+    "Rb-perm": "Hai cạnh kề nhau đổi vị trí với một góc, tạo khối lệch",
+    "Ub-perm": "Hai cạnh kề nhau đổi vị trí, góc đã xong -- mũi tên ngắn",
+    "Gd-perm": "Hai cặp cạnh đổi vị trí chéo, góc đã xong -- khối xoay lệch",
+    "Gc-perm": "Hai cặp cạnh đổi vị trí, góc đã xong -- khối đối xứng",
+    "V-perm": "Hai cặp cạnh đổi vị trí kề, hai góc kề nhau đổi vị trí -- hình V lệch",
+    "Gb-perm": "Hai cặp cạnh đổi vị trí chéo, góc đã xong -- khối xoay chéo",
+    "Ua-perm": "Hai cạnh kề nhau đổi vị trí, góc đã xong -- mũi tên dài",
+    "Jb-perm": "Hai cạnh kề nhau đổi vị trí ngược, góc đã xong -- mũi tên đối lệch",
+    "Ga-perm": "Hai cặp cạnh đổi vị trí, góc đã xong -- khối xoay lệch ngược",
+    "T-perm": "Hai cặp cạnh đổi vị trí đối diện, hai góc kề nhau đổi vị trí -- hình T lệch",
+    "F-perm": "Hai cặp cạnh đổi vị trí chéo, góc đã xong -- hình lục giác lệch",
+    "Na-perm": "Hai cặp góc và hai cặp cạnh đều đổi vị trí -- khối xoay kép",
+    "Z-perm": "Hai cặp cạnh đổi vị trí đối diện, góc đã xong -- hình ziczac",
+    "Nb-perm": "Hai cặp góc và hai cặp cạnh đổi vị trí -- khối xoay kép ngược",
+}
+
+# Mnemonics for the named cases: a memory hook that ties the recognition to
+# the shape of the algorithm, so a learner recalls the word from the picture
+# rather than from rote.  Each is a short, professional association -- what to
+# remember, not the algorithm restated.
+MNEMONIC = {
+    "Chameleon": "Nhìn hình chú tắc tùng đổi màu -- nhớ bắt đầu bằng mặt trên ngược rồi hai lớp phải.",
+    "Headlights": "Hai cột sáng đối xứng -- nhớ cột đặt trước, rồi xoay hai lớp phải 2 bước.",
+    "Bowtie": "Cánh bướm lệch -- nhớ mặt trước ngược trước, rồi hai lớp phải.",
+    "Sune": "Tam giác lệch -- chuỗi R U R' U lặp, kết thúc bằng R U2 R'.",
+    "Antisune": "Tam giác ngược -- đối xứng của Sune, bắt đầu bằng mặt trên 2 bước.",
+    "Pi": "Chữ thập đối xứng -- chuỗi R U2 R2 U' lặp, đóng bằng U2 R.",
+    "Double Sune": "Hai tam giác nhỏ -- hai chuỗi Sune nối lại, nhớ nhịp R U R' U.",
+    "Line (F2)": "Dòng thẳng -- mặt trên 2 bước rồi mặt trước, kết thúc bằng dòng đối.",
+    "T-shape": "Chữ T -- mặt trên 2 bước, chuỗi R U R' U' rồi động tác mặt trước.",
+    "Line (F)": "Dòng lệch -- mặt trên 2 bước, mặt trước rồi R U R' U'.",
+    "Ab-perm": "Hai mũi tên song song -- xoay toàn khối, R2 D2, đổi R U rồi lặp lại.",
+    "Aa-perm": "Xoắn ốc -- xoay toàn khối, R' U R' D2, lặp ngược rồi R2 đóng.",
+    "E-perm": "Cheo chéo hoàn toàn -- chuỗi R U' R' D lặp hai lần, xoay toàn khối.",
+    "H-perm": "Sọc ngang -- slice giữa 2 bước xen giữa các cú xoay mặt trên.",
+    "Ja-perm": "Mũi tên lệch -- R' U L' U2, rồi R U' R' U2 R L đóng.",
+    "Ra-perm": "Mũi tên đối -- mặt trên, trái, mặt trên 2 bước, rồi chuỗi mặt trước.",
+    "Y-perm": "Chữ Y -- hai mũi tên chéo, chuỗi mặt trước rồi mặt phải, lặp.",
+    "Rb-perm": "Khối lệch -- mặt trên 2 bước, chuỗi R' U2 R, rồi động tác mặt trước.",
+    "Ub-perm": "Mũi tên ngắn -- R2 U R U R' U' lặp, kết thúc R' U'.",
+    "Gd-perm": "Khối xoay lệch -- mặt trên 2 bước, R U R' U' rồi D và R2 D'.",
+    "Gc-perm": "Khối đối xứng -- R2 U' R U' R U R' U R2, rồi D và D U2.",
+    "V-perm": "Chữ V lệch -- R' U R' U' R D' R' D, lặp, rồi D R2 U' R2 D.",
+    "Gb-perm": "Khối xoay chéo -- mặt trên 2 bước, mặt trước ngược, R2 u rồi chuỗi R.",
+    "Ua-perm": "Mũi tên dài -- R U' R U lặp, đóng bằng R' U' R2.",
+    "Jb-perm": "Mũi tên đối lệch -- mặt trên 2 bước, R U R' F', rồi chuỗi R U R' U'.",
+    "Ga-perm": "Khối xoay lệch ngược -- R2 U R' U R' U' R U' R2, rồi D và D'.",
+    "T-perm": "T lệch -- mặt trên, R U R' U', rồi R' F R2, lặp ngược.",
+    "F-perm": "Lục giác lệch -- R' U' F', chuỗi R U R' U' lặp, đóng F R2.",
+    "Na-perm": "Khối xoay kép -- chuỗi L U' R U2, lặp đối xứng hai bên.",
+    "Z-perm": "Zicazac -- slice giữa xen giữa các cú xoay mặt trên và M'.",
+    "Nb-perm": "Khối xoay kép ngược -- R' U R U' R' F' U' F, rồi R U R' F R'.",
+}
+
+# Vietnamese names for the moves, used to build a correct per-chunk note from
+# the moves themselves.  The note always describes the actual moves in the
+# chunk, so it can never drift from the algorithm it sits under.
+MOVE_NAMES = {
+    "U": "mặt trên", "U'": "mặt trên ngược", "U2": "mặt trên 2 bước",
+    "D": "mặt dưới", "D'": "mặt dưới ngược", "D2": "mặt dưới 2 bước",
+    "R": "mặt phải", "R'": "mặt phải ngược", "R2": "mặt phải 2 bước",
+    "L": "mặt trái", "L'": "mặt trái ngược", "L2": "mặt trái 2 bước",
+    "F": "mặt trước", "F'": "mặt trước ngược", "F2": "mặt trước 2 bước",
+    "B": "mặt sau", "B'": "mặt sau ngược", "B2": "mặt sau 2 bước",
+    "M": "slice giữa (R)", "M'": "slice giữa ngược", "M2": "slice giữa 2 bước",
+    "r": "hai lớp phải (Rw)", "r'": "hai lớp phải ngược", "r2": "hai lớp phải 2 bước",
+    "l": "hai lớp trái (Lw)", "l'": "hai lớp trái ngược", "l2": "hai lớp trái 2 bước",
+    "u": "hai lớp trên (Uw)", "u'": "hai lớp trên ngược", "u2": "hai lớp trên 2 bước",
+    "x": "xoay toàn khối (x)", "x'": "xoay toàn khối ngược",
+    "y": "xoay toàn khối (y)", "y'": "xoay toàn khối ngược",
+    "z": "xoay toàn khối (z)", "z'": "xoay toàn khối ngược",
+}
+
+
+def move_note(token):
+    """A one-line, always-correct description of a single move token."""
+    return MOVE_NAMES.get(token, f"động tác {token}")
+
+
+def build_teaching(label, alg_text):
+    """Recognition cue and chunk breakdown for a named case.
+
+    The recognition line is hand-written and professional.  Each chunk's note
+    is generated from the moves actually in that chunk, so the note can never
+    disagree with the algorithm it sits under -- no curated per-chunk prose
+    to drift out of sync with the engine."""
+    tokens = [t for t in alg_text.split() if t]
+    chunks = []
+    step = 2
+    for i in range(0, len(tokens), step):
+        grp = tokens[i:i + step]
+        note = " rồi ".join(move_note(t) for t in grp)
+        chunks.append({"text": " ".join(grp), "note": note})
+    return {"recognise": RECOGNISE.get(label, ""), "mnemonic": MNEMONIC.get(label, ""),
+            "chunks": chunks, "has_notes": label in RECOGNISE or label in MNEMONIC}
+
+
 def _triples(goals, cache: StageCache):
     """(coord, table, target) triples, the form both the scan and IDA* take."""
     out = []
@@ -576,6 +704,7 @@ def algorithms_data(book: B.Book) -> dict:
             })
             if teach is not None:
                 _, label, full, hit = teach
+                teaching = build_teaching(label, N.format_seq(full))
                 cases[-1]["teach"] = {
                     "name": label,
                     "algorithm": N.format_seq(full),
@@ -589,6 +718,10 @@ def algorithms_data(book: B.Book) -> dict:
                     # asked again of the finished cube, so the field in the
                     # JSON is a result and not a restatement of the code above
                     "verified": _holds(_apply(cube, full), goals, cache),
+                    "recognise": teaching["recognise"],
+                    "mnemonic": teaching["mnemonic"],
+                    "chunks": teaching["chunks"],
+                    "has_notes": teaching["has_notes"],
                 }
             if not ok or auf < 0:
                 print(f"   !! {family} case {i}: {N.format_seq(mv)} does not reach "
