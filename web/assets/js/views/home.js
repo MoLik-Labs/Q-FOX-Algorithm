@@ -154,6 +154,7 @@ export function render() {
   mount(view,
     hero,
     dailyPlan(),
+    weeklyPlan(),
     el("div", { class: "section-head" }, el("h2", {}, "Toàn bộ hệ thống trong một dòng"),
       el("span", { class: "panel__note" }, `${int(t.elements)} phần tử lớp cuối · ${num(t.coverage, 2)}% đã quét · câu trả lời chính xác tới ${t.exactTo} động tác`)),
     stats,
@@ -174,6 +175,38 @@ export function render() {
       panel.cube.stop();
     },
   };
+}
+
+/**
+ * Lộ trình luyện theo tuần: một lịch luyện cụ thể cho 7 ngày, để người
+ * học không mất thời gian suy nghĩ hôm nay luyện gì. Mỗi ngày có mục
+ * tiêu rõ ràng, xoay quanh nhận dạng, thuộc, và luyện đều -- chu kỳ
+ * tối ưu để nhớ lâu và tiến nhanh.
+ */
+function weeklyPlan() {
+  const days = [
+    { d: "Thứ 2", focus: "Nhận dạng", task: "Luyện chế độ Nhận nhanh 15 phút -- rèn tốc độ nhận bài.", cls: "sky" },
+    { d: "Thứ 3", focus: "Thuộc mới", task: "Học 3-5 bài mới theo cụm -- dùng cửa sổ bài, luyện từng cụm.", cls: "fox" },
+    { d: "Thứ 4", focus: "Nhắc lại", task: "Luyện bài đến hạn theo lịch học -- bài cũ trước, giữ chắc kiến thức.", cls: "mint" },
+    { d: "Thứ 5", focus: "Thuộc mới", task: "Học thêm 3-5 bài mới, hoặc bài dài trong cấp bạn đang học.", cls: "fox" },
+    { d: "Thứ 6", focus: "Nhận dạng", task: "Luyện nhận dạng chéo -- nhận bài không theo thứ tự, gọi tên nhanh.", cls: "sky" },
+    { d: "Chủ nhật", focus: "Tổng luyện", task: "Luyện khung thời gian 20 phút -- pha trộn bài đến hạn và bài mới.", cls: "gold" },
+    { d: "Thứ 7", focus: "Nhắc lại", task: "Luyện bài yếu -- bấm Tập trung bài yếu, bài bạn hay sai lên trước.", cls: "mint" },
+  ];
+  return el("section", { class: "panel", style: { marginTop: "20px" } },
+    el("div", { class: "panel__head" }, el("h3", {}, "Lộ trình luyện theo tuần"),
+      el("span", { class: "spacer" }),
+      chip("7 ngày, chu kỳ tối ưu", "fox")),
+    el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+      "Một lịch luyện cố định cho cả tuần. Mỗi ngày có mục tiêu rõ ràng, xoay quanh nhận dạng, thuộc mới, và nhắc lại -- chu kỳ tối ưu để nhớ lâu và tiến nhanh, không mất thời gian suy nghĩ hôm nay luyện gì."),
+    el("div", { class: "grid grid--4" },
+      ...days.map((d) => el("div", { class: "card card--plain" },
+        el("div", { class: "card__body" },
+          el("div", { class: "row row--tight", style: { marginBottom: "6px" } },
+            el("span", { class: "card__name", style: { fontSize: ".92rem" } }, d.d),
+            el("span", { class: "spacer" }),
+            chip(d.focus, d.cls)),
+          el("div", { class: "card__sub" }, d.task))))));
 }
 
 /**

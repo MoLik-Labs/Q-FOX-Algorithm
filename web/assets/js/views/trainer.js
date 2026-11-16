@@ -97,7 +97,7 @@ export function render(params = {}, query = {}) {
   }
   let queue = buildQueue();
   let index = 0;
-  let session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 };
+  let session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0, recogMs: 0, recogN: 0 };
 
   /* ---------------------------------------------------------------- giao diện */
   const setSelect = el("select", {
@@ -347,6 +347,8 @@ export function render(params = {}, query = {}) {
           el("span", { class: "tiny muted" }, "Nhận dạng: "), recog),
         el("div", { class: "row" },
           el("button", { class: "btn btn--primary", type: "button", onClick: () => {
+            const elapsed = Date.now() - askedAt;
+            session.recogMs += elapsed; session.recogN += 1;
             const name = (row.teach && row.teach.name) || (row.names && row.names[0]) || null;
             grade(row, name ? 2 : 1, name ? `Gọi đúng: ${name}.` : "Nhận dạng đúng -- bài này không có tên quen thuộc.");
           } }, "Gọi tên rồi kiểm tra"),
@@ -531,7 +533,11 @@ export function render(params = {}, query = {}) {
 
   function drawStats() {
     const s = stats(keys);
+    const recogStat = (mode === "drill" && session.recogN)
+      ? statEl(`${(session.recogMs / session.recogN / 1000).toFixed(1)} s`, "nhận trung bình", `${session.recogN} bài nhận`)
+      : null;
     mount(statsBar,
+      recogStat,
       statEl(String(session.right), "đúng", `trong ${session.total} bài đã hỏi`),
       statEl(String(session.near), "gần", "vận hành, không phải của sách"),
       statEl(String(session.wrong), "sai", ""),
