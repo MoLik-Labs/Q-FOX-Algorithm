@@ -7,7 +7,7 @@
  */
 import { loadAll, data, totals } from "./data.js";
 import { el, mount, chip, toast, debounce } from "./util.js";
-import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll } from "./store.js";
+import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll, getTheme, applyTheme, toggleTheme } from "./store.js";
 import { download } from "./util.js";
 import { refresh as refreshMotion } from "../css/taste/motion.js";
 
@@ -19,6 +19,8 @@ import * as records from "./views/records.js";
 import * as methods from "./views/methods.js";
 import * as benchmark from "./views/benchmark.js";
 import * as engine from "./views/engine.js";
+import * as builder from "./views/builder.js";
+import * as qfox from "./views/qfox.js";
 import * as about from "./views/about.js";
 
 const ROUTES = {
@@ -30,6 +32,8 @@ const ROUTES = {
   methods: { mod: methods, title: "Phương pháp" },
   benchmark: { mod: benchmark, title: "Benchmark" },
   engine: { mod: engine, title: "Ký hiệu & engine" },
+  builder: { mod: builder, title: "Tạo công thức" },
+  qfox: { mod: qfox, title: "Q-FOX toàn khối" },
   about: { mod: about, title: "Giới thiệu" },
 };
 
@@ -152,7 +156,7 @@ document.addEventListener("keydown", (e) => {
     pendingG = Date.now();
   } else if (pendingG && Date.now() - pendingG < 1200 && !typing) {
     const jumps = { l: "#/levels", a: "#/algorithms", t: "#/trainer", r: "#/records",
-                    m: "#/methods", b: "#/benchmark", e: "#/engine", h: "#/", o: "#/about" };
+                    m: "#/methods", b: "#/benchmark", e: "#/engine", c: "#/builder", q: "#/qfox", h: "#/", o: "#/about" };
     const to = jumps[e.key.toLowerCase()];
     pendingG = 0;
     if (to) { e.preventDefault(); location.hash = to; }
@@ -182,6 +186,19 @@ document.getElementById("menu").addEventListener("click", (e) => {
   e.currentTarget.setAttribute("aria-expanded", String(open));
 });
 
+/* --------------------------------------------------------------- theme sáng/tối */
+
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle.addEventListener("click", () => {
+  const next = toggleTheme();
+  themeToggle.setAttribute("aria-label",
+    next === "light" ? "Chuyển sang chế độ tối" : "Chuyển sang chế độ sáng");
+});
+// nếu người học chọn "system", theo kịp thay đổi hệ thống
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+  if ((settings().theme || "dark") === "system") applyTheme("system");
+});
+
 /* -------------------------------------------------------------------- khởi động */
 
 onStoreChange((what) => {
@@ -192,6 +209,9 @@ document.addEventListener("qfox:progress", drawSideProgress);
 
 async function main() {
   const st = settings();
+  // áp dụng theme ngay khi khởi động, trước khi vẽ -- tránh hiện dark rồi
+  // mới chuyển sang light
+  applyTheme(getTheme());
   if (st.reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     setSetting("speed", 0);
   }

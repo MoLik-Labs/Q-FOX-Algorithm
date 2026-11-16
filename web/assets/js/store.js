@@ -24,6 +24,7 @@ const DEFAULTS = {
     pitch: -24,
     notation: "standard",  // "standard" | "wide"
     reducedMotion: false,
+    theme: "dark",         // "dark" | "light" | "system"
   },
   progress: {},            // khóa bài -> { learned, ts }
   srs: {},                 // khóa bài -> { box, due, seen, right, wrong, streak }
@@ -36,6 +37,7 @@ const DEFAULTS = {
     lastDay: null,
   },
   sessions: [],            // vài session luyện tập gần đây, mới nhất trước
+  formulas: [],            // công thức do người học tạo: {id, name, text, goal, family, note, ts}
 };
 
 let state = null;
@@ -80,6 +82,71 @@ export const settings = () => load().settings;
 export function setSetting(name, value) {
   load().settings[name] = value;
   emit("settings");
+}
+
+/** Chế độ theme hiện tại: "dark" | "light" (system đã được resolve). */
+export function getTheme() {
+  const t = load().settings.theme || "dark";
+  if (t === "system") {
+    return (typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: light)").matches)
+      ? "light" : "dark";
+  }
+  return t;
+}
+
+/** Áp dụng theme lên <html>: đặt data-theme, cập nhật theme-color meta. */
+export function applyTheme(theme) {
+  const resolved = (theme === "system")
+    ? ((typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark")
+    : theme;
+  const html = document.documentElement;
+  if (resolved === "light") html.setAttribute("data-theme", "light");
+  else html.removeAttribute("data-theme");
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", resolved === "light" ? "#f6f4f0" : "#0b0e14");
+}
+
+/** Đổi theme và lưu. Trả về theme mới đã resolve. */
+export function toggleTheme() {
+  const cur = getTheme();
+  const next = cur === "light" ? "dark" : "light";
+  setSetting("theme", next);
+  applyTheme(next);
+  return next;
+}
+
+/* ---------------------------------------------------- công thức người học tạo */
+
+/** Danh sách công thức do người học tạo, mới nhất trước. */
+export function getFormulas() {
+  return (load().formulas || []).slice().sort((a, b) => b.ts - a.ts);
+}
+
+/** Lưu một công thức. Trả về bản ghi đã lưu. */
+export function saveFormula(f) {
+  const list = load().formulas || [];
+  const rec = {
+    id: f.id || `f${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
+    name: (f.name || "Công thức").trim(),
+    text: (f.text || "").trim(),
+    goal: f.goal || "PLL",
+    family: f.family || "",
+    note: f.note || "",
+    ts: Date.now(),
+  };
+  // thay thế nếu có id trùng, vônế nếu không có id
+  const idx = list.findIndex((x) => x.id === rec.id);
+  if (idx >= 0) list[idx] = rec; else list.push(rec);
+  load().formulas = list;
+  emit("formulas");
+  return rec;
+}
+
+/** Xóa một công thức theo id. */
+export function deleteFormula(id) {
+  const list = load().formulas || [];
+  load().formulas = list.filter((x) => x.id !== id);
+  emit("formulas");
 }
 
 /* --------------------------------------------------------------- tiến độ */

@@ -7,6 +7,7 @@ import { data, METRIC_HINT } from "./data.js";
 import { CubeView } from "./cube-view.js";
 import { topLayer, netDiagram } from "./diagram.js";
 import { el, mount, moveChips, chunkAlg, chunkChips, chip, toast, copyText, sheet, progressBar, num, seconds } from "./util.js";
+import { exportCasesPng, exportCasesPdf } from "./export.js";
 import { settings, setSetting, isLearned, toggleLearned, card as srsCard, records } from "./store.js";
 
 /* ------------------------------------------------------------------ UI khối */
@@ -411,6 +412,18 @@ export function openCase(row, ctx = {}) {
     toast(ok ? `Đã sao chép: ${word.text}` : "Sao chép thất bại — chọn văn bản đó", ok ? "ok" : "err");
   };
 
+  // Xuất PDF / PNG chuẩn sách giáo khoa cho bài này
+  const exportPngBtn = el("button", { class: "btn", type: "button", title: "Xuất bài này thành ảnh PNG" }, "Xuất PNG");
+  exportPngBtn.onclick = async () => {
+    toast("Đang vẽ ảnh PNG…", "info");
+    await exportCasesPng([row], { title: (row.teach && row.teach.name) || (row.names && row.names[0]) || "Bài", cols: 1, filename: "qfox-case" });
+    toast("Đã tải ảnh PNG", "ok");
+  };
+  const exportPdfBtn = el("button", { class: "btn", type: "button", title: "In bài này thành PDF chuẩn sách" }, "Xuất PDF");
+  exportPdfBtn.onclick = () => {
+    exportCasesPdf([row], { title: (row.teach && row.teach.name) || (row.names && row.names[0]) || "Bài", subtitle: `${row.familyLabel || row.family} · ${word.count} động tác` });
+  };
+
   const rec = records([row.key]).bestOf(row.key);
   const recChip = rec
     ? chip(`Kỷ lục ${seconds(rec.ms / 1000, 2)}`, "sky", "Thời gian nhập nhanh nhất của bạn cho bài này")
@@ -500,7 +513,7 @@ export function openCase(row, ctx = {}) {
               : "chưa luyện"))),
       sets.length ? el("div", { class: "row row--tight" },
         el("span", { class: "tiny muted" }, "Xuất hiện trong:"), ...sets) : null,
-      el("div", { class: "row" }, learnedBtn, copyBtn, setupBtn,
+      el("div", { class: "row" }, learnedBtn, copyBtn, exportPngBtn, exportPdfBtn, setupBtn,
         chunkPracticeBtn(row, () => goto, cube),
         el("a", { class: "btn", href: `#/trainer?family=${encodeURIComponent(row.family)}&key=${encodeURIComponent(row.key)}` }, "Luyện bài này"))));
 
