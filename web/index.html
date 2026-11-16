@@ -42,7 +42,7 @@
         <path d="M32 15 49 24.5 32 34 15 24.5Z" fill="#ffc463"/>
         <path d="M15 24.5 32 34v19L15 43.5Z" fill="#ff7a1a"/>
         <path d="M49 24.5 32 34v19l17-9.5Z" fill="#d94f0d"/>
-        <g stroke="#0b0e14" stroke-opacity=".45" stroke-width="1.4" fill="none">
+        <g stroke="currentColor" stroke-opacity=".45" stroke-width="1.4" fill="none">
           <path d="M23.5 19.8 40.5 29.3M32 15v0M20.7 27.9 37.7 37.4"/>
           <path d="M23.5 29.3v19M32 34v19"/>
         </g>
@@ -110,6 +110,10 @@
                autocomplete="off" spellcheck="false" aria-label="Tìm thuật toán">
         <kbd>/</kbd>
       </div>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Đổi chế độ sáng/tối" title="Đổi chế độ sáng/tối">
+        <svg class="theme-ico theme-ico--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-ico theme-ico--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
       <div class="topbar__meta" id="top-meta"></div>
     </header>
 

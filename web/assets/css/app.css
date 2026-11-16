@@ -60,6 +60,44 @@
   --app-r-sm: var(--r-md);
 }
 
+/* ------------------------------------------------------------------ light */
+/* The same taste-skill token set, lit for a bright study surface. The
+   fox-orange accent is identical in both themes -- it is the one action
+   colour of the system. Switching theme only re-maps the grounds. */
+:root[data-theme="light"] {
+  --p-bg: #f6f4f0;
+  --p-surface: #ffffff;
+  --p-ink: #1b2230;
+  --p-muted: #5c6678;
+  --p-accent: #d94f0d;
+  --p-accent-ink: #ffffff;
+  --p-action: #d94f0d;
+  --p-action-ink: #ffffff;
+  --p-inv-bg: #1b2230;
+  --p-inv-surface: #2a3242;
+  --p-inv-ink: #f6f4f0;
+  --p-inv-muted: #aab4c5;
+  --p-inv-accent: #ff7a1a;
+  --p-inv-accent-ink: #1a0c02;
+  --p-inv-action: #ff7a1a;
+  --p-inv-action-ink: #1a0c02;
+
+  --ground-bg: #efece6;
+  --ground-surface: #f6f4f0;
+  --ground-ink: #1b2230;
+  --ground-muted: #5c6678;
+  --ground-accent: #d94f0d;
+
+  /* app-local: keep the accents but deepen them for light-ground contrast */
+  --fox: #d94f0d;
+  --fox-soft: #ffb03a;
+  --fox-dim: #b3430a;
+  --mint: #1f9d63;
+  --sky: #2563c9;
+  --rose: #d63848;
+  --gold: #b07a10;
+}
+
 /* the body is the system's ground-base; keep the app shell on it */
 body { background: var(--bg); color: var(--ink); }
 
@@ -159,6 +197,18 @@ body { background: var(--bg); color: var(--ink); }
 }
 .topbar__meta { display: flex; align-items: center; gap: var(--s-2); color: var(--muted); font-size: var(--t-small); margin-left: auto; }
 .topbar__meta .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); }
+# theme toggle: show the moon in dark mode, the sun in light mode
+# (the toggle's current-theme icon is the one the user is leaving from,
+#  so the click swaps to the opposite -- intuitive "switch to" affordance)
+# theme-toggle .theme-ico { display: none; }
+# dark (default): show moon, meaning "click for light"
+:root:not([data-theme="light"]) #theme-toggle .theme-ico--dark { display: block; }
+:root[data-theme="light"] #theme-toggle .theme-ico--light { display: block; }
+# honour system preference when no explicit theme is set
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) #theme-toggle .theme-ico--light { display: block; }
+  :root:not([data-theme]) #theme-toggle .theme-ico--dark { display: none; }
+}
 
 .view {
   flex: 1;

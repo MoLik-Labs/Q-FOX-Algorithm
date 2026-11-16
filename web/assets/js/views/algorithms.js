@@ -15,6 +15,12 @@ const SORTS = {
   name: (a, b) => (a.names[0] || "zz").localeCompare(b.names[0] || "zz") || a.i - b.i,
   case: (a, b) => a.i - b.i,
   orbit: (a, b) => b.orbit - a.orbit || a.i - b.i,
+  // lộ trình học: bài ngắn, có tên quen thuộc trước (để nhận dạng và thuộc
+  // dễ), rồi mới bài dài và không có tên. Thứ tự tối ưu để học lên.
+  learn: (a, b) => {
+    const score = (r) => (r.names.length ? 0 : 1) * 1000 + r.count;
+    return score(a) - score(b) || a.i - b.i;
+  },
 };
 
 /** Trạng thái lọc nằm trong URL, nên một danh sách đã lọc có thể chia sẻ hoặc đánh dấu. */
@@ -70,7 +76,7 @@ export function render(params = {}, query = {}) {
     onChange: (e) => { state.sort = e.target.value; draw(); },
   }, ...Object.entries({
     case: "Theo thứ bài", length: "Ngắn nhất trước", longest: "Dài nhất trước",
-    name: "Có tên trước", orbit: "Quỹ đạo lớn trước",
+    name: "Có tên trước", orbit: "Quỹ đạo lớn trước", learn: "Lộ trình học",
   }).map(([k, label]) => el("option", { value: k, selected: k === state.sort }, label)));
 
   const learnedSelect = el("select", {

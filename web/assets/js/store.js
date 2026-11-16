@@ -24,6 +24,7 @@ const DEFAULTS = {
     pitch: -24,
     notation: "standard",  // "standard" | "wide"
     reducedMotion: false,
+    theme: "dark",         // "dark" | "light" | "system"
   },
   progress: {},            // khóa bài -> { learned, ts }
   srs: {},                 // khóa bài -> { box, due, seen, right, wrong, streak }
@@ -80,6 +81,37 @@ export const settings = () => load().settings;
 export function setSetting(name, value) {
   load().settings[name] = value;
   emit("settings");
+}
+
+/** Chế độ theme hiện tại: "dark" | "light" (system đã được resolve). */
+export function getTheme() {
+  const t = load().settings.theme || "dark";
+  if (t === "system") {
+    return (typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: light)").matches)
+      ? "light" : "dark";
+  }
+  return t;
+}
+
+/** Áp dụng theme lên <html>: đặt data-theme, cập nhật theme-color meta. */
+export function applyTheme(theme) {
+  const resolved = (theme === "system")
+    ? ((typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark")
+    : theme;
+  const html = document.documentElement;
+  if (resolved === "light") html.setAttribute("data-theme", "light");
+  else html.removeAttribute("data-theme");
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", resolved === "light" ? "#f6f4f0" : "#0b0e14");
+}
+
+/** Đổi theme và lưu. Trả về theme mới đã resolve. */
+export function toggleTheme() {
+  const cur = getTheme();
+  const next = cur === "light" ? "dark" : "light";
+  setSetting("theme", next);
+  applyTheme(next);
+  return next;
 }
 
 /* --------------------------------------------------------------- tiến độ */

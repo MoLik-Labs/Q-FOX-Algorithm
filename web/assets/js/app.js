@@ -7,7 +7,7 @@
  */
 import { loadAll, data, totals } from "./data.js";
 import { el, mount, chip, toast, debounce } from "./util.js";
-import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll } from "./store.js";
+import { learnedCount, onChange as onStoreChange, settings, setSetting, exportAll, importAll, getTheme, applyTheme, toggleTheme } from "./store.js";
 import { download } from "./util.js";
 import { refresh as refreshMotion } from "../css/taste/motion.js";
 
@@ -182,6 +182,19 @@ document.getElementById("menu").addEventListener("click", (e) => {
   e.currentTarget.setAttribute("aria-expanded", String(open));
 });
 
+/* --------------------------------------------------------------- theme sáng/tối */
+
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle.addEventListener("click", () => {
+  const next = toggleTheme();
+  themeToggle.setAttribute("aria-label",
+    next === "light" ? "Chuyển sang chế độ tối" : "Chuyển sang chế độ sáng");
+});
+// nếu người học chọn "system", theo kịp thay đổi hệ thống
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+  if ((settings().theme || "dark") === "system") applyTheme("system");
+});
+
 /* -------------------------------------------------------------------- khởi động */
 
 onStoreChange((what) => {
@@ -192,6 +205,9 @@ document.addEventListener("qfox:progress", drawSideProgress);
 
 async function main() {
   const st = settings();
+  // áp dụng theme ngay khi khởi động, trước khi vẽ -- tránh hiện dark rồi
+  // mới chuyển sang light
+  applyTheme(getTheme());
   if (st.reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     setSetting("speed", 0);
   }
