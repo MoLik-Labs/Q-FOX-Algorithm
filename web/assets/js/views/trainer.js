@@ -16,7 +16,7 @@ import { el, mount, chip, num, toast, progressBar, emptyState, download, seconds
 import { cubePanel, boxDots, openCase } from "../parts.js";
 import { schedule, review, stats, logSession, card as srsCard, exportAll, recordAnswer, recordActivity, records, load } from "../store.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
-import { tokenize } from "../model.js";
+import { tokenize, scramble as makeScramble } from "../model.js";
 import { topLayer } from "../diagram.js";
 
 const MODES = {
@@ -25,6 +25,7 @@ const MODES = {
   flash: "Nói nó",
   drill: "Nhận nhanh",
   combo: "Nhận + Nhớ",
+  solve: "Giải thực chiến",
 };
 
 export function render(params = {}, query = {}) {
@@ -264,6 +265,12 @@ export function render(params = {}, query = {}) {
   }
 
   function askFor(row) {
+    // solve: giải thực chiến -- trộn ngẫu nhiên từ khối hoàn chỉnh, nhập
+    // moves để giải tới đích, tính giờ. Không dùng câu hỏi nhận dạng --
+    // đây là bài giải thật, không bài học.
+    if (mode === "solve") {
+      return solvePanel();
+    }
     const goal = GOAL_TEXT[row.family] || data.algorithms.families[row.family].goal;
     const head = el("div", {},
       el("h3", {}, mode === "recognise" ? "Thuật toán nào là đây?" : "Bài này là bài nào?"),
@@ -381,6 +388,75 @@ export function render(params = {}, query = {}) {
           el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Không biết — hiện"),
           el("span", { class: "tiny muted" }, "Nhìn hình, gọi tên bài, rồi kiểm tra -- rèn tốc độ nhận dạng")));
     }
+  }
+
+  // solve: giải thực chiến. Trộn ngẫu nhiên, người học nhập moves giải
+  // tới khối hoàn chỉnh, engine tính giờ và ghi kỷ lục giải.
+  let solveState = M.solved;
+  let solveStart = 0;
+  const solveInput = el("input", {
+    class: "answer-input", type: "text", spellcheck: "false", autocomplete: "off",
+    placeholder: "Nhập moves giải khối -- R U R' U'… rồi Enter",
+    attrs: { "aria-label": "Moves giải khối" },
+    onKeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); applySolveMoves(); } },
+  });
+  const solveOut = el("div", { class: "tiny muted" }, "Bấm Trộn để bắt đầu -- sau đó nhập moves giải.");
+  function scrambleSolve() {
+    solveState = M.solved;
+    const scr = makeScramble(25, Math.random, null);
+    for (const id of scr) solveState = M.applyIds(solveState, [id]);
+    panel.cube.stop();
+    panel.cube.setState(solveState);
+    solveStart = Date.now();
+    startTimer();
+    solveOut.textContent = "Đã trộn -- nhập moves giải khối, Enter để áp dụng.";
+    solveInput.value = "";
+    solveInput.focus();
+  }
+  function applySolveMoves() {
+    const raw = solveInput.value.trim();
+    if (!raw) return;
+    let after = solveState;
+    let legal = true;
+    try { for (const tok of tokenize(raw)) after = M.apply(after, tok); }
+    catch { legal = false; }
+    if (!legal) { solveOut.textContent = "\"" + raw + "\" không phải ký hiệu tôi đọc được."; return; }
+    // áp dụng lên khối để thấy
+    panel.cube.setState(after);
+    if (M.isSolved(after)) {
+      const elapsed = Date.now() - solveStart;
+      stopTimer();
+      const prevBest = records().bestOf("solve");
+      recordAnswer("solve", elapsed, true);
+      session.ms += elapsed; session.total += 1; session.right += 1;
+      const recMsg = (!prevBest || elapsed < prevBest.ms) ? " Kỷ lục mới!" : "";
+      solveOut.textContent = "✓ Giải xong trong " + seconds(elapsed / 1000, 2) + " s" + recMsg;
+      drawStats();
+      solveInput.value = "";
+      setTimeout(scrambleSolve, 1400);
+    } else {
+      solveState = after;
+      solveOut.textContent = "Chưa tới đích -- thêm moves, hoặc dùng U/y để xoay mặt.";
+    }
+  }
+  function solvePanel() {
+    return el("div", { class: "stack" },
+      el("div", {},
+        el("h3", {}, "Giải thực chiến"),
+        el("p", { class: "small muted" },
+          "Trộn khối ngẫu nhiên, rồi nhập moves giải tới khối hoàn chỉnh. Engine tính giờ từng lần giải và ghi kỷ lục -- đây là bài giải thật, không bài học nhận dạng.")),
+      solveInput,
+      el("div", { class: "row" },
+        el("button", { class: "btn btn--primary", type: "button", onClick: () => scrambleSolve() }, "Trộn"),
+        el("button", { class: "btn", type: "button", onClick: () => applySolveMoves() }, "Áp dụng"),
+        el("button", { class: "btn btn--ghost", type: "button", onClick: () => {
+          panel.cube.setState(M.solved); solveState = M.solved;
+          stopTimer();
+          solveOut.textContent = "Đã đặt về khối hoàn chỉnh.";
+        } }, "Đặt lại")),
+      solveOut,
+      el("div", { class: "row row--tight" },
+        el("span", { class: "tiny muted" }, "Enter để áp dụng · U/y xoay mặt · bấm Trộn cho lần giải tiếp")));
   }
 
   function distractors(row) {
