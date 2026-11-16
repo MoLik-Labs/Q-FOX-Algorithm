@@ -41,7 +41,7 @@ const DEFAULTS = {
 let state = null;
 let listeners = [];
 
-function load() {
+export function load() {
   if (state) return state;
   let raw = null;
   try { raw = localStorage.getItem(KEY); } catch { raw = null; }

@@ -14,7 +14,7 @@
 import { data, casesOf, caseByKey, levelKeys, search } from "../data.js";
 import { el, mount, chip, num, toast, progressBar, emptyState, download, seconds, chunkAlg, chunkChips } from "../util.js";
 import { cubePanel, boxDots, openCase } from "../parts.js";
-import { schedule, review, stats, logSession, card as srsCard, exportAll, recordAnswer, recordActivity, records } from "../store.js";
+import { schedule, review, stats, logSession, card as srsCard, exportAll, recordAnswer, recordActivity, records, load } from "../store.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
 import { tokenize } from "../model.js";
 import { topLayer } from "../diagram.js";
@@ -71,9 +71,30 @@ export function render(params = {}, query = {}) {
   // luyện theo khung thời gian: 0 = không giới hạn, khác = giới hạn phút.
   // Ưu tiên bài đến hạn và bài yếu trước, để thời gian luyện đúng chỗ.
   let timeLimit = Number(query.minutes || 0);
+  // Tập trung bài yếu: xếp lại luồng để bài bạn thường sai và bài dài
+  // lên trước -- thời gian luyện đi vào chỗ cần nhất.
+  let focusWeak = query.focus === "1";
   let sessionStart = Date.now();
   let timeLeft = timeLimit > 0 ? timeLimit * 60_000 : 0;
-  let queue = schedule(keys).map((r) => r.key);
+  // buildQueue: thứ tự hỏi bài. Bình thường dùng lịch học nhắc lại; khi
+  // "tập trung bài yếu" thì xếp theo độ khó + lịch sử sai trước.
+  function buildQueue() {
+    if (!focusWeak) return schedule(keys).map((r) => r.key);
+    const srs = load();
+    const rows = keys.map((k) => {
+      const c = (srs.srs && srs.srs[k]) || { box: 0, seen: 0, wrong: 0, right: 0 };
+      const row = caseByKey(k);
+      // độ khó = độ dài thuật toán; điểm yếu = tỉ lệ sai cao, hộp thấp
+      const len = row ? row.count : 0;
+      const tried = (c.right || 0) + (c.wrong || 0);
+      const weak = tried ? c.wrong / tried : 0;
+      const score = len * 1.5 + weak * 30 - (c.box || 0) * 4;
+      return { key: k, score, box: c.box || 0 };
+    });
+    rows.sort((a, b) => b.score - a.score);
+    return rows.map((r) => r.key);
+  }
+  let queue = buildQueue();
   let index = 0;
   let session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 };
 
@@ -84,7 +105,7 @@ export function render(params = {}, query = {}) {
       const opt = setOptions.find((o) => o.id === e.target.value);
       if (!opt) return;
       keys = opt.keys;
-      queue = schedule(keys).map((r) => r.key);
+      queue = buildQueue();
       index = 0;
       next();
     },
@@ -121,6 +142,21 @@ export function render(params = {}, query = {}) {
       next();
     },
   }, "Đến hạn");
+
+  // Nút tập trung bài yếu: xếp lại luồng theo độ khó và lịch sử sai.
+  const focusBtn = el("button", {
+    class: `btn btn--sm ${focusWeak ? "btn--on" : ""}`, type: "button",
+    title: "Ưu tiên bài bạn hay sai và bài dài lên trước",
+    onClick: () => {
+      focusWeak = !focusWeak;
+      focusBtn.classList.toggle("btn--on", focusWeak);
+      queue = buildQueue();
+      index = 0;
+      session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 };
+      toast(focusWeak ? "Bài yếu lên trước -- tối đa hiệu quả luyện" : "Lại thứ tự học nhắc lại", "info");
+      next();
+    },
+  }, "Tập trung bài yếu");
 
   // khung thời gian: 0/10/20/30 phút. Chọn một khung là giới hạn session,
   // khi hết thời gian tự kết thúc và báo kết quả.
@@ -485,7 +521,7 @@ export function render(params = {}, query = {}) {
             (timeUp ? ` — đạt khung ${timeLimit} phút.` : "")
           : "Chọn một bài học, hoặc bấm “Đến hạn” khi lịch học có bài cho bạn."),
         el("div", { class: "row" },
-          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = schedule(keys).map((r) => r.key); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; sessionStart = Date.now(); timeLeft = timeLimit > 0 ? timeLimit * 60_000 : 0; draw(); } }, "Chạy lại bài học này"),
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = buildQueue(); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; sessionStart = Date.now(); timeLeft = timeLimit > 0 ? timeLimit * 60_000 : 0; draw(); } }, "Chạy lại bài học này"),
           el("a", { class: "btn", href: "#/levels" }, "Về cấp độ"),
           el("button", { class: "btn btn--ghost", type: "button", onClick: () => download("qfox-progress.json", exportAll()) }, "Xuất tiến trình"))));
   }
@@ -531,7 +567,7 @@ export function render(params = {}, query = {}) {
       el("p", { class: "panel__note" },
         "Hỏi theo thứ tự học nhắc lại, đánh giá bằng việc thuật toán của bạn thực sự đạt đích, và ghi nhớ trong trình duyệt này. Thời gian nhập được ghi vào kỷ lục cá nhân.")),
     el("span", { class: "spacer" }),
-    el("div", { class: "row row--tight" }, setSelect, modeTabs, shuffleBtn, dueOnly, timeTabs));
+    el("div", { class: "row row--tight" }, setSelect, modeTabs, shuffleBtn, dueOnly, focusBtn, timeTabs));
 
   mount(view, head, stage);
   draw();
