@@ -80,9 +80,63 @@ function overview() {
         chip(`${int(data.levelsList.reduce((n, l) => n + l.distinct_algorithms, 0))} thuật toán trên bốn cấp`, "gold"))),
     cards,
     methodPanel(),
+    journeyPanel(),
     compare());
 
   return { node: view };
+}
+
+/**
+ * Lộ trình học tập tổng quan: hình dung vị trí bạn đứng trên hành trình
+ * qua bốn cấp độ và bài thuật toán, với lộ trình tiếp theo được đề xuất.
+ * Định hướng rõ ràng -- không mất thời gian đoán phải học gì tiếp.
+ */
+function journeyPanel() {
+  const total = data.cases.length;
+  const learned = learnedCount(data.cases.map((c) => c.key));
+  const pct = total ? Math.round((100 * learned) / total) : 0;
+  // cấp độ bạn đang ở: cấp đầu tiên chưa học hết
+  const levels = data.levelsList.map((lv) => {
+    const keys = levelKeys(lv.key);
+    const done = learnedCount(keys);
+    return { lv, done, total: keys.length, pct: keys.length ? Math.round((100 * done) / keys.length) : 0 };
+  });
+  const current = levels.find((l) => l.pct < 100) || levels[levels.length - 1];
+  const nextLevel = levels.find((l) => l !== current && l.pct < 100);
+
+  const steps = levels.map((l, i) => {
+    const state = l.pct >= 100 ? "done" : (i === levels.indexOf(current) && current.pct > 0 ? "now" : "todo");
+    return el("div", { class: `step ${state === "done" ? "is-done" : ""} ${state === "now" ? "is-now" : ""}` },
+      el("div", { class: "step__n" }, state === "done" ? "✓" : String(i + 1)),
+      el("div", {},
+        el("div", { class: "step__t" }, l.lv.title,
+          chip(`${l.done}/${l.total}`, state === "done" ? "mint" : state === "now" ? "fox" : "")),
+        el("div", { class: "step__d" }, l.lv.who),
+        progressBar(l.done, l.total, `${l.pct}%`)));
+  });
+
+  const head = el("div", { class: "panel__head" },
+    el("h3", {}, "Hành trình học tập"),
+    el("span", { class: "spacer" }),
+    chip(`${learned}/${total} bài đã thuộc · ${pct}%`, "fox"));
+
+  const intro = el("p", { class: "small muted", style: { maxWidth: "80ch" } },
+    current.pct > 0
+      ? `Bạn đang ở ${current.lv.title} (${current.done}/${current.total}). Hoàn thành cấp này, rồi lên cấp tiếp theo.`
+      : "Bắt đầu từ cấp đầu tiên. Mỗi cấp là một phương pháp cộng tập thuật toán -- học hết cấp này, lên cấp trên.");
+
+  const stepsEl = el("div", { class: "timeline" }, steps);
+
+  const foot = nextLevel
+    ? el("div", { class: "row", style: { marginTop: "14px" } },
+        el("span", { class: "tiny muted" }, "Lộ trình tiếp theo:"),
+        el("a", { class: "btn btn--sm", href: `#/levels/${nextLevel.lv.key}` }, nextLevel.lv.title),
+        el("a", { class: "btn btn--sm btn--primary", href: `#/trainer?level=${nextLevel.lv.key}` }, "Luyện cấp đó"))
+    : el("div", { class: "hint hint--mint", style: { marginTop: "14px" } },
+        "Bạn đã học hết tất cả cấp độ. Học bài dài và từ ngắn nhất của engine để phá kỷ lục thời gian.");
+
+  return el("section", { class: "panel", style: { marginTop: "20px" } }, head, intro, stepsEl, foot);
+
 }
 
 /** Phương pháp học chung: kỹ thuật thuộc thuật toán nhanh và nhớ lâu. */
