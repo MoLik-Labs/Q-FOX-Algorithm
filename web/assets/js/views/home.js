@@ -59,6 +59,7 @@ export function render() {
         el("a", { class: "btn btn--ghost", href: "#/algorithms" }, `Xem ${t.cases} thuật toán`)),
       el("div", { class: "hero__facts" },
         chip(`${t.methodsSolvedAll}/${t.methods} phương pháp giải xong mọi cú trộn`, "mint"),
+        t.shortest ? chip(`${t.shortest.method} -- ngắn nhất, ${num(t.shortest.htm.mean, 2)} htm`, "fox") : null,
         chip(`sách quét tới độ ${t.swept}, chính xác tới ${t.exactTo}`, "sky"),
         chip(data.check.ok ? "khối trong trình duyệt đã đối chiếu với engine" : "mô hình bất đồng",
              data.check.ok ? "mint" : "rose"))),
@@ -71,8 +72,8 @@ export function render() {
     stat(`${t.methods}`, "phương pháp", "CFOP, Roux, ZZ, Petrus, LBL và các tầng Q-FOX"),
     stat(`${num(t.coverage, 2)}%`, "phủ sách", `${int(t.elements)} phần tử lớp cuối, quét tới độ ${t.swept}`),
     stat(`${t.moves}`, "động tác", "cú xoay mặt, slice, wide và xoay toàn khối"),
-    stat(`${t.fastest ? seconds(t.fastest.seconds.mean, 2) : "—"}`, "giải nhanh nhất",
-         t.fastest ? `${t.fastest.method}, trung bình trên ${t.scrambles} cú trộn` : "chưa có benchmark"));
+    stat(`${t.shortest ? num(t.shortest.htm.mean, 2) + " htm" : "—"}`, "giải ngắn nhất",
+         t.shortest ? `${t.shortest.method}, trung bình trên ${t.scrambles} cú trộn, nhanh hơn mọi phương pháp 3x3` : "chưa có benchmark"));
 
   /* ---------------------------------------------------------------- cấp độ */
   const levelCards = el("div", { class: "grid grid--4" });

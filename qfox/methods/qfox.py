@@ -284,4 +284,3 @@ VARIANTS: dict[str, Method] = {m.name: m for m in (
 
 # the current answer; the benchmark decides whether this line stays
 QFOX = QFOX_HARMONY
-QFOX = qfox("full")
