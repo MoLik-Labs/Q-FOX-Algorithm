@@ -310,13 +310,20 @@ export function render(params = {}, query = {}) {
 
     if (mode === "recognise") {
       const options = distractors(row);
+      // nhận dạng gợi mở: cho người học thấy pattern nhận dạng của bài,
+      // để họ tập nhận dạng chủ động -- không chỉ chọn đáp án mà nhớ tại
+      // sao bài này là bài này.
+      const recog = (row.teach && row.teach.recognise) ||
+        `${row.desc.pattern} · ${row.desc.permutation}`;
       return el("div", { class: "stack" }, head,
+        el("div", { class: "hint hint--gold" },
+          el("span", { class: "tiny muted" }, "Nhận dạng bài này: "), recog),
         el("div", { class: "grid", style: { gap: "8px" } }, options.map((opt, i) =>
           el("button", {
             class: "btn", type: "button", style: { justifyContent: "flex-start", fontFamily: "var(--mono)" },
             onClick: (e) => pick(e.currentTarget, opt, row),
           }, el("b", {}, `${i + 1}.`), ` ${opt || "(không cần thuật toán)"}`))),
-        el("p", { class: "tiny muted" }, "Nhấn 1-4 để trả lời."));
+        el("p", { class: "tiny muted" }, "Nhấn 1-4 để trả lời. Nhận dạng ở trên là gì bạn vừa nhìn thấy trên khối."));
     }
 
     // flash
