@@ -68,6 +68,11 @@ export function render(params = {}, query = {}) {
     : query.family || "*";
 
   let mode = query.mode || "recall";
+  // luyện theo khung thời gian: 0 = không giới hạn, khác = giới hạn phút.
+  // Ưu tiên bài đến hạn và bài yếu trước, để thời gian luyện đúng chỗ.
+  let timeLimit = Number(query.minutes || 0);
+  let sessionStart = Date.now();
+  let timeLeft = timeLimit > 0 ? timeLimit * 60_000 : 0;
   let queue = schedule(keys).map((r) => r.key);
   let index = 0;
   let session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 };
@@ -117,6 +122,18 @@ export function render(params = {}, query = {}) {
     },
   }, "Đến hạn");
 
+  // khung thời gian: 0/10/20/30 phút. Chọn một khung là giới hạn session,
+  // khi hết thời gian tự kết thúc và báo kết quả.
+  const timeTabs = el("div", { class: "pill-tabs", style: { gap: "4px" } },
+    ...[[0, "Không giới hạn"], [10, "10 phút"], [20, "20 phút"], [30, "30 phút"]]
+      .map(([m, label]) => el("button", {
+        class: `pill-tab ${timeLimit === m ? "is-on" : ""}`, type: "button",
+        onClick: () => { timeLimit = m; timeLeft = m > 0 ? m * 60_000 : 0; sessionStart = Date.now();
+          [...timeTabs.children].forEach((b, i) => b.classList.toggle("is-on", [0,10,20,30][i] === m));
+          if (m > 0) toast(`Luyện ${m} phút — ưu tiên bài đến hạn`, "info");
+        },
+      }, label)));
+
   /* ----------------------------------------------------------------- khuôn */
   const panel = cubePanel({ size: 268, highlight: "ll", reset: false, viewToggle: true });
   const diagram = el("div", {});
@@ -155,9 +172,22 @@ export function render(params = {}, query = {}) {
     clearInterval(timerId);
     askedAt = Date.now();
     timerId = setInterval(() => {
-      const s = (Date.now() - askedAt) / 1000;
-      timerOut.textContent = seconds(s, 1);
-    }, 100);
+      if (timeLimit > 0) {
+        // đếm ngược thời gian còn lại của khung luyện
+        const remain = timeLeft - (Date.now() - sessionStart);
+        if (remain <= 0) {
+          timeLeft = 0;
+          stopTimer();
+          if (index < queue.length) finish(true);
+          return;
+        }
+        timerOut.textContent = seconds(remain / 1000, 0);
+        timerOut.style.color = remain < 60_000 ? "var(--rose)" : "";
+      } else {
+        const s = (Date.now() - askedAt) / 1000;
+        timerOut.textContent = seconds(s, 1);
+      }
+    }, 200);
   }
 
   function stopTimer() {
@@ -191,6 +221,7 @@ export function render(params = {}, query = {}) {
     mount(question, askFor(row));
     mount(verdict);
     drawStats();
+    if (timeLimit > 0 && timeLeft <= 0) { finish(true); return; }
     startTimer();
   }
 
@@ -337,7 +368,8 @@ export function render(params = {}, query = {}) {
     stopTimer();
     panel.cube.setState(row.state);
     const chunks = chunkAlg(row.text || "", 2);
-    const recognise = row.teach && row.teach.recognise;
+    const recognise = (row.teach && row.teach.recognise) ||
+      `${row.desc.pattern} · ${row.desc.permutation}`;
     mount(question,
       el("div", { class: "stack" },
         el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
@@ -407,7 +439,8 @@ export function render(params = {}, query = {}) {
 
     if (mode === "flash") {
       const fchunks = chunkAlg(row.text || "", 2);
-      const frec = row.teach && row.teach.recognise;
+      const frec = (row.teach && row.teach.recognise) ||
+        `${row.desc.pattern} · ${row.desc.permutation}`;
       mount(question,
         el("div", { class: "stack" },
           el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
@@ -439,19 +472,20 @@ export function render(params = {}, query = {}) {
       statEl(String(Math.max(0, queue.length - index - 1)), "còn lại", ""));
   }
 
-  function finish() {
+  function finish(timeUp = false) {
     stopTimer();
     const secs = (Date.now() - session.startedAt) / 1000;
     logSession({ total: session.total, right: session.right, near: session.near,
                  wrong: session.wrong, seconds: Math.round(secs), set: chosen, mode });
     mount(stage,
       el("div", { class: "panel", style: { gridColumn: "1 / -1" } },
-        el("h2", {}, session.total ? "Hết luồng" : "Chưa có gì để làm"),
+        el("h2", {}, timeUp ? "Hết khung luyện" : (session.total ? "Hết luồng" : "Chưa có gì để làm")),
         el("p", {}, session.total
-          ? `${session.right} đúng, ${session.near} gần, ${session.wrong} sai trong ${Math.round(secs)} s.`
+          ? `${session.right} đúng, ${session.near} gần, ${session.wrong} sai trong ${Math.round(secs)} s.` +
+            (timeUp ? ` — đạt khung ${timeLimit} phút.` : "")
           : "Chọn một bài học, hoặc bấm “Đến hạn” khi lịch học có bài cho bạn."),
         el("div", { class: "row" },
-          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = schedule(keys).map((r) => r.key); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; draw(); } }, "Chạy lại bài học này"),
+          el("button", { class: "btn btn--primary", type: "button", onClick: () => { queue = schedule(keys).map((r) => r.key); index = 0; session = { total: 0, right: 0, near: 0, wrong: 0, startedAt: Date.now(), ms: 0 }; sessionStart = Date.now(); timeLeft = timeLimit > 0 ? timeLimit * 60_000 : 0; draw(); } }, "Chạy lại bài học này"),
           el("a", { class: "btn", href: "#/levels" }, "Về cấp độ"),
           el("button", { class: "btn btn--ghost", type: "button", onClick: () => download("qfox-progress.json", exportAll()) }, "Xuất tiến trình"))));
   }
@@ -497,7 +531,7 @@ export function render(params = {}, query = {}) {
       el("p", { class: "panel__note" },
         "Hỏi theo thứ tự học nhắc lại, đánh giá bằng việc thuật toán của bạn thực sự đạt đích, và ghi nhớ trong trình duyệt này. Thời gian nhập được ghi vào kỷ lục cá nhân.")),
     el("span", { class: "spacer" }),
-    el("div", { class: "row row--tight" }, setSelect, modeTabs, shuffleBtn, dueOnly));
+    el("div", { class: "row row--tight" }, setSelect, modeTabs, shuffleBtn, dueOnly, timeTabs));
 
   mount(view, head, stage);
   draw();

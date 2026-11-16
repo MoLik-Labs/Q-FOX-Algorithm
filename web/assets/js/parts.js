@@ -184,7 +184,23 @@ export function openCase(row, ctx = {}) {
    */
   function teachBlock() {
     const teach = row.teach;
-    if (!teach) return null;
+    // Mọi bài đều có nhận dạng -- bài có tên quen thuộc dùng cue được viết
+    // tay, bài còn lại suy nhận dạng từ chính mô tả của engine (pattern +
+    // hoán vị). Như vậy mỗi thẻ bài dạy bạn nhận ra nó, không chỉ hiển thị
+    // thuật toán.
+    const recognise = (teach && teach.recognise) ||
+      `${row.desc.pattern} · ${row.desc.permutation}`;
+    if (!teach) {
+      // bài không có tên quen thuộc: vẫn dạy nhận dạng + mục tiêu, không
+      // có cụm ghi chú
+      return el("div", { class: "stack", style: { marginTop: "14px", padding: "14px", borderRadius: "var(--r-md)", background: "var(--s-2)", border: "1px solid var(--s-3)" } },
+        el("div", { class: "row row--tight" },
+          el("span", { class: "tiny muted" }, "Nhận dạng"),
+          chip(recognise, "gold")),
+        el("div", { class: "tiny muted", style: { marginTop: "8px" } },
+          "Mục tiêu: ", data.algorithms.families[row.family].goal,
+          ". Thuật toán bên trên là từ ngắn nhất đã kiểm chứng của engine."));
+    }
     const chunks = teach.chunks || [];
     const chipsEl = chunkChips(chunks.map((c) => c.text), null,
       { title: "Cụm động tác trong thuật toán quen thuộc" });
@@ -195,7 +211,7 @@ export function openCase(row, ctx = {}) {
     return el("div", { class: "stack", style: { marginTop: "14px", padding: "14px", borderRadius: "var(--r-md)", background: "var(--s-2)", border: "1px solid var(--s-3)" } },
       el("div", { class: "row row--tight" },
         el("span", { class: "tiny muted" }, "Nhận dạng"),
-        chip(teach.recognise || "—", "gold"),
+        chip(recognise, "gold"),
         chip(`${teach.algorithm.split(/\s+/).filter(Boolean).length} động tác`, "mint")),
       el("div", { class: "tiny muted", style: { marginBottom: "8px" } },
         "Thuật toán quen thuộc, chia thành cụm. Ghi chú mỗi cụm là gì:"),
