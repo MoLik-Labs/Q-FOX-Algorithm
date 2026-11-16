@@ -638,8 +638,12 @@ export function render(params = {}, query = {}) {
     const recogStat = (mode === "drill" && session.recogN)
       ? statEl(`${(session.recogMs / session.recogN / 1000).toFixed(1)} s`, "nhận trung bình", `${session.recogN} bài nhận`)
       : null;
+    const solveStat = (mode === "solve" && session.total)
+      ? statEl(`${seconds(session.ms / session.total / 1000, 2)} s`, "giải trung bình", `${session.total} lần giải`)
+      : null;
     mount(statsBar,
       recogStat,
+      solveStat,
       statEl(String(session.right), "đúng", `trong ${session.total} bài đã hỏi`),
       statEl(String(session.near), "gần", "vận hành, không phải của sách"),
       statEl(String(session.wrong), "sai", ""),
