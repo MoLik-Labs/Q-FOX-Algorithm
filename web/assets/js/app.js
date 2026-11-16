@@ -20,6 +20,7 @@ import * as methods from "./views/methods.js";
 import * as benchmark from "./views/benchmark.js";
 import * as engine from "./views/engine.js";
 import * as builder from "./views/builder.js";
+import * as qfox from "./views/qfox.js";
 import * as about from "./views/about.js";
 
 const ROUTES = {
@@ -32,6 +33,7 @@ const ROUTES = {
   benchmark: { mod: benchmark, title: "Benchmark" },
   engine: { mod: engine, title: "Ký hiệu & engine" },
   builder: { mod: builder, title: "Tạo công thức" },
+  qfox: { mod: qfox, title: "Q-FOX toàn khối" },
   about: { mod: about, title: "Giới thiệu" },
 };
 
@@ -154,7 +156,7 @@ document.addEventListener("keydown", (e) => {
     pendingG = Date.now();
   } else if (pendingG && Date.now() - pendingG < 1200 && !typing) {
     const jumps = { l: "#/levels", a: "#/algorithms", t: "#/trainer", r: "#/records",
-                    m: "#/methods", b: "#/benchmark", e: "#/engine", c: "#/builder", h: "#/", o: "#/about" };
+                    m: "#/methods", b: "#/benchmark", e: "#/engine", c: "#/builder", q: "#/qfox", h: "#/", o: "#/about" };
     const to = jumps[e.key.toLowerCase()];
     pendingG = 0;
     if (to) { e.preventDefault(); location.hash = to; }
