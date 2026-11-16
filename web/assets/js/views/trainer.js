@@ -12,7 +12,7 @@
  * sai mười phút trước sẽ quay lại trước bài bạn biết tuần trước.
  */
 import { data, casesOf, caseByKey, levelKeys, search } from "../data.js";
-import { el, mount, chip, num, toast, progressBar, emptyState, download, seconds } from "../util.js";
+import { el, mount, chip, num, toast, progressBar, emptyState, download, seconds, chunkAlg, chunkChips } from "../util.js";
 import { cubePanel, boxDots, openCase } from "../parts.js";
 import { schedule, review, stats, logSession, card as srsCard, exportAll, recordAnswer, recordActivity, records } from "../store.js";
 import { goalReached, goalUpToAuf, GOAL_TEXT } from "../goals.js";
@@ -210,10 +210,34 @@ export function render(params = {}, query = {}) {
         attrs: { "aria-label": "Thuật toán của bạn" },
         onKeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); check(input.value); } },
       });
-      return el("div", { class: "stack" }, head, input,
+      // progressive disclosure: hé đáp án từng cụm, để bạn tự hoàn thành
+      // cụm còn lại trong đầu trước khi nhìn toàn bộ — kỹ thuật ghi nhớ
+      // mạnh hơn việc đọc cả hàng một lần.
+      const chunks = chunkAlg(row.text || "", 2);
+      let revealed = 0;
+      const hintHost = el("div");
+      const hintBtn = el("button", {
+        class: "btn", type: "button",
+        title: "Hé đáp án từng cụm, hoàn thành cụm còn lại trong đầu trước khi nhìn tiếp",
+        onClick: () => {
+          if (revealed >= chunks.length) { reveal(row); return; }
+          revealed++;
+          mount(hintHost,
+            el("div", { class: "row row--tight", style: { marginTop: "10px" } },
+              el("span", { class: "tiny muted" }, "Đáp án — cụm đã hé:"),
+              chunkChips(chunks.slice(0, revealed), null, { title: "Đã hé" }),
+              el("span", { class: "spacer" }),
+              el("span", { class: "tiny muted" },
+                revealed < chunks.length ? `còn ${chunks.length - revealed} cụm — bấm tiếp, hoặc tự hoàn thành rồi kiểm tra` : "hết cụm — bấm Kiểm tra")));
+          hintBtn.textContent = revealed >= chunks.length ? "Hiện hết" : `Hiện cụm ${revealed + 1}`;
+          hintBtn.disabled = revealed >= chunks.length;
+        },
+      }, "Hiện cụm 1");
+      return el("div", { class: "stack" }, head, input, hintHost,
         el("div", { class: "row" },
           el("button", { class: "btn btn--primary", type: "button", onClick: () => check(input.value) }, "Kiểm tra"),
-          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Bỏ cuộc — hiện đáp án"),
+          hintBtn,
+          el("button", { class: "btn", type: "button", onClick: () => reveal(row) }, "Bỏ cuộc — hiện hết"),
           el("span", { class: "tiny muted" }, "Enter để kiểm tra · đánh giá bằng việc đạt đích trên khối")));
     }
 
@@ -312,20 +336,25 @@ export function render(params = {}, query = {}) {
     answered = true;
     stopTimer();
     panel.cube.setState(row.state);
+    const chunks = chunkAlg(row.text || "", 2);
     mount(question,
       el("div", { class: "stack" },
         el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
-        el("div", { class: "alg alg--lg" }, row.text || "Không có thuật toán — bài này đã ở đích."),
+        row.text ? chunkChips(chunks, null, { title: "Chia thành cụm để thuộc từng nhóm" })
+          : el("div", { class: "alg alg--lg" }, "Không có thuật toán — bài này đã ở đích."),
+        el("div", { class: "alg alg--lg" }, row.text || ""),
         row.auf_text ? el("div", { class: "hint hint--fox" }, `Trước AUF: ${row.auf_text}`) : null,
         el("div", { class: "row row--tight" },
           chip(`${row.count} động tác`, "mint"),
+          chip(`${chunks.length} cụm`, "sky"),
           chip(row.source === "textbook" ? `quen thuộc ${row.teach.name}` : "của chính engine", "gold"),
           chip(row.via === "scan" ? "quét sách" : row.via, "sky"),
           chip(row.desc.pattern, "muted")),
         row.alt
           ? el("p", { class: "tiny muted" }, `${row.alt.label}: `, el("code", {}, row.alt.text),
               ` (${row.alt.count} động tác — mở thẻ đầy đủ và bấm W để chạy)`)
-          : null));
+          : null,
+        row.text ? el("p", { class: "tiny muted" }, "Thuộc từng cụm trên, rồi nối chúng lại. Chạy từng cụm trên khối ở bên trái để thấy nó tạo ra cái gì.") : null));
     playAnswer(row);
     if (mode === "flash") {
       mount(verdict,
@@ -374,11 +403,13 @@ export function render(params = {}, query = {}) {
         el("button", { class: "btn btn--sm", type: "button", onClick: () => openCaseSheet(row) }, "Mở thẻ đầy đủ")));
 
     if (mode === "flash") {
+      const fchunks = chunkAlg(row.text || "", 2);
       mount(question,
         el("div", { class: "stack" },
           el("h3", {}, (row.teach && row.teach.name) || (row.names && row.names[0]) || `Bài ${row.familyLabel || row.family} ${row.i + 1}`),
+          row.text ? chunkChips(fchunks, null, { title: "Chia thành cụm" }) : null,
           el("div", { class: "alg alg--lg" }, row.text || "Không có thuật toán — đã ở đích."),
-          el("div", { class: "row row--tight" }, chip(`${row.count} động tác`), chip(row.desc.pattern, "muted"))));
+          el("div", { class: "row row--tight" }, chip(`${row.count} động tác`), chip(`${fchunks.length} cụm`), chip(row.desc.pattern, "muted"))));
     }
     drawStats();
   }

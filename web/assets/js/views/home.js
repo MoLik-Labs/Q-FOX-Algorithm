@@ -42,12 +42,11 @@ export function render() {
   const wait = (ms) => new Promise((r) => { timer = setTimeout(r, ms); });
 
   /* ------------------------------------------------------------------ hero */
-  const hero = el("section", { class: "hero" },
+  const hero = el("section", { class: "hero", attrs: { "data-enter": "" } },
     el("div", {},
       el("div", { class: "eyebrow" }, "Q-FOX algorithm engine"),
       el("h1", { class: "hero__title" },
-        "Học giải rubik theo ", el("em", {}, "cấp độ"), ",",
-        " không theo phỏng đoán."),
+        "Học giải rubik, phá kỷ lục của chính mình."),
       el("p", { class: "hero__lede" },
         `Mọi thuật toán ở đây đều do một engine giải viết từ đầu bằng C tạo ra, được chạy lại đối chiếu với mục tiêu, rồi xuất bản thành dữ liệu. ` +
         `${int(t.cases)} bài lớp cuối trên ${t.families} họ, bốn cấp độ học từ "chưa giải được lần nào" đến "ít động tác nhất có thể", ` +

@@ -200,7 +200,7 @@ for (const route of routes) {
   ok(before === 0, "the store was cleared before the progress check", `${before}`);
   const target = data.cases.find((c) => c.moves.length && !learnedCount([c.key]));
   const s = openCase(target);
-  const learnedBtn = s.root.querySelectorAll("button").find((b) => /thuộc/i.test(b.textContent));
+  const learnedBtn = s.root.querySelectorAll("button").find((b) => /đã thuộc/.test(b.textContent));
   ok(!!learnedBtn, "the case sheet has a learned toggle");
   if (learnedBtn) {
     learnedBtn.click();

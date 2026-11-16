@@ -160,7 +160,7 @@ export function render(params = {}, query = {}) {
 
   /* ------------------------------------------------------------ hướng dẫn nhận dạng */
   const recognition = el("section", { class: "panel" },
-    el("div", { class: "panel__head" }, el("h3", {}, "Đọc một thẻ bài")),
+    el("div", { class: "panel__head" }, el("h3", {}, "Đọc một thẻ bài và thuộc nó nhanh")),
     el("div", { class: "row", style: { alignItems: "flex-start", gap: "18px" } },
       topLayer(data.cases.find((c) => c.names[0] === "Sune")?.state || data.model.solved, { size: 118 }),
       el("div", { class: "small" },
@@ -168,6 +168,10 @@ export function render(params = {}, query = {}) {
         el("p", {}, "Các ", el("b", {}, "màu"), " là dán của chính engine — U trắng, R đỏ, F xanh lá, D vàng, L cam, B xanh dương — theo thứ tự mặt của engine U R F D L B."),
         el("p", {}, "Thẻ bài hiển thị ", el("b", {}, "trước"), " thuật toán. Bấm ", el("kbd", {}, "Chơi"), " trong thẻ để xem nó đi tới đích, hoặc ", el("kbd", {}, "Đặt từ khối hoàn chỉnh"), " để dựng bài trên khối hoàn chỉnh và tự chạy."),
         el("p", {}, "Một badge ", el("b", {}, "quen thuộc"), " nghĩa là engine nhận ra bài, lấy thuật toán chuẩn cho nó, và kiểm chứng từ đó đối chiếu với mục tiêu bằng chính các bảng của nó. Thẻ hiển thị từ đó, vì nó là thứ đáng thuộc, và giữ từ ngắn nhất của engine bên cạnh — bấm ", el("kbd", {}, "W"), " trong cửa sổ bài để đổi."),
+        el("h4", { style: { margin: "14px 0 4px" } }, "Thuộc nó theo từng cụm, không thuộc từng chữ"),
+        el("p", {}, "Không bao giờ đọc thuật toán như một dãy ký hiệu dài. Chia nó thành các ", el("b", {}, "cụm"), " — mỗi cụm hai hoặc ba động tác liên tiếp mà bạn có thể nhớ cùng lúc. Thuộc từng cụm, rồi nối chúng lại. Phương pháp này giúp thuộc nhanh hơn nhiều và nhớ lâu hơn, vì bộ nhớ của bạn giữ các cụm có nghĩa, không phải các ký hiệu riêng lẻ."),
+        el("p", {}, "Cửa sổ bài có làm việc này cho bạn: nó chia thuật toán thành các cụm (chọn ", el("kbd", {}, "2"), " hoặc ", el("kbd", {}, "3"), " động tác một cụm), đánh dấu cụm bạn đang ở, và cho bạn nhảy tới đầu bất kỳ cụm nào. Chạy từng cụm trên khối, thuộc nó, rồi chạy cụm tiếp theo."),
+        el("p", {}, "Một mẹo của người phá kỷ lục: ", el("b", {}, "xây từng cụm từ khối hoàn chỉnh"), ". Đặt khối hoàn chỉnh, chạy cụm 1, nhận diện điều nó tạo ra, rồi chạy cụm 2. Khi cả cụm nối lại thành bài, bạn không chỉ nhớ ký hiệu — bạn nhớ hình ảnh của chúng trên khối."),
         el("p", { class: "tiny muted" }, "Đếm động tác theo ", el("b", {}, "stm"), ": một cú slice là một động tác, đúng cách ký hiệu speedcubing đếm. htm của engine tính một cú slice là hai, nên hai con số chỉ khác ở các thuật toán dùng slice M."))));
 
   mount(view,
