@@ -826,11 +826,13 @@ LEVEL_INFO = {
         "path": "Q-FOX/hard",
     },
     "full": {
-        "order": 4, "title": "Cấp 4 - Q-FOX",
-        "who": "Muốn ít động tác nhất có thể cho lớp cuối.",
-        "promise": "Không cần nhớ gì: hai khối, rồi một lần tra sách -- có "
-                   "chứng minh là cách hoàn tất ngắn nhất.",
-        "path": "Q-FOX/full",
+        "order": 4, "title": "Cấp 4 - Q-FOX hòa chỉnh",
+        "who": "Muốn công thức nhanh nhất, hòa chỉnh nhất: ít động tác nhất.",
+        "promise": "Không cần nhớ gì: khối 2x2x3 mở khóa, toàn bộ F2L về nhà "
+                   "trong một bước tối ưu, rồi một lần tra sách lớp cuối -- "
+                   "có chứng minh là cách hoàn tất ngắn nhất, nhanh hơn mọi "
+                   "phương pháp 3x3.",
+        "path": "Q-FOX/harmony",
     },
 }
 
