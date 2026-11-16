@@ -177,6 +177,64 @@ export function render(params = {}, query = {}) {
   const reference = recognitionTable();
 
 /**
+ * Hướng dẫn nhận dạng theo họ: dạy hệ thống nhận dạng của từng họ, không
+ * chỉ từng bài riêng lẻ. Mỗi họ có một bộ câu hỏi nhận dạng bạn tự trả lời
+ * khi nhìn khối -- đi qua các câu hỏi này là bạn phân loại được bài.
+ * Đây là kỹ năng cốt lõi: nhận ra bài trước, rồi mới nhớ thuật toán.
+ */
+const FAMILY_RECOGNISE = {
+  OLL: [
+    ["Có cạnh nào xác định hướng chưa?", "Đếm và xem hình dáng các cạnh đã xác định hướng: không cạnh nào (đốm), một dòng (hai đối diện), một chữ L (hai kề nhau), hay cả bốn (cross)."],
+    ["Có bao nhiêu góc xác định hướng?", "Đếm góc đã xác định hướng: 0, 1, 2 kề, 2 đối diện (đèn pha), 3, hay 4. Hình dáng góc thường là dấu hiệu mạnh nhất."],
+    ["Combination quyết định bài", "Combo cạnh + góc cho một trong 57 bài OLL. Nhớ hình combo -- không cần nhớ từng bài riêng."],
+  ],
+  PLL: [
+    ["Hướng đã đúng -- chỉ còn hoán vị", "OLL đã xong, mọi dán lớp cuối đúng hướng. Giờ chỉ là hoán vị: cạnh và góc đổi chỗ."],
+    ["Nhìn các cạnh đã giải", "Đếm và xem vị trí các cạnh đã đúng: tạo hình đối xứng gì (sọc, cột, X, L, Block)."],
+    ["Nhìn các góc đã giải", "Xem góc nào đã về chỗ, tạo hình gì. Combine cạnh + góc -> xác định PLL, rồi AUF để xếp."],
+    ["AUF trước và sau", "PLL luôn có một cú xoay mặt trên tự do trước và sau. Thuật toán giữ lại phép xoay mặt trên ở đầu -- xếp AUF trước khi chạy."],
+  ],
+  CLL: [
+    ["Các góc đã giải -- cạnh mới xác định hướng", "Góc lớp cuối đã xong. Cạnh lớp cuối đã xác định hướng nhưng chưa về chỗ."],
+    ["Đếm góc xác định hướng trước khi giải", "Bài CLL được định nghĩa bởi hướng góc ban đầu: 0, 1, 2 kề, 2 đối, hay 4 góc xác định hướng."],
+    ["Nhìn hình cạnh đã xác định hướng", "Combine hướng góc + hình dáng cạnh -> xác định bài trong 42 bài CLL."],
+  ],
+  COLL: [
+    ["Góc đã giải, cạnh xác định hướng -- từ hình khác", "Mục tiêu giống CLL, nhưng tiếp cận từ hình dạng ban đầu khác: hướng của các góc là thứ định nghĩa bài."],
+    ["Hướng góc là thứ đầu tiên bạn thấy", "Đếm hướng góc lớp cuối. Mỗi hướng góc ban đầu tương ứng một tập bài COLL."],
+    ["Nhìn cạnh đã xác định hướng", "Combine hướng góc + hình cạnh -> xác định bài. COLL và CLL cùng mục tiêu, khác cách đi vào."],
+  ],
+  ELL: [
+    ["Các góc đã xong -- chỉ 4 cạnh đổi", "Góc lớp cuối đã hoàn chỉnh. Chỉ 4 cạnh lớp cuối thay đổi vị trí và/hoặc hướng."],
+    ["Đếm cạnh xác định hướng", "Đếm cạnh đã xác định hướng: không cạnh nào (đốm), dòng (2 đối), L (2 kề), hay cả 4 (cross)."],
+    ["Nhìn hoán vị cạnh", "Combine hướng cạnh + hoán vị -> xác định bài trong 29 bài ELL. Chỉ một cú xoay toàn khối để chọn giữa các bài."],
+  ],
+};
+
+function familyRecognise() {
+  const sections = data.families.map((f) => {
+    const guide = FAMILY_RECOGNISE[f.key] || [];
+    const steps = guide.map(([q, a]) =>
+      el("div", { class: "step" },
+        el("div", { class: "step__t" }, q),
+        el("div", { class: "step__d" }, a)));
+    return el("div", { class: "panel" },
+      el("div", { class: "panel__head" },
+        el("h3", {}, `${f.label} — nhận dạng`),
+        el("span", { class: "spacer" }),
+        chip(`${f.non_trivial} bài`, "fox")),
+      el("div", { class: "timeline" }, steps));
+  });
+  return el("section", { class: "stack" },
+    el("div", { class: "section-head" },
+      el("div", {},
+        el("h2", {}, "Hướng dẫn nhận dạng theo họ"),
+        el("p", { class: "panel__note" },
+          "Nhận dạng là bước đầu tiên và quan trọng nhất của giải nhanh. Mỗi họ có một bộ câu hỏi nhận dạng bạn tự trả lời khi nhìn khối. Đi qua các câu hỏi, bạn phân loại được bài -- và chỉ khi biết bạn đang giải bài nào, thuật toán mới có ý nghĩa."))),
+    ...sections);
+}
+
+/**
  * Bảng nhận dạng tham chiếu: mọi bài có tên quen thuộc, với nhận dạng của
  * nó và thuật toán. Một công cụ học nhận dạng nhanh -- lướt bảng, nhớ
  * hình, rồi kiểm tra trên khối. Sắp xếp theo họ rồi độ dài.
@@ -238,6 +296,7 @@ function recognitionTable() {
     head,
     summary,
     grid,
+    familyRecognise(),
     reference,
     recognition);
 
