@@ -121,21 +121,15 @@ export function drawCaseCard(ctx, row, x, y, w, opts = {}) {
   ctx.font = "700 15px ui-sans-serif, system-ui, sans-serif";
   ctx.fillText(truncate(ctx, name, w - pad * 2), x + pad, y + 27);
 
-  // sơ đồ lớp trên -- vẽ ở bên trái
-  const svg = topLayer(row.state, { size: 120, skirt: true });
-  // serialize rồi draw image qua temp canvas
-  const ser = new XMLSerializer().serializeToString(svg);
-  const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(ser);
-  // draw synchronously nếu đã load -- dùng temp image
-  const img = new Image();
+  // sơ đồ lớp trên -- vị trí dành cho diagram đã rasterize ở trên
+  // (exportCasesPng overlay hình SVG lên đây; ở đây chỉ vẽ nền plate)
   const imgSize = 120;
   const imgX = x + pad;
   const imgY = y + 56;
-  // placeholder plate
   ctx.fillStyle = pal.plate;
   roundRect(ctx, imgX, imgY, imgSize, imgSize, 8); ctx.fill();
-  if (img.complete) drawImg(ctx, img, imgX, imgY, imgSize);
-  else { img.onload = () => drawImg(ctx, img, imgX, imgY, imgSize); img.src = url; }
+  ctx.strokeStyle = pal.line;
+  roundRect(ctx, imgX, imgY, imgSize, imgSize, 8); ctx.stroke();
 
   // bên phải: nhận dạng + thuật toán
   const tx = x + pad + imgSize + 12;
@@ -185,10 +179,6 @@ function drawAlgLine(ctx, alg, x, y, w, pal) {
     cx += tw;
   }
   if (!tokens.length) { ctx.fillStyle = pal.muted; ctx.fillText("—", x, y); }
-}
-
-function drawImg(ctx, img, x, y, size) {
-  try { ctx.drawImage(img, x, y, size, size); } catch { /* svg quá phức tạp -- giữ plate */ }
 }
 
 function truncate(ctx, text, maxW) {
