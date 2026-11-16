@@ -174,6 +174,55 @@ export function render(params = {}, query = {}) {
         el("p", {}, "Một mẹo của người phá kỷ lục: ", el("b", {}, "xây từng cụm từ khối hoàn chỉnh"), ". Đặt khối hoàn chỉnh, chạy cụm 1, nhận diện điều nó tạo ra, rồi chạy cụm 2. Khi cả cụm nối lại thành bài, bạn không chỉ nhớ ký hiệu — bạn nhớ hình ảnh của chúng trên khối."),
         el("p", { class: "tiny muted" }, "Đếm động tác theo ", el("b", {}, "stm"), ": một cú slice là một động tác, đúng cách ký hiệu speedcubing đếm. htm của engine tính một cú slice là hai, nên hai con số chỉ khác ở các thuật toán dùng slice M."))));
 
+  const reference = recognitionTable();
+
+/**
+ * Bảng nhận dạng tham chiếu: mọi bài có tên quen thuộc, với nhận dạng của
+ * nó và thuật toán. Một công cụ học nhận dạng nhanh -- lướt bảng, nhớ
+ * hình, rồi kiểm tra trên khối. Sắp xếp theo họ rồi độ dài.
+ */
+function recognitionTable() {
+  const named = data.cases
+    .filter((c) => c.names.length)
+    .sort((a, b) => a.family.localeCompare(b.family) || a.count - b.count);
+  if (!named.length) return el("div");
+
+  const head = el("thead", {}, el("tr", {},
+    el("th", {}, "Họ"),
+    el("th", {}, "Tên"),
+    el("th", {}, "Nhận dạng"),
+    el("th", { class: "num" }, "Động tác"),
+    el("th", {}, "Thuật toán")));
+
+  const body = el("tbody", {}, named.map((r) => {
+    const nameCell = el("td", { class: "name" },
+      el("b", {}, r.names[0]),
+      el("div", { class: "tiny muted" }, r.desc.pattern));
+    const recogCell = el("td", {},
+      r.teach ? r.teach.recognise : r.desc.permutation,
+      el("div", { class: "tiny muted" }, r.desc.pattern));
+    const algCell = el("td", {}, el("code", { class: "tiny" }, r.text || "—"));
+    const tr = el("tr", { class: "is-named", style: { cursor: "pointer" } },
+      el("td", { class: "name" }, r.familyLabel || r.family),
+      nameCell, recogCell,
+      el("td", { class: "num" }, String(r.count)),
+      algCell);
+    tr.addEventListener("click", () => openCase(r));
+    return tr;
+  }));
+
+  const table = el("table", { class: "table" }, head, body);
+  const wrap = el("div", { class: "table-wrap" }, table);
+  const panelHead = el("div", { class: "panel__head" },
+    el("h3", {}, "Bảng nhận dạng tham chiếu"),
+    el("span", { class: "spacer" }),
+    chip(`${named.length} bài có tên`, "gold"),
+    chip("nhận dạng trước, thuộc sau", "sky"));
+  const intro = el("p", { class: "small muted", style: { maxWidth: "78ch" } },
+    "Lướt bảng này để học nhận dạng. Mỗi hàng là một bài: tên, nhận dạng bạn thấy trên khối, và thuật toán. Nhớ hình nhận dạng trước -- nhận ra bài là bước đầu tiên của việc giải nhanh.");
+  return el("section", { class: "panel" }, panelHead, intro, wrap);
+}
+
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
@@ -189,6 +238,7 @@ export function render(params = {}, query = {}) {
     head,
     summary,
     grid,
+    reference,
     recognition);
 
   syncTabs();

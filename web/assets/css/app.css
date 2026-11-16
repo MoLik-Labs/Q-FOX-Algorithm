@@ -565,6 +565,8 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
 /* ------------------------------------------------------------------ tables */
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--app-r); }
+.table tr.is-named { cursor: pointer; transition: background var(--m-in) var(--ease); }
+.table tr.is-named:hover { background: var(--p-2); }
 .table { width: 100%; border-collapse: collapse; font-size: var(--t-small); min-width: 560px; }
 .table th, .table td { padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--line); }
 .table thead th { background: var(--card); color: var(--muted); font-weight: 500; white-space: nowrap; }
