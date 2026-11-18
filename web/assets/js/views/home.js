@@ -54,7 +54,8 @@ export function render() {
         `${int(t.cases)} bài lớp cuối trên ${t.families} họ, bốn cấp độ học từ "chưa giải được lần nào" đến "ít động tác nhất có thể", ` +
         `và ${t.methods} phương pháp hoàn chỉnh được benchmark trên ${t.scrambles} cú trộn mỗi phương pháp.`),
       el("div", { class: "hero__cta" },
-        el("a", { class: "btn btn--primary", href: "#/levels/easy" }, "Bắt đầu ở Cấp 1"),
+        el("a", { class: "btn btn--primary", href: "#/learn?level=easy" }, "Bắt đầu học"),
+        el("a", { class: "btn", href: "#/levels" }, "Xem lộ trình"),
         el("a", { class: "btn", href: "#/trainer" }, "Vào bài luyện"),
         el("a", { class: "btn btn--ghost", href: "#/algorithms" }, `Xem ${t.cases} thuật toán`)),
       el("div", { class: "hero__facts" },

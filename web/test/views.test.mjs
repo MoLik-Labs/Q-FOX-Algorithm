@@ -145,7 +145,8 @@ for (const f of data.families) routes.push(`#/algorithms/${f.key}`);
 routes.push("#/algorithms", "#/algorithms?q=sune", "#/algorithms?sort=length&learned=todo",
             "#/algorithms?named=1");
 for (const m of data.methodsList) routes.push(`#/methods/${encodeURIComponent(m.name)}`);
-routes.push("#/methods", "#/trainer", "#/trainer?mode=recognise", "#/trainer?mode=flash",
+routes.push("#/methods", "#/learn", "#/learn?level=easy", "#/learn?level=full",
+            "#/trainer", "#/trainer?mode=recognise", "#/trainer?mode=flash",
             "#/trainer?level=easy", "#/trainer?family=PLL",
             `#/trainer?keys=${data.cases.slice(0, 4).map((c) => c.key).join(",")}`,
             "#/benchmark", "#/benchmark?method=Roux", "#/engine", "#/about", "#/records",

@@ -832,3 +832,42 @@ input:focus, select:focus { outline: none; border-color: var(--action); box-shad
   body.nav-open .side { transform: none; }
   .only-mobile { display: inline-grid; }
 }
+
+/* ------------------------------------------------------------------ học */
+.learn__lesson {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: var(--s-4);
+  align-items: start;
+}
+.learn__main { display: grid; gap: var(--s-4); min-width: 0; }
+.learn__side { position: sticky; top: var(--s-4); display: grid; gap: var(--s-4); }
+@media (max-width: 900px) {
+  .learn__lesson { grid-template-columns: 1fr; }
+  .learn__side { position: static; }
+}
+.learn__cube-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.learn__diagram { display: grid; place-items: center; }
+.learn__diagram svg { width: 132px; height: 132px; }
+.learn__chips { margin-top: 10px; gap: 6px; }
+.learn__chips .move { cursor: pointer; }
+.learn__chunks { margin-top: 10px; }
+.learn__path { padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); }
+.learn__path-inner { display: flex; flex-direction: column; gap: 4px; }
+.learn__path-strip { display: flex; gap: 5px; flex-wrap: wrap; }
+.learn__dot {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: var(--card);
+  color: var(--muted); font-size: var(--t-label); font-weight: 600;
+  display: grid; place-items: center; cursor: pointer;
+  transition: border-color var(--m-out) var(--m-ease), color var(--m-out) var(--m-ease);
+}
+.learn__dot:hover { border-color: var(--accent); color: var(--ink); }
+.learn__dot.is-done { background: var(--mint); border-color: var(--mint); color: var(--ink); }
+.learn__dot.is-cur { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 22%, transparent); }
