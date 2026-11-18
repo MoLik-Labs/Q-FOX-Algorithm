@@ -120,11 +120,34 @@ def ll_four_look() -> list[Stage]:
     ]
 
 
+def ll_three_look() -> list[Stage]:
+    """Three looks: orient edges, orient corners, permute the whole layer.
+
+    The same three sub-goals the four-look splits across four stages, but the
+    corner and edge *permutation* are done together in one PLL.  That trades
+    one more move or two in the last layer for dropping the 21 separate
+    corner- and edge-placement algorithms -- 25 to memorise instead of 78, and
+    still a full one-look PLL on the finish so the final layer is solved in
+    three recognitions rather than four.
+    """
+    return [
+        Stage("leo", goal=(EO_LL,), keep_from=F2L_KEEP, heur=(EO_LL,), algs=2,
+              note="làm cross trên mặt U -- xác định hướng các cạnh"),
+        Stage("lco", goal=(CO_LL,), keep_from=F2L_KEEP + ("leo",), heur=(CO_LL,),
+              algs=2, note="xoay các góc U -- lớp cuối đã xác định hướng"),
+        Stage("pll", goal=(LL_PERM_AUF,), keep_from=F2L_KEEP + ("leo", "lco"),
+              heur=(LL_PERM_AUF,), ll_goal="pll", alg_family="PLL", algs=21,
+              note="hoán vị toàn bộ lớp cuối, chỉ còn AUF"),
+        auf_stage(F2L_KEEP + ("leo", "lco", "pll")),
+    ]
+
+
 TIERS = {
     "easy": (ll_four_look, {"easy": 8, "medium": 8, "hard": 8, "full": 8},
              "bốn lần nhìn lớp cuối: 8 thuật toán, dạng hướng dẫn sơ cấp"),
-    "medium": (ll_oll_pll, {"easy": 8, "medium": 78, "hard": 78, "full": 78},
-               "OLL rồi PLL: 78 thuật toán, lớp cuối theo dạng CFOP"),
+    "medium": (ll_three_look, {"easy": 8, "medium": 25, "hard": 25, "full": 25},
+               "ba lần nhìn lớp cuối (EO + CO + PLL): 25 thuật toán, ít nhớ hơn "
+               "OLL+PLL mà vẫn nhanh hơn 4-look"),
     "hard": (ll_cmll_lse, {"easy": 8, "medium": 42, "hard": 42, "full": 42},
              "CMLL rồi LSE: 42 thuật toán, lớp cuối theo dạng Roux"),
     "full": (ll_one, {"easy": 8, "medium": 78, "hard": 42, "full": 0},
