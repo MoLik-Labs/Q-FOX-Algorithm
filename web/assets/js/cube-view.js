@@ -174,8 +174,7 @@ export class CubeView {
     if (this.view === "net") {
       for (const face of "URFDLB") {
         for (const { idx, node } of this.netFaces[face]) {
-          const colour = FACE_COLOUR[this.state[idx]];
-          node.style.background = colour;
+          node.style.setProperty("--c", FACE_COLOUR[this.state[idx]]);
           node.classList.toggle("is-dim", this.dimmed(idx));
         }
       }
@@ -188,11 +187,11 @@ export class CubeView {
         const idx = this.geom.at.get(`${ck}|${key3(d)}`);
         if (idx === undefined) {
           node.className = `st st--${cls} st--inner`;
-          node.style.background = "";
+          node.style.removeProperty("--c");
           continue;
         }
         node.className = `st st--${cls}`;
-        node.style.background = FACE_COLOUR[this.state[idx]];
+        node.style.setProperty("--c", FACE_COLOUR[this.state[idx]]);
         node.classList.toggle("is-dim", this.dimmed(idx));
       }
       cubie.node.style.transform = this.baseTransform(cubie.cell);
