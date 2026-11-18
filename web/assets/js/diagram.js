@@ -96,6 +96,8 @@ export function netDiagram(state, opts = {}) {
     viewBox: `0 0 ${w} ${h}`, width: w, height: h, class: "diagram diagram--net",
     role: "img",
   });
+  svg.append(svgEl("rect", { x: 0, y: 0, width: w, height: h, rx: cell * 0.2,
+    fill: "#0c0c0e", class: "diagram__plate" }));
   for (const face of "URFDLB") {
     const [ox, oy] = origin[face];
     NET[face].forEach((row, r) => row.forEach((idx, c) => {
@@ -119,6 +121,8 @@ export function faceDiagram(state, face, opts = {}) {
     viewBox: `0 0 ${size} ${size}`, width: size, height: size, class: "diagram",
     "aria-hidden": "true",
   });
+  svg.append(svgEl("rect", { x: 0, y: 0, width: size, height: size, rx: cell * 0.2,
+    fill: "#0c0c0e", class: "diagram__plate" }));
   NET[face].forEach((row, r) => row.forEach((idx, c) => {
     svg.append(svgEl("rect", {
       x: c * cell + gap / 2, y: r * cell + gap / 2,

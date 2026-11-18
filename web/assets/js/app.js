@@ -13,6 +13,7 @@ import { refresh as refreshMotion } from "../css/taste/motion.js";
 
 import * as home from "./views/home.js";
 import * as levels from "./views/levels.js";
+import * as learn from "./views/learn.js";
 import * as algorithms from "./views/algorithms.js";
 import * as trainer from "./views/trainer.js";
 import * as records from "./views/records.js";
@@ -27,6 +28,7 @@ import * as about from "./views/about.js";
 const ROUTES = {
   home: { mod: home, title: "Trang chủ" },
   levels: { mod: levels, title: "Cấp độ" },
+  learn: { mod: learn, title: "Học" },
   algorithms: { mod: algorithms, title: "Thuật toán" },
   trainer: { mod: trainer, title: "Luyện tập" },
   records: { mod: records, title: "Kỷ lục" },
