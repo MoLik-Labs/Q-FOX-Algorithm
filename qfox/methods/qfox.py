@@ -143,8 +143,8 @@ def ll_three_look() -> list[Stage]:
 
 
 TIERS = {
-    "easy": (ll_four_look, {"easy": 8, "medium": 8, "hard": 8, "full": 8},
-             "bốn lần nhìn lớp cuối: 8 thuật toán, dạng hướng dẫn sơ cấp"),
+    "easy": (ll_one, {"easy": 0, "medium": 0, "hard": 0, "full": 0},
+             "một bước sách tra lớp cuối: không cần thuật toán, ngắn nhất"),
     "medium": (ll_three_look, {"easy": 8, "medium": 25, "hard": 25, "full": 25},
                "ba lần nhìn lớp cuối (EO + CO + PLL): 25 thuật toán, ít nhớ hơn "
                "OLL+PLL mà vẫn nhanh hơn 4-look"),

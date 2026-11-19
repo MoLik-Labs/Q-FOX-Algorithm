@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-19T15:23:29Z",
+ "generated": "2026-11-19T16:31:52Z",
  "engine": "qfox-engine 0.1.0",
  "meta": {
   "scrambles": 20,
   "seed": 20260101,
   "scramble_length": 25,
   "book_swept": 13,
-  "book_found": 40163,
-  "table_seconds": 29.22
+  "book_found": 44022,
+  "table_seconds": 58.46
  },
  "results": [
   {
@@ -40,10 +40,10 @@
     "median": 51
    },
    "seconds": {
-    "mean": 3.023,
-    "max": 14.019
+    "mean": 3.126,
+    "max": 14.414
    },
-   "table_seconds": 26.04,
+   "table_seconds": 45.86,
    "stages": {
     "cross": {
      "htm_mean": 5.5,
@@ -55,7 +55,7 @@
     },
     "f1": {
      "htm_mean": 5.2,
-     "seconds_mean": 0.0036,
+     "seconds_mean": 0.0037,
      "nodes_mean": 22261.1,
      "via": {
       "ida": 20
@@ -63,7 +63,7 @@
     },
     "f2": {
      "htm_mean": 5.1,
-     "seconds_mean": 0.0272,
+     "seconds_mean": 0.0266,
      "nodes_mean": 162192.8,
      "via": {
       "ida": 20
@@ -71,7 +71,7 @@
     },
     "f3": {
      "htm_mean": 6.0,
-     "seconds_mean": 0.0663,
+     "seconds_mean": 0.0672,
      "nodes_mean": 412647.3,
      "via": {
       "ida": 20
@@ -79,7 +79,7 @@
     },
     "f4": {
      "htm_mean": 6.9,
-     "seconds_mean": 0.0074,
+     "seconds_mean": 0.008,
      "nodes_mean": 25877.7,
      "via": {
       "ida": 20
@@ -95,7 +95,7 @@
     },
     "pll": {
      "htm_mean": 11.95,
-     "seconds_mean": 1.0012,
+     "seconds_mean": 1.078,
      "nodes_mean": 6448.6,
      "via": {
       "book:scan": 17,
@@ -104,7 +104,7 @@
     },
     "auf": {
      "htm_mean": 0.85,
-     "seconds_mean": 0.0005,
+     "seconds_mean": 0.0006,
      "nodes_mean": 2.8,
      "via": {
       "book:scan": 20
@@ -142,10 +142,10 @@
     "median": 42
    },
    "seconds": {
-    "mean": 6.184,
-    "max": 81.732
+    "mean": 6.879,
+    "max": 88.538
    },
-   "table_seconds": 29.21,
+   "table_seconds": 58.09,
    "stages": {
     "fb": {
      "htm_mean": 6.95,
@@ -165,7 +165,7 @@
     },
     "cmll": {
      "htm_mean": 11.6,
-     "seconds_mean": 6.0704,
+     "seconds_mean": 6.765,
      "nodes_mean": 17400198.4,
      "via": {
       "book:scan": 10,
@@ -174,7 +174,7 @@
     },
     "lse": {
      "htm_mean": 14.6,
-     "seconds_mean": 0.0576,
+     "seconds_mean": 0.0575,
      "nodes_mean": 1045.1,
      "via": {
       "centres": 20
@@ -212,10 +212,10 @@
     "median": 59
    },
    "seconds": {
-    "mean": 3.917,
-    "max": 8.329
+    "mean": 3.957,
+    "max": 8.59
    },
-   "table_seconds": 29.21,
+   "table_seconds": 58.29,
    "stages": {
     "eoline": {
      "htm_mean": 6.05,
@@ -251,7 +251,7 @@
     },
     "z4": {
      "htm_mean": 13.1,
-     "seconds_mean": 0.6678,
+     "seconds_mean": 0.6973,
      "nodes_mean": 3176672.0,
      "via": {
       "ida": 20
@@ -267,7 +267,7 @@
     },
     "zpll": {
      "htm_mean": 13.6,
-     "seconds_mean": 3.223,
+     "seconds_mean": 3.233,
      "nodes_mean": 10013166.6,
      "via": {
       "ida": 16,
@@ -315,10 +315,10 @@
     "median": 52
    },
    "seconds": {
-    "mean": 1.33,
-    "max": 7.136
+    "mean": 1.357,
+    "max": 7.397
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.45,
    "stages": {
     "p222": {
      "htm_mean": 6.35,
@@ -338,7 +338,7 @@
     },
     "eo": {
      "htm_mean": 4.85,
-     "seconds_mean": 0.0042,
+     "seconds_mean": 0.0043,
      "nodes_mean": 24312.8,
      "via": {
       "ida": 20
@@ -354,7 +354,7 @@
     },
     "p4a": {
      "htm_mean": 5.5,
-     "seconds_mean": 0.047,
+     "seconds_mean": 0.0471,
      "nodes_mean": 294692.2,
      "via": {
       "ida": 20
@@ -362,7 +362,7 @@
     },
     "p4b": {
      "htm_mean": 6.65,
-     "seconds_mean": 0.003,
+     "seconds_mean": 0.0029,
      "nodes_mean": 10738.4,
      "via": {
       "ida": 19,
@@ -379,7 +379,7 @@
     },
     "pcp": {
      "htm_mean": 11.5,
-     "seconds_mean": 0.6688,
+     "seconds_mean": 0.6913,
      "nodes_mean": 7339.8,
      "via": {
       "book:scan": 18,
@@ -426,10 +426,10 @@
     "median": 77
    },
    "seconds": {
-    "mean": 3.343,
-    "max": 11.991
+    "mean": 3.388,
+    "max": 12.374
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "cross": {
      "htm_mean": 5.5,
@@ -441,7 +441,7 @@
     },
     "d1": {
      "htm_mean": 3.3,
-     "seconds_mean": 0.0051,
+     "seconds_mean": 0.0048,
      "nodes_mean": 30382.8,
      "via": {
       "ida": 20
@@ -449,7 +449,7 @@
     },
     "d2": {
      "htm_mean": 3.5,
-     "seconds_mean": 0.004,
+     "seconds_mean": 0.0038,
      "nodes_mean": 25223.6,
      "via": {
       "ida": 20
@@ -457,7 +457,7 @@
     },
     "d3": {
      "htm_mean": 3.7,
-     "seconds_mean": 0.0076,
+     "seconds_mean": 0.0081,
      "nodes_mean": 50489.9,
      "via": {
       "ida": 20
@@ -481,7 +481,7 @@
     },
     "m2": {
      "htm_mean": 5.75,
-     "seconds_mean": 0.0111,
+     "seconds_mean": 0.0114,
      "nodes_mean": 67277.6,
      "via": {
       "ida": 20
@@ -489,7 +489,7 @@
     },
     "m3": {
      "htm_mean": 7.15,
-     "seconds_mean": 0.3492,
+     "seconds_mean": 0.3555,
      "nodes_mean": 2000089.8,
      "via": {
       "ida": 20
@@ -497,7 +497,7 @@
     },
     "m4": {
      "htm_mean": 6.95,
-     "seconds_mean": 0.1325,
+     "seconds_mean": 0.1279,
      "nodes_mean": 468967.7,
      "via": {
       "ida": 19,
@@ -544,34 +544,34 @@
    "solved": 20,
    "failed": 0,
    "htm": {
-    "mean": 50.45,
-    "min": 41,
-    "max": 61,
-    "median": 51
+    "mean": 31.85,
+    "min": 27,
+    "max": 35,
+    "median": 32
    },
    "qtm": {
-    "mean": 63.85,
-    "min": 50,
-    "max": 84,
-    "median": 63
+    "mean": 40.05,
+    "min": 33,
+    "max": 45,
+    "median": 41
    },
    "stm": {
-    "mean": 50.45,
-    "min": 41,
-    "max": 61,
-    "median": 51
+    "mean": 31.85,
+    "min": 27,
+    "max": 35,
+    "median": 32
    },
    "etm": {
-    "mean": 50.45,
-    "min": 41,
-    "max": 61,
-    "median": 51
+    "mean": 31.85,
+    "min": 27,
+    "max": 35,
+    "median": 32
    },
    "seconds": {
-    "mean": 0.153,
-    "max": 0.774
+    "mean": 0.575,
+    "max": 8.296
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b223": {
      "htm_mean": 9.15,
@@ -583,40 +583,25 @@
     },
     "b123": {
      "htm_mean": 9.5,
-     "seconds_mean": 0.1282,
+     "seconds_mean": 0.1335,
      "nodes_mean": 618737.1,
      "via": {
       "ida": 20
      }
     },
-    "leo": {
-     "htm_mean": 6.75,
-     "seconds_mean": 0.0007,
-     "nodes_mean": 285.6,
+    "ll": {
+     "htm_mean": 12.35,
+     "seconds_mean": 0.4195,
+     "nodes_mean": 15469.6,
      "via": {
-      "book:scan": 20
+      "book:scan": 19,
+      "book:product": 1
      }
     },
-    "lco": {
-     "htm_mean": 7.8,
-     "seconds_mean": 0.0007,
-     "nodes_mean": 497.8,
-     "via": {
-      "book:scan": 20
-     }
-    },
-    "lcp": {
-     "htm_mean": 8.8,
-     "seconds_mean": 0.003,
-     "nodes_mean": 6623.4,
-     "via": {
-      "book:scan": 20
-     }
-    },
-    "lep": {
-     "htm_mean": 8.45,
-     "seconds_mean": 0.0008,
-     "nodes_mean": 834.3,
+    "auf": {
+     "htm_mean": 0.85,
+     "seconds_mean": 0.0006,
+     "nodes_mean": 2.9,
      "via": {
       "book:scan": 20
      }
@@ -653,14 +638,14 @@
     "median": 45
    },
    "seconds": {
-    "mean": 0.486,
-    "max": 6.64
+    "mean": 0.484,
+    "max": 6.65
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b223": {
      "htm_mean": 9.15,
-     "seconds_mean": 0.0196,
+     "seconds_mean": 0.0187,
      "nodes_mean": 78213.5,
      "via": {
       "ida": 20
@@ -668,7 +653,7 @@
     },
     "b123": {
      "htm_mean": 9.5,
-     "seconds_mean": 0.13,
+     "seconds_mean": 0.1281,
      "nodes_mean": 618737.1,
      "via": {
       "ida": 20
@@ -692,7 +677,7 @@
     },
     "pll": {
      "htm_mean": 11.4,
-     "seconds_mean": 0.3318,
+     "seconds_mean": 0.3332,
      "nodes_mean": 7310.4,
      "via": {
       "book:scan": 19,
@@ -701,7 +686,7 @@
     },
     "auf": {
      "htm_mean": 0.85,
-     "seconds_mean": 0.0006,
+     "seconds_mean": 0.0005,
      "nodes_mean": 2.6,
      "via": {
       "book:scan": 20
@@ -740,13 +725,13 @@
    },
    "seconds": {
     "mean": 0.153,
-    "max": 0.781
+    "max": 0.794
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b223": {
      "htm_mean": 9.15,
-     "seconds_mean": 0.0189,
+     "seconds_mean": 0.0182,
      "nodes_mean": 78213.5,
      "via": {
       "ida": 20
@@ -754,7 +739,7 @@
     },
     "b123": {
      "htm_mean": 9.5,
-     "seconds_mean": 0.1299,
+     "seconds_mean": 0.1306,
      "nodes_mean": 618737.1,
      "via": {
       "ida": 20
@@ -762,7 +747,7 @@
     },
     "cmll": {
      "htm_mean": 11.05,
-     "seconds_mean": 0.0029,
+     "seconds_mean": 0.003,
      "nodes_mean": 6364.8,
      "via": {
       "book:scan": 20
@@ -770,7 +755,7 @@
     },
     "lse": {
      "htm_mean": 10.4,
-     "seconds_mean": 0.0014,
+     "seconds_mean": 0.0015,
      "nodes_mean": 51.6,
      "via": {
       "centres": 20
@@ -808,14 +793,14 @@
     "median": 32
    },
    "seconds": {
-    "mean": 0.588,
-    "max": 8.555
+    "mean": 0.576,
+    "max": 8.341
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b223": {
      "htm_mean": 9.15,
-     "seconds_mean": 0.02,
+     "seconds_mean": 0.0182,
      "nodes_mean": 78213.5,
      "via": {
       "ida": 20
@@ -823,7 +808,7 @@
     },
     "b123": {
      "htm_mean": 9.5,
-     "seconds_mean": 0.1326,
+     "seconds_mean": 0.1336,
      "nodes_mean": 618737.1,
      "via": {
       "ida": 20
@@ -831,7 +816,7 @@
     },
     "ll": {
      "htm_mean": 12.35,
-     "seconds_mean": 0.4327,
+     "seconds_mean": 0.4219,
      "nodes_mean": 15469.6,
      "via": {
       "book:scan": 19,
@@ -878,10 +863,10 @@
     "median": 44
    },
    "seconds": {
-    "mean": 3.292,
-    "max": 9.821
+    "mean": 3.241,
+    "max": 9.688
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "cross": {
      "htm_mean": 5.5,
@@ -893,7 +878,7 @@
     },
     "f1": {
      "htm_mean": 5.2,
-     "seconds_mean": 0.0036,
+     "seconds_mean": 0.0038,
      "nodes_mean": 22261.1,
      "via": {
       "ida": 20
@@ -909,7 +894,7 @@
     },
     "f3": {
      "htm_mean": 6.0,
-     "seconds_mean": 0.0668,
+     "seconds_mean": 0.0659,
      "nodes_mean": 412647.3,
      "via": {
       "ida": 20
@@ -917,7 +902,7 @@
     },
     "f4": {
      "htm_mean": 6.9,
-     "seconds_mean": 0.0072,
+     "seconds_mean": 0.0073,
      "nodes_mean": 25877.7,
      "via": {
       "ida": 20
@@ -925,7 +910,7 @@
     },
     "ll": {
      "htm_mean": 12.85,
-     "seconds_mean": 1.288,
+     "seconds_mean": 1.2387,
      "nodes_mean": 13007.4,
      "via": {
       "book:scan": 17,
@@ -972,10 +957,10 @@
     "median": 47
    },
    "seconds": {
-    "mean": 1.521,
-    "max": 8.916
+    "mean": 1.493,
+    "max": 8.792
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "eoline": {
      "htm_mean": 6.05,
@@ -1011,7 +996,7 @@
     },
     "z4": {
      "htm_mean": 13.1,
-     "seconds_mean": 0.6808,
+     "seconds_mean": 0.6576,
      "nodes_mean": 3176672.0,
      "via": {
       "ida": 20
@@ -1019,7 +1004,7 @@
     },
     "ll": {
      "htm_mean": 11.55,
-     "seconds_mean": 0.8136,
+     "seconds_mean": 0.8092,
      "nodes_mean": 7815.3,
      "via": {
       "book:scan": 18,
@@ -1028,7 +1013,7 @@
     },
     "auf": {
      "htm_mean": 0.8,
-     "seconds_mean": 0.0006,
+     "seconds_mean": 0.0005,
      "nodes_mean": 2.5,
      "via": {
       "book:scan": 20
@@ -1066,10 +1051,10 @@
     "median": 36
    },
    "seconds": {
-    "mean": 2.847,
-    "max": 10.847
+    "mean": 2.769,
+    "max": 11.091
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b222": {
      "htm_mean": 6.35,
@@ -1089,7 +1074,7 @@
     },
     "b123": {
      "htm_mean": 9.55,
-     "seconds_mean": 0.2874,
+     "seconds_mean": 0.2831,
      "nodes_mean": 1357472.6,
      "via": {
       "ida": 20
@@ -1097,7 +1082,7 @@
     },
     "ll": {
      "htm_mean": 13.35,
-     "seconds_mean": 2.5458,
+     "seconds_mean": 2.4735,
      "nodes_mean": 13427.4,
      "via": {
       "book:scan": 14,
@@ -1106,7 +1091,7 @@
     },
     "auf": {
      "htm_mean": 0.75,
-     "seconds_mean": 0.0005,
+     "seconds_mean": 0.0006,
      "nodes_mean": 2.7,
      "via": {
       "book:scan": 20
@@ -1144,10 +1129,10 @@
     "median": 42
    },
    "seconds": {
-    "mean": 6.567,
-    "max": 85.577
+    "mean": 6.925,
+    "max": 88.925
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "fb": {
      "htm_mean": 6.95,
@@ -1159,7 +1144,7 @@
     },
     "sb": {
      "htm_mean": 9.4,
-     "seconds_mean": 0.0563,
+     "seconds_mean": 0.0539,
      "nodes_mean": 257842.0,
      "via": {
       "ida": 20
@@ -1167,7 +1152,7 @@
     },
     "cmll": {
      "htm_mean": 11.6,
-     "seconds_mean": 6.4531,
+     "seconds_mean": 6.8151,
      "nodes_mean": 17400198.4,
      "via": {
       "book:scan": 10,
@@ -1176,7 +1161,7 @@
     },
     "lse": {
      "htm_mean": 14.6,
-     "seconds_mean": 0.0575,
+     "seconds_mean": 0.0555,
      "nodes_mean": 1045.1,
      "via": {
       "centres": 20
@@ -1214,14 +1199,14 @@
     "median": 32
    },
    "seconds": {
-    "mean": 0.653,
-    "max": 8.757
+    "mean": 0.668,
+    "max": 8.837
    },
-   "table_seconds": 29.22,
+   "table_seconds": 58.46,
    "stages": {
     "b223": {
      "htm_mean": 9.15,
-     "seconds_mean": 0.0202,
+     "seconds_mean": 0.0203,
      "nodes_mean": 78213.5,
      "via": {
       "ida": 20
@@ -1229,7 +1214,7 @@
     },
     "f2l": {
      "htm_mean": 9.5,
-     "seconds_mean": 0.1878,
+     "seconds_mean": 0.1988,
      "nodes_mean": 485801.5,
      "via": {
       "ida": 20
@@ -1237,7 +1222,7 @@
     },
     "ll": {
      "htm_mean": 12.35,
-     "seconds_mean": 0.4423,
+     "seconds_mean": 0.4462,
      "nodes_mean": 15469.6,
      "via": {
       "book:scan": 19,
@@ -1246,7 +1231,7 @@
     },
     "auf": {
      "htm_mean": 0.85,
-     "seconds_mean": 0.0006,
+     "seconds_mean": 0.0005,
      "nodes_mean": 2.9,
      "via": {
       "book:scan": 20
