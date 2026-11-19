@@ -51,10 +51,10 @@ export function render() {
         "Học giải rubik, phá kỷ lục của chính mình."),
       el("p", { class: "hero__lede" },
         `Mọi thuật toán ở đây đều do một engine giải viết từ đầu bằng C tạo ra, được chạy lại đối chiếu với mục tiêu, rồi xuất bản thành dữ liệu. ` +
-        `${int(t.cases)} bài lớp cuối trên ${t.families} họ, bốn cấp độ học từ "chưa giải được lần nào" đến "ít động tác nhất có thể", ` +
-        `và ${t.methods} phương pháp hoàn chỉnh được benchmark trên ${t.scrambles} cú trộn mỗi phương pháp.`),
+        `${int(t.cases)} bài lớp cuối trên ${t.families} họ, công thức Q-FOX tinh hoa chắt lọc một cấp độ -- ` +
+        `ít công thức cần nhớ nhất và nhanh nhất -- cùng ${t.methods} phương pháp hoàn chỉnh được benchmark trên ${t.scrambles} cú trộn mỗi phương pháp.`),
       el("div", { class: "hero__cta" },
-        el("a", { class: "btn btn--primary", href: "#/learn?level=easy" }, "Bắt đầu học"),
+        el("a", { class: "btn btn--primary", href: "#/learn?level=essence" }, "Bắt đầu học"),
         el("a", { class: "btn", href: "#/levels" }, "Xem lộ trình"),
         el("a", { class: "btn", href: "#/trainer" }, "Vào bài luyện"),
         el("a", { class: "btn btn--ghost", href: "#/algorithms" }, `Xem ${t.cases} thuật toán`)),

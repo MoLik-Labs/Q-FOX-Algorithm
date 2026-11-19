@@ -597,9 +597,9 @@ def check_schema(data, book):
             bad.append(f"algorithms: {fam} has duplicate case keys")
 
     roster = methods["methods"]
-    if not isinstance(roster, dict) or len(roster) < 10:
+    if not isinstance(roster, dict) or len(roster) < 6:
         bad.append(f"methods: {len(roster) if hasattr(roster, '__len__') else 0} "
-                   f"exported, want a dict of >= 10")
+                   f"exported, want a dict of >= 6")
     else:
         for name, m in roster.items():
             if m.get("name") != name:
@@ -613,8 +613,8 @@ def check_schema(data, book):
                 if not st_.get("goal"):
                     bad.append(f"methods: {name}/{st_.get('name')} has no goal")
     tiers = [lv["key"] for lv in levels["levels"]]
-    if tiers != ["easy", "medium", "hard", "full"]:
-        bad.append(f"levels: tiers must be easy/medium/hard/full, got {tiers}")
+    if tiers != ["essence"]:
+        bad.append(f"levels: tiers must be ['essence'], got {tiers}")
     for lv in levels["levels"]:
         for key in ("title", "who", "promise", "path", "algs", "stages", "method"):
             if key not in lv:

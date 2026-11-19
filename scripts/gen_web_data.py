@@ -249,7 +249,7 @@ FAMILY_INFO = {
                  "trọng. Nhận dạng bằng hình dáng các cạnh đã xác định hướng "
                  "và số góc đã xác định hướng.",
         "goal": "lớp cuối đã xác định hướng",
-        "level": "medium",
+        "level": "essence",
     },
     "PLL": {
         "label": "PLL",
@@ -257,7 +257,7 @@ FAMILY_INFO = {
         "blurb": "Hướng đã đúng, nên đây thuần là hoán vị, với một cú xoay "
                  "mặt trên tự do trước và sau.",
         "goal": "hoàn thành khối, chỉ còn AUF",
-        "level": "medium",
+        "level": "essence",
     },
     "CLL": {
         "label": "CLL / CMLL",
@@ -804,35 +804,15 @@ def methods_data() -> dict:
 
 
 LEVEL_INFO = {
-    "easy": {
-        "order": 1, "title": "Cấp 1 - Mới làm quen",
-        "who": "Chưa từng giải được khối, hoặc vẫn dùng bài in ra giấy.",
-        "promise": "Tám thuật toán và khối hoàn thành. Không cần nhận dạng gì "
-                   "ngoài \"mặt trên đã vàng chưa\".",
-        "path": "Q-FOX/easy",
-    },
-    "medium": {
-        "order": 2, "title": "Cấp 2 - Bắt đầu nghiêm túc",
-        "who": "Đã giải được, muốn vào dưới một phút.",
-        "promise": "Chuỗi 57 + 21 kinh điển: nhìn mặt trên, chạy một thuật "
-                   "toán, nhìn các mặt bên, chạy thêm một cái nữa.",
-        "path": "Q-FOX/medium",
-    },
-    "hard": {
-        "order": 3, "title": "Cấp 3 - Hình dáng Roux",
-        "who": "Dưới 30 giây, sẵn sàng bỏ cross.",
-        "promise": "Bốn mươi hai thuật toán giải góc và xác định hướng cạnh "
-                   "cùng lúc, rồi 6 cạnh cuối bằng cảm giác.",
-        "path": "Q-FOX/hard",
-    },
-    "full": {
-        "order": 4, "title": "Cấp 4 - Q-FOX hòa chỉnh",
-        "who": "Muốn công thức nhanh nhất, hòa chỉnh nhất: ít động tác nhất.",
-        "promise": "Không cần nhớ gì: khối 2x2x3 mở khóa, toàn bộ F2L về nhà "
-                   "trong một bước tối ưu, rồi một lần tra sách lớp cuối -- "
-                   "có chứng minh là cách hoàn tất ngắn nhất, nhanh hơn mọi "
-                   "phương pháp 3x3.",
-        "path": "Q-FOX/harmony",
+    "essence": {
+        "order": 1, "title": "Q-FOX · Tinh hoa",
+        "who": "Muốn công thức nhanh nhất, ít công thức cần nhớ nhất: "
+               "hai khối mở khóa, rồi tra sách lớp cuối.",
+        "promise": "Mười bảy thuật toán nhận dạng để luyện tập, còn giải thì "
+                   "không cần nhớ gì -- sách tra trả lớp cuối trong một bước "
+                   "tối ưu có chứng minh, nhanh hơn mọi phương pháp 3x3.",
+        "how": "một bước sách tra lớp cuối: không cần thuật toán, ngắn nhất",
+        "path": "Q-FOX",
     },
 }
 
@@ -846,7 +826,7 @@ LEVEL_INFO = {
 # scripts/validate_web_data.py re-evaluates every condition against the export,
 # in both directions, so a card cannot drift into or out of a level unnoticed.
 CURRICULUM = {
-    "easy": [
+    "essence": [
         {"id": "top-cross", "title": "Bước 1 - làm cross trên mặt trên",
          "why": "Chỉ cần 4 cạnh trên, và có ba hình cần nhận: một chấm, một "
                 "dòng, hoặc một chữ L. Các góc được bỏ qua có chủ đích, nên "
@@ -866,41 +846,6 @@ CURRICULUM = {
                 "vị. Hai trong bốn bài này là các U-perm quen thuộc.",
          "family": "PLL",
          "where": {"corner_cycles": "đã hoàn thành", "edge_cycles": "!đã hoàn thành"}},
-    ],
-    "medium": [
-        {"id": "oll", "title": "OLL đầy đủ - 57 bài",
-         "why": "Một lần nhìn mặt trên thay vì hai. Học theo thứ tự kinh điển "
-                "(chấm, dòng, L, cross, rồi các hình góc) và bước trên coi "
-                "như coinh lại thành một thuật toán.",
-         "family": "OLL", "where": {}},
-        {"id": "pll", "title": "PLL đầy đủ - 21 bài",
-         "why": "Một lần nhìn các mặt bên thay vì hai, và hai bước cạnh/góc "
-                "trên gộp lại thành một. AUF trước và sau là tự do.",
-         "family": "PLL", "where": {}},
-    ],
-    "hard": [
-        {"id": "cll", "title": "CLL - góc đã giải, cạnh đã xác định hướng",
-         "why": "Lớp cuối của Roux: giải cả bốn góc trong khi các cạnh trên "
-                "giữ hướng, rồi 6 cạnh cuối là phần hoàn tất ngắn, hầu như "
-                "toàn cảm giác.",
-         "family": "CLL", "where": {}},
-        {"id": "ell", "title": "ELL - chỉ có cạnh",
-         "why": "Góc đã về chỗ: 29 bài hoán vị và xác định hướng các cạnh "
-                "trên trong một lần nhìn. Đây là nửa sau của Roux và của "
-                "ZZ-a.",
-         "family": "ELL", "where": {}},
-    ],
-    "full": [
-        {"id": "coll", "title": "COLL - góc và hướng cùng lúc",
-         "why": "Tất cả những gì nửa góc của lớp cuối có thể đòi hỏi, với "
-                "các cạnh giữ hướng để phần hoàn tất luôn ngắn.",
-         "family": "COLL", "where": {}},
-        {"id": "ell", "title": "ELL - hoàn tất các cạnh",
-         "why": "Vẫn 29 bài cạnh đó, tiếp cận từ trạng thái góc đã hoàn chỉnh.",
-         "family": "ELL", "where": {}},
-        {"id": "cll", "title": "CLL - chỉ có góc",
-         "why": "Cho những ngày các cạnh hợp tác và chỉ còn góc.",
-         "family": "CLL", "where": {}},
     ],
 }
 
@@ -963,8 +908,9 @@ def curriculum_for(key: str, algs: dict) -> tuple[list[dict], int]:
 def levels_data(algs: dict, bench: dict | None) -> dict:
     out = {"generated_by": "scripts/gen_web_data.py", "levels": []}
     for key, info in sorted(LEVEL_INFO.items(), key=lambda kv: kv[1]["order"]):
-        builder, algs_by_tier, how = Q.TIERS[key]
         method = METHODS[info["path"]]
+        algs_by_tier = method.algs_by_tier
+        how = info["how"]
         families = {}
         for fam, data in algs["families"].items():
             if data["level"] == key:

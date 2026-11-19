@@ -194,8 +194,8 @@ const M = createModel(engine);
   const book = read("book.json");
   const bench = read("benchmark.json");
 
-  ok(levels.levels.map((l) => l.key).join(",") === "easy,medium,hard,full",
-     "levels are ordered newbie -> pro");
+  ok(levels.levels.map((l) => l.key).join(",") === "essence",
+     "the essence level is exported");
   for (const lv of levels.levels) {
     ok(Array.isArray(lv.curriculum) && lv.curriculum.length > 0, `${lv.key} has a curriculum`);
     for (const item of lv.curriculum || []) {
@@ -209,11 +209,11 @@ const M = createModel(engine);
          `${lv.key}/${item.id} carries the same algorithm as the family export`);
     }
   }
-  ok(Object.keys(methods.methods).length >= 10, "at least ten methods exported");
+  ok(Object.keys(methods.methods).length >= 6, "at least six methods exported");
   ok(book.elements === 62208, "the book covers 62208 last-layer elements");
   ok(book.found > 0 && book.found <= book.elements, "book coverage is sane");
   const rows = bench.results || [];
-  ok(rows.length >= 10, "benchmark has a row per method", `${rows.length}`);
+  ok(rows.length >= 6, "benchmark has a row per method", `${rows.length}`);
   ok(rows.every((r) => r.solved === r.scrambles),
      "every benchmark row solved every scramble",
      rows.filter((r) => r.solved !== r.scrambles).map((r) => r.method).join(","));

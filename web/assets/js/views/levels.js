@@ -1,7 +1,7 @@
 /**
- * Cấp độ: bốn tầng từ "chưa giải được lần nào" đến "ít động tác nhất có
- * thể", mỗi tầng có phương pháp đằng sau, các bài học yêu cầu, và tiến
- * trình của bạn.
+ * Cấp độ: công thức Q-FOX tinh hoa -- một cấp độ chắt lọc, ít công thức
+ * cần nhớ nhất và nhanh nhất. Mỗi cấp có phương pháp đằng sau, các bài
+ * học yêu cầu, và tiến trình của bạn.
  */
 import { data, levelKeys, caseByKey, METRIC_HINT } from "../data.js";
 import { exportCasesPng, exportCasesPdf } from "../export.js";
