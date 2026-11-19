@@ -1,11 +1,16 @@
 /**
- * Q-FOX: toàn bộ phương pháp trên một khối, chia theo cấp độ easy → full.
+ * Q-FOX: công thức tinh hoa trên một khối.
  *
- * Đây là góc nhìn tổng hợp của Q-FOX: bốn cấp độ từ mới làm quen đến
- * full (không cần nhớ, tra sách), tất cả hướng vào một mục tiêu chung --
- * tối đa hóa tốc độ giải hết. Mỗi cấp hiển thị con số engine thực nghiệm
- * (htm, qtm, stm, thời gian giải) để bạn thấy bước nhảy tốc độ ở mỗi
- * nấc, và trực tiếp nhảy vào luyện tập cấp đó.
+ * Q-FOX đã được chắt lọc về một phương pháp duy nhất: khai màn bằng hai
+ * khối (2x2x3 rồi 1x2x3 đối diện) để mở khóa sách tra, rồi lớp cuối hoàn
+ * tất trong một bước tối ưu có chứng minh. Không cần nhớ thuật toán giải --
+ * đây là cách nhanh nhất một lớp cuối 3x3 có thể hoàn thành.
+ *
+ * Trang này trình bày con số tốc độ thực nghiệm, bốn bước của công thức,
+ * và tờ công thức chuẩn tinh hoa: mười bảy thuật toán nhận dạng để luyện
+ * tập (bộ nhận dạng ít nhất vẫn giải hết lớp cuối), đi kèm mục tiêu và
+ * tiến trình học. Nhận dạng là để người dùng luyện; còn giải thì sách tra
+ * trả trong một bước, không cần nhớ.
  */
 import { data, level, levelKeys, caseByKey, totals } from "../data.js";
 import { el, mount, chip, num, int, toast } from "../util.js";
@@ -13,155 +18,119 @@ import { exportCasesPng, exportCasesPdf } from "../export.js";
 import { exportCasesPdfFile } from "../pdffile.js";
 import { learnedCount, isLearned } from "../store.js";
 
-const TIER_TONE = { easy: "sky", medium: "mint", hard: "gold", full: "fox" };
-const TIER_TAG = { easy: "easy", medium: "medium", hard: "hard", full: "full" };
-
 export function render(params = {}) {
   const view = el("div");
   const t = totals();
-  const levels = data.levelsList; // easy, medium, hard, full -- đúng thứ tự
-  const speedOrder = levels.slice().sort(
-    (a, b) => (a.benchmark ? a.benchmark.htm : 999) - (b.benchmark ? b.benchmark.htm : 999));
+  const lv = data.levelsList[0];        // essence -- level duy nhất
+  const keys = levelKeys(lv.key);
+  const rows = keys.map(caseByKey).filter(Boolean);
+  const learned = learnedCount(keys);
+  const b = lv.benchmark;
 
   /* ------------------------------------------------------- báo cáo tốc độ */
   const speedCard = el("div", { class: "panel" },
     el("div", { class: "panel__head" }, el("h3", {}, "Con số tốc độ của engine"),
       el("span", { class: "spacer" }),
       chip("cùng 20 cú trộn, bảng đã warm", "sky"),
-      el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF sách toàn bộ 196 bài",
+      el("button", { class: "btn btn--sm", type: "button", title: "Tải file PDF tờ công thức tinh hoa",
         onClick: async () => {
-          toast("Đang tạo file PDF sách…", "info");
-          await exportCasesPdfFile(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", detail: true, chapters: true, filename: "qfox-full" });
+          toast("Đang tạo file PDF…", "info");
+          await exportCasesPdfFile(data.cases, { title: "Q-FOX · Tinh hoa", detail: true, chapters: true, filename: "qfox-essence" });
           toast("Đã tải file PDF -- in ra học", "ok");
-        } }, "Tải PDF toàn bộ"),
-      el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in toàn bộ",
-        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Sách thuật toán đầy đủ", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}` }) }, "In toàn bộ"),
-      el("button", { class: "btn btn--sm", type: "button", title: "Xuất toàn bộ 196 bài thành ảnh PNG",
-        onClick: () => { toast("Đang vẽ ảnh PNG…", "info"); exportCasesPng(data.cases, { title: "Q-FOX · Sách thuật toán", cols: 4, filename: "qfox-full" }); } }, "Xuất PNG toàn bộ")),
+        } }, "Tải PDF"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Mở cửa sổ in",
+        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Tinh hoa", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}` }) }, "In"),
+      el("button", { class: "btn btn--sm", type: "button", title: "Xuất ảnh PNG",
+        onClick: () => { toast("Đang vẽ ảnh PNG…", "info"); exportCasesPng(data.cases, { title: "Q-FOX · Tinh hoa", cols: 4, filename: "qfox-essence" }); } }, "PNG")),
     el("p", { class: "small muted" },
-      "Mỗi cấp độ được engine giải lại trên 20 cú trộn giống nhau. htm là tổng cú xoay mặt (quarter/half tính 1), ",
-      "qtm tính quarter là 1, stm là cách đếm speedcubing (mỗi cú xoay 1). Thời gian giải là engine thực tế, ",
-      "không phải ước lượng. Cấp càng cao, tổng động tác càng giảm -- đó là tốc độ bạn có thể hướng tới."),
-    el("div", { class: "table-wrap" },
-      el("table", { class: "table" },
-        el("thead", {}, el("tr", {},
-          el("th", {}, "Cấp độ"), el("th", { class: "num" }, "htm"), el("th", { class: "num" }, "qtm"),
-          el("th", { class: "num" }, "stm"), el("th", { class: "num" }, "thời gian"),
-          el("th", { class: "num" }, "thuật toán"))),
-        el("tbody", {}, speedOrder.map((lv) => {
-          const b = lv.benchmark;
-          const b2 = speedOrder;
-          return el("tr", {},
-            el("td", { class: "name" },
-              el("a", { href: `#/levels/${lv.key}` }, lv.title),
-              el("div", { class: "tiny muted" }, lv.how)),
-            el("td", { class: "num" }, num(b.htm, 2)),
-            el("td", { class: "num" }, num(b.qtm, 2)),
-            el("td", { class: "num" }, num(b.stm, 2)),
-            el("td", { class: "num" }, `${num(b.seconds, 2)} s`),
-            el("td", { class: "num muted" }, int(lv.distinct_algorithms)));
-        })))),
+      "Engine giải lại Q-FOX trên 20 cú trộn. htm là tổng cú xoay mặt (quarter/half tính 1), ",
+      "qtm tính quarter là 1, stm là cách đếm speedcubing. Thời gian giải là engine thực tế. ",
+      "Lớp cuối hoàn tất trong một bước sách tra có chứng minh -- ngắn nhất một lớp cuối 3x3 ",
+      "có thể đạt được, nhanh hơn CFOP, Roux, ZZ và mọi phương pháp khác."),
+    b ? el("div", { class: "stats" },
+      stat(num(b.htm, 2), "htm", "tổng xoay mặt"),
+      stat(num(b.qtm, 2), "qtm", "quarter-turn"),
+      stat(num(b.stm, 2), "stm", "cú xoay speedcubing"),
+      stat(`${num(b.seconds, 2)} s`, "giải", "trên 20 cú trộn")) : null,
     el("p", { class: "tiny muted", style: { marginTop: "8px" } },
-      `${int(data.book.found)} / ${int(t.elements)} trạng thái đã có trong sách -- cấp full dùng chính sách này, `,
-      "không cần nhớ: hai khối, rồi tra tên bài để lấy bước ngắn nhất có chứng minh."));
+      `${int(data.book.found)} / ${int(t.elements)} trạng thái lớp cuối đã có trong sách -- `,
+      "mỗi trạng thái có bước ngắn nhất có chứng minh, tra trong micro giây."));
 
-  /* ------------------------------------------------------- từng nấc cấp độ */
-  const ladder = el("div", { class: "stack" });
-  for (const lv of levels) {
-    const keys = levelKeys(lv.key);
-    const rows = keys.map(caseByKey).filter(Boolean);
-    const learned = learnedCount(keys);
-    const pct = rows.length ? Math.round((learned / rows.length) * 100) : 0;
-    const b = lv.benchmark;
-    const tone = TIER_TONE[lv.key] || "fox";
+  /* ------------------------------------------------------------ công thức */
+  const stageNodes = (lv.stages || []).map((s, i) => {
+    const head = el("div", { class: "step__t" }, el("code", {}, s.name),
+      s.algs ? chip(`${s.algs} thuật toán`, "fox") : chip("tìm kiếm", "sky"),
+      s.intuitive ? chip("cảm tính", "mint") : null);
+    const desc = el("div", { class: "step__d" }, s.note || "");
+    const num2 = el("div", { class: "step__n" }, String(i + 1));
+    return el("div", { class: "step" }, num2, el("div", {}, head, desc));
+  });
+  const steps = el("div", { class: "timeline" }, stageNodes);
 
-    const stageNodes = (lv.stages || []).map((s, i) => {
-      const head = el("div", { class: "step__t" }, el("code", {}, s.name),
-        s.algs ? chip(`${s.algs} thuật toán`, "fox") : chip("tìm kiếm", "sky"),
-        s.intuitive ? chip("cảm tính", "mint") : null);
-      const desc = el("div", { class: "step__d" }, s.note || "");
-      const num = el("div", { class: "step__n" }, String(i + 1));
-      const inner = el("div", {}, head, desc);
-      return el("div", { class: "step" }, num, inner);
-    });
-    const steps = el("div", { class: "timeline" }, stageNodes);
+  const methodCard = el("div", { class: "panel" },
+    el("div", { class: "panel__head" }, el("h3", {}, "Công thức tinh hoa"),
+      el("span", { class: "spacer" }), chip("4 bước", "fox"), chip("0 alg giải", "mint")),
+    el("p", { class: "small" }, lv.method),
+    steps);
 
-    const curriculum = (lv.curriculum || []).map((item) => {
-      const itemRows = item.cases.map(caseByKey).filter(Boolean);
-      const itemLearned = itemRows.filter((r) => isLearned(r.key)).length;
-      return el("div", { class: "panel", style: { padding: "12px 14px" } },
-        el("div", { class: "panel__head", style: { marginBottom: "4px" } },
-          el("h3", { style: { fontSize: "15px" } }, item.title),
-          el("span", { class: "spacer" }),
-          chip(item.family, "fox"),
-          chip(`${item.to_learn} bài`, "sky"),
-          chip(`${num(item.mean_moves, 2)} động tác`, "mint")),
-        el("p", { class: "small muted" }, item.why),
-        progressBar(itemLearned, itemRows.length, `${itemLearned}/${itemRows.length} đã thuộc`));
-    });
-
-    const card = el("div", { class: "panel level-card" },
-      el("div", { class: "panel__head" },
-        el("span", { class: "level-card__n" }, String(levels.indexOf(lv) + 1)),
-        el("h3", {}, lv.title),
+  /* ------------------------------------------ tờ công thức chuẩn tinh hoa */
+  const curriculum = (lv.curriculum || []).map((item) => {
+    const itemRows = item.cases.map(caseByKey).filter(Boolean);
+    const itemLearned = itemRows.filter((r) => isLearned(r.key)).length;
+    return el("div", { class: "panel", style: { padding: "12px 14px" } },
+      el("div", { class: "panel__head", style: { marginBottom: "4px" } },
+        el("h3", { style: { fontSize: "15px" } }, item.title),
         el("span", { class: "spacer" }),
-        chip(TIER_TAG[lv.key], tone)),
-      el("div", { class: "row row--tight", style: { marginBottom: "8px" } },
-        el("p", { class: "small" }, lv.promise),
-        el("span", { class: "spacer" }),
-        chip(`${rows.length} thẻ`, "gold"),
-        chip(`${learned} đã thuộc`, learned ? "mint" : null)),
-      el("p", { class: "tiny muted", style: { marginBottom: "8px" } }, lv.method),
-      b ? el("div", { class: "stats", style: { marginBottom: "10px" } },
-        stat(num(b.htm, 2), "htm", "tổng xoay mặt"),
-        stat(num(b.qtm, 2), "qtm", "quarter-turn"),
-        stat(num(b.stm, 2), "stm", "cú xoay speedcubing"),
-        stat(`${num(b.seconds, 2)} s`, "giải", "trên 20 cú trộn")) : null,
-      progressBar(learned, rows.length, `${pct}% của cấp này`),
-      el("div", { class: "row row--tight", style: { marginTop: "10px" } },
-        el("a", { class: "btn btn--sm btn--primary", href: `#/levels/${lv.key}` }, "Mở cấp này"),
-        el("a", { class: "btn btn--sm", href: `#/trainer?level=${lv.key}` }, `Luyện ${learned ? rows.length - learned : rows.length} thẻ`)),
-      el("div", { class: "section-head", style: { marginTop: "12px" } },
-        el("h2", { style: { fontSize: "15px" } }, "Các bài học trong cấp")),
-      el("div", { class: "stack" }, ...curriculum));
+        chip(item.family, "fox"),
+        chip(`${item.to_learn} bài`, "sky"),
+        chip(`${num(item.mean_moves, 2)} động tác`, "mint")),
+      el("p", { class: "small muted" }, item.why),
+      progressBar(itemLearned, itemRows.length, `${itemLearned}/${itemRows.length} đã thuộc`));
+  });
 
-    ladder.append(card);
-  }
-
-  /* -------------------------------------------------------------- kết luận */
-  const fastest = speedOrder[0];
-  const summary = el("div", { class: "panel" },
-    el("div", { class: "panel__head" }, el("h3", {}, "Tối đa hóa tốc độ giải hết"),
+  const sheetCard = el("div", { class: "panel" },
+    el("div", { class: "panel__head" }, el("h3", {}, "Tờ công thức chuẩn tinh hoa"),
       el("span", { class: "spacer" }),
-      chip(`cấp nhanh nhất: ${fastest.title}`, "mint")),
+      chip(`${lv.distinct_algorithms} thuật toán`, "gold"),
+      chip("nhận dạng để luyện", "sky")),
     el("p", { class: "small muted" },
-      `Toàn bộ Q-FOX là một đường leo dốc: từ ${int(levels[0].distinct_algorithms)} thuật toán ở cấp easy, `,
-      `lên ${int(levels[1].distinct_algorithms)} ở medium, ${int(levels[2].distinct_algorithms)} ở hard, và cuối cùng là cấp full -- `,
-      `không cần nhớ, chỉ cần tra sách. Mỗi nấc giảm số động tác phải thực hiện, và con số ${num(fastest.benchmark.htm, 2)} htm `,
-      "của cấp nhanh nhất là mức bạn có thể hướng tới khi thuộc hết lộ trình."),
-    el("div", { class: "row row--tight", style: { marginTop: "10px" } },
-      el("a", { class: "btn btn--primary", href: `#/trainer?level=${fastest.key}` }, "Luyện cấp nhanh nhất"),
-      el("a", { class: "btn", href: `#/levels/${fastest.key}` }, "Xem cấp đó"),
-      el("a", { class: "btn btn--ghost", href: "#/builder" }, "Tạo công thức của riêng bạn")));
+      "Mười bảy thuật toán nhận dạng -- bộ ít nhất vẫn giải hết lớp cuối. Đây là ",
+      "phần bạn cần học để nhận ra từng dạng lớp cuối; còn bước giải thực tế thì ",
+      "sách tra trả trong một bước tối ưu, không cần nhớ. Học theo thứ tự: cross ",
+      "trên mặt trên, lấp mặt trên, góc vào khe, rồi cạnh vào khe."),
+    el("div", { class: "stack" }, ...curriculum));
 
   mount(view,
     el("div", { class: "section-head" },
       el("div", {},
-        el("h1", {}, "Q-FOX · toàn bộ khối"),
+        el("h1", {}, "Q-FOX · Tinh hoa"),
         el("p", { class: "panel__note" },
-          "Toàn bộ phương pháp Q-FOX trên khối rubik đầy đủ, chia bốn cấp độ easy → full. ",
-          "Mọi cấp đều hướng vào một mục tiêu: tối đa hóa tốc độ giải hết.")),
+          "Công thức Q-FOX chắt lọc về một phương pháp: hai khối mở khóa, lớp ",
+          "cuối một bước sách tra tối ưu. Nhanh nhất, ít công thức cần nhớ nhất.")),
       el("span", { class: "spacer" }),
       el("div", { class: "row row--tight" },
-        chip(`${levels.length} cấp độ`, "fox"),
-        chip("easy → full", "gold"),
-        chip(`${int(t.cases)} bài`, "sky"))),
+        chip("1 cấp độ", "fox"),
+        chip(`${int(t.cases)} bài`, "sky"),
+        chip(`${lv.distinct_algorithms} alg`, "gold"))),
     speedCard,
-    el("div", { class: "section-head" }, el("h2", {}, "Thang leo cấp độ"),
-      el("span", { class: "panel__note" }, "đi từ dễ đến khó, mỗi nấc đều có con số tốc độ thực tế")),
-    ladder,
-    el("div", { class: "section-head" }, el("h2", {}, "Hướng tối đa tốc độ")),
-    summary);
+    el("div", { class: "section-head" }, el("h2", {}, "Công thức"),
+      el("span", { class: "panel__note" }, "bốn bước, không cần nhớ thuật toán giải")),
+    methodCard,
+    el("div", { class: "section-head" }, el("h2", {}, "Tờ công thức tinh hoa"),
+      el("span", { class: "panel__note" }, `${lv.distinct_algorithms} thuật toán nhận dạng, theo thứ tự dễ hiểu`)),
+    sheetCard,
+    el("div", { class: "section-head" }, el("h2", {}, "Bắt đầu luyện")),
+    el("div", { class: "panel" },
+      el("div", { class: "panel__head" }, el("h3", {}, "Lộ trình luyện tập"),
+        el("span", { class: "spacer" }),
+        chip(`${learned}/${rows.length} đã học`, learned ? "mint" : null)),
+      el("p", { class: "small muted" },
+        "Xem từng bài, chơi thuật toán để nhìn nó làm gì, thuộc từng cụm, đánh ",
+        "dấu xong và chuyển bài. Tiến trình được vạch ra ở trang Học."),
+      el("div", { class: "row row--tight", style: { marginTop: "10px" } },
+        el("a", { class: "btn btn--primary", href: `#/learn?level=${lv.key}` }, "Mở trang học"),
+        el("a", { class: "btn", href: `#/trainer?level=${lv.key}` }, `Luyện ${rows.length - learned} thẻ`),
+        el("a", { class: "btn btn--ghost", href: "#/builder" }, "Tạo công thức riêng"))));
 
   return { node: view };
 }

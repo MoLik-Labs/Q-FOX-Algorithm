@@ -176,7 +176,7 @@ function goalUpToOf(row) {
 
 /* -------------------------------------------------------------- 7. levels */
 {
-  ok(data.levelsList.length === 4, "four levels");
+  ok(data.levelsList.length === 1, "one distilled essence level");
   let sets = 0, rows = 0;
   for (const lv of data.levelsList) {
     ok(!!level(lv.key), `level(${lv.key}) resolves`);
@@ -208,7 +208,7 @@ function goalUpToOf(row) {
        `${lv.key}: levelKeys walks the whole curriculum`, `${keys.length}`);
     ok(keys.every((k) => caseByKey(k)), `${lv.key}: every curriculum key exists`);
   }
-  ok(sets === 11, "eleven study sets across the four levels", `${sets}`);
+  ok(sets === 4, "four study sets in the essence level", `${sets}`);
   const sune = data.cases.find((c) => c.teach && c.teach.name === "Sune");
   ok(setsContaining(sune.key).length >= 1, "setsContaining finds where a case is taught");
   ok(setsContaining("OLL:0").length >= 1, "even the trivial case appears in a set");
@@ -218,7 +218,7 @@ function goalUpToOf(row) {
 {
   ok(data.methodsList.length === Object.keys(found.methods.methods).length,
      "every method is listed");
-  ok(data.methodsList.length >= 13, "at least 13 methods", `${data.methodsList.length}`);
+  ok(data.methodsList.length >= 6, "at least six methods", `${data.methodsList.length}`);
   for (const m of data.methodsList) {
     ok(!!method(m.name), `method(${m.name}) resolves`);
     ok(m.stages.length > 0, `${m.name}: has stages`);

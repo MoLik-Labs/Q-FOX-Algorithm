@@ -145,9 +145,9 @@ for (const f of data.families) routes.push(`#/algorithms/${f.key}`);
 routes.push("#/algorithms", "#/algorithms?q=sune", "#/algorithms?sort=length&learned=todo",
             "#/algorithms?named=1");
 for (const m of data.methodsList) routes.push(`#/methods/${encodeURIComponent(m.name)}`);
-routes.push("#/methods", "#/learn", "#/learn?level=easy", "#/learn?level=full",
+routes.push("#/methods", "#/learn", "#/learn?level=essence",
             "#/trainer", "#/trainer?mode=recognise", "#/trainer?mode=flash",
-            "#/trainer?level=easy", "#/trainer?family=PLL",
+            "#/trainer?level=essence", "#/trainer?family=PLL",
             `#/trainer?keys=${data.cases.slice(0, 4).map((c) => c.key).join(",")}`,
             "#/benchmark", "#/benchmark?method=Roux", "#/engine", "#/about", "#/records",
             "#/nonsense-route-falls-back-to-home");
@@ -215,7 +215,7 @@ for (const route of routes) {
 }
 
 /* --------------------------------------------------- controls on every route */
-for (const route of ["#/", "#/levels", "#/levels/easy", "#/algorithms", "#/algorithms/PLL",
+for (const route of ["#/", "#/levels", "#/levels/essence", "#/algorithms", "#/algorithms/PLL",
                      "#/trainer", "#/methods", "#/methods/Roux", "#/benchmark", "#/engine", "#/about"]) {
   dom.hash(route);
   await settle(4);

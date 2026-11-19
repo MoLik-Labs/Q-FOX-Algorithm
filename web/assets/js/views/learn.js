@@ -38,7 +38,7 @@ export function render(params = {}, query = {}) {
 
   const levels = data.levelsList;
   const startLevel = query.level
-    || (params.key in { easy: 1, medium: 1, hard: 1, full: 1 } ? params.key : null)
+    || (params.key && levels.some((l) => l.key === params.key) ? params.key : null)
     || (levels[0] && levels[0].key);
   let levelKey = levels.some((l) => l.key === startLevel) ? startLevel : levels[0].key;
 
