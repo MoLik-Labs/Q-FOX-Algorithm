@@ -32,7 +32,8 @@ export async function renderTextbookPage(rows, opts = {}) {
   const c = document.createElement("canvas");
   c.width = PAGE_W; c.height = PAGE_H;
   const ctx = c.getContext("2d");
-  const pal = PNG_PALETTE[isLight() ? "light" : "dark"];
+  const bw = !!opts.bw;
+  const pal = bw ? BW_PALETTE : PNG_PALETTE[isLight() ? "light" : "dark"];
   const S = RENDER_SCALE;
 
   // nền trang -- trắng cho in (mặc dù web dark, file in ra trắng)
@@ -68,7 +69,7 @@ export async function renderTextbookPage(rows, opts = {}) {
   const gridX = margin + Math.max(0, (PAGE_W - margin * 2 - gridW) / 2);
 
   // rasterize sơ đồ cho từng bài
-  const diagrams = await Promise.all(rows.map((row) => rasterizeForPdf(row, detail ? 110 : 120)));
+  const diagrams = await Promise.all(rows.map((row) => rasterizeForPdf(row, detail ? 110 : 120, bw)));
 
   let y = headBottom + Math.round(16 * S);
   let col = 0;
@@ -79,7 +80,7 @@ export async function renderTextbookPage(rows, opts = {}) {
     // vẽ thẻ -- scale vì drawCaseCard dùng px nhỏ, phóng lên
     ctx.save();
     ctx.scale(S, S);
-    drawCaseCardAt(ctx, rows[i], x / S, y / S, cardW / S, { theme: "light", detail }, diagrams[i]);
+    drawCaseCardAt(ctx, rows[i], x / S, y / S, cardW / S, { theme: "light", detail, bw }, diagrams[i]);
     ctx.restore();
     col++;
     if (col >= cols) { col = 0; y += cardH + gapY; }
@@ -97,7 +98,8 @@ export async function renderTextbookPage(rows, opts = {}) {
 
 /** Vẽ một thẻ bài ở kích thước px (phóng scale đã xử lý ngoài). */
 function drawCaseCardAt(ctx, row, x, y, w, opts, diagramCanvas) {
-  const pal = PNG_PALETTE[opts.theme || "light"];
+  const bw = !!opts.bw;
+  const pal = bw ? BW_PALETTE : PNG_PALETTE[opts.theme || "light"];
   const detail = !!opts.detail;
   const teach = row.teach || {};
   const pad = 10;
@@ -140,7 +142,7 @@ function drawCaseCardAt(ctx, row, x, y, w, opts, diagramCanvas) {
     ctx.fillStyle = pal.muted;
     ctx.font = "600 8px ui-sans-serif, system-ui, sans-serif";
     ctx.fillText("GHI NHỚ", tx, cy); cy += 11;
-    ctx.fillStyle = "#8a4b08";
+    ctx.fillStyle = bw ? pal.muted : "#8a4b08";
     ctx.font = "500 8px ui-sans-serif, system-ui, sans-serif";
     wrapTextC(ctx, teach.mnemonic, tx, cy, tw, 10);
     cy += 22;
@@ -148,7 +150,7 @@ function drawCaseCardAt(ctx, row, x, y, w, opts, diagramCanvas) {
   ctx.fillStyle = pal.muted;
   ctx.font = "600 8px ui-sans-serif, system-ui, sans-serif";
   ctx.fillText("THUẬT TOÁN", tx, cy); cy += 12;
-  drawAlgLineC(ctx, (row.teach ? row.teach.algorithm : (row.algorithm || "—")), tx, cy, tw, pal);
+  drawAlgLineC(ctx, (row.teach ? row.teach.algorithm : (row.algorithm || "—")), tx, cy, tw, pal, bw);
 
   if (detail && teach.chunks) {
     const chY = imgY + imgSize + 6;
@@ -172,12 +174,12 @@ function drawCaseCardAt(ctx, row, x, y, w, opts, diagramCanvas) {
   ctx.font = "500 8px ui-sans-serif, system-ui, sans-serif";
   ctx.fillText((row.stm || row.count) + " động tác · htm " + (row.htm || 0), x + pad, sy);
   ctx.textAlign = "right";
-  ctx.fillStyle = row.verified ? "#1f9d63" : "#d63848";
+  ctx.fillStyle = bw ? pal.ink : (row.verified ? "#1f9d63" : "#d63848");
   ctx.fillText(row.verified ? "✓ kiểm chứng" : "chưa kiểm chứng", x + w - pad, sy);
   ctx.textAlign = "left";
 }
 
-function drawAlgLineC(ctx, alg, x, y, w, pal) {
+function drawAlgLineC(ctx, alg, x, y, w, pal, bw) {
   const tokens = String(alg || "—").split(/\s+/).filter(Boolean);
   let cx = x, lineH = 13;
   ctx.font = "700 10px ui-monospace, monospace";
@@ -185,7 +187,7 @@ function drawAlgLineC(ctx, alg, x, y, w, pal) {
   for (const t of tokens) {
     const tw = ctx.measureText(t + " ").width;
     if (cx + tw > x + w && cx > x) { cx = x; y += lineH; }
-    ctx.fillStyle = moveColour(t);
+    ctx.fillStyle = bw ? pal.ink : moveColour(t);
     ctx.fillText(t, cx, y);
     cx += tw;
   }
@@ -219,10 +221,10 @@ function wrapTextC(ctx, text, x, y, maxW, lineH) {
   if (line) ctx.fillText(line, x, y);
 }
 
-/** Rasterize sơ đồ lớp trên cho PDF -- nền trắng, màu rubik thật. */
-async function rasterizeForPdf(row, size) {
+/** Rasterize sơ đồ lớp trên cho PDF -- nền trắng, màu rubik thật hoặc B&W. */
+async function rasterizeForPdf(row, size, bw) {
   if (!canCanvas()) return null;
-  const svg = topLayer(row.state, { size, skirt: true });
+  const svg = topLayer(row.state, { size, skirt: true, bw });
   try {
     const ser = new XMLSerializer().serializeToString(svg);
     const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(ser);
@@ -249,6 +251,12 @@ function canCanvas() {
 const PNG_PALETTE = {
   light: { bg: "#f6f4f0", surface: "#ffffff", line: "#d9d7d0", ink: "#1b2230", muted: "#5c6678", plate: "#ecebe5" },
   dark: { bg: "#0b0e14", surface: "#141a24", line: "#262f3d", ink: "#e7ecf5", muted: "#8d99b0", plate: "#1c2433" },
+};
+
+/** Palette 2 màu đen/trắng cho sách in B&W -- không cần màu vẫn học được. */
+const BW_PALETTE = {
+  bg: "#ffffff", surface: "#ffffff", line: "#111111", ink: "#111111",
+  muted: "#444444", plate: "#f0f0f0",
 };
 
 /** Trạng thái theme hiện tại (file in luôn dùng nền trắng -- chỉ dùng cho màu chip). */
@@ -453,6 +461,7 @@ export async function exportCasesPdfFile(rows, opts = {}) {
     return exportCasesPdf(rows, opts);
   }
   const detail = !!opts.detail;
+  const bw = !!opts.bw;
   const title = opts.title || "Q-FOX · Sách giáo khoa thuật toán";
   const subtitle = opts.subtitle || rows.length + " bài · " + new Date().toLocaleDateString("vi-VN");
 
@@ -466,7 +475,7 @@ export async function exportCasesPdfFile(rows, opts = {}) {
     if (!pageRows.length) return;
     const canvas = renderTextbookPage(pageRows, {
       title: title + (chapterLabel ? " · " + chapterLabel : ""),
-      subtitle, detail, pageLabel: `${pages.length + 1}`,
+      subtitle, detail, bw, pageLabel: `${pages.length + 1}`,
     });
     pages.push(canvas);
     pageRows = [];
