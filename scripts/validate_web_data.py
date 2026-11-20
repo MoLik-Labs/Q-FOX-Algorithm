@@ -613,8 +613,9 @@ def check_schema(data, book):
                 if not st_.get("goal"):
                     bad.append(f"methods: {name}/{st_.get('name')} has no goal")
     tiers = [lv["key"] for lv in levels["levels"]]
-    if tiers != ["essence"]:
-        bad.append(f"levels: tiers must be ['essence'], got {tiers}")
+    if tiers != ["essence", "easy", "medium", "tiny", "low", "flow"]:
+        bad.append(f"levels: tiers must be ['essence','easy','medium',"
+                   f"'tiny','low','flow'], got {tiers}")
     for lv in levels["levels"]:
         for key in ("title", "who", "promise", "path", "algs", "stages", "method"):
             if key not in lv:

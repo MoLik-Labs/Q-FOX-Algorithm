@@ -194,8 +194,8 @@ const M = createModel(engine);
   const book = read("book.json");
   const bench = read("benchmark.json");
 
-  ok(levels.levels.map((l) => l.key).join(",") === "essence",
-     "the essence level is exported");
+  ok(levels.levels.map((l) => l.key).join(",") === "essence,easy,medium,tiny,low,flow",
+     "the essence level and the five human tiers are exported");
   for (const lv of levels.levels) {
     ok(Array.isArray(lv.curriculum) && lv.curriculum.length > 0, `${lv.key} has a curriculum`);
     for (const item of lv.curriculum || []) {

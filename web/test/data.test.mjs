@@ -176,7 +176,7 @@ function goalUpToOf(row) {
 
 /* -------------------------------------------------------------- 7. levels */
 {
-  ok(data.levelsList.length === 1, "one distilled essence level");
+  ok(data.levelsList.length === 6, "the essence level plus five human tiers");
   let sets = 0, rows = 0;
   for (const lv of data.levelsList) {
     ok(!!level(lv.key), `level(${lv.key}) resolves`);
@@ -208,7 +208,7 @@ function goalUpToOf(row) {
        `${lv.key}: levelKeys walks the whole curriculum`, `${keys.length}`);
     ok(keys.every((k) => caseByKey(k)), `${lv.key}: every curriculum key exists`);
   }
-  ok(sets === 4, "four study sets in the essence level", `${sets}`);
+  ok(sets === 11, "six levels carry eleven study sets", `${sets}`);
   const sune = data.cases.find((c) => c.teach && c.teach.name === "Sune");
   ok(setsContaining(sune.key).length >= 1, "setsContaining finds where a case is taught");
   ok(setsContaining("OLL:0").length >= 1, "even the trivial case appears in a set");
