@@ -98,6 +98,19 @@ const PNG_PALETTE = {
   light: { bg: "#f6f4f0", surface: "#ffffff", line: "#e2e0d8", ink: "#1b2230", muted: "#5c6678", plate: "#ecebe5" },
 };
 
+/** Palette 2 màu đen/trắng -- in ra không cần màu vẫn đọc được. */
+const BW_PALETTE = {
+  bg: "#ffffff", surface: "#ffffff", line: "#111111", ink: "#111111",
+  muted: "#444444", plate: "#f0f0f0",
+};
+
+/** Chọn palette theo theme hoặc mode B&W. */
+function paletteFor(opts) {
+  if (opts && opts.bw) return BW_PALETTE;
+  const theme = (opts && opts.theme) || (isLight() ? "light" : "dark");
+  return PNG_PALETTE[theme];
+}
+
 /**
  * Vẽ một thẻ bài vào canvas tại vị trí (x, y).
  *
@@ -107,7 +120,8 @@ const PNG_PALETTE = {
  * @param {object} opts { theme }
  */
 export function drawCaseCard(ctx, row, x, y, w, opts = {}) {
-  const pal = PNG_PALETTE[opts.theme || (isLight() ? "light" : "dark")];
+  const pal = paletteFor(opts);
+  const bw = !!opts.bw;
   const detail = !!opts.detail;
   const teach = row.teach || {};
   const pad = 14;
@@ -163,19 +177,19 @@ export function drawCaseCard(ctx, row, x, y, w, opts = {}) {
     ctx.font = "600 10px ui-sans-serif, system-ui, sans-serif";
     ctx.fillText("GHI NHỚ", tx, cy);
     cy += 14;
-    ctx.fillStyle = "#8a4b08";
+    ctx.fillStyle = bw ? pal.muted : "#8a4b08";
     ctx.font = "500 10px ui-sans-serif, system-ui, sans-serif";
     wrapText(ctx, teach.mnemonic, tx, cy, tw, 13);
     cy += 26;
   }
 
-  // thuật toán -- vẽ từng động tác màu
+  // thuật toán -- vẽ từng động tác màu (B&W thì toàn màu đen)
   ctx.fillStyle = pal.muted;
   ctx.font = "600 10px ui-sans-serif, system-ui, sans-serif";
   ctx.fillText("THUẬT TOÁN", tx, cy);
   cy += 15;
   const alg = row.teach ? row.teach.algorithm : (row.algorithm || "—");
-  drawAlgLine(ctx, alg, tx, cy, tw, pal);
+  drawAlgLine(ctx, alg, tx, cy, tw, pal, bw);
 
   // cụm (detail)
   if (detail && teach.chunks && teach.chunks.length) {
@@ -204,14 +218,14 @@ export function drawCaseCard(ctx, row, x, y, w, opts = {}) {
 
   // footer: engine đã kiểm chứng
   ctx.textAlign = "right";
-  ctx.fillStyle = row.verified ? "#1f9d63" : "#d63848";
+  ctx.fillStyle = bw ? pal.ink : (row.verified ? "#1f9d63" : "#d63848");
   ctx.fillText(row.verified ? "✓ engine kiểm chứng" : "chưa kiểm chứng", x + w - pad, sy);
   ctx.textAlign = "left";
   return h;
 }
 
-/** Vẽ một dòng thuật toán, mỗi động tác màu riêng. */
-function drawAlgLine(ctx, alg, x, y, w, pal) {
+/** Vẽ một dòng thuật toán, mỗi động tác màu riêng -- B&W thì toàn đen. */
+function drawAlgLine(ctx, alg, x, y, w, pal, bw) {
   const tokens = String(alg || "—").split(/\s+/).filter(Boolean);
   let cx = x;
   const lineH = 16;
@@ -221,7 +235,7 @@ function drawAlgLine(ctx, alg, x, y, w, pal) {
   for (const t of tokens) {
     const tw = ctx.measureText(t + "  ").width;
     if (cx + tw > x + w && cx > x) { cx = x; line++; y += lineH; }
-    ctx.fillStyle = moveColour(t);
+    ctx.fillStyle = bw ? pal.ink : moveColour(t);
     ctx.fillText(t, cx, y);
     cx += tw;
   }
@@ -249,6 +263,7 @@ export async function exportCasesPng(rows, opts = {}) {
     return exportCasesPdf(rows, opts);
   }
   const detail = !!opts.detail;
+  const bw = !!opts.bw;
   const cols = opts.cols || (detail ? 2 : 3);
   const pad = 24;
   const cardW = 280;
@@ -279,7 +294,7 @@ export async function exportCasesPng(rows, opts = {}) {
   c.height = titleH + maxRow + pad * 2;
   const ctx = c.getContext("2d");
 
-  const pal = PNG_PALETTE[isLight() ? "light" : "dark"];
+  const pal = paletteFor({ bw });
   ctx.fillStyle = pal.bg;
   ctx.fillRect(0, 0, c.width, c.height);
 
@@ -292,7 +307,7 @@ export async function exportCasesPng(rows, opts = {}) {
   ctx.fillText(rows.length + " bài · xuất " + new Date().toLocaleDateString("vi-VN"), pad, 42);
 
   const drawn = await Promise.all(rows.map((row) => new Promise((res) => {
-    const svg = topLayer(row.state, { size: detail ? 100 : 120, skirt: true });
+    const svg = topLayer(row.state, { size: detail ? 100 : 120, skirt: true, bw });
     rasterizeSvg(svg, detail ? 100 : 120, detail ? 100 : 120).then(res).catch(() => res(null));
   })));
 
@@ -302,7 +317,7 @@ export async function exportCasesPng(rows, opts = {}) {
     const col = colOf[i];
     const x = pad + col * (cardW + gapX);
     const y = colY[col];
-    drawCaseCard(ctx, rows[i], x, y, cardW, { theme: isLight() ? "light" : "dark", detail });
+    drawCaseCard(ctx, rows[i], x, y, cardW, { theme: isLight() ? "light" : "dark", detail, bw });
     const imgCanvas = drawn[i];
     if (imgCanvas) {
       const imgSize = detail ? 100 : 120;
@@ -338,6 +353,7 @@ export function exportCasesPdf(rows, opts = {}) {
   const subtitle = opts.subtitle || rows.length + " bài · " + new Date().toLocaleDateString("vi-VN");
   const detail = !!opts.detail;
   const chapters = !!opts.chapters;
+  const bw = !!opts.bw;
 
   // nhóm theo họ nếu có chương -- mỗi họ là một chương sách
   const groups = chapters
@@ -348,7 +364,7 @@ export function exportCasesPdf(rows, opts = {}) {
     const head = g.label
       ? `<div class="chapter"><h2>${escapeHtml(g.label)}</h2><p class="chapter__meta">${g.rows.length} bài</p></div>`
       : "";
-    const cards = g.rows.map((row) => caseCardHtml(row, { detail })).join("\n");
+    const cards = g.rows.map((row) => caseCardHtml(row, { detail, bw })).join("\n");
     return head + `<div class="cards">${cards}</div>`;
   }).join("\n");
 
@@ -384,6 +400,8 @@ export function exportCasesPdf(rows, opts = {}) {
   .card__foot { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: #f4f2ee; border-top: 1px solid #e8e5de; font-size: 9px; color: #5c6678; }
   .card__foot .ok { color: #1f9d63; font-weight: 600; }
   .card__foot .bad { color: #d63848; font-weight: 600; }
+  .card__foot .ok.bw, .card__foot .bad.bw { color: #111; }
+  .card__foot .ok.bw { font-weight: 700; }
   .doc-foot { margin-top: 16px; padding-top: 8px; border-top: 1px solid #d9d7d0; color: #5c6678; font-size: 10px; display: flex; justify-content: space-between; }
 </style></head>
 <body>
@@ -426,16 +444,17 @@ function groupByFamily(rows) {
 /** HTML của một thẻ bài cho PDF -- SVG in vector. */
 function caseCardHtml(row, opts = {}) {
   const detail = !!(opts && opts.detail);
-  const svg = topLayer(row.state, { size: detail ? 120 : 132, skirt: true });
+  const bw = !!(opts && opts.bw);
+  const svg = topLayer(row.state, { size: detail ? 120 : 132, skirt: true, bw });
   const svgStr = new XMLSerializer().serializeToString(svg);
   const name = (row.teach && row.teach.name) || (row.names && row.names[0]) || row.desc.pattern.split(" / ")[0];
   const rec = (row.teach && row.teach.recognise) || row.desc.pattern;
   const alg = row.teach ? row.teach.algorithm : (row.algorithm || "—");
   const algSpan = String(alg).split(/\s+/).filter(Boolean).map((t) =>
-    `<span style="color:${moveColour(t)}">${escapeHtml(t)}</span>`).join(" ");
+    `<span style="color:${bw ? "#111" : moveColour(t)}">${escapeHtml(t)}</span>`).join(" ");
   const verified = row.verified
-    ? `<span class="ok">✓ engine kiểm chứng</span>`
-    : `<span class="bad">chưa kiểm chứng</span>`;
+    ? `<span class="ok${bw ? " bw" : ""}">✓ engine kiểm chứng</span>`
+    : `<span class="bad${bw ? " bw" : ""}">chưa kiểm chứng</span>`;
   const teach = row.teach || {};
   const cls = "card" + (detail ? " card--detail" : "");
   let extra = "";

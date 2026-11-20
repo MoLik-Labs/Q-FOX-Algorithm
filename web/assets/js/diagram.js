@@ -27,23 +27,35 @@ export const TOP_LAYER = (() => {
   return out;
 })();
 
+/** Chữ mặt mỗi hướng pháp tuyến -- dùng để biết dán nào đã đúng màu. */
+function faceLetter(dx, dy, dz) {
+  if (dy === 1) return "U";
+  if (dz === 1) return "F";
+  if (dz === -1) return "B";
+  if (dx === 1) return "R";
+  return "L";
+}
+
 /**
  * Lớp cuối nhìn từ trên xuống: mặt U với các dán bên hiển thị phía trên
  * các mặt F, R, B và L.
  *
  * @param {string} state  54 dán theo thứ tự engine (U R F D L B)
- * @param {object} opts   { size, skirt, marks }
+ * @param {object} opts   { size, skirt, marks, bw }
+ *   - `bw`: vẽ 2 màu đen/trắng -- dán nào đúng màu mặt nó thì đen, còn lại
+ *     trắng. Học viên in ra trắng đen vẫn nhận dạng được hình dáng bài.
  */
 export function topLayer(state, opts = {}) {
   const size = opts.size || 104;
   const skirt = opts.skirt !== false;
+  const bw = !!opts.bw;
   const grid = skirt ? 5 : 3;
   const cell = size / grid;
   const pad = Math.max(0.75, cell * 0.08);
 
   const svg = svgEl("svg", {
     viewBox: `0 0 ${size} ${size}`, width: size, height: size,
-    class: "diagram", role: "img",
+    class: "diagram" + (bw ? " diagram--bw" : ""), role: "img",
   });
   svg.append(svgEl("rect", {
     x: 0, y: 0, width: size, height: size, rx: cell * 0.3, class: "diagram__plate",
@@ -73,11 +85,17 @@ export function topLayer(state, opts = {}) {
     }
     const px = col * cell;
     const py = row * cell;
+    // B&W: đen nếu dán đúng màu mặt nó, trắng nếu chưa.
+    const fill = bw
+      ? (state[f.index] === faceLetter(dx, dy, dz) ? "#111111" : "#ffffff")
+      : (FACE_COLOUR[state[f.index]] || "#333");
     svg.append(svgEl("rect", {
       x: px + pad, y: py + pad,
       width: cell - pad * 2, height: cell - pad * 2,
       rx: cell * 0.2,
-      fill: FACE_COLOUR[state[f.index]] || "#333",
+      fill,
+      stroke: bw ? "#111111" : null,
+      "stroke-width": bw ? 0.6 : 0,
       class: `diagram__st diagram__st--${dy === 1 ? "top" : "side"}`,
     }));
   }

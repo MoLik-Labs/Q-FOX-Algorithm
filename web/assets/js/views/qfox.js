@@ -92,12 +92,27 @@ export function render(params = {}) {
     el("div", { class: "panel__head" }, el("h3", {}, "Tờ công thức chuẩn tinh hoa"),
       el("span", { class: "spacer" }),
       chip(`${lv.distinct_algorithms} thuật toán`, "gold"),
-      chip("nhận dạng để luyện", "sky")),
+      chip("nhận dạng để luyện", "sky"),
+      chip("2 màu in được", "mint")),
     el("p", { class: "small muted" },
       "Mười bảy thuật toán nhận dạng -- bộ ít nhất vẫn giải hết lớp cuối. Đây là ",
       "phần bạn cần học để nhận ra từng dạng lớp cuối; còn bước giải thực tế thì ",
       "sách tra trả trong một bước tối ưu, không cần nhớ. Học theo thứ tự: cross ",
       "trên mặt trên, lấp mặt trên, góc vào khe, rồi cạnh vào khe."),
+    el("div", { class: "row row--tight", style: { marginBottom: "12px" } },
+      el("button", { class: "btn btn--sm btn--primary", type: "button",
+        title: "Tải file PDF 2 màu đen/trắng -- in ra học được",
+        onClick: async () => {
+          toast("Đang tạo file PDF 2 màu…", "info");
+          await exportCasesPdfFile(data.cases, { title: "Q-FOX · Tinh hoa · 2 màu", detail: true, chapters: true, bw: true, filename: "qfox-essence-bw" });
+          toast("Đã tải file PDF 2 màu -- in ra học", "ok");
+        } }, "Tải PDF 2 màu"),
+      el("button", { class: "btn btn--sm", type: "button",
+        title: "In tờ công thức 2 màu",
+        onClick: () => exportCasesPdf(data.cases, { title: "Q-FOX · Tinh hoa · 2 màu", subtitle: `${data.cases.length} bài · ${new Date().toLocaleDateString("vi-VN")}`, detail: true, chapters: true, bw: true }) }, "In 2 màu"),
+      el("button", { class: "btn btn--sm", type: "button",
+        title: "Xuất ảnh PNG 2 màu",
+        onClick: () => { toast("Đang vẽ ảnh PNG 2 màu…", "info"); exportCasesPng(data.cases, { title: "Q-FOX · Tinh hoa · 2 màu", cols: 3, detail: true, bw: true, filename: "qfox-essence-bw" }); } }, "PNG 2 màu")),
     el("div", { class: "stack" }, ...curriculum));
 
   mount(view,
