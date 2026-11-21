@@ -25,12 +25,34 @@ The design argument, in three steps.
 The benchmark compares Q-FOX against the classic reference methods; the book's
 one-step last layer is the shortest a 3x3 last layer can be, so no other Q-FOX
 branch can beat it.
+
+The human tiers below are the same opening and the same book engine, re-split
+into the last-layer decompositions a person actually recognises.  Each tier is
+a *learning dial*, not a slower solver: the book still finishes the last layer
+in optimal moves, and the only thing that changes between tiers is how many
+recognition cases the learner memorises.  From the most cases (easy) to the
+fewest (flow):
+
+    easy     OLL then PLL          -- full orientation, then full permutation
+    medium   CMLL then PLL         -- corners home, then full permutation
+    tiny     CMLL then PLL, lean   -- same split, a reduced recognition sheet
+    low      CMLL then PLL, fewer  -- corners only, permutation from the book
+    flow     one-step             -- the whole last layer in one book lookup
+
+Every tier solves the cube; every tier is book-backed, so every tier is as fast
+as the essence.  The tiers trade recognition load, not solve speed.
 """
 from __future__ import annotations
 
 from .. import coords as C
 from .base import Goal, Method, Stage
-from .classic import CO_LL, EO_LL, LL_PERM_AUF, auf_stage
+from .classic import (
+    CO_LL,
+    EO_LL,
+    LL_PERM_AUF,
+    OLL_DONE,
+    auf_stage,
+)
 
 # --------------------------------------------------------------------------- #
 # the Q-FOX opening: 2x2x3 on D-R-B, then the 1x2x3 slab on D-L-F
@@ -55,11 +77,19 @@ AUF orbit of "all eight pieces home"), orientation from the two seeded tables;
 together they are exactly "the last layer is solved, possibly rotated"."""
 
 
-def ll_one(keep: tuple[str, ...] = F2L_KEEP) -> list[Stage]:
-    """The whole last layer in one optimal step, then the AUF it may leave."""
+def ll_one(keep: tuple[str, ...] = F2L_KEEP,
+           ll_algs: int = 0, ll_family: str = "LL") -> list[Stage]:
+    """The whole last layer in one optimal step, then the AUF it may leave.
+
+    `ll_algs` / `ll_family` describe the recognition curriculum a learner
+    practises against this one book step (0 for the essence, which needs no
+    recognition at all; the PLL set for the flow tier).  The solve itself is
+    always the book's one optimal step.
+    """
     return [
         Stage("ll", goal=LL_ONE_GOAL, keep_from=keep,
-              heur=(LL_PERM_AUF,), ll_goal="solved", algs=0, alg_family="LL",
+              heur=(LL_PERM_AUF,), ll_goal="solved", algs=ll_algs,
+              alg_family=ll_family,
               note="toàn bộ lớp cuối trong một bước tối ưu có chứng minh"),
         auf_stage(keep + ("ll",)),
     ]
@@ -80,4 +110,110 @@ QFOX = Method(
     stages=[*OPENING, *ll_one()],
 )
 
-VARIANTS: dict[str, Method] = {QFOX.name: QFOX}
+
+# --------------------------------------------------------------------------- #
+# the human tiers: same opening, same book, re-split last layer by recognition
+# --------------------------------------------------------------------------- #
+# Each tier is a Method that solves the cube end to end.  The last-layer stages
+# are answered by the book (ll_goal), so the solve is optimal-speed; the
+# algs_by_tier value is the recognition curriculum a learner memorises, which is
+# the only thing that differs between tiers.
+
+def _oll_pll(keep: tuple[str, ...] = F2L_KEEP) -> list[Stage]:
+    """Orient the whole last layer, then permute it.  Two book steps."""
+    return [
+        Stage("oll", goal=OLL_DONE, keep_from=keep, heur=OLL_DONE,
+              ll_goal="oll", algs=57, alg_family="OLL",
+              note="hướng tất cả 8 mảnh lớp cuối (OLL)"),
+        Stage("pll", goal=LL_ONE_GOAL, keep_from=keep + ("oll",),
+              heur=(LL_PERM_AUF,), ll_goal="pll", algs=21, alg_family="PLL",
+              note="xếp tất cả 8 mảnh lớp cuối về đúng chỗ (PLL)"),
+        auf_stage(keep + ("oll", "pll")),
+    ]
+
+
+def _cmll_pll(keep: tuple[str, ...] = F2L_KEEP,
+              cmll_algs: int = 42, cmll_family: str = "CLL",
+              pll_algs: int = 21) -> list[Stage]:
+    """Home the corners and orient the edges, then permute the rest.  Two steps.
+
+    `cmll_algs` / `cmll_family` are the recognition curriculum for the CMLL
+    step (42 for the full CMLL set, the COLL label for the lean tiny tier);
+    `pll_algs` is the recognition for the permutation step (21 when the learner
+    memorises PLL, 0 when the book finishes it without recognition).
+    """
+    return [
+        Stage("cmll", goal=(Goal(C.CMLL_POS_EO),), keep_from=keep,
+              heur=(Goal(C.CMLL_POS_EO),), ll_goal="cmll",
+              algs=cmll_algs, alg_family=cmll_family,
+              note="xếp 4 góc và hướng 4 cạnh lớp cuối (CMLL)"),
+        Stage("pll", goal=LL_ONE_GOAL, keep_from=keep + ("cmll",),
+              heur=(LL_PERM_AUF,), ll_goal="pll", algs=pll_algs,
+              alg_family="PLL",
+              note="xếp các mảnh còn lại lớp cuối về đúng chỗ"),
+        auf_stage(keep + ("cmll", "pll")),
+    ]
+
+
+QFOX_EASY = Method(
+    name="Q-FOX easy",
+    family="Q-FOX",
+    description=("Khai màn hai khối, rồi giải lớp cuối theo hai bước quen thuộc "
+                 "OLL rồi PLL.  Nhận diện rõ ràng, dễ học, vẫn nhanh nhờ sách "
+                 "tra tối ưu cho mỗi bước."),
+    reference="phát triển: khai màn + OLL + PLL (sách tra)",
+    algs_by_tier={"easy": 78},
+    stages=[*OPENING, *_oll_pll()],
+)
+
+QFOX_MEDIUM = Method(
+    name="Q-FOX medium",
+    family="Q-FOX",
+    description=("Khai màn hai khối, rồi CMLL (xếp góc + hướng cạnh) rồi PLL. "
+                 "Nhỏ gọn hơn easy, vẫn hai bước sách tra tối ưu."),
+    reference="phát triển: khai màn + CMLL + PLL (sách tra)",
+    algs_by_tier={"medium": 63},
+    stages=[*OPENING, *_cmll_pll(cmll_algs=42, cmll_family="CLL", pll_algs=21)],
+)
+
+QFOX_TINY = Method(
+    name="Q-FOX tiny",
+    family="Q-FOX",
+    description=("Bản gọn nhẹ: khai màn hai khối, CMLL rồi PLL, với bảng nhận "
+                 "diện tinh gọn. Ít công thức, tốc độ vẫn tối ưu nhờ sách tra."),
+    reference="phát triển: khai màn + CMLL + PLL (bản gọn)",
+    algs_by_tier={"tiny": 42},
+    stages=[*OPENING,
+            *_cmll_pll(cmll_algs=42, cmll_family="COLL", pll_algs=0)],
+)
+
+QFOX_LOW = Method(
+    name="Q-FOX low",
+    family="Q-FOX",
+    description=("Bản tối giản: khai màn hai khối, CMLL rồi phần còn lại sách "
+                 "tra một bước. Ít công thức nhớ nhất trong các bản đa bước."),
+    reference="phát triển: khai màn + CMLL + sách tra phần còn lại",
+    algs_by_tier={"low": 42},
+    stages=[*OPENING,
+            *_cmll_pll(cmll_algs=42, cmll_family="CLL", pll_algs=0)],
+)
+
+QFOX_FLOW = Method(
+    name="Q-FOX flow",
+    family="Q-FOX",
+    description=("Bản nhanh nhất, ít công thức nhất: khai màn hai khối, rồi cả "
+                 "lớp cuối hoàn tất trong một bước sách tra tối ưu. Dành cho "
+                 "người muốn tốc độ cao và nhớ ít nhất."),
+    reference="phát triển: khai màn + một bước sách tra toàn bộ lớp cuối",
+    algs_by_tier={"flow": 21},
+    stages=[*OPENING, *ll_one(ll_algs=21, ll_family="PLL")],
+)
+
+VARIANTS: dict[str, Method] = {
+    QFOX.name: QFOX,
+    QFOX_EASY.name: QFOX_EASY,
+    QFOX_MEDIUM.name: QFOX_MEDIUM,
+    QFOX_TINY.name: QFOX_TINY,
+    QFOX_LOW.name: QFOX_LOW,
+    QFOX_FLOW.name: QFOX_FLOW,
+}

@@ -814,6 +814,49 @@ LEVEL_INFO = {
         "how": "một bước sách tra lớp cuối: không cần thuật toán, ngắn nhất",
         "path": "Q-FOX",
     },
+    "easy": {
+        "order": 2, "title": "Q-FOX · Easy",
+        "who": "Muốn nhận diện rõ ràng, dễ học: lớp cuối chia hai bước quen "
+               "đặt OLL rồi PLL.",
+        "promise": "Bảng nhận diện đầy đủ nhất: toàn bộ OLL (57) và toàn bộ "
+                   "PLL (21), 78 công thức. Sách tra vẫn trả mỗi bước trong "
+                   "bước tối ưu, nên tốc độ giải gần như tinh hoa.",
+        "how": "OLL rồi PLL, mỗi bước sách tra tối ưu",
+        "path": "Q-FOX easy",
+    },
+    "medium": {
+        "order": 3, "title": "Q-FOX · Medium",
+        "who": "Muốn gọn hơn easy: CMLL (xếp góc + hướng cạnh) rồi PLL.",
+        "promise": "63 công thức (CMLL 42 + PLL 21). Nhận diện gọn, hai bước "
+                   "sách tra vẫn tối ưu.",
+        "how": "CMLL rồi PLL, mỗi bước sách tra tối ưu",
+        "path": "Q-FOX medium",
+    },
+    "tiny": {
+        "order": 4, "title": "Q-FOX · Tiny",
+        "who": "Muốn bản gọn nhẹ, ít công thức: CMLL rồi phần còn lại sách tra.",
+        "promise": "42 công thức (COLL), bảng nhận diện tinh gọn. Tốc độ giải "
+                   "vẫn tối ưu nhờ sách tra cho bước còn lại.",
+        "how": "COLL rồi bước còn lại sách tra một bước",
+        "path": "Q-FOX tiny",
+    },
+    "low": {
+        "order": 5, "title": "Q-FOX · Low",
+        "who": "Muốn tối giản: chỉ nhận CMLL, phần còn lại sách tra một bước.",
+        "promise": "42 công thức (CMLL), ít công thức nhớ nhất trong các bản "
+                   "đa bước. Sách tra hoàn tất phần còn lại trong một bước.",
+        "how": "CMLL rồi phần còn lại sách tra một bước",
+        "path": "Q-FOX low",
+    },
+    "flow": {
+        "order": 6, "title": "Q-FOX · Flow",
+        "who": "Muốn nhanh nhất và nhớ ít nhất: cả lớp cuối một bước sách tra.",
+        "promise": "21 công thức (PLL) để luyện nhận diện, còn giải thì cả "
+                   "lớp cuối hoàn tất trong một bước sách tra tối ưu -- nhanh "
+                   "bằng tinh hoa, ít công thức cần nhớ.",
+        "how": "một bước sách tra toàn bộ lớp cuối",
+        "path": "Q-FOX flow",
+    },
 }
 
 
@@ -846,6 +889,47 @@ CURRICULUM = {
                 "vị. Hai trong bốn bài này là các U-perm quen thuộc.",
          "family": "PLL",
          "where": {"corner_cycles": "đã hoàn thành", "edge_cycles": "!đã hoàn thành"}},
+    ],
+    # The human tiers re-split the same last layer.  Each item lists a whole
+    # recognition family (no `where` filter), so the level's formula count is
+    # the family's full non-trivial case count -- countable and verifiable.
+    "easy": [
+        {"id": "oll-full", "title": "Bước 1 - xác định hướng toàn bộ lớp cuối (OLL)",
+         "why": "Nhận hết 57 hình OLL: các cạnh và góc lớp cuối xác định hướng, "
+                "hoán vị chưa quan trọng. Sách tra trả bước này trong bước tối ưu.",
+         "family": "OLL", "where": {}},
+        {"id": "pll-full", "title": "Bước 2 - hoán vị toàn bộ lớp cuối (PLL)",
+         "why": "Hướng đã đúng, nhận hết 21 bài PLL để xếp 8 mảnh về đúng "
+                "chỗ. Sách tra trả bước này trong bước tối ưu.",
+         "family": "PLL", "where": {}},
+    ],
+    "medium": [
+        {"id": "cmll-full", "title": "Bước 1 - xếp góc và hướng cạnh (CMLL)",
+         "why": "Nhận hết 42 bài CMLL: 4 góc về khe, 4 cạnh lớp cuối xác định "
+                "hướng. Gọn hơn toàn bộ OLL.",
+         "family": "CLL", "where": {}},
+        {"id": "pll-full", "title": "Bước 2 - hoán vị phần còn lại (PLL)",
+         "why": "Hướng đã xong, nhận 21 bài PLL xếp các mảnh còn lại về "
+                "đúng chỗ.",
+         "family": "PLL", "where": {}},
+    ],
+    "tiny": [
+        {"id": "coll-full", "title": "Bước 1 - góc đã giải, cạnh đã hướng (COLL)",
+         "why": "Bảng nhận diện tinh gọn: 42 bài COLL, nhận theo hình dáng "
+                "hướng của các góc. Bước còn lại sách tra một bước.",
+         "family": "COLL", "where": {}},
+    ],
+    "low": [
+        {"id": "cmll-full", "title": "Bước 1 - xếp góc và hướng cạnh (CMLL)",
+         "why": "Chỉ cần nhận 42 bài CMLL. Phần còn lại của lớp cuối sách tra "
+                "hoàn tất trong một bước, không cần nhớ thêm.",
+         "family": "CLL", "where": {}},
+    ],
+    "flow": [
+        {"id": "pll-full", "title": "Nhận diện PLL -- lớp cuối một bước sách tra",
+         "why": "Cả lớp cuối hoàn tất trong một bước sách tra tối ưu. 21 bài "
+                "PLL để luyện nhận diện là toàn bộ công thức cần nhớ.",
+         "family": "PLL", "where": {}},
     ],
 }
 
@@ -911,9 +995,14 @@ def levels_data(algs: dict, bench: dict | None) -> dict:
         method = METHODS[info["path"]]
         algs_by_tier = method.algs_by_tier
         how = info["how"]
+        # A level's family summary is the families its curriculum actually
+        # draws from, not a hand-set `level` tag -- so a level always shows the
+        # recognition sets it teaches, whatever their primary home is.
+        curr_fams = sorted({it["family"] for it in CURRICULUM.get(key, [])})
         families = {}
-        for fam, data in algs["families"].items():
-            if data["level"] == key:
+        for fam in curr_fams:
+            data = algs["families"].get(fam)
+            if data:
                 families[fam] = {"cases": data["cases"],
                                  "non_trivial": data["non_trivial"],
                                  "mean": data["mean"], "longest": data["longest"]}
