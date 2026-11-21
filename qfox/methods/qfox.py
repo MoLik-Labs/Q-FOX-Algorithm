@@ -68,6 +68,14 @@ OPENING = [
 ]
 F2L_KEEP = ("b223", "b123")
 
+# NOTE (dead-end record, do not retry without new evidence): a faster F2L-complete
+# opening was searched and rejected.  Single-stage F2L is infeasible (timeout);
+# Roux FB+SB is faster but leaves DF/DB unsolved so the book cannot answer;
+# the 3-stage FB+SB+DFDB is slower than the baseline; the 6+6 split (1x2x3 + one
+# bottom edge per block) looked faster in an unconstrained probe but with
+# keep_from enforced the second stage's 4-edge goal explodes and times out.
+# The 2x2x3 + 1x2x3 opening above is the best F2L-complete structure found.
+
 # --------------------------------------------------------------------------- #
 # last layer
 # --------------------------------------------------------------------------- #
@@ -208,6 +216,17 @@ QFOX_FLOW = Method(
     algs_by_tier={"flow": 21},
     stages=[*OPENING, *ll_one(ll_algs=21, ll_family="PLL")],
 )
+
+# --------------------------------------------------------------------------- #
+# the faster opening: two 6-piece blocks, same one-step book last layer
+# --------------------------------------------------------------------------- #
+# REJECTED (experiment): the 6+6 split (BLK_L + BLK_R) measured faster in an
+# unconstrained probe, but with keep_from enforced the second stage's 4-edge
+# goal combined with the first block's constraint makes the search space explode
+# -- it timed out on real scrambles.  The 2x2x3 + 1x2x3 opening below remains the
+# best F2L-complete structure found: single-stage F2L is infeasible, Roux FB+SB
+# leaves DF/DB unsolved (book cannot answer), and the 3-stage FB+SB+DFDB is
+# slower than the baseline.  Kept as a comment so the dead end is not retried.
 
 VARIANTS: dict[str, Method] = {
     QFOX.name: QFOX,
