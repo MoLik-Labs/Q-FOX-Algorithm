@@ -2034,7 +2034,6 @@ int qf_ll_scan(const QfLlBook *b, const QfCube *start, const QfStage *st,
   static int order[QF_LL_N];          /* the ball, sorted by book length */
   int cnt[QF_LL_MAXLEN + 2], head[QF_LL_MAXLEN + 2], pos[QF_LL_MAXLEN + 2];
   int i, len, q, ok, id, top;
-  QfCube c;
   QfPMap pm, pm0;
 
   memset(out, 0, sizeof(*out));
@@ -2066,9 +2065,11 @@ int qf_ll_scan(const QfLlBook *b, const QfCube *start, const QfStage *st,
       for (q = 0; q < len; q++)
         if (!((st->mask >> w[q]) & 1ULL)) { ok = 0; break; }
       if (!ok) continue;
-      c = *start;
-      for (q = 0; q < len; q++) qf_apply(&c, w[q]);
-      qf_pmap(&c, &pm);
+      /* apply the book word to the piece map directly, not to a 54-facelet
+         cube: the keep check below only reads the pmap, and pmap_apply is O(slots)
+         instead of O(facelets) per move. */
+      pm = pm0;
+      for (q = 0; q < len; q++) qf_pmap_apply(&pm, w[q]);
       for (q = 0; q < st->nkeep; q++) {
         uint64_t idx = qf_coord_index_pm(st->keep[q], &pm);
         QfTable tb;
