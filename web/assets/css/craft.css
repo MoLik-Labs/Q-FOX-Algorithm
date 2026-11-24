@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Q-FOX — craft upgrade layer
+
+   Applied on top of the taste-skill design system (system/cards/motion/
+   layout/app.css). This layer does NOT redefine the palette, type scale,
+   spacing or grid -- those stay in the system. It elevates the *craft floor*
+   only: the browser surfaces no design system owns, the depth model, the
+   one authored motion moment, and the type details that separate a built
+   page from an assembled one.
+
+   Principles (impeccable craft-floor + design-taste-frontend house rules):
+   - Browser surfaces ship with the design: scrollbar, focus ring, text
+     selection, caret, tabular numerals. Themed from the palette, never left
+     as raw defaults.
+   - Depth carries an offset AND a soft blur; a zero-offset halo is decoration.
+   - One authored motion moment per view, exponential ease-out from a visible
+     default; motion is authored, not scattered.
+   - Type: real scale and weight steps, tabular numerals in data, balanced
+     headings, no emoji as icons.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ depth */
+/* A single depth model: surfaces lift by offset + blur, never a flat halo.
+   Tint the shadow from the surface's own hue so it reads as depth, not gray. */
+:root {
+  --depth-1: 0 1px 2px rgba(8, 11, 18, .35), 0 2px 8px rgba(8, 11, 18, .18);
+  --depth-2: 0 2px 4px rgba(8, 11, 18, .40), 0 8px 24px rgba(8, 11, 18, .22);
+  --depth-3: 0 4px 8px rgba(8, 11, 18, .45), 0 18px 48px rgba(8, 11, 18, .28);
+  --lift: 0 1px 0 rgba(255, 255, 255, .04) inset;
+  --focus-ring: 0 0 0 2px var(--p-bg), 0 0 0 4px var(--p-accent);
+}
+:root[data-theme="light"] {
+  --depth-1: 0 1px 2px rgba(28, 34, 48, .10), 0 2px 8px rgba(28, 34, 48, .08);
+  --depth-2: 0 2px 4px rgba(28, 34, 48, .12), 0 8px 24px rgba(28, 34, 48, .10);
+  --depth-3: 0 4px 8px rgba(28, 34, 48, .14), 0 18px 48px rgba(28, 34, 48, .12);
+  --lift: 0 1px 0 rgba(255, 255, 255, .8) inset;
+}
+
+/* ------------------------------------------------- browser surfaces: scroll */
+/* The one surface almost no model themes: the scrollbar. Themed from the
+   palette on both themes, with a real thumb and a track that belongs. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--p-muted) transparent;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--p-muted) 55%, transparent);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--p-muted) 80%, transparent);
+  background-clip: content-box;
+}
+/* thin scrollbars on the side nav / view panes */
+.side, .view, .panel, .card, .table-wrap, .pill-tabs, .curriculum {
+  scrollbar-width: thin;
+}
+
+/* ------------------------------------------------- browser surfaces: focus */
+/* A real focus ring: a gap then the accent. Keyboard focus is visible on
+   every interactive element, never removed. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--r-sm);
+  transition: box-shadow 120ms var(--ease);
+}
+button:focus-visible, a:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* ------------------------------------------------- browser surfaces: select */
+/* Text selection carries the accent, so selecting text reads as part of the
+   system rather than a raw browser blue. */
+::selection {
+  background: color-mix(in oklab, var(--p-accent) 32%, transparent);
+  color: var(--p-ink);
+}
+::selection:hover {
+  background: color-mix(in oklab, var(--p-accent) 42%, transparent);
+}
+
+/* ------------------------------------------------- browser surfaces: caret */
+input, textarea, [contenteditable] {
+  caret-color: var(--p-accent);
+}
+
+/* -------------------------------------------------- browser surfaces: table */
+/* Tabular numerals in data: every stat and table number aligns in columns. */
+.stat__v, .table .num, .num, .mono, code, .stat--fox .stat__v {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* ------------------------------------------------------------------ depth */
+/* Surfaces lift with the depth model. Panels and cards get a real shadow
+   with offset + blur, plus a hairline lift on top so they read as physical
+   layers above the ground. */
+.panel {
+  box-shadow: var(--depth-1);
+  position: relative;
+}
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--lift);
+  pointer-events: none;
+}
+.card {
+  box-shadow: var(--depth-1);
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+/* a linked card lifts 2px on hover -- the taste house rule, made physical */
+a.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--depth-2);
+}
+.card--plain { box-shadow: none; }
+.card--plain:hover { box-shadow: var(--depth-1); }
+
+/* buttons press on click, step on hover */
+.btn {
+  transition: transform 120ms var(--ease), box-shadow 180ms var(--ease),
+             background 180ms var(--ease), border-color 180ms var(--ease);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(.985); }
+.btn--primary { box-shadow: var(--depth-1); }
+.btn--primary:hover { box-shadow: var(--depth-2); }
+
+/* ------------------------------------------------------------------ motion */
+/* The one authored entrance: every [data-enter] section rises once on load,
+   exponential ease-out, staggered. Not scattered -- one moment per view. */
+[data-enter] {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: craft-enter 620ms var(--ease) forwards;
+}
+@keyframes craft-enter {
+  to { opacity: 1; transform: translateY(0); }
+}
+/* stagger children of a hero so the words and the cube arrive in sequence */
+.hero [data-enter] { animation-delay: 90ms; }
+.hero [data-enter]:nth-child(2) { animation-delay: 180ms; }
+.hero [data-enter]:nth-child(3) { animation-delay: 270ms; }
+
+/* a quiet, authored reveal for cards entering a freshly-built view */
+.card, .panel {
+  animation: craft-rise 480ms var(--ease) both;
+}
+@keyframes craft-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* respect reduced motion: no entrance choreography, just the visible default */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  [data-enter] { opacity: 1; transform: none; }
+}
+
+/* ------------------------------------------------------------------ type */
+/* Balanced headings: tighter tracking on big display, a clear weight step.
+   No kicker/eyebrow -- the heading carries its own weight. */
+h1, h2, h3 {
+  letter-spacing: var(--display-tracking);
+  text-wrap: balance;
+}
+.hero__title { letter-spacing: var(--display-tracking-xl); }
+/* long lead copy stays readable at the measure the system sets */
+.hero__lede, p { text-wrap: pretty; }
+
+/* ------------------------------------------------------------------ cube */
+/* The cube is the centerpiece of the Q-FOX page. Give its canvas a real
+   depth plate and a focused glow so it reads as the hero object. */
+.cube-panel, .cube-canvas {
+  border-radius: var(--r-lg);
+}
+.cube-panel {
+  box-shadow: var(--depth-3);
+  background:
+    radial-gradient(120% 120% at 50% 0%, color-mix(in oklab, var(--p-accent) 10%, transparent) 0%, transparent 55%),
+    var(--p-surface);
+  transition: box-shadow 300ms var(--ease);
+}
+.cube-panel:hover { box-shadow: var(--depth-3), 0 0 0 1px color-mix(in oklab, var(--p-accent) 25%, transparent); }
+
+/* ------------------------------------------------------------------ chips */
+/* chips get a real surface, not a flat tint */
+.chip {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, currentColor 22%, transparent);
+}
+
+/* ------------------------------------------------------------------ tables */
+/* Tables get a hairline grid that belongs to the palette, and hover rows */
+.table { border-collapse: collapse; }
+.table thead th {
+  border-bottom: 1px solid color-mix(in oklab, var(--p-muted) 35%, transparent);
+}
+.table tbody tr {
+  transition: background 140ms var(--ease);
+}
+.table tbody tr:hover {
+  background: color-mix(in oklab, var(--p-accent) 8%, transparent);
+}
+
+/* ------------------------------------------------------------------ progress */
+/* the progress bar fill carries the accent and a subtle inner lift */
+.progress__fill {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+/* ------------------------------------------------------------------ boot */
+/* the boot screen is part of the first moment -- a calm, centered mark */
+.boot__mark { filter: drop-shadow(0 8px 24px rgba(255, 122, 26, .35)); }
+
+/* ------------------------------------------------------------------ responsive */
+/* on a phone the depth is lighter so the surfaces stay crisp at small size */
+@media (max-width: 639px) {
+  .panel, .card { box-shadow: var(--depth-1); }
+  a.card:hover { transform: none; }
+}

@@ -513,6 +513,34 @@ void qf_pmap(const QfCube *c, QfPMap *m) {
   }
 }
 
+/* Apply one move to a piece map in place, straight from the precomputed
+ * slot-transition tables (g_dest / g_delt). O(QF_SLOTS): the 54-facelet cube
+ * is never touched, which is the whole point -- the IDA* search only ever
+ * reads pmap (for the heuristic and the goal test), so carrying a full cube
+ * through every node is pure waste. The cube is reconstructed from the move
+ * list only at the very end, when a real facelet state is requested. */
+void qf_pmap_apply(QfPMap *m, int move) {
+  int8_t np[QF_SLOTS], no[QF_SLOTS], ns[QF_SLOTS];
+  int s;
+  for (s = 0; s < QF_SLOTS; s++) { np[s] = -1; no[s] = 0; ns[s] = -1; }
+  for (s = 0; s < QF_SLOTS; s++) {
+    int p = m->piece[s];
+    if (p < 0) continue;
+    int t = g_dest[move][s];
+    int o = (int)m->orient[s] + (int)g_delt[move][s];
+    if (g_slot[s].type == 1) o &= 1;
+    else { o %= 3; if (o < 0) o += 3; }
+    np[t] = (int8_t)p;
+    no[t] = (int8_t)o;
+    ns[p] = (int8_t)t;
+  }
+  for (s = 0; s < QF_SLOTS; s++) {
+    m->piece[s] = np[s];
+    m->orient[s] = no[s];
+    m->slotof[s] = ns[s];
+  }
+}
+
 /* ================================================================== *
  * coordinates
  *
@@ -926,6 +954,12 @@ static QfTable bfs_core(QfCoord co, const uint64_t *seeds, int nseeds,
   if (nf == 0) { free(d); free(tmv); free(tpar); free(fa); free(fb); return -3; }
   uint8_t depth = 0;
   CoordVal v, w;
+  /* BFS does a single pass over the coordinate, so a precomputed transition
+     table would cost one full decode/apply/encode pass to build and never pay
+     back -- it is only worth it for contexts that look up transitions many
+     times (the book sweep's DFS, IDA*). BFS therefore uses the decode/apply/
+     encode path directly, with the single-part fast paths in coord_decode and
+     coord_encode_val. */
   while (nf > 0 && depth < 254) {
     uint64_t nn = 0, i2;
     depth++;
@@ -1013,11 +1047,12 @@ QfTable qf_table_build_solved(QfCoord co, uint64_t mask, uint64_t max_size) {
 
 uint64_t qf_coord_apply_index(QfCoord co, uint64_t idx, int move) {
   if (co < 0 || co >= g_ncoord || !g_coord[co].in_use) return QF_BAD_IDX;
-  if (idx >= g_coord[co].size) return QF_BAD_IDX;
+  const Coord *k = &g_coord[co];
+  if (idx >= k->size) return QF_BAD_IDX;
   CoordVal v, w;
-  coord_decode(&g_coord[co], idx, &v);
-  coord_apply(&g_coord[co], &v, move, &w);
-  return coord_encode_val(&g_coord[co], &w);
+  coord_decode(k, idx, &v);
+  coord_apply(k, &v, move, &w);
+  return coord_encode_val(k, &w);
 }
 
 void qf_coord_apply_index_batch(QfCoord co, const uint64_t *in, uint64_t *out,
@@ -1103,8 +1138,7 @@ typedef struct {
   int hit_budget;
   int sol[QF_SOL_MAX];
   int soln;                       /* true depth of the solution just found */
-  QfCube path[QF_SOL_MAX + 1];
-  QfPMap pmap[QF_SOL_MAX + 1];
+  QfPMap pmap[QF_SOL_MAX + 1];   /* pmap-only search: the cube is never carried */
   /* collect mode */
   int collecting;
   QfSolutionSet *set;
@@ -1173,9 +1207,8 @@ static int ida(IdaCtx *ctx, int depth, int bound, int last) {
       if (lf == cf) continue;
       if (g_axis[last] == g_axis[m] && lf > cf) continue;
     }
-    ctx->path[depth + 1] = ctx->path[depth];
-    qf_apply(&ctx->path[depth + 1], m);
-    qf_pmap(&ctx->path[depth + 1], &ctx->pmap[depth + 1]);
+    ctx->pmap[depth + 1] = ctx->pmap[depth];
+    qf_pmap_apply(&ctx->pmap[depth + 1], m);
     ctx->sol[depth] = m;
     int r = ida(ctx, depth + 1, bound, m);
     if (r == 0) return 0;
@@ -1203,7 +1236,6 @@ int qf_solve_stage(const QfCube *start, const QfStage *st, QfSolution *out) {
   int m;
   int maxd = st->max_depth > QF_SOL_MAX ? QF_SOL_MAX : st->max_depth;
 
-  ctx.path[0] = *start;
   qf_pmap(start, &ctx.pmap[0]);
   if (stage_h(&ctx, 0) == 0 && stage_goal(&ctx, 0)) { out->n = 0; out->optimal = 1; out->status = 0; return 0; }
 
@@ -1235,7 +1267,6 @@ int qf_enumerate_stage(const QfCube *start, const QfStage *st, int max_len,
   ctx.collecting = 1;
   ctx.set = out;
   ctx.limit = limit > QF_MAX_COLLECT ? QF_MAX_COLLECT : limit;
-  ctx.path[0] = *start;
   qf_pmap(start, &ctx.pmap[0]);
   if (max_len > QF_SOL_MAX - 1) max_len = QF_SOL_MAX - 1;
   int bound;
@@ -1874,11 +1905,11 @@ int qf_ll_book_init(QfLlBook *b) {
 #define QF_LL_PRUNE 8
 
 typedef struct {
-  QfCube path[QF_LL_MAXLEN + 1];
   /* prune indices carried down the tree: a coordinate transition is a table
      lookup, while rebuilding the piece map and re-ranking it costs an order of
      magnitude more.  The piece map is only needed at the rare node whose first
-     two layers are actually home. */
+     two layers are actually home -- so no cube is carried through the tree, it
+     is rebuilt from the move path only when an element is found. */
   uint64_t idx[QF_LL_MAXLEN + 1][QF_LL_PRUNE];
   int moves[QF_LL_MAXLEN];
   int movelist[QF_NMOVES], nmoves;
@@ -1907,9 +1938,14 @@ static void ll_dfs(LlCtx *x, int depth, int bound, int last) {
   if (h > 90) return;
   if (depth + h > bound) return;
   if (h == 0) {                  /* first two layers home: this is an element */
+    /* rebuild the cube from the move path only here -- the rare goal node.
+       Carrying a 54-facelet cube through every node would be pure waste when
+       the prune below reads only the carried coord indices. */
+    QfCube c; qf_solved(&c);
+    for (int q = 0; q < depth; q++) qf_apply(&c, x->moves[q]);
     QfPMap pm;
     int id;
-    qf_pmap(&x->path[depth], &pm);
+    qf_pmap(&c, &pm);
     id = qf_ll_encode(&pm);
     if (id >= 0 && depth < x->b->len[id]) {
       int q;
@@ -1930,8 +1966,6 @@ static void ll_dfs(LlCtx *x, int depth, int bound, int last) {
       if (lf == cf) continue;
       if (g_axis[last] == g_axis[m] && lf > cf) continue;
     }
-    x->path[depth + 1] = x->path[depth];
-    qf_apply(&x->path[depth + 1], m);
     for (int q = 0; q < x->npc; q++)
       x->idx[depth + 1][q] = qf_coord_apply_index(x->pc[q], x->idx[depth][q], m);
     x->moves[depth] = m;
@@ -1951,8 +1985,8 @@ int qf_ll_sweep(QfLlBook *b, int max_len, uint64_t mask, long long budget,
   if (!(mask & ~QF_MASK_ROT)) return -1;
   for (m = 0; m < QF_NMOVES; m++) if ((mask >> m) & 1ULL) x.movelist[x.nmoves++] = m;
   if (npc > QF_LL_PRUNE) npc = QF_LL_PRUNE;
-  qf_solved(&x.path[0]);
-  for (i = 0; i < npc; i++) x.idx[0][i] = qf_coord_index(pc[i], &x.path[0]);
+  QfCube sv; qf_solved(&sv);
+  for (i = 0; i < npc; i++) x.idx[0][i] = qf_coord_index(pc[i], &sv);
   for (bound = b->swept + 1; bound <= max_len; bound++) {
     x.hit_budget = 0;
     ll_dfs(&x, 0, bound, -1);
